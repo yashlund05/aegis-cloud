@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aegis-energy-module
+  namespace: aegis-system
+  labels:
+    app.kubernetes.io/name: energy-module
+    app.kubernetes.io/part-of: aegis
+    app: aegis
+    component: energy-module
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: energy-module
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: energy-module
+        app: aegis
+        component: energy-module
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+    spec:
+      containers:
+      - name: energy-module
+        image: aegis/energy-module:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: aegis-energy-module-config
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aegis-energy-module
+  namespace: aegis-system
+  labels:
+    app.kubernetes.io/name: energy-module
+    app.kubernetes.io/part-of: aegis
+spec:
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    app.kubernetes.io/name: energy-module
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aegis-energy-module-config
+  namespace: aegis-system
+data:
+  PORT: "8000"
+  REDIS_URL: "redis://redis.aegis-data:6379/0"
+  DATABASE_URL: "postgres://aegis:changeme@postgres.aegis-data:5432/aegis_db"

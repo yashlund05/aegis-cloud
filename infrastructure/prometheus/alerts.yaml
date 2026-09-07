@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: aegis-alerts
+  namespace: aegis-monitoring
+spec:
+  groups:
+  - name: aegis.rules
+    rules:
+    - alert: AegisPredictorDown
+      expr: up{job="aegis-services", component="predictor"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Aegis Predictor is down"
+    - alert: AegisHighForecastError
+      expr: aegis_forecast_error_percentage > 20
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High forecast error detected in Aegis predictor"
+    - alert: AegisDecisionTimeout
+      expr: aegis_decision_latency_ms > 5000
+      for: 2m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Aegis decision engine taking too long"
+    - alert: AegisSLOBreach
+      expr: aegis_slo_violation_count > 5
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Workload SLO breach detected"
+    - alert: AegisHighNodeUtilization
+      expr: node_cpu_utilization > 90
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High CPU utilization on node"
+    - alert: AegisStaleFeatures
+      expr: aegis_feature_staleness_seconds > 300
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Telemetry features are stale"

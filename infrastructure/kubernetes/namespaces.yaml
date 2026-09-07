@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aegis-system
+  labels:
+    app.kubernetes.io/part-of: aegis
+    pod-security.kubernetes.io/enforce: baseline
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aegis-monitoring
+  labels:
+    app.kubernetes.io/part-of: aegis
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aegis-data
+  labels:
+    app.kubernetes.io/part-of: aegis

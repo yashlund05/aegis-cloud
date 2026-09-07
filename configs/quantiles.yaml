@@ -1,0 +1,21 @@
+quantiles:
+  - value: 0.1
+    label: p10
+    description: Lower bound (optimistic)
+  - value: 0.5
+    label: p50
+    description: Median forecast
+  - value: 0.9
+    label: p90
+    description: Upper bound (conservative, used for capacity planning)
+
+horizons:
+  - minutes: 5
+    label: short
+    description: Short-term forecast
+  - minutes: 10
+    label: medium
+    description: Primary forecast horizon
+  - minutes: 15
+    label: long
+    description: Extended horizon for node scaling

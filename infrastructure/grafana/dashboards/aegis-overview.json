@@ -1,0 +1,61 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "Cluster CPU Utilization",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{container!=\"\"}[5m])) / sum(machine_cpu_cores)",
+          "legendFormat": "CPU Utilization",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Cluster Memory Utilization",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{container!=\"\"}) / sum(machine_memory_bytes)",
+          "legendFormat": "Memory Utilization",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Total Pods",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "count(kube_pod_info)",
+          "legendFormat": "Pods",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Energy Consumption",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(kepler_node_package_joules_total[5m]))",
+          "legendFormat": "Energy (Joules)",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "title": "Aegis Overview",
+  "uid": "aegis-overview",
+  "version": 1
+}

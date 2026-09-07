@@ -1,0 +1,4 @@
+- Purpose: A/B comparison view showing Aegis vs HPA decisions
+- Tech: React + TypeScript + Recharts (for charts)
+- Status: Phase 10 deliverable
+- Will consume /v1/decisions and /v1/predictions APIs

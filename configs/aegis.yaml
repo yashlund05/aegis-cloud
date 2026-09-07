@@ -1,0 +1,41 @@
+aegis:
+  control_loop:
+    interval_seconds: 30
+    timeout_seconds: 60
+    stale_telemetry_threshold_seconds: 120
+
+  forecasting:
+    horizons: [5, 10, 15]
+    quantiles: [0.1, 0.5, 0.9]
+    feature_window_minutes: 60
+    model_artifact_path: ./ml/models/artifacts
+
+  decision_engine:
+    solver: cpsat
+    cpsat_timeout_seconds: 10
+    ffd_fallback_enabled: true
+    overcommit_ratio: 0.1
+    utilization_max: 0.85
+
+  autoscaler:
+    dead_zone_percent: 10
+    cooldown_seconds: 300
+    min_replicas: 1
+    max_replicas: 50
+
+  scheduler:
+    weights:
+      utilization: 0.4
+      energy: 0.35
+      balance: 0.25
+    prediction_cache_ttl_seconds: 60
+
+  energy:
+    default_p_idle: 100
+    default_p_max: 300
+    default_alpha: 1.5
+
+  safety:
+    fallback_to_hpa: true
+    dry_run: false
+    max_scale_step: 10

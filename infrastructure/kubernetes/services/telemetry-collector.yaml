@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aegis-telemetry-collector
+  namespace: aegis-system
+  labels:
+    app.kubernetes.io/name: telemetry-collector
+    app.kubernetes.io/part-of: aegis
+    app: aegis
+    component: telemetry-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: telemetry-collector
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: telemetry-collector
+        app: aegis
+        component: telemetry-collector
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+    spec:
+      serviceAccountName: aegis-collector
+      containers:
+      - name: telemetry-collector
+        image: aegis/telemetry-collector:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: aegis-telemetry-collector-config
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aegis-telemetry-collector
+  namespace: aegis-system
+  labels:
+    app.kubernetes.io/name: telemetry-collector
+    app.kubernetes.io/part-of: aegis
+spec:
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    app.kubernetes.io/name: telemetry-collector
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aegis-telemetry-collector-config
+  namespace: aegis-system
+data:
+  PORT: "8000"
+  REDIS_URL: "redis://redis.aegis-data:6379/0"
+  DATABASE_URL: "postgres://aegis:changeme@postgres.aegis-data:5432/aegis_db"
+  PROMETHEUS_URL: "http://prometheus.aegis-monitoring:9090"

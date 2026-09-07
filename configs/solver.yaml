@@ -1,0 +1,14 @@
+cpsat:
+  timeout_seconds: 10
+  num_workers: 4
+  log_search_progress: false
+  max_nodes: 50
+  objective_weights:
+    energy: 1.0
+    slo_violation: 10.0
+    scaling_slack: 0.5
+
+ffd:
+  sort_by: cpu_request
+  sort_order: descending
+  prefer_utilized_nodes: true

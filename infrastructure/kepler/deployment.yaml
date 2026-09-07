@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kepler
+  namespace: aegis-monitoring
+  labels:
+    app.kubernetes.io/name: kepler
+    app.kubernetes.io/part-of: aegis
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kepler
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kepler
+    spec:
+      hostPID: true
+      hostNetwork: true
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: kepler
+        image: quay.io/sustainable_computing_io/kepler:latest
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 9110
+          hostPort: 9110
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - name: lib-modules
+          mountPath: /lib/modules
+          readOnly: true
+        - name: tracing
+          mountPath: /sys/kernel/debug
+          readOnly: true
+        - name: proc
+          mountPath: /proc
+          readOnly: true
+      volumes:
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
+      - name: tracing
+        hostPath:
+          path: /sys/kernel/debug
+      - name: proc
+        hostPath:
+          path: /proc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kepler
+  namespace: aegis-monitoring
+  labels:
+    app.kubernetes.io/name: kepler
+spec:
+  clusterIP: None
+  ports:
+  - name: http
+    port: 9110
+    targetPort: 9110
+  selector:
+    app.kubernetes.io/name: kepler

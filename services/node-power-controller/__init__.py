@@ -1,0 +1,3 @@
+"""
+Node Power Controller Service.
+"""

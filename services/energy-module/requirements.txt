@@ -1,0 +1,2 @@
+-r ../shared/requirements.txt
+httpx>=0.25.0

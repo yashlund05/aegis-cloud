@@ -1,0 +1,4 @@
+- What integration tests cover: Prometheus→Collector→Redis, Redis→Predictor, Predictor→Decision Engine, Decision→Executor
+- Prerequisites: running infrastructure (docker-compose up)
+- How to run: pytest tests/integration/ -v
+- Phase target: Phase 8

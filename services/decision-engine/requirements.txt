@@ -1,0 +1,2 @@
+-r ../shared/requirements.txt
+ortools>=9.8.3296

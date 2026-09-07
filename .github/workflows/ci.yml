@@ -1,0 +1,53 @@
+name: Aegis CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install flake8
+      - run: flake8 services/ ml/ tests/ --max-line-length=120 --ignore=E501,W503
+
+  lint-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: {go-version: '1.21'}
+      - uses: golangci/golangci-lint-action@v3
+        with:
+          working-directory: scheduler/aegis-scheduler
+
+  test-python:
+    runs-on: ubuntu-latest
+    needs: lint-python
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install -r services/shared/requirements.txt -r ml/requirements.txt pytest pytest-asyncio
+      - run: pytest tests/unit/ -v --tb=short
+
+  test-go:
+    runs-on: ubuntu-latest
+    needs: lint-go
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: {go-version: '1.21'}
+      - run: cd scheduler/aegis-scheduler && go test ./... -v
+
+  build-check:
+    runs-on: ubuntu-latest
+    needs: [test-python, test-go]
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m py_compile services/shared/config.py  # validate Python syntax
+      - run: echo "Build validation passed"

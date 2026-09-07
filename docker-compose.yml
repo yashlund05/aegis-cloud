@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-aegis}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme}
+      - POSTGRES_DB=${POSTGRES_DB:-aegis}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    env_file: .env
+
+  orchestrator:
+    build: ./services/orchestrator
+    depends_on:
+      - redis
+      - postgres
+    env_file: .env
+
+  telemetry-collector:
+    build: ./services/telemetry-collector
+    depends_on:
+      - redis
+      - prometheus
+    env_file: .env
+
+  predictor:
+    build: ./services/predictor
+    depends_on:
+      - redis
+    env_file: .env
+
+  decision-engine:
+    build: ./services/decision-engine
+    depends_on:
+      - redis
+      - postgres
+    env_file: .env
+
+volumes:
+  postgres_data:

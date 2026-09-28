@@ -1,0 +1,4 @@
+- A/B test configurations: stock HPA, Aegis (full), forecast-only, forecast+placement, full system
+- Metrics collected: WMAPE, pinball loss, p50/p95/p99 latency, CPU/mem utilization, node count, kWh, SLO breach rate
+- Protocol: same burst profile replayed under each configuration
+- Phase target: Phase 9

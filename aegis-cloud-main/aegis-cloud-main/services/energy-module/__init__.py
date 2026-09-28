@@ -1,0 +1,3 @@
+"""
+Energy Module Service.
+"""

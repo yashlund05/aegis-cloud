@@ -1,0 +1,26 @@
+apiVersion: kubescheduler.config.k8s.io/v1
+kind: KubeSchedulerConfiguration
+leaderElection:
+  leaderElect: true
+  resourceName: aegis-scheduler
+  resourceNamespace: aegis-system
+profiles:
+  - schedulerName: aegis-scheduler
+    plugins:
+      filter:
+        enabled:
+          - name: AegisScheduler
+      score:
+        enabled:
+          - name: AegisScheduler
+            weight: 1
+    pluginConfig:
+      - name: AegisScheduler
+        args:
+          weightUtil: 1.0
+          weightEnergy: 1.0
+          weightBalance: 1.0
+          predictionTTL: "30s"
+          fallbackScore: 50
+          maxUtilThreshold: 0.9
+          predictorURL: "http://aegis-predictor.aegis-system.svc.cluster.local:8080/predictions"

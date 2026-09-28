@@ -1,0 +1,22 @@
+image:
+  repository: aegis
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+featureFlags:
+  energyAware: true
+  predictiveScaling: true
+
+config:
+  postgresHost: "postgres.aegis-data"
+  redisHost: "redis.aegis-data"

@@ -1,0 +1,3 @@
+- Tests the complete control loop on a kind cluster
+- Prerequisites: kind cluster with all services deployed
+- Phase target: Phase 8-9

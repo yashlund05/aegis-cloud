@@ -1,0 +1,6 @@
+apiVersion: v2
+name: aegis
+description: Aegis - Coupling Quantile Workload Forecasting with Energy-Aware Scheduling and Autoscaling
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

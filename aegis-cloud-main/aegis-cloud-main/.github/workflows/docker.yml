@@ -1,0 +1,41 @@
+name: Docker Build
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+
+jobs:
+  build-services:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api-gateway, orchestrator, telemetry-collector, predictor, decision-engine, autoscaler-controller, node-power-controller, recommendation-engine, energy-module]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        with:
+          context: ./services/${{ matrix.service }}
+          push: ${{ github.event_name == 'push' }}
+          tags: ghcr.io/${{ github.repository }}/aegis-${{ matrix.service }}:${{ github.sha }}
+
+  build-scheduler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v5
+        with:
+          context: ./scheduler/aegis-scheduler
+          push: ${{ github.event_name == 'push' }}
+          tags: ghcr.io/${{ github.repository }}/aegis-scheduler:${{ github.sha }}

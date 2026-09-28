@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# Go
+bin/
+binary
+vendor/
+
+# Node
+node_modules/
+.next/
+
+# Docker
+.docker/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.pem
+*.key
+
+# ML Artifacts
+*.pkl
+*.joblib
+*.onnx
+models/*.bin
+
+# Datasets
+datasets/*.csv
+datasets/*.parquet
+!datasets/README.md
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# Helm
+charts/*/charts/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Logs
+*.log

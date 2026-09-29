@@ -1,3 +1,0 @@
--r ../shared/requirements.txt
-# Additional dependencies for Orchestrator
-httpx>=0.25.0

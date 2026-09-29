@@ -1,2 +1,0 @@
--r ../shared/requirements.txt
-kubernetes>=28.1.0

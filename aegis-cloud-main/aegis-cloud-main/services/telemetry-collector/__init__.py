@@ -1,3 +1,0 @@
-"""
-Telemetry Collector Service.
-"""

@@ -1,4 +1,0 @@
-- Grafana: primary dashboard for cluster monitoring, predictions, energy, decisions
-- React (future): "what happened" comparison view for professor demo
-- Grafana dashboards provisioned from JSON in infrastructure/grafana/dashboards/
-- React app in dashboard/web/ (Phase 10)

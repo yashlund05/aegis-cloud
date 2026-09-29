@@ -1,3 +1,0 @@
-"""
-Autoscaler Controller Service.
-"""

@@ -1,4 +1,0 @@
-- Tools: k6, hey
-- Scenarios: steady state, gradual ramp, spike burst, diurnal pattern
-- Phase target: Phase 9
-- k6 script location: tests/load/scenarios/

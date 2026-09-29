@@ -1,3 +1,0 @@
-"""
-Shared library for Aegis.
-"""

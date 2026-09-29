@@ -2,7 +2,7 @@
   "model_name": "aegis_h15m_q90",
   "horizon_minutes": 15,
   "quantile": 0.9,
-  "backend": "sklearn_hist",
+  "backend": "lightgbm",
   "features": [
     "memory_usage",
     "network_rx",
@@ -50,10 +50,10 @@
     "memory_rate_of_change",
     "cpu_memory_ratio"
   ],
-  "model_path": "ml/models/artifacts\\aegis_h15m_q90.joblib",
+  "model_path": "ml/models/artifacts\\aegis_h15m_q90.txt",
   "metrics": {
-    "wmape": 0.3908,
-    "pinball_loss": 0.0189
+    "wmape": 0.2362,
+    "pinball_loss": 0.0252
   },
   "status": "active"
 }

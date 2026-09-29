@@ -1,0 +1,79 @@
+{
+  "horizon_minutes": 10,
+  "n_splits": 5,
+  "average_metrics": {
+    "mean_wmape_p50": 0.1427,
+    "mean_coverage_p10_p90": 0.6674,
+    "mean_pinball_loss": {
+      "0.1": 0.0171,
+      "0.5": 0.043,
+      "0.9": 0.0295
+    }
+  },
+  "target_met": {
+    "wmape_threshold": true,
+    "coverage_threshold": false
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_size": 4018,
+      "test_size": 997,
+      "wmape_p50": 0.1636,
+      "coverage_p10_p90": 0.7031,
+      "pinball_loss": {
+        "0.1": 0.0182,
+        "0.5": 0.0447,
+        "0.9": 0.0283
+      }
+    },
+    {
+      "fold": 2,
+      "train_size": 5025,
+      "test_size": 997,
+      "wmape_p50": 0.1343,
+      "coverage_p10_p90": 0.67,
+      "pinball_loss": {
+        "0.1": 0.0163,
+        "0.5": 0.0384,
+        "0.9": 0.0272
+      }
+    },
+    {
+      "fold": 3,
+      "train_size": 6032,
+      "test_size": 997,
+      "wmape_p50": 0.1175,
+      "coverage_p10_p90": 0.683,
+      "pinball_loss": {
+        "0.1": 0.0162,
+        "0.5": 0.0403,
+        "0.9": 0.0304
+      }
+    },
+    {
+      "fold": 4,
+      "train_size": 7039,
+      "test_size": 997,
+      "wmape_p50": 0.1416,
+      "coverage_p10_p90": 0.6951,
+      "pinball_loss": {
+        "0.1": 0.0157,
+        "0.5": 0.0441,
+        "0.9": 0.0285
+      }
+    },
+    {
+      "fold": 5,
+      "train_size": 8046,
+      "test_size": 997,
+      "wmape_p50": 0.1566,
+      "coverage_p10_p90": 0.5858,
+      "pinball_loss": {
+        "0.1": 0.0193,
+        "0.5": 0.0474,
+        "0.9": 0.0331
+      }
+    }
+  ]
+}

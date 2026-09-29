@@ -1,37 +1,43 @@
 import time
 from fastapi import Request
-from prometheus_client import Histogram, Counter, Gauge
 
-request_duration = Histogram(
-    "request_duration_seconds", 
-    "Duration of HTTP requests in seconds",
-    ["method", "endpoint"]
-)
+try:
+    from prometheus_client import Histogram, Counter, Gauge
 
-request_count = Counter(
-    "request_count_total",
-    "Total number of HTTP requests",
-    ["method", "endpoint", "status_code"]
-)
+    request_duration = Histogram(
+        "request_duration_seconds",
+        "Duration of HTTP requests in seconds",
+        ["method", "endpoint"],
+    )
+    request_count = Counter(
+        "request_count_total",
+        "Total number of HTTP requests",
+        ["method", "endpoint", "status_code"],
+    )
+    active_requests = Gauge(
+        "active_requests",
+        "Number of active HTTP requests",
+    )
+    errors_count = Counter(
+        "errors_count_total",
+        "Total number of errors",
+        ["type"],
+    )
+    HAS_PROMETHEUS = True
+except ImportError:
+    HAS_PROMETHEUS = False
 
-active_requests = Gauge(
-    "active_requests",
-    "Number of active HTTP requests"
-)
-
-errors_count = Counter(
-    "errors_count_total",
-    "Total number of errors",
-    ["type"]
-)
 
 async def metrics_middleware(request: Request, call_next):
+    if not HAS_PROMETHEUS:
+        return await call_next(request)
+
     method = request.method
     endpoint = request.url.path
-    
+
     active_requests.inc()
     start_time = time.time()
-    
+
     try:
         response = await call_next(request)
         status_code = response.status_code

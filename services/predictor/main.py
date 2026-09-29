@@ -12,6 +12,8 @@ logger = setup_logging("predictor")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Predictor...")
+    from services.predictor.service import predictor_service
+    predictor_service.initialize()
     await db.get_pool()
     await redis_client.get_redis()
     yield

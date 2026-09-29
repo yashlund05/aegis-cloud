@@ -104,6 +104,43 @@ def train_quantile_model(
         return QuantileModelWrapper(model, backend="sklearn_hist", feature_names=feature_names)
 
 
+def export_to_onnx(
+    model_wrapper: QuantileModelWrapper,
+    feature_names: List[str],
+    output_path: str,
+) -> bool:
+    """
+    Exports a trained quantile regression model to ONNX format.
+    Supports onnxmltools for LightGBM and skl2onnx for Scikit-Learn.
+    If ONNX dependencies are not installed, logs a warning and gracefully skips.
+    """
+    try:
+        import onnx
+        if model_wrapper.backend == "lightgbm":
+            import onnxmltools
+            from onnxmltools.convert.common.data_types import FloatTensorType
+            initial_type = [("float_input", FloatTensorType([None, len(feature_names)]))]
+            onnx_model = onnxmltools.convert_lightgbm(model_wrapper.model, initial_types=initial_type)
+            onnx.save_model(onnx_model, output_path)
+            logger.info(f"Exported LightGBM model to ONNX: {output_path}")
+            return True
+        else:
+            from skl2onnx import convert_sklearn
+            from skl2onnx.common.data_types import FloatTensorType
+            initial_type = [("float_input", FloatTensorType([None, len(feature_names)]))]
+            onnx_model = convert_sklearn(model_wrapper.model, initial_types=initial_type)
+            with open(output_path, "wb") as f:
+                f.write(onnx_model.SerializeToString())
+            logger.info(f"Exported scikit-learn model to ONNX: {output_path}")
+            return True
+    except ImportError as e:
+        logger.warning(f"ONNX export skipped: required packages not installed ({e})")
+        return False
+    except Exception as e:
+        logger.error(f"Failed to export model to ONNX: {e}")
+        return False
+
+
 def train_all_models(
     df: pd.DataFrame,
     horizons: List[int] = None,

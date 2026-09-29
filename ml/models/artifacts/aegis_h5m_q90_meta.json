@@ -52,8 +52,8 @@
   ],
   "model_path": "ml/models/artifacts\\aegis_h5m_q90.joblib",
   "metrics": {
-    "wmape": 0.2188,
-    "pinball_loss": 0.0315
+    "wmape": 0.3427,
+    "pinball_loss": 0.0192
   },
   "status": "active"
 }

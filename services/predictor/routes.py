@@ -43,6 +43,7 @@ class DriftObservationRequest(BaseModel):
 class RetrainRequest(BaseModel):
     workload_id: str
     data_path: Optional[str] = "datasets/processed_sample_trace.parquet"
+    output_dir: Optional[str] = "ml/models/artifacts"
 
 
 @router.post("/predict", response_model=PredictResponse)
@@ -114,7 +115,7 @@ async def trigger_retraining(req: RetrainRequest, background_tasks: BackgroundTa
     """
     try:
         # Run retraining in background or synchronously if requested
-        result = await trigger_model_retrain(req.workload_id, data_path=req.data_path)
+        result = await trigger_model_retrain(req.workload_id, data_path=req.data_path, output_dir=req.output_dir)
         return {
             "status": "success",
             "message": "Model retraining executed.",

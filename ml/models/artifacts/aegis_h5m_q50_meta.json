@@ -52,8 +52,8 @@
   ],
   "model_path": "ml/models/artifacts\\aegis_h5m_q50.txt",
   "metrics": {
-    "wmape": 0.2431,
-    "pinball_loss": 0.0489
+    "wmape": 0.0633,
+    "pinball_loss": 0.393
   },
   "status": "active"
 }

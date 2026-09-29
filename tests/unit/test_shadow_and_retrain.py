@@ -69,6 +69,10 @@ def test_models_retrain_endpoint(tmp_path):
         payload = {
             "workload_id": "test-workload-retrain",
             "data_path": small_data_path,
+            # Isolate test artifacts: without this the retrain endpoint would
+            # overwrite the production ml/models/artifacts models with models
+            # fitted on this fixture's normalized-CPU data.
+            "output_dir": os.path.join(str(tmp_path), "test_artifacts"),
         }
         response = client.post("/v1/models/retrain", json=payload)
         assert response.status_code == 200

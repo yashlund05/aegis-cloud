@@ -1,0 +1,86 @@
+================================================================================================================
+  HEADLINE NUMBERS WITH PROVENANCE (frozen simulator)
+================================================================================================================
+
+[Primary multi-pattern benchmark]  source: eval/multi_pattern_ablation_results.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval
+  diurnal           CA energy 112.03 +/- 4.83 kWh | aegis-conformal 124.05 +/- 7.16 kWh | oracle 116.96 +/- 4.84 kWh
+                    shortfall: CA 0.00 +/- 0.00 min | aegis 0.00 +/- 0.00 min | oracle 0.00 +/- 0.00 min
+                    paired energy delta (aegis-CA): +12.02 +/- 3.14 kWh; paired shortfall delta: +0.0 +/- 0.0 min
+  steady            CA energy 123.20 +/- 11.18 kWh | aegis-conformal 130.35 +/- 8.83 kWh | oracle 128.65 +/- 10.89 kWh
+                    shortfall: CA 0.00 +/- 0.00 min | aegis 0.00 +/- 0.00 min | oracle 0.00 +/- 0.00 min
+                    paired energy delta (aegis-CA): +7.15 +/- 3.40 kWh; paired shortfall delta: +0.0 +/- 0.0 min
+  bursty            CA energy 127.75 +/- 3.69 kWh | aegis-conformal 134.53 +/- 5.26 kWh | oracle 126.29 +/- 3.69 kWh
+                    shortfall: CA 60.20 +/- 13.12 min | aegis 70.00 +/- 26.40 min | oracle 0.00 +/- 0.00 min
+                    paired energy delta (aegis-CA): +6.79 +/- 4.34 kWh; paired shortfall delta: +9.8 +/- 36.0 min
+  structured_burst  CA energy 136.93 +/- 3.05 kWh | aegis-conformal 145.47 +/- 3.46 kWh | oracle 134.70 +/- 3.82 kWh
+                    shortfall: CA 258.20 +/- 20.64 min | aegis 1.60 +/- 1.88 min | oracle 0.00 +/- 0.00 min
+                    paired energy delta (aegis-CA): +8.54 +/- 0.64 kWh; paired shortfall delta: -256.6 +/- 19.1 min
+  flash_crowd       CA energy 112.87 +/- 2.45 kWh | aegis-conformal 119.84 +/- 2.84 kWh | oracle 118.20 +/- 2.58 kWh
+                    shortfall: CA 0.00 +/- 0.00 min | aegis 20.00 +/- 7.08 min | oracle 0.00 +/- 0.00 min
+                    paired energy delta (aegis-CA): +6.96 +/- 0.75 kWh; paired shortfall delta: +20.0 +/- 7.1 min
+
+[Item 2: action decomposition]  source: eval/item2_timeseries.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section B)
+  diurnal    cluster_autoscaler         events  254.2 +/- 66.6 | total replica delta  1044.8 +/- 278.6
+  diurnal    full_aegis_conformal       events  119.6 +/- 41.9 | total replica delta   729.2 +/- 201.6
+  diurnal    oracle                     events  341.0 +/- 95.6 | total replica delta  1300.2 +/- 390.1
+  bursty     cluster_autoscaler         events  904.0 +/- 110.7 | total replica delta  9124.0 +/- 1376.0
+  bursty     full_aegis_conformal       events  350.2 +/- 34.9 | total replica delta  2837.6 +/- 517.7
+  bursty     oracle                     events 1012.2 +/- 148.5 | total replica delta  9801.6 +/- 1592.6
+
+[Item 3: K_min floor sweep on low_load]  source: eval/item3_kmin_sweep.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section C)
+  k_min=1    aegis-conformal: energy [29.48, 1.19, 1.47] kWh, idle [19.73, 0.71, 0.89] kWh, mean active nodes [2.35, 0.08, 0.1], shortfall [0.0, 0.0, 0.0] min
+  k_min=2    aegis-conformal: energy [29.48, 1.19, 1.47] kWh, idle [19.73, 0.71, 0.89] kWh, mean active nodes [2.35, 0.08, 0.1], shortfall [0.0, 0.0, 0.0] min
+  k_min=3    aegis-conformal: energy [35.18, 0.52, 0.65] kWh, idle [25.56, 0.0, 0.0] kWh, mean active nodes [3.0, 0.0, 0.0], shortfall [0.0, 0.0, 0.0] min
+
+[Item 4: Pareto + matched-shortfall pairing]  source: eval/pareto_frontier_results.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section D)
+  bursty            oracle point: energy 126.29 kWh, shortfall 0.0 min
+                    paired energy delta (aegis tau=0.90 - CA interp @ aegis shortfall): +6.43 +/- 3.70 kWh (excludes 0: True); per-seed [6.461, 4.246, 2.81, 8.618, 10.027]
+  structured_burst  oracle point: energy 134.70 kWh, shortfall 0.0 min
+                    paired energy delta (aegis tau=0.90 - CA interp @ aegis shortfall): -18.93 +/- 1.22 kWh (excludes 0: True); per-seed [-17.659, -18.32, -19.141, -20.246, -19.267]
+
+[Item 5: wake latency sweep]  source: eval/item5_wake_sweep.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section E)
+  forecast first beats reactive CA at W: {'diurnal': None, 'bursty': 15}
+  diurnal@1m     aegis  123.09 kWh / sf   0.0 min | CA  111.64 kWh / sf   0.0 min
+  diurnal@3m     aegis  124.05 kWh / sf   0.0 min | CA  112.03 kWh / sf   0.0 min
+  diurnal@5m     aegis  124.87 kWh / sf   0.0 min | CA  112.43 kWh / sf   0.0 min
+  diurnal@10m    aegis  126.57 kWh / sf   0.0 min | CA  113.42 kWh / sf   0.0 min
+  diurnal@15m    aegis  127.77 kWh / sf   0.0 min | CA  114.40 kWh / sf   0.0 min
+  bursty@1m      aegis  131.80 kWh / sf  70.0 min | CA  123.40 kWh / sf  39.6 min
+  bursty@3m      aegis  134.53 kWh / sf  70.0 min | CA  127.75 kWh / sf  60.2 min
+  bursty@5m      aegis  136.74 kWh / sf  70.0 min | CA  131.91 kWh / sf  62.6 min
+  bursty@10m     aegis  140.96 kWh / sf  70.0 min | CA  142.64 kWh / sf  68.4 min
+  bursty@15m     aegis  144.03 kWh / sf  70.4 min | CA  152.39 kWh / sf  71.0 min
+
+[Item 6: measured placement effect]  source: eval/item6_placement.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section F)
+  no_placement (spread)        nodes [9.43, 0.18, 0.23], idle [84.19, 1.64, 2.03] kWh, dynamic [30.89, 1.48, 1.83] kWh, total [116.81, 3.01, 3.74] kWh
+  with_placement (pack)        nodes [8.22, 0.14, 0.18], idle [73.58, 1.25, 1.56] kWh, dynamic [45.97, 1.82, 2.26] kWh, total [121.05, 2.87, 3.57] kWh
+  paired deltas (placement - spread): nodes -1.21 +/- 0.06, idle -10.61 +/- 0.52 kWh, total +4.24 +/- 0.30 kWh
+
+[Item 7: calibration per-seed coverage]  source: eval/item7_calibration.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section G)
+  seed 42: raw p90 0.8890 | single-day 0.8904 | rolling 0.8993
+  seed 101: raw p90 0.8932 | single-day 0.8763 | rolling 0.8986
+  seed 202: raw p90 0.8695 | single-day 0.8944 | rolling 0.9014
+  seed 303: raw p90 0.8775 | single-day 0.9073 | rolling 0.9003
+  seed 404: raw p90 0.9044 | single-day 0.9131 | rolling 0.9012
+
+[Item 8: flash crowd, HPA-realistic scale-up]  source: eval/item8_flash_crowd.json | cmd: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval (section H)
+  stock_hpa                  energy [202.38, 0.61, 0.76] kWh | shortfall [0.0, 0.0, 0.0] min | events [87.0, 22.08, 27.42] | replica delta [431.6, 94.05, 116.78]
+  cluster_autoscaler         energy [112.87, 1.97, 2.45] kWh | shortfall [0.0, 0.0, 0.0] min | events [87.0, 22.08, 27.42] | replica delta [431.6, 94.05, 116.78]
+  full_aegis_conformal       energy [119.84, 2.29, 2.84] kWh | shortfall [20.0, 5.7, 7.08] min | events [80.2, 11.3, 14.03] | replica delta [550.4, 93.01, 115.48]
+  oracle                     energy [118.2, 2.07, 2.58] kWh | shortfall [0.0, 0.0, 0.0] min | events [133.0, 35.26, 43.79] | replica delta [588.4, 140.44, 174.38]
+  step-limit sweep (full_aegis_conformal):
+    1 pod/min              shortfall [37.6, 6.39, 7.93] min | events [343.6, 50.5, 62.7] | replica delta [343.6, 50.5, 62.7] | energy [119.78, 2.29, 2.85] kWh
+    2 pods/min             shortfall [29.4, 10.41, 12.92] min | events [198.4, 41.9, 52.02] | replica delta [396.8, 83.79, 104.04] | energy [119.81, 2.29, 2.84] kWh
+    4 pods/min             shortfall [24.4, 6.43, 7.98] min | events [123.8, 20.63, 25.62] | replica delta [487.2, 83.93, 104.21] | energy [119.82, 2.29, 2.85] kWh
+    8 pods/min             shortfall [24.2, 9.26, 11.49] min | events [95.2, 12.34, 15.32] | replica delta [528.4, 95.8, 118.96] | energy [119.83, 2.29, 2.85] kWh
+    10 pods/min (old)      shortfall [21.0, 5.79, 7.19] min | events [92.4, 11.26, 13.98] | replica delta [542.0, 94.63, 117.5] | energy [119.84, 2.29, 2.85] kWh
+    HPA-realistic          shortfall [20.0, 5.7, 7.08] min | events [80.2, 11.3, 14.03] | replica delta [550.4, 93.01, 115.48] | energy [119.84, 2.29, 2.84] kWh
+
+[Item 9: freeze stamp]  source: eval/ablation_results.json (written by every run_comparison call)
+  simulator_config_hash : 1276bbfbe617a5a5655b736a80ac2ed83f0f1e5d5ca4b1b47e29d2571102d622
+  git_commit           : 2c811c03c627eb2d0a20e42b7545aedb6f7de2b2
+  git_dirty_files      : ['eval/ablation_results.json', 'eval/item2_timeseries.json', 'eval/item3_kmin_sweep.json', 'eval/multi_pattern_ablation_results.json', 'eval/pareto_frontier_results.json', 'eval/item5_wake_sweep.json', 'eval/item6_placement.json', 'eval/item7_calibration.json', 'eval/item8_flash_crowd.json']
+  simulator_config     : {"ca_node_buffer": 0, "calibration_window_steps": 1440, "cluster_autoscaler_scale_down_delay": 10, "dead_zone_pct": 0.1, "forecast_horizon_minutes": 10, "hpa_target_util": 0.7, "max_scale_step": null, "min_active_nodes": 2, "node_topology": "large", "per_replica_cpu": 0.5, "per_replica_mem": 2.0, "quantile_tau": 0.9, "rolling_recalibration": false, "scale_workload": 1.0, "stabilization_window_steps": 5, "target_utilization": 0.7, "use_linear_tail": false, "wake_up_latency_steps": 3, "warm_start_steps": 60}
+
+Reproduce everything with: python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval
+Unit tests (incl. >95% served-demand and recalibration causality): python -m pytest tests/unit/test_ablation_evaluation.py -q

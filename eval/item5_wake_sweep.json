@@ -1,0 +1,388 @@
+{
+  "table": {
+    "diurnal@1m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          111.64,
+          3.87,
+          4.81
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          123.09,
+          5.81,
+          7.22
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          115.5,
+          3.94,
+          4.89
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "diurnal@3m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          112.03,
+          3.89,
+          4.83
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          124.05,
+          5.77,
+          7.16
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          116.96,
+          3.9,
+          4.84
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "diurnal@5m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          112.43,
+          3.91,
+          4.86
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          124.87,
+          5.74,
+          7.12
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          117.98,
+          3.81,
+          4.73
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "diurnal@10m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          113.42,
+          3.96,
+          4.92
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          126.57,
+          5.65,
+          7.02
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          119.68,
+          3.7,
+          4.6
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "diurnal@15m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          114.4,
+          3.98,
+          4.94
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          127.77,
+          5.63,
+          6.99
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          120.78,
+          3.73,
+          4.64
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bursty@1m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          123.4,
+          2.74,
+          3.41
+        ],
+        "capacity_shortfall_minutes": [
+          39.6,
+          6.73,
+          8.36
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          131.8,
+          4.1,
+          5.09
+        ],
+        "capacity_shortfall_minutes": [
+          70.0,
+          21.26,
+          26.4
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          118.98,
+          2.63,
+          3.26
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bursty@3m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          127.75,
+          2.98,
+          3.69
+        ],
+        "capacity_shortfall_minutes": [
+          60.2,
+          10.57,
+          13.12
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          134.53,
+          4.23,
+          5.26
+        ],
+        "capacity_shortfall_minutes": [
+          70.0,
+          21.26,
+          26.4
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          126.29,
+          2.97,
+          3.69
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bursty@5m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          131.91,
+          3.24,
+          4.02
+        ],
+        "capacity_shortfall_minutes": [
+          62.6,
+          12.3,
+          15.27
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          136.74,
+          4.3,
+          5.34
+        ],
+        "capacity_shortfall_minutes": [
+          70.0,
+          21.26,
+          26.4
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          132.59,
+          3.28,
+          4.08
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bursty@10m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          142.64,
+          3.78,
+          4.69
+        ],
+        "capacity_shortfall_minutes": [
+          68.4,
+          14.98,
+          18.6
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          140.96,
+          4.53,
+          5.63
+        ],
+        "capacity_shortfall_minutes": [
+          70.0,
+          21.26,
+          26.4
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          145.41,
+          3.94,
+          4.9
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "bursty@15m": {
+      "cluster_autoscaler": {
+        "energy_kwh": [
+          152.39,
+          4.56,
+          5.67
+        ],
+        "capacity_shortfall_minutes": [
+          71.0,
+          19.38,
+          24.06
+        ]
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": [
+          144.03,
+          4.73,
+          5.87
+        ],
+        "capacity_shortfall_minutes": [
+          70.4,
+          21.42,
+          26.6
+        ]
+      },
+      "oracle": {
+        "energy_kwh": [
+          154.69,
+          4.33,
+          5.37
+        ],
+        "capacity_shortfall_minutes": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "forecast_first_beats_reactive_at_wake_latency_min": {
+    "diurnal": null,
+    "bursty": 15
+  }
+}

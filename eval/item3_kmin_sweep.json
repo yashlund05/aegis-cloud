@@ -24,14 +24,14 @@
     },
     "full_aegis_conformal": {
       "energy_kwh": [
-        35.17,
-        0.52,
-        0.64
+        29.48,
+        1.19,
+        1.47
       ],
       "energy_idle_kwh": [
-        25.56,
-        0.0,
-        0.0
+        19.73,
+        0.71,
+        0.89
       ],
       "capacity_shortfall_minutes": [
         0.0,
@@ -39,9 +39,9 @@
         0.0
       ],
       "mean_active_nodes": [
-        3.0,
-        0.0,
-        0.0
+        2.35,
+        0.08,
+        0.1
       ]
     },
     "oracle": {
@@ -92,14 +92,14 @@
     },
     "full_aegis_conformal": {
       "energy_kwh": [
-        35.17,
-        0.52,
-        0.64
+        29.48,
+        1.19,
+        1.47
       ],
       "energy_idle_kwh": [
-        25.56,
-        0.0,
-        0.0
+        19.73,
+        0.71,
+        0.89
       ],
       "capacity_shortfall_minutes": [
         0.0,
@@ -107,9 +107,9 @@
         0.0
       ],
       "mean_active_nodes": [
-        3.0,
-        0.0,
-        0.0
+        2.35,
+        0.08,
+        0.1
       ]
     },
     "oracle": {
@@ -160,9 +160,9 @@
     },
     "full_aegis_conformal": {
       "energy_kwh": [
-        35.17,
+        35.18,
         0.52,
-        0.64
+        0.65
       ],
       "energy_idle_kwh": [
         25.56,

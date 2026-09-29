@@ -2,7 +2,6 @@ package aegis
 
 import (
 	"context"
-	"fmt"
 	"math"
 
 	v1 "k8s.io/api/core/v1"
@@ -27,7 +26,7 @@ func (pl *AegisPlugin) Name() string {
 }
 
 // New initializes a new plugin and returns it.
-func New(obj runtime.Object, handle framework.Handle) (framework.Plugin, error) {
+func New(ctx context.Context, obj runtime.Object, handle framework.Handle) (framework.Plugin, error) {
 	// TODO: Parse config from obj
 	cfg := DefaultConfig()
 

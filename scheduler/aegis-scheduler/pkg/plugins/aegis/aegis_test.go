@@ -75,13 +75,17 @@ func TestFilterWithCapacity(t *testing.T) {
 	pod := &v1.Pod{}
 	
 	nodeGood := &v1.Node{ObjectMeta: metav1.ObjectMeta{Name: "node-good"}}
-	status := plugin.Filter(context.Background(), nil, pod, framework.NewNodeInfo(nodeGood))
+	nodeInfoGood := framework.NewNodeInfo()
+	nodeInfoGood.SetNode(nodeGood)
+	status := plugin.Filter(context.Background(), nil, pod, nodeInfoGood)
 	if !status.IsSuccess() {
 		t.Errorf("Expected success for node-good, got %v", status)
 	}
 
 	nodeBad := &v1.Node{ObjectMeta: metav1.ObjectMeta{Name: "node-bad"}}
-	status = plugin.Filter(context.Background(), nil, pod, framework.NewNodeInfo(nodeBad))
+	nodeInfoBad := framework.NewNodeInfo()
+	nodeInfoBad.SetNode(nodeBad)
+	status = plugin.Filter(context.Background(), nil, pod, nodeInfoBad)
 	if status.Code() != framework.Unschedulable {
 		t.Errorf("Expected Unschedulable for node-bad, got %v", status.Code())
 	}
@@ -100,7 +104,9 @@ func TestFallbackOnMissingPrediction(t *testing.T) {
 
 	// Filter should pass
 	node := &v1.Node{ObjectMeta: metav1.ObjectMeta{Name: "node-unknown"}}
-	status := plugin.Filter(context.Background(), nil, &v1.Pod{}, framework.NewNodeInfo(node))
+	nodeInfoUnknown := framework.NewNodeInfo()
+	nodeInfoUnknown.SetNode(node)
+	status := plugin.Filter(context.Background(), nil, &v1.Pod{}, nodeInfoUnknown)
 	if !status.IsSuccess() {
 		t.Errorf("Expected success (fallback) for filter, got %v", status)
 	}

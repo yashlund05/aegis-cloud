@@ -228,6 +228,7 @@ class AblationStudy:
             "pinball_loss_p90": round(float(pinball_loss(y_test, p90_test, 0.9)), 4),
             "interval_coverage_uncalibrated_pct": round(cov_uncal, 2),
             "interval_coverage_conformal_pct": round(cov_conf, 2),
+            "interval_coverage_p10_p90_pct": round(cov_uncal, 2),
             "calibration_fraction_below_p10_uncalibrated": round(test_calib_p10_uncal, 4),
             "calibration_fraction_below_p10_conformal": round(test_calib_p10_conf, 4),
             "calibration_fraction_below_p50": round(test_calib_p50, 4),

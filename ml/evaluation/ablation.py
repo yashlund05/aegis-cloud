@@ -1,30 +1,50 @@
 """
-Ablation study and A/B benchmark evaluation framework for Aegis (Phase 9 & IEEE Publication Audit).
+Frozen Ablation Study and A/B Benchmark Simulation Framework for Aegis (IEEE Publication Benchmark).
 
-Key Features & Physics Modeling:
-1. Multi-Resource Capacity & Fragmentation: Nodes have CPU (4.0 cores) and Memory (16.0 GB).
-   Workload consists of heterogeneous pods (CPU-intensive and Memory-intensive).
-   Joint placement packs complementary pods, avoiding fragmentation and reducing active nodes needed.
-2. Anticipatory Node Pre-Wake: Forecast configs and the Oracle use lookahead (H >= wake latency)
-   to initiate node booting in advance, so nodes are ACTIVE when demand arrives.
-3. True Upper-Bound Oracle: Perfect foresight lookahead, proactive pre-wake, and optimal packing.
-4. Energy Component Breakdown: Explicit accounting of idle power, dynamic (utilization-dependent) power,
-   and boot transition energy.
-5. Headroom-Matched Safety Margin Sweeps: Evaluates energy-vs-shortfall Pareto frontiers across quantiles
-   and reactive utilization thresholds.
-6. Rolling vs Single-Day Conformal Calibration and Linear-Tail Extrapolation tests.
+Invariants & Modeling:
+1. Warm-Start Exclusion: The first 60 minutes (steps 0 to 60) of the evaluation window are excluded
+   from all reported metrics (energy, shortfall, actions, churn, active nodes) to eliminate
+   cold-start transient confounds.
+2. Realistic Kubernetes Scaling Limits: Replaces rigid max_scale_step=10 with Kubernetes HPA v2
+   scale-up policy: max 4 pods or 100% of current replicas per 15s, aggregated to a 1-minute
+   decision period -> max_up = max(16, current_replicas); scale-down max(4, 50% current)/min.
+3. Multi-Resource Physical Placement: Measured 2D vector bin-packing of explicit heterogeneous pod
+   request vectors (no assumed pods/node constant) vs naive in-order spreading. Measures actual
+   bins, idle power, and dynamic power.
+4. Anticipatory Pre-Wake & True Oracle: Forecast-driven configs pre-wake sleeping nodes using the
+   p90 forecast lookahead. Causality: the forecast for absolute step t+j was issued at (t+j)-H, so
+   at decision time t it is observable iff j <= H; with boot latency W the usable lookahead is
+   L = min(W, H). The Oracle uses perfect demand foresight over [t, t+W].
+5. Causally Strict Rolling Recalibration: Rolling calibration residuals only use outcomes already
+   observable at decision time (delayed by the forecast horizon H), never the concurrent or future
+   test window.
+6. Energy Decomposition: Full breakdown into Idle, Dynamic (convex alpha), and Boot transition energy.
 """
 
-import os
+import hashlib
 import json
 import math
+import os
+import subprocess
 from typing import Dict, Any, List, Optional, Tuple
+
 import numpy as np
 import pandas as pd
 
 from ml.features.feature_engineering import build_features
 from ml.inference.predict import AegisPredictor
 from ml.evaluation.evaluate import wmape, pinball_loss, interval_coverage
+
+# Source files whose contents are pinned by the simulator config hash.
+SIMULATOR_CODE_FILES = [
+    "ml/evaluation/ablation.py",
+    "datasets/workload_patterns.py",
+    "datasets/generate_training_pool.py",
+    "ml/features/feature_engineering.py",
+    "ml/inference/predict.py",
+    "ml/evaluation/evaluate.py",
+    "ml/training/train_lightgbm.py",
+]
 
 
 def get_default_nodes(
@@ -58,6 +78,73 @@ def get_default_nodes(
     return nodes
 
 
+def rolling_conformal_adjustment(
+    full_y: np.ndarray,
+    full_p90: np.ndarray,
+    full_p10: np.ndarray,
+    n_cal: int,
+    horizon_minutes: int,
+    window_steps: int,
+    quantile_tau: float,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Causally strict rolling split-conformal recalibration.
+
+    For test step idx (absolute step t_abs = n_cal + idx) the residual window is
+    [t_obs - window_steps, t_obs) with t_obs = t_abs - horizon_minutes: every residual
+    outcome s satisfies s <= t_abs - H, i.e. it was observed at least H minutes before
+    the decision. Outcomes in (t_abs - H, n] (the unobservable window, including the
+    concurrent test step) are never touched, and neither is anything after it.
+    """
+    pred_p90_conformal = np.zeros_like(full_p90[n_cal:])
+    pred_p10_conformal = np.zeros_like(full_p10[n_cal:])
+
+    for idx in range(len(pred_p90_conformal)):
+        t_abs = n_cal + idx
+        t_obs = t_abs - horizon_minutes
+        win_start = max(0, t_obs - window_steps)
+        if t_obs > win_start + 10:
+            res_90_w = full_y[win_start:t_obs] - full_p90[win_start:t_obs]
+            res_10_w = full_p10[win_start:t_obs] - full_y[win_start:t_obs]
+            q_lev = min(1.0, np.ceil((len(res_90_w) + 1) * quantile_tau) / max(1, len(res_90_w)))
+            q_hat_90_w = float(np.quantile(res_90_w, q_lev))
+            q_hat_10_w = float(np.quantile(res_10_w, q_lev))
+        else:
+            q_hat_90_w = 0.0
+            q_hat_10_w = 0.0
+        pred_p90_conformal[idx] = full_p90[t_abs] + q_hat_90_w
+        pred_p10_conformal[idx] = full_p10[t_abs] - q_hat_10_w
+
+    return pred_p90_conformal, pred_p10_conformal
+
+
+def _sha256_file(path: str) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def get_git_state() -> Dict[str, Any]:
+    """Returns the current git commit and the list of modified tracked files."""
+    state: Dict[str, Any] = {"git_commit": "unknown", "git_dirty_files": []}
+    try:
+        commit = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=10
+        )
+        if commit.returncode == 0:
+            state["git_commit"] = commit.stdout.strip()
+        status = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, timeout=10
+        )
+        if status.returncode == 0:
+            state["git_dirty_files"] = [ln[3:].strip() for ln in status.stdout.splitlines() if ln.strip()]
+    except Exception:
+        pass
+    return state
+
+
 class AblationStudy:
     """
     Simulates cluster execution across research configurations replaying workload traces.
@@ -72,10 +159,11 @@ class AblationStudy:
         model_dir: str = "ml/models/artifacts",
         dead_zone_pct: float = 0.10,
         stabilization_window_steps: int = 5,
-        max_scale_step: int = 10,
+        max_scale_step: Optional[int] = None,  # If None, uses realistic HPA scale-up: max(16, current)
         min_active_nodes: int = 2,
         wake_up_latency_steps: int = 3,
         cluster_autoscaler_scale_down_delay: int = 10,
+        warm_start_steps: int = 60,
     ):
         self.nodes = nodes if nodes is not None else get_default_nodes("large")
         self.per_replica_cpu = per_replica_cpu
@@ -88,9 +176,79 @@ class AblationStudy:
         self.min_active_nodes = min_active_nodes
         self.wake_up_latency_steps = wake_up_latency_steps
         self.cluster_autoscaler_scale_down_delay = cluster_autoscaler_scale_down_delay
+        self.warm_start_steps = warm_start_steps
 
         self.predictor = AegisPredictor(model_dir=self.model_dir)
         self.predictor.load_models()
+
+    # ------------------------------------------------------------------
+    # Measured multi-resource packing
+    # ------------------------------------------------------------------
+    def _pod_requests(self, num_pods: int) -> List[Tuple[float, float]]:
+        """Explicit heterogeneous pod request vectors: 50% CPU-heavy (0.6 CPU / 1.2 GB),
+        50% mem-heavy (0.2 CPU / 3.5 GB). No pods-per-node constant is assumed anywhere:
+        bin counts emerge from these requests against node allocatable capacity."""
+        return [(0.6, 1.2) if i % 2 == 0 else (0.2, 3.5) for i in range(num_pods)]
+
+    def _pack_pods(self, num_pods: int, opt: bool) -> int:
+        """
+        Measured node count for `num_pods` replicas.
+
+        opt=False (no placement intelligence): kube-scheduler style even spreading —
+        the smallest node count k such that a round-robin arrival-order split across
+        k nodes violates no node's CPU or memory capacity.
+
+        opt=True (placement-aware consolidation): first-fit decreasing bin-packing,
+        taking the minimum over three standard deterministic orderings (arrival,
+        mem-dominant, cpu-dominant). Measured, never assumed.
+        """
+        if num_pods <= 0:
+            return 0
+        allocatable_cpu = self.nodes[0]["cpu_capacity"] * 0.85
+        allocatable_mem = self.nodes[0]["memory_capacity"] * 0.85
+        pods = self._pod_requests(num_pods)
+
+        def first_fit(order: List[Tuple[float, float]]) -> int:
+            bins: List[List[float]] = []
+            for c, m in order:
+                for b in range(len(bins)):
+                    if bins[b][0] + c <= allocatable_cpu + 1e-4 and bins[b][1] + m <= allocatable_mem + 1e-4:
+                        bins[b][0] += c
+                        bins[b][1] += m
+                        break
+                else:
+                    bins.append([c, m])
+            return len(bins)
+
+        if not opt:
+            total_cpu = sum(c for c, _ in pods)
+            total_mem = sum(m for _, m in pods)
+            k = max(1, math.ceil(total_cpu / allocatable_cpu), math.ceil(total_mem / allocatable_mem))
+            while k <= num_pods:
+                bins = [[0.0, 0.0] for _ in range(k)]
+                for i, (c, m) in enumerate(pods):
+                    bins[i % k][0] += c
+                    bins[i % k][1] += m
+                if all(b[0] <= allocatable_cpu + 1e-4 and b[1] <= allocatable_mem + 1e-4 for b in bins):
+                    return k
+                k += 1
+            return num_pods
+
+        orders = [
+            pods,
+            sorted(pods, key=lambda p: p[1], reverse=True),
+            sorted(pods, key=lambda p: p[0], reverse=True),
+        ]
+        return min(first_fit(o) for o in orders)
+
+    def compute_config_hash(self, extra_params: Dict[str, Any]) -> str:
+        """SHA-256 over the canonical simulator parameter set and the pinned source files."""
+        payload = {
+            "params": {k: str(v) for k, v in sorted(extra_params.items())},
+            "code": {p: _sha256_file(p) for p in SIMULATOR_CODE_FILES if os.path.exists(p)},
+        }
+        canonical = json.dumps(payload, sort_keys=True)
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
     def run_comparison(
         self,
@@ -104,11 +262,9 @@ class AblationStudy:
         ca_node_buffer: int = 0,
         rolling_recalibration: bool = False,
         use_linear_tail: bool = False,
+        configs_to_run: Optional[List[str]] = None,
+        return_series: bool = False,
     ) -> Dict[str, Any]:
-        """
-        Executes benchmark simulation over time-series trace data with decoupled info,
-        pre-wake, multi-resource placement, and energy component accounting.
-        """
         os.makedirs(output_dir, exist_ok=True)
 
         df_sorted = trace_data.copy()
@@ -151,23 +307,18 @@ class AblationStudy:
         else:
             pred_p10_raw = aligned_actuals_raw * 0.90
 
-        # Optional linear tail extrapolation for flash crowds
         if use_linear_tail:
-            # When recent rate of change is high and features exceed historical 95th percentile,
-            # extrapolate linearly based on rolling trend
             roc = aligned_features.get("cpu_rate_of_change", pd.Series(0, index=aligned_features.index)).values
             tail_mask = roc > 0.5
-            pred_p90_raw = np.where(tail_mask, pred_p90_raw + roc * 2.0, pred_p90_raw)
-            pred_p50_raw = np.where(tail_mask, pred_p50_raw + roc * 1.5, pred_p50_raw)
+            pred_p90_raw = np.where(tail_mask, pred_p90_raw + roc * 2.5, pred_p90_raw)
+            pred_p50_raw = np.where(tail_mask, pred_p50_raw + roc * 1.8, pred_p50_raw)
 
-        # Scale workload if requested
         aligned_actuals = aligned_actuals_raw * scale_workload
         aligned_mem = aligned_mem_raw * scale_workload
         pred_p90 = pred_p90_raw * scale_workload
         pred_p50 = pred_p50_raw * scale_workload
         pred_p10 = pred_p10_raw * scale_workload
 
-        # Monotonicity check
         pred_p10 = np.minimum(pred_p10, pred_p50)
         pred_p90 = np.maximum(pred_p90, pred_p50)
 
@@ -187,27 +338,18 @@ class AblationStudy:
             p10_test = pred_p10[n_cal:]
 
             if rolling_recalibration:
-                # Rolling 1440-step window walk-forward recalibration
-                pred_p90_conformal = np.zeros_like(p90_test)
-                pred_p10_conformal = np.zeros_like(p10_test)
-                full_y = aligned_actuals
-                full_p90 = pred_p90
-                full_p10 = pred_p10
-
-                for idx in range(len(y_test)):
-                    t_abs = n_cal + idx
-                    win_start = max(0, t_abs - calibration_window_steps)
-                    res_90_w = full_y[win_start:t_abs] - full_p90[win_start:t_abs]
-                    res_10_w = full_p10[win_start:t_abs] - full_y[win_start:t_abs]
-                    q_lev = min(1.0, np.ceil((len(res_90_w) + 1) * quantile_tau) / max(1, len(res_90_w)))
-                    q_hat_90_w = float(np.quantile(res_90_w, q_lev))
-                    q_hat_10_w = float(np.quantile(res_10_w, q_lev))
-                    pred_p90_conformal[idx] = p90_test[idx] + q_hat_90_w
-                    pred_p10_conformal[idx] = p10_test[idx] - q_hat_10_w
+                pred_p90_conformal, pred_p10_conformal = rolling_conformal_adjustment(
+                    full_y=aligned_actuals,
+                    full_p90=pred_p90,
+                    full_p10=pred_p10,
+                    n_cal=n_cal,
+                    horizon_minutes=forecast_horizon_minutes,
+                    window_steps=calibration_window_steps,
+                    quantile_tau=quantile_tau,
+                )
                 q_hat_90 = float(np.mean(pred_p90_conformal - p90_test))
                 q_hat_10 = float(np.mean(p10_test - pred_p10_conformal))
             else:
-                # Single-day held-out pre-test calibration
                 res_cal_p90 = y_cal - p90_cal
                 q_level_90 = min(1.0, np.ceil((n_cal + 1) * quantile_tau) / n_cal)
                 q_hat_90 = float(np.quantile(res_cal_p90, q_level_90))
@@ -263,17 +405,18 @@ class AblationStudy:
             "conformal_adjustment_q_hat_p10": round(q_hat_10, 4),
         }
 
-        configs_to_run = [
-            "stock_hpa",
-            "cluster_autoscaler",
-            "reactive_hpa_plus_consolidation",
-            "forecast_only",
-            "forecast_placement",
-            "forecast_plus_power_no_placement",
-            "full_aegis",
-            "full_aegis_conformal",
-            "oracle",
-        ]
+        if configs_to_run is None:
+            configs_to_run = [
+                "stock_hpa",
+                "cluster_autoscaler",
+                "reactive_hpa_plus_consolidation",
+                "forecast_only",
+                "forecast_placement",
+                "forecast_plus_power_no_placement",
+                "full_aegis",
+                "full_aegis_conformal",
+                "oracle",
+            ]
 
         results = {}
         for config_name in configs_to_run:
@@ -285,33 +428,67 @@ class AblationStudy:
                 config_name=config_name,
                 hpa_target_util=hpa_target_util,
                 ca_node_buffer=ca_node_buffer,
+                forecast_horizon_minutes=forecast_horizon_minutes,
+                return_series=return_series,
             )
 
-        improvements = {
-            "energy_savings_vs_stock_hpa_pct": round(
+        improvements = {}
+        if "full_aegis_conformal" in results and "stock_hpa" in results:
+            improvements["energy_savings_vs_stock_hpa_pct"] = round(
                 (1.0 - (results["full_aegis_conformal"]["energy_kwh"] / max(results["stock_hpa"]["energy_kwh"], 0.001))) * 100.0, 2
-            ),
-            "energy_savings_vs_cluster_autoscaler_pct": round(
+            )
+        if "full_aegis_conformal" in results and "cluster_autoscaler" in results:
+            improvements["energy_savings_vs_cluster_autoscaler_pct"] = round(
                 (1.0 - (results["full_aegis_conformal"]["energy_kwh"] / max(results["cluster_autoscaler"]["energy_kwh"], 0.001))) * 100.0, 2
-            ),
-            "capacity_shortfall_reduction_vs_cluster_autoscaler_pct": round(
+            )
+            improvements["capacity_shortfall_reduction_vs_cluster_autoscaler_pct"] = round(
                 (1.0 - (results["full_aegis_conformal"]["capacity_shortfall_minutes"] / max(results["cluster_autoscaler"]["capacity_shortfall_minutes"], 1))) * 100.0, 2
-            ),
+            )
+
+        sim_params = {
+            "per_replica_cpu": self.per_replica_cpu,
+            "per_replica_mem": self.per_replica_mem,
+            "target_utilization": self.target_utilization,
+            "dead_zone_pct": self.dead_zone_pct,
+            "stabilization_window_steps": self.stabilization_window_steps,
+            "max_scale_step": self.max_scale_step,
+            "min_active_nodes": self.min_active_nodes,
+            "wake_up_latency_steps": self.wake_up_latency_steps,
+            "cluster_autoscaler_scale_down_delay": self.cluster_autoscaler_scale_down_delay,
+            "warm_start_steps": self.warm_start_steps,
+            "forecast_horizon_minutes": forecast_horizon_minutes,
+            "calibration_window_steps": calibration_window_steps,
+            "scale_workload": scale_workload,
+            "quantile_tau": quantile_tau,
+            "hpa_target_util": hpa_target_util,
+            "ca_node_buffer": ca_node_buffer,
+            "rolling_recalibration": rolling_recalibration,
+            "use_linear_tail": use_linear_tail,
+            "node_topology": "large",
         }
 
         summary_report = {
-            "trace_steps": len(y_test),
+            "trace_steps": len(y_test) - self.warm_start_steps,
+            "warm_start_steps_excluded": self.warm_start_steps,
             "total_nodes": len(self.nodes),
             "total_cluster_cpu_capacity": sum(n["cpu_capacity"] for n in self.nodes),
             "forecast_horizon_minutes": forecast_horizon_minutes,
             "forecaster_metrics": forecast_metrics,
+            "simulator_config": sim_params,
+            "simulator_config_hash": self.compute_config_hash(sim_params),
+            "git_state": get_git_state(),
             "configurations": results,
             "improvements": improvements,
         }
 
+        json_report = {k: v for k, v in summary_report.items()}
+        if not return_series:
+            for cfg_res in json_report["configurations"].values():
+                cfg_res.pop("series", None)
+
         json_path = os.path.join(output_dir, "ablation_results.json")
         with open(json_path, "w") as f:
-            json.dump(summary_report, f, indent=2)
+            json.dump(json_report, f, indent=2)
 
         return summary_report
 
@@ -323,10 +500,12 @@ class AblationStudy:
         config_name: str,
         hpa_target_util: float = 0.70,
         ca_node_buffer: int = 0,
+        forecast_horizon_minutes: int = 10,
+        return_series: bool = False,
     ) -> Dict[str, Any]:
         """
         Simulates replica lifecycle, node transitions with pre-wake, multi-resource bin packing,
-        and per-component energy accounting (idle, dynamic, boot).
+        warm-start exclusion, and energy accounting.
         """
         n_steps = len(actual_demands)
         total_idle_joules = 0.0
@@ -338,6 +517,17 @@ class AblationStudy:
         total_churn = 0
         allocated_replicas_history = []
         node_active_counts = []
+        nodes_needed_history = []
+        time_series_records = []
+        series = {
+            "minute": [],
+            "actual_demand": [],
+            "replicas": [],
+            "active_nodes": [],
+            "nodes_needed": [],
+            "effective_capacity": [],
+            "shortfall": [],
+        }
 
         total_nodes = len(self.nodes)
         all_nodes_on = config_name in ("stock_hpa", "forecast_only", "forecast_placement")
@@ -346,15 +536,12 @@ class AblationStudy:
         node_boot_timers = [0 for _ in range(total_nodes)]
         node_unneeded_timers = [0 for _ in range(total_nodes)]
 
-        # Initial replicas
         init_replicas = max(2, math.ceil(actual_demands[0] / (self.per_replica_cpu * hpa_target_util)))
         current_replicas = init_replicas
         downscale_window = []
 
-        node_cpu_cap = self.nodes[0]["cpu_capacity"]
-        node_mem_cap = self.nodes[0]["memory_capacity"]
-        allocatable_cpu = node_cpu_cap * 0.85
-        allocatable_mem = node_mem_cap * 0.85
+        allocatable_cpu = self.nodes[0]["cpu_capacity"] * 0.85
+        allocatable_mem = self.nodes[0]["memory_capacity"] * 0.85
 
         for t in range(n_steps):
             actual_demand = float(actual_demands[t])
@@ -389,19 +576,17 @@ class AblationStudy:
                 raw_desired = max(1, math.ceil(peak_future_demand / (self.per_replica_cpu * hpa_target_util)))
 
             else:
-                # Forecast configs
-                needed = forecast_p90 / (self.per_replica_cpu * self.target_utilization)
+                needed = forecast_p90 / (self.per_replica_cpu * hpa_target_util)
                 raw_desired = max(1, math.ceil(needed))
 
             # -------------------------------------------------------------
-            # 3. Universal Safety Logic
+            # 3. Scaling Safety Logic (HPA Realistic Scaling Policy)
             # -------------------------------------------------------------
             downscale_window.append(raw_desired)
             if len(downscale_window) > self.stabilization_window_steps:
                 downscale_window.pop(0)
 
             if config_name == "oracle":
-                # Oracle anticipates ramps without lagging
                 candidate_target = raw_desired
             else:
                 if raw_desired > current_replicas:
@@ -416,47 +601,59 @@ class AblationStudy:
                 target_replicas = current_replicas
             else:
                 step = candidate_target - current_replicas
-                if step > self.max_scale_step and config_name != "oracle":
-                    target_replicas = current_replicas + self.max_scale_step
-                elif step < -self.max_scale_step and config_name != "oracle":
-                    target_replicas = current_replicas - self.max_scale_step
+                # HPA v2 scale-up: max 4 pods or 100% current per 15s, aggregated to 1 min
+                # -> add at most max(16, current) per minute; scale-down max(4, 50%) per minute.
+                if self.max_scale_step is not None:
+                    max_up = self.max_scale_step
+                    max_down = self.max_scale_step
+                else:
+                    max_up = max(16, current_replicas)
+                    max_down = max(4, int(current_replicas * 0.50))
+
+                if step > max_up and config_name != "oracle":
+                    target_replicas = current_replicas + max_up
+                elif step < -max_down and config_name != "oracle":
+                    target_replicas = current_replicas - max_down
                 else:
                     target_replicas = candidate_target
 
             target_replicas = max(1, target_replicas)
 
-            if target_replicas != current_replicas:
-                scaling_actions += 1
-                total_churn += abs(target_replicas - current_replicas)
+            # Record scaling actions only after warm-start
+            if t >= self.warm_start_steps:
+                if target_replicas != current_replicas:
+                    scaling_actions += 1
+                    total_churn += abs(target_replicas - current_replicas)
 
             current_replicas = target_replicas
-            allocated_replicas_history.append(current_replicas)
+            if t >= self.warm_start_steps:
+                allocated_replicas_history.append(current_replicas)
 
             # -------------------------------------------------------------
-            # 4. Multi-Resource Pod Profile & Fragmentation Sizing
+            # 4. Multi-Resource Packing Simulation
             # -------------------------------------------------------------
-            # Workload has heterogeneous pods: 50% CPU-intensive (0.6 CPU, 1.2 GB), 50% Mem-intensive (0.2 CPU, 3.5 GB)
-            # Heterogeneous packing requires vector bin-packing.
-            # Without placement (uniform/naive spreading): fragmentation causes memory or CPU to exhaust early:
-            # effective pod capacity per node drops from 6 pods to ~4.5 pods.
-            # With joint placement (CP-SAT/vector bin packing): complementary pairing packs 6 pods per node.
             has_placement_opt = config_name in ("full_aegis", "full_aegis_conformal", "forecast_placement", "oracle")
-            effective_pods_per_node = 6 if has_placement_opt else 5
 
             if all_nodes_on:
                 nodes_needed = total_nodes
             elif config_name in ("cluster_autoscaler", "reactive_hpa_plus_consolidation"):
-                nodes_needed = max(self.min_active_nodes, math.ceil(current_replicas / effective_pods_per_node)) + ca_node_buffer
+                nodes_needed = max(self.min_active_nodes, self._pack_pods(current_replicas, opt=has_placement_opt)) + ca_node_buffer
                 nodes_needed = min(nodes_needed, total_nodes)
             elif config_name in ("forecast_plus_power_no_placement", "full_aegis", "full_aegis_conformal"):
-                forecast_replicas_needed = max(1, math.ceil(forecast_p90 / (self.per_replica_cpu * self.target_utilization)))
-                nodes_needed = max(self.min_active_nodes, math.ceil(forecast_replicas_needed / effective_pods_per_node))
+                # Causal anticipatory pre-wake: the p90 forecast for absolute step t+j was
+                # issued at (t+j)-H, hence observable at decision time t iff j <= H. With
+                # boot latency W the usable lookahead is L = min(W, H).
+                lookahead_len = min(self.wake_up_latency_steps, forecast_horizon_minutes)
+                lookahead = p90_forecasts[t : min(n_steps, t + lookahead_len + 1)]
+                peak_forecast = float(np.max(lookahead))
+                forecast_replicas_needed = max(1, math.ceil(peak_forecast / (self.per_replica_cpu * hpa_target_util)))
+                nodes_needed = max(self.min_active_nodes, self._pack_pods(forecast_replicas_needed, opt=has_placement_opt))
                 nodes_needed = min(nodes_needed, total_nodes)
             elif config_name == "oracle":
                 lookahead_window = actual_demands[t : min(n_steps, t + self.wake_up_latency_steps + 1)]
                 peak_future_demand = float(np.max(lookahead_window))
                 oracle_replicas = max(1, math.ceil(peak_future_demand / (self.per_replica_cpu * hpa_target_util)))
-                nodes_needed = max(self.min_active_nodes, math.ceil(oracle_replicas / effective_pods_per_node))
+                nodes_needed = max(self.min_active_nodes, self._pack_pods(oracle_replicas, opt=True))
                 nodes_needed = min(nodes_needed, total_nodes)
             else:
                 nodes_needed = total_nodes
@@ -464,7 +661,6 @@ class AblationStudy:
             # -------------------------------------------------------------
             # 5. Anticipatory Pre-Wake & Transition Dynamics
             # -------------------------------------------------------------
-            # For forecast configs and oracle, anticipate wake_up_latency ahead of demand
             scale_down_delay = self.cluster_autoscaler_scale_down_delay if config_name == "cluster_autoscaler" else self.stabilization_window_steps
 
             active_indices = [i for i, st in enumerate(node_states) if st == "active"]
@@ -492,10 +688,11 @@ class AblationStudy:
                     for i in range(total_nodes):
                         node_unneeded_timers[i] = 0
 
-            # Active nodes available at step t
             current_active_indices = [i for i, st in enumerate(node_states) if st == "active"]
             current_active_count = len(current_active_indices)
-            node_active_counts.append(current_active_count)
+            if t >= self.warm_start_steps:
+                node_active_counts.append(current_active_count)
+                nodes_needed_history.append(nodes_needed)
 
             # -------------------------------------------------------------
             # 6. Capacity Shortfall Accounting
@@ -504,20 +701,20 @@ class AblationStudy:
             active_node_capacity = current_active_count * allocatable_cpu
             effective_cluster_capacity = min(pod_capacity, active_node_capacity)
 
-            if actual_demand > effective_cluster_capacity:
-                capacity_shortfalls += 1
+            if t >= self.warm_start_steps:
+                if actual_demand > effective_cluster_capacity:
+                    capacity_shortfalls += 1
 
             # -------------------------------------------------------------
-            # 7. Energy Accounting: Idle, Dynamic, Boot Breakdown
+            # 7. Energy Accounting (Idle, Dynamic, Boot)
             # -------------------------------------------------------------
             placed_demand = min(actual_demand, effective_cluster_capacity)
-
             step_idle_w = 0.0
             step_dynamic_w = 0.0
             step_boot_w = 0.0
 
             if has_placement_opt:
-                # Joint placement: packing onto minimum active nodes
+                # Joint placement: packing onto active nodes
                 remaining_demand = placed_demand
                 for idx in range(total_nodes):
                     st = node_states[idx]
@@ -544,24 +741,49 @@ class AblationStudy:
                         util = min(1.0, per_node_demand / node["cpu_capacity"])
                         step_dynamic_w += (node["p_max"] - node["p_idle"]) * (util ** node["alpha"])
 
-            total_idle_joules += step_idle_w * 60.0
-            total_dynamic_joules += step_dynamic_w * 60.0
-            total_boot_joules += step_boot_w * 60.0
+            if t >= self.warm_start_steps:
+                total_idle_joules += step_idle_w * 60.0
+                total_dynamic_joules += step_dynamic_w * 60.0
+                total_boot_joules += step_boot_w * 60.0
+
+                if t % 30 == 0 and len(time_series_records) < 100:
+                    time_series_records.append({
+                        "step": t,
+                        "actual_demand": round(actual_demand, 2),
+                        "replicas": current_replicas,
+                        "active_nodes": current_active_count,
+                        "shortfall": int(actual_demand > effective_cluster_capacity),
+                    })
+                if return_series:
+                    series["minute"].append(t)
+                    series["actual_demand"].append(round(actual_demand, 4))
+                    series["replicas"].append(current_replicas)
+                    series["active_nodes"].append(current_active_count)
+                    series["nodes_needed"].append(nodes_needed)
+                    series["effective_capacity"].append(round(effective_cluster_capacity, 4))
+                    series["shortfall"].append(int(actual_demand > effective_cluster_capacity))
 
         idle_kwh = total_idle_joules / (3600.0 * 1000.0)
         dynamic_kwh = total_dynamic_joules / (3600.0 * 1000.0)
         boot_kwh = total_boot_joules / (3600.0 * 1000.0)
         total_energy_kwh = idle_kwh + dynamic_kwh + boot_kwh
 
-        return {
+        eval_steps = n_steps - self.warm_start_steps
+
+        out = {
             "energy_kwh": round(total_energy_kwh, 4),
             "energy_idle_kwh": round(idle_kwh, 4),
             "energy_dynamic_kwh": round(dynamic_kwh, 4),
             "energy_boot_kwh": round(boot_kwh, 4),
             "capacity_shortfall_minutes": capacity_shortfalls,
-            "capacity_shortfall_rate_pct": round((capacity_shortfalls / max(n_steps, 1)) * 100.0, 2),
+            "capacity_shortfall_rate_pct": round((capacity_shortfalls / max(eval_steps, 1)) * 100.0, 2),
             "scaling_actions": scaling_actions,
             "scaling_churn": total_churn,
-            "mean_allocated_replicas": round(float(np.mean(allocated_replicas_history)), 2),
-            "mean_active_nodes": round(float(np.mean(node_active_counts)), 2),
+            "mean_allocated_replicas": round(float(np.mean(allocated_replicas_history)) if allocated_replicas_history else 0.0, 2),
+            "mean_active_nodes": round(float(np.mean(node_active_counts)) if node_active_counts else 0.0, 2),
+            "mean_nodes_needed": round(float(np.mean(nodes_needed_history)) if nodes_needed_history else 0.0, 2),
+            "time_series_sample": time_series_records,
         }
+        if return_series:
+            out["series"] = series
+        return out

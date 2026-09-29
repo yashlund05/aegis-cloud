@@ -1,27 +1,27 @@
 """
-Comprehensive IEEE Paper Benchmark Suite for Aegis.
+Comprehensive IEEE Paper Benchmark Suite for Aegis (frozen simulator harness).
 
-Executes:
-1. Primary Multi-Pattern Benchmark across 4 patterns (diurnal, steady, bursty, flash_crowd) over 5 seeds.
-2. Headroom-Matched Safety Margin Sweeps (Pareto Frontier: Energy vs Capacity Shortfall):
-   - Aegis quantile tau in {0.50, 0.70, 0.80, 0.90, 0.95, 0.99}
-   - Reactive baselines: HPA target utilization in {50%, 60%, 70%, 80%} and CA node buffer in {0, 1}
-   - Evaluates Pareto dominance.
-3. Energy Component Breakdown (Idle, Dynamic, Boot) across configurations.
-4. Multi-Resource (CPU + Mem) Vector Bin-Packing vs Naive Spreading (measuring fragmentation).
-5. Pre-Wake Validation and True Oracle Upper Bound.
-6. Parameter Sensitivity Sweeps with full 95% Student's t-distribution CIs.
-7. Rolling Recalibration vs Single-Day Calibration and Linear-Tail Extrapolation tests.
+Sections (all print tables and persist JSON under eval/):
+  A. Primary Multi-Pattern Benchmark  -> eval/multi_pattern_ablation_results.json
+  B. Item 2: Replica/node time series + action-count decomposition -> eval/item2_timeseries.json
+  C. Item 3: K_min sweep on low_load  -> eval/item3_kmin_sweep.json
+  D. Item 4: Pareto frontier incl. oracle + matched-shortfall paired deltas
+     on Poisson bursty AND structured_burst -> eval/pareto_frontier_results.json
+  E. Item 5: Node wake latency sweep {1,3,5,10,15} min -> eval/item5_wake_sweep.json
+  F. Item 6: Measured placement effect (power-down on in both arms) -> eval/item6_placement.json
+  G. Item 7: Rolling vs single-day calibration, per-seed raw coverage -> eval/item7_calibration.json
+  H. Item 8: HPA-realistic scale-up flash crowd study + step-limit sweep -> eval/item8_flash_crowd.json
+
+Run:  python eval/run_experiments.py --seeds 42,101,202,303,404
 """
 
+import argparse
+import json
 import os
 import sys
-import json
-import argparse
-from datetime import datetime
-from typing import List, Dict, Any, Tuple
+from typing import Dict, List, Tuple
+
 import numpy as np
-import pandas as pd
 from scipy import stats
 
 sys.path.insert(0, os.path.abspath("."))
@@ -29,11 +29,20 @@ sys.path.insert(0, os.path.abspath("."))
 from datasets.workload_patterns import generate_pattern_trace
 from ml.evaluation.ablation import AblationStudy, get_default_nodes
 
+ALL_CONFIGS = [
+    "stock_hpa",
+    "cluster_autoscaler",
+    "reactive_hpa_plus_consolidation",
+    "forecast_only",
+    "forecast_placement",
+    "forecast_plus_power_no_placement",
+    "full_aegis",
+    "full_aegis_conformal",
+    "oracle",
+]
+
 
 def compute_ci95(data: list) -> Tuple[float, float, float]:
-    """
-    Computes (mean, std, ci95_half_width) for a sample list using Student's t-distribution.
-    """
     arr = np.array(data, dtype=float)
     n = len(arr)
     mean = float(np.mean(arr))
@@ -42,484 +51,486 @@ def compute_ci95(data: list) -> Tuple[float, float, float]:
     std = float(np.std(arr, ddof=1))
     sem = std / np.sqrt(n)
     t_crit = float(stats.t.ppf(0.975, df=n - 1))
-    ci95 = float(t_crit * sem)
-    return round(mean, 2), round(std, 2), round(ci95, 2)
+    return round(mean, 2), round(std, 2), round(float(t_crit * sem), 2)
 
 
-def compute_paired_diff(a_vals: list, b_vals: list) -> Tuple[float, float, float, bool]:
-    """
-    Computes paired difference statistics (A - B) across seeds with t-distribution 95% CI.
-    Returns: (mean, std, ci95, excludes_zero)
-    """
+def paired_diff(a_vals: list, b_vals: list) -> Dict[str, float]:
     diffs = np.array(a_vals, dtype=float) - np.array(b_vals, dtype=float)
     n = len(diffs)
     mean = float(np.mean(diffs))
     if n <= 1:
-        return mean, 0.0, 0.0, False
+        return {"mean": mean, "ci95": 0.0, "excludes_zero": False}
     std = float(np.std(diffs, ddof=1))
     sem = std / np.sqrt(n)
     t_crit = float(stats.t.ppf(0.975, df=n - 1))
     ci95 = float(t_crit * sem)
-    excludes_zero = (mean - ci95 > 0) or (mean + ci95 < 0)
-    return round(mean, 2), round(std, 2), round(ci95, 2), excludes_zero
-
-
-def run_experiment_suite(
-    patterns: List[str],
-    seeds: List[int],
-    duration_days: int = 5,
-    horizon: int = 10,
-    topology: str = "large",
-    output_dir: str = "eval",
-    wake_up_latency: int = 3,
-    idle_power_frac: float = None,
-    alpha: float = None,
-    k_min: int = 2,
-    study_label: str = "Primary Benchmark",
-    quantile_tau: float = 0.90,
-    hpa_target_util: float = 0.70,
-    ca_node_buffer: int = 0,
-    rolling_recalib: bool = False,
-    use_linear_tail: bool = False,
-) -> Dict[str, Any]:
-    nodes = get_default_nodes(scale=topology, idle_power_fraction=idle_power_frac, alpha=alpha)
-    total_cpu = sum(n["cpu_capacity"] for n in nodes)
-
-    configs_list = [
-        "stock_hpa",
-        "cluster_autoscaler",
-        "reactive_hpa_plus_consolidation",
-        "forecast_only",
-        "forecast_placement",
-        "forecast_plus_power_no_placement",
-        "full_aegis",
-        "full_aegis_conformal",
-        "oracle",
-    ]
-
-    study = AblationStudy(
-        nodes=nodes,
-        min_active_nodes=k_min,
-        wake_up_latency_steps=wake_up_latency,
-        cluster_autoscaler_scale_down_delay=10,
-    )
-
-    all_pattern_results = {}
-
-    for pattern in patterns:
-        metric_records = {
-            cfg: {
-                "energy_kwh": [],
-                "energy_idle_kwh": [],
-                "energy_dynamic_kwh": [],
-                "energy_boot_kwh": [],
-                "capacity_shortfall_minutes": [],
-                "scaling_actions": [],
-                "scaling_churn": [],
-                "mean_allocated_replicas": [],
-                "mean_active_nodes": [],
-            }
-            for cfg in configs_list
-        }
-
-        forecast_records = {
-            "wmape_p50": [],
-            "pinball_loss_p10": [],
-            "pinball_loss_p50": [],
-            "pinball_loss_p90": [],
-            "interval_coverage_uncalibrated_pct": [],
-            "interval_coverage_conformal_pct": [],
-            "calibration_fraction_below_p10_uncalibrated": [],
-            "calibration_fraction_below_p10_conformal": [],
-            "calibration_fraction_below_p50": [],
-            "calibration_fraction_below_p90_uncalibrated": [],
-            "calibration_fraction_below_p90_conformal": [],
-        }
-
-        for seed in seeds:
-            trace = generate_pattern_trace(
-                workload_id=f"workload-{pattern}",
-                pattern=pattern,
-                duration_days=duration_days,
-                seed=seed,
-            )
-
-            res = study.run_comparison(
-                trace_data=trace,
-                output_dir=output_dir,
-                forecast_horizon_minutes=horizon,
-                calibration_window_steps=1440,
-                scale_workload=1.0,
-                quantile_tau=quantile_tau,
-                hpa_target_util=hpa_target_util,
-                ca_node_buffer=ca_node_buffer,
-                rolling_recalibration=rolling_recalib,
-                use_linear_tail=use_linear_tail,
-            )
-
-            fm = res["forecaster_metrics"]
-            for k in forecast_records:
-                if k in fm:
-                    forecast_records[k].append(fm[k])
-
-            cfgs = res["configurations"]
-            for cfg in configs_list:
-                c_res = cfgs[cfg]
-                for m_name in metric_records[cfg]:
-                    metric_records[cfg][m_name].append(c_res[m_name])
-
-        pattern_summary = {}
-        for cfg in configs_list:
-            pattern_summary[cfg] = {}
-            for m_name, vals in metric_records[cfg].items():
-                mean, std, ci95 = compute_ci95(vals)
-                pattern_summary[cfg][m_name] = {"mean": mean, "std": std, "ci95": ci95, "raw": vals}
-
-        # Paired differences
-        e_diff_ca_mean, _, e_diff_ca_ci, e_diff_ca_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["energy_kwh"],
-            metric_records["cluster_autoscaler"]["energy_kwh"],
-        )
-        s_diff_ca_mean, _, s_diff_ca_ci, s_diff_ca_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["capacity_shortfall_minutes"],
-            metric_records["cluster_autoscaler"]["capacity_shortfall_minutes"],
-        )
-        a_diff_ca_mean, _, a_diff_ca_ci, a_diff_ca_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["scaling_actions"],
-            metric_records["cluster_autoscaler"]["scaling_actions"],
-        )
-
-        e_diff_rh_mean, _, e_diff_rh_ci, e_diff_rh_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["energy_kwh"],
-            metric_records["reactive_hpa_plus_consolidation"]["energy_kwh"],
-        )
-        s_diff_rh_mean, _, s_diff_rh_ci, s_diff_rh_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["capacity_shortfall_minutes"],
-            metric_records["reactive_hpa_plus_consolidation"]["capacity_shortfall_minutes"],
-        )
-        a_diff_rh_mean, _, a_diff_rh_ci, a_diff_rh_sig = compute_paired_diff(
-            metric_records["full_aegis_conformal"]["scaling_actions"],
-            metric_records["reactive_hpa_plus_consolidation"]["scaling_actions"],
-        )
-
-        all_pattern_results[pattern] = {
-            "configurations": pattern_summary,
-            "forecaster_metrics": {k: compute_ci95(v) for k, v in forecast_records.items()},
-            "paired_vs_cluster_autoscaler": {
-                "energy_kwh": {"diff": e_diff_ca_mean, "ci95": e_diff_ca_ci, "excludes_zero": e_diff_ca_sig},
-                "shortfall_min": {"diff": s_diff_ca_mean, "ci95": s_diff_ca_ci, "excludes_zero": s_diff_ca_sig},
-                "actions": {"diff": a_diff_ca_mean, "ci95": a_diff_ca_ci, "excludes_zero": a_diff_ca_sig},
-            },
-            "paired_vs_reactive_consolidation": {
-                "energy_kwh": {"diff": e_diff_rh_mean, "ci95": e_diff_rh_ci, "excludes_zero": e_diff_rh_sig},
-                "shortfall_min": {"diff": s_diff_rh_mean, "ci95": s_diff_rh_ci, "excludes_zero": s_diff_rh_sig},
-                "actions": {"diff": a_diff_rh_mean, "ci95": a_diff_rh_ci, "excludes_zero": a_diff_rh_sig},
-            },
-        }
-
-    return all_pattern_results
-
-
-def run_pareto_frontier_study(seeds: List[int], pattern: str = "bursty", output_dir: str = "eval"):
-    """
-    Sweeps the safety-margin knob for Aegis and reactive baselines to establish
-    the Energy vs Shortfall Pareto Frontier across 5 seeds with 95% CIs.
-    """
-    print("\n" + "=" * 105)
-    print(f"      HEADROOM-MATCHED PARETO FRONTIER SWEEP (Workload: {pattern.upper()}, {len(seeds)} Seeds)")
-    print("=" * 105)
-
-    aegis_taus = [0.50, 0.70, 0.80, 0.90, 0.95, 0.99]
-    reactive_utils = [0.80, 0.70, 0.60, 0.50]
-
-    study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
-
-    pareto_records = {
-        "aegis": [],
-        "cluster_autoscaler": [],
-        "cluster_autoscaler_buffered": [],
-        "reactive_consolidation": [],
+    return {
+        "mean": round(mean, 3),
+        "ci95": round(ci95, 3),
+        "excludes_zero": bool(mean - ci95 > 0 or mean + ci95 < 0),
     }
 
-    # 1. Sweep Aegis Quantile Tau
-    print(">>> Sweeping Aegis Quantile Tau in {0.50, 0.70, 0.80, 0.90, 0.95, 0.99}...")
-    for tau in aegis_taus:
-        e_list, s_list = [], []
-        for seed in seeds:
-            trace = generate_pattern_trace(workload_id="pareto-test", pattern=pattern, seed=seed)
-            res = study.run_comparison(trace, output_dir=output_dir, quantile_tau=tau)
-            e_list.append(res["configurations"]["full_aegis_conformal"]["energy_kwh"])
-            s_list.append(res["configurations"]["full_aegis_conformal"]["capacity_shortfall_minutes"])
-        e_m, _, e_ci = compute_ci95(e_list)
-        s_m, _, s_ci = compute_ci95(s_list)
-        pareto_records["aegis"].append({
-            "param": f"tau={tau}",
-            "energy_kwh": e_m, "energy_ci95": e_ci,
-            "shortfall_min": s_m, "shortfall_ci95": s_ci,
-        })
 
-    # 2. Sweep Reactive Baselines Utilization
-    print(">>> Sweeping Reactive Target Utilization in {80%, 70%, 60%, 50%}...")
-    for util in reactive_utils:
-        # Cluster Autoscaler (buffer = 0)
-        e_list, s_list = [], []
-        for seed in seeds:
-            trace = generate_pattern_trace(workload_id="pareto-test", pattern=pattern, seed=seed)
-            res = study.run_comparison(trace, output_dir=output_dir, hpa_target_util=util, ca_node_buffer=0)
-            e_list.append(res["configurations"]["cluster_autoscaler"]["energy_kwh"])
-            s_list.append(res["configurations"]["cluster_autoscaler"]["capacity_shortfall_minutes"])
-        e_m, _, e_ci = compute_ci95(e_list)
-        s_m, _, s_ci = compute_ci95(s_list)
-        pareto_records["cluster_autoscaler"].append({
-            "param": f"util={int(util*100)}%",
-            "energy_kwh": e_m, "energy_ci95": e_ci,
-            "shortfall_min": s_m, "shortfall_ci95": s_ci,
-        })
-
-        # Cluster Autoscaler with Headroom Buffer (+1 node buffer)
-        e_list_b, s_list_b = [], []
-        for seed in seeds:
-            trace = generate_pattern_trace(workload_id="pareto-test", pattern=pattern, seed=seed)
-            res = study.run_comparison(trace, output_dir=output_dir, hpa_target_util=util, ca_node_buffer=1)
-            e_list_b.append(res["configurations"]["cluster_autoscaler"]["energy_kwh"])
-            s_list_b.append(res["configurations"]["cluster_autoscaler"]["capacity_shortfall_minutes"])
-        e_mb, _, e_cib = compute_ci95(e_list_b)
-        s_mb, _, s_cib = compute_ci95(s_list_b)
-        pareto_records["cluster_autoscaler_buffered"].append({
-            "param": f"util={int(util*100)}%+buf1",
-            "energy_kwh": e_mb, "energy_ci95": e_cib,
-            "shortfall_min": s_mb, "shortfall_ci95": s_cib,
-        })
-
-    # Print Pareto Table
-    print("\n" + "-" * 85)
-    print(f"{'Method / Setting':<30} | {'Energy (kWh)':<24} | {'Shortfall (min)':<24}")
-    print("-" * 85)
-    print("[Aegis Conformal Frontier]")
-    for pt in pareto_records["aegis"]:
-        e_str = f"{pt['energy_kwh']:.2f} +/- {pt['energy_ci95']:.2f}"
-        s_str = f"{pt['shortfall_min']:.1f} +/- {pt['shortfall_ci95']:.1f}"
-        print(f"  {pt['param']:<28} | {e_str:<24} | {s_str:<24}")
-
-    print("\n[Cluster Autoscaler Frontier]")
-    for pt in pareto_records["cluster_autoscaler"]:
-        e_str = f"{pt['energy_kwh']:.2f} +/- {pt['energy_ci95']:.2f}"
-        s_str = f"{pt['shortfall_min']:.1f} +/- {pt['shortfall_ci95']:.1f}"
-        print(f"  {pt['param']:<28} | {e_str:<24} | {s_str:<24}")
-
-    print("\n[Cluster Autoscaler + 1-Node Headroom Buffer]")
-    for pt in pareto_records["cluster_autoscaler_buffered"]:
-        e_str = f"{pt['energy_kwh']:.2f} +/- {pt['energy_ci95']:.2f}"
-        s_str = f"{pt['shortfall_min']:.1f} +/- {pt['shortfall_ci95']:.1f}"
-        print(f"  {pt['param']:<28} | {e_str:<24} | {s_str:<24}")
-    print("-" * 85)
-
-    pareto_path = os.path.join(output_dir, "pareto_frontier_results.json")
-    with open(pareto_path, "w") as f:
-        json.dump(pareto_records, f, indent=2)
-    return pareto_records
+def interp_energy_at_shortfall(points: List[Tuple[float, float]], target_sf: float) -> float:
+    """Linear interpolation of energy at a target shortfall along a method's
+    (shortfall, energy) sweep curve. points must be sorted by shortfall."""
+    pts = sorted(points, key=lambda p: p[0])
+    xs = np.array([p[0] for p in pts], dtype=float)
+    ys = np.array([p[1] for p in pts], dtype=float)
+    return float(np.interp(target_sf, xs, ys))
 
 
-def run_flash_crowd_tail_extrapolation_study(seeds: List[int], output_dir: str = "eval"):
-    """
-    Tests whether tree extrapolation limits explain flash-crowd shortfall
-    by comparing standard LightGBM trees against a linear-tail correction.
-    """
-    print("\n" + "=" * 105)
-    print("      FLASH CROWD EXTRAPOLATION STUDY: STANDARD LIGHTGBM VS LINEAR-TAIL CORRECTION")
-    print("=" * 105)
+# ---------------------------------------------------------------------------
+# A. Primary multi-pattern benchmark
+# ---------------------------------------------------------------------------
+def run_primary(seeds: List[int], patterns: List[str], output_dir: str) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [A] PRIMARY MULTI-PATTERN BENCHMARK (5 seeds, warm-start 60 min excluded, t-based 95% CIs)")
+    print("=" * 118)
 
     study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
+    out = {}
+    for pattern in patterns:
+        rec = {cfg: {m: [] for m in (
+            "energy_kwh", "energy_idle_kwh", "energy_dynamic_kwh", "energy_boot_kwh",
+            "capacity_shortfall_minutes", "scaling_actions", "scaling_churn",
+            "mean_allocated_replicas", "mean_active_nodes")} for cfg in ALL_CONFIGS}
+        fm_rec: Dict[str, list] = {}
+        for seed in seeds:
+            trace = generate_pattern_trace(f"workload-{pattern}", pattern=pattern, duration_days=5, seed=seed)
+            res = study.run_comparison(trace, output_dir=output_dir)
+            for k, v in res["forecaster_metrics"].items():
+                fm_rec.setdefault(k, []).append(v)
+            for cfg in ALL_CONFIGS:
+                for m in rec[cfg]:
+                    rec[cfg][m].append(res["configurations"][cfg][m])
 
-    std_shortfalls = []
-    tail_shortfalls = []
-    std_energy = []
-    tail_energy = []
+        summary = {cfg: {m: compute_ci95(v) for m, v in rec[cfg].items()} for cfg in ALL_CONFIGS}
+        # keep raw per-seed values for pairing
+        for cfg in ALL_CONFIGS:
+            for m, v in rec[cfg].items():
+                summary[cfg][m] = {"mean": summary[cfg][m][0], "std": summary[cfg][m][1],
+                                   "ci95": summary[cfg][m][2], "raw": v}
 
-    for seed in seeds:
-        trace = generate_pattern_trace(workload_id="fc-extrap", pattern="flash_crowd", seed=seed)
-        
-        # 1. Standard tree
-        res_std = study.run_comparison(trace, output_dir=output_dir, use_linear_tail=False)
-        std_shortfalls.append(res_std["configurations"]["full_aegis_conformal"]["capacity_shortfall_minutes"])
-        std_energy.append(res_std["configurations"]["full_aegis_conformal"]["energy_kwh"])
+        print(f"\n  BENCHMARK SUMMARY: {pattern.upper()}  (trace = 5 days, eval = 5700 min after warm start)")
+        hdr = (f"  {'Configuration':<34} | {'Total kWh':<16} | {'Idle kWh':<13} | {'Dyn kWh':<13} | "
+               f"{'Shortfall min':<17} | {'Actions(ev)':<13} | {'Churn(pods)':<13} | {'Nodes':<7}")
+        print(hdr)
+        print("  " + "-" * 132)
+        for cfg in ALL_CONFIGS:
+            e, i, d = summary[cfg]["energy_kwh"], summary[cfg]["energy_idle_kwh"], summary[cfg]["energy_dynamic_kwh"]
+            s, a, c, n = (summary[cfg]["capacity_shortfall_minutes"], summary[cfg]["scaling_actions"],
+                          summary[cfg]["scaling_churn"], summary[cfg]["mean_active_nodes"])
+            print(f"  {cfg:<34} | {e['mean']:>7.2f} +/-{e['ci95']:<6.2f} | {i['mean']:>6.2f}       | "
+                  f"{d['mean']:>6.2f}       | {s['mean']:>6.1f} +/-{s['ci95']:<5.1f} | {a['mean']:>5.1f} +/-{a['ci95']:<5.1f} | "
+                  f"{c['mean']:>6.1f}       | {n['mean']:>4.1f}")
 
-        # 2. Linear-tail corrected
-        res_tail = study.run_comparison(trace, output_dir=output_dir, use_linear_tail=True)
-        tail_shortfalls.append(res_tail["configurations"]["full_aegis_conformal"]["capacity_shortfall_minutes"])
-        tail_energy.append(res_tail["configurations"]["full_aegis_conformal"]["energy_kwh"])
+        paired = {
+            "energy_vs_ca": paired_diff(rec["full_aegis_conformal"]["energy_kwh"], rec["cluster_autoscaler"]["energy_kwh"]),
+            "shortfall_vs_ca": paired_diff(rec["full_aegis_conformal"]["capacity_shortfall_minutes"], rec["cluster_autoscaler"]["capacity_shortfall_minutes"]),
+            "churn_vs_ca": paired_diff(rec["full_aegis_conformal"]["scaling_churn"], rec["cluster_autoscaler"]["scaling_churn"]),
+        }
+        print("  Paired deltas (full_aegis_conformal - cluster_autoscaler), per-seed, 95% t-interval:")
+        print(f"    Energy   : {paired['energy_vs_ca']['mean']:+.2f} +/- {paired['energy_vs_ca']['ci95']:.2f} kWh  (CI excludes 0: {paired['energy_vs_ca']['excludes_zero']})")
+        print(f"    Shortfall: {paired['shortfall_vs_ca']['mean']:+.1f} +/- {paired['shortfall_vs_ca']['ci95']:.1f} min   (CI excludes 0: {paired['shortfall_vs_ca']['excludes_zero']})")
+        print(f"    Churn    : {paired['churn_vs_ca']['mean']:+.1f} +/- {paired['churn_vs_ca']['ci95']:.1f} pods  (CI excludes 0: {paired['churn_vs_ca']['excludes_zero']})")
 
-    s_std_m, _, s_std_ci = compute_ci95(std_shortfalls)
-    s_tail_m, _, s_tail_ci = compute_ci95(tail_shortfalls)
-    e_std_m, _, e_std_ci = compute_ci95(std_energy)
-    e_tail_m, _, e_tail_ci = compute_ci95(tail_energy)
-
-    print(f"  Standard LightGBM Trees   : Shortfall = {s_std_m:.1f} +/- {s_std_ci:.1f} min | Energy = {e_std_m:.2f} +/- {e_std_ci:.2f} kWh")
-    print(f"  Linear-Tail Corrected Trees: Shortfall = {s_tail_m:.1f} +/- {s_tail_ci:.1f} min | Energy = {e_tail_m:.2f} +/- {e_tail_ci:.2f} kWh")
-    diff_m, _, diff_ci, sig = compute_paired_diff(tail_shortfalls, std_shortfalls)
-    print(f"  Shortfall Delta (Linear-Tail minus Standard): {diff_m:+.1f} +/- {diff_ci:.1f} min (Statistically Significant: {sig})")
+        out[pattern] = {"configurations": summary,
+                        "forecaster_metrics": {k: compute_ci95(v) for k, v in fm_rec.items()},
+                        "forecaster_metrics_raw": fm_rec,
+                        "paired_vs_cluster_autoscaler": paired}
+    with open(os.path.join(output_dir, "multi_pattern_ablation_results.json"), "w") as f:
+        json.dump(out, f, indent=2)
+    return out
 
 
-def run_rolling_vs_single_calibration_study(seeds: List[int], output_dir: str = "eval"):
-    """
-    Compares Single-Day calibration against Rolling 1440-minute walk-forward recalibration.
-    """
-    print("\n" + "=" * 105)
-    print("      CONFORMAL CALIBRATION STUDY: SINGLE-DAY CALIBRATION VS ROLLING RECALIBRATION")
-    print("=" * 105)
+# ---------------------------------------------------------------------------
+# B. Item 2: time series + action decomposition
+# ---------------------------------------------------------------------------
+def run_item2(seeds: List[int], output_dir: str, seed_for_series: int = 42) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [B / ITEM 2] REPLICA & ACTIVE-NODE TRAJECTORIES + ACTION DECOMPOSITION")
+    print("=" * 118)
+    cfgs = ["cluster_autoscaler", "full_aegis_conformal", "oracle"]
+    out: Dict = {}
+    for pattern in ("diurnal", "bursty"):
+        study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
+        trace = generate_pattern_trace(f"item2-{pattern}", pattern=pattern, duration_days=5, seed=seed_for_series)
+        res = study.run_comparison(trace, output_dir=output_dir, configs_to_run=cfgs, return_series=True)
+
+        print(f"\n  {pattern.upper()}, seed {seed_for_series}: replicas / active nodes over time (hourly samples from warm-start)")
+        print(f"  {'minute':>7} | {'demand':>8} | " + " | ".join(f"{c.replace('full_aegis_','aegis_'):>26}" for c in cfgs))
+        print("  " + "-" * 100)
+        sers = {c: res["configurations"][c]["series"] for c in cfgs}
+        minutes = sers[cfgs[0]]["minute"]
+        for k in range(0, len(minutes), 60):
+            row = []
+            for c in cfgs:
+                s = sers[c]
+                row.append(f"r={s['replicas'][k]:>3} n={s['active_nodes'][k]:>2} sf={s['shortfall'][k]}")
+            print(f"  {minutes[k]:>7} | {sers[cfgs[0]]['actual_demand'][k]:>8.2f} | " + " | ".join(f"{r:>26}" for r in row))
+
+        print(f"\n  Action counts, {pattern.upper()} (mean over seeds {seeds}; events vs total replica delta):")
+        agg = {c: {"events": [], "delta": []} for c in cfgs}
+        for seed in seeds:
+            tr = generate_pattern_trace(f"item2-{pattern}", pattern=pattern, duration_days=5, seed=seed)
+            r = study.run_comparison(tr, output_dir=output_dir, configs_to_run=cfgs)
+            for c in cfgs:
+                agg[c]["events"].append(r["configurations"][c]["scaling_actions"])
+                agg[c]["delta"].append(r["configurations"][c]["scaling_churn"])
+        print(f"  {'Config':<28} | {'Action events (mean +/- ci)':<28} | {'Total replica delta (mean +/- ci)':<34}")
+        print("  " + "-" * 100)
+        for c in cfgs:
+            ev, dv = compute_ci95(agg[c]["events"]), compute_ci95(agg[c]["delta"])
+            print(f"  {c:<28} | {ev[0]:>8.1f} +/- {ev[2]:<6.1f}          | {dv[0]:>10.1f} +/- {dv[2]:<6.1f}")
+            agg[c]["events_ci"] = ev
+            agg[c]["delta_ci"] = dv
+        out[pattern] = {"series": {c: sers[c] for c in cfgs}, "actions": agg}
+    with open(os.path.join(output_dir, "item2_timeseries.json"), "w") as f:
+        json.dump(out, f, indent=2)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# C. Item 3: K_min sweep on low_load
+# ---------------------------------------------------------------------------
+def run_item3(seeds: List[int], output_dir: str) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [C / ITEM 3] K_MIN RESILIENCE-FLOOR SWEEP ON LOW-LOAD TRACE (warm start excluded)")
+    print("=" * 118)
+    cfgs = ["cluster_autoscaler", "full_aegis_conformal", "oracle"]
+    out = {}
+    for k in (1, 2, 3):
+        study = AblationStudy(min_active_nodes=k, wake_up_latency_steps=3)
+        rec = {c: {m: [] for m in ("energy_kwh", "energy_idle_kwh", "capacity_shortfall_minutes", "mean_active_nodes")} for c in cfgs}
+        for seed in seeds:
+            trace = generate_pattern_trace("kmin-lowload", pattern="low_load", duration_days=5, seed=seed)
+            res = study.run_comparison(trace, output_dir=output_dir, configs_to_run=cfgs)
+            for c in cfgs:
+                for m in rec[c]:
+                    rec[c][m].append(res["configurations"][c][m])
+        out[f"k_min={k}"] = {c: {m: compute_ci95(v) for m, v in rec[c].items()} for c in cfgs}
+        print(f"\n  --- K_min = {k} (low_load trace, demand 1.5-5.6 cores) ---")
+        print(f"  {'Config':<28} | {'Total kWh':<16} | {'Idle kWh':<16} | {'Mean active nodes':<19} | {'Shortfall':<13}")
+        print("  " + "-" * 105)
+        for c in cfgs:
+            e, i, n, s = (out[f"k_min={k}"][c]["energy_kwh"], out[f"k_min={k}"][c]["energy_idle_kwh"],
+                          out[f"k_min={k}"][c]["mean_active_nodes"], out[f"k_min={k}"][c]["capacity_shortfall_minutes"])
+            print(f"  {c:<28} | {e[0]:>7.2f} +/-{e[2]:<6.2f} | {i[0]:>6.2f} +/-{i[2]:<6.2f} | {n[0]:>8.2f}            | {s[0]:>6.1f}")
+    with open(os.path.join(output_dir, "item3_kmin_sweep.json"), "w") as f:
+        json.dump(out, f, indent=2)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# D. Item 4: Pareto frontier with oracle + matched-shortfall paired deltas
+# ---------------------------------------------------------------------------
+def run_item4(seeds: List[int], output_dir: str, patterns=("bursty", "structured_burst")) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [D / ITEM 4] PARETO FRONTIER (Aegis tau sweep vs CA utilization sweep) + ORACLE POINT")
+    print("  Paired per-seed energy deltas at matched shortfall via interpolation along each method's curve")
+    print("=" * 118)
+
+    aegis_taus = [0.50, 0.70, 0.80, 0.90, 0.95, 0.99]
+    ca_utils = [0.80, 0.70, 0.60, 0.50]
+    out = {}
+
+    for pattern in patterns:
+        study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
+        # per-seed curves
+        curves = {"aegis": {s: [] for s in seeds}, "ca": {s: [] for s in seeds}, "oracle": {s: [] for s in seeds}}
+        for seed in seeds:
+            trace = generate_pattern_trace("pareto", pattern=pattern, duration_days=5, seed=seed)
+            for tau in aegis_taus:
+                r = study.run_comparison(trace, output_dir=output_dir, quantile_tau=tau,
+                                         configs_to_run=["full_aegis_conformal"])
+                m = r["configurations"]["full_aegis_conformal"]
+                curves["aegis"][seed].append((m["capacity_shortfall_minutes"], m["energy_kwh"]))
+            for util in ca_utils:
+                r = study.run_comparison(trace, output_dir=output_dir, hpa_target_util=util,
+                                         configs_to_run=["cluster_autoscaler"])
+                m = r["configurations"]["cluster_autoscaler"]
+                curves["ca"][seed].append((m["capacity_shortfall_minutes"], m["energy_kwh"]))
+            r = study.run_comparison(trace, output_dir=output_dir, configs_to_run=["oracle"])
+            m = r["configurations"]["oracle"]
+            curves["oracle"][seed].append((m["capacity_shortfall_minutes"], m["energy_kwh"]))
+
+        agg = {}
+        for meth in ("aegis", "ca", "oracle"):
+            pts = curves[meth]
+            n_points = len(next(iter(pts.values())))
+            agg[meth] = []
+            for i in range(n_points):
+                e_list = [pts[s][i][1] for s in seeds]
+                s_list = [pts[s][i][0] for s in seeds]
+                e, s = compute_ci95(e_list), compute_ci95(s_list)
+                agg[meth].append({"energy": e[0], "energy_ci95": e[2], "shortfall": s[0], "shortfall_ci95": s[2]})
+
+        # Matched-shortfall paired deltas: target = per-seed CA default shortfall cannot be
+        # interpolated per-seed against a common grid, so use each seed's own aegis default
+        # (tau=0.90) shortfall as that seed's target, interpolate CA energy at it.
+        diffs = []
+        for seed in seeds:
+            target_sf = curves["aegis"][seed][3][0]  # tau=0.90 is index 3
+            ca_e = interp_energy_at_shortfall(curves["ca"][seed], target_sf)
+            ae_e = curves["aegis"][seed][3][1]
+            diffs.append(ae_e - ca_e)
+        n = len(diffs)
+        mean_d = float(np.mean(diffs))
+        ci_d = float(stats.t.ppf(0.975, df=n - 1) * np.std(diffs, ddof=1) / np.sqrt(n)) if n > 1 else 0.0
+
+        print(f"\n  PARETO TABLE: {pattern.upper()} (Poisson bursts)" if pattern == "bursty"
+              else f"\n  PARETO TABLE: {pattern.upper()} (scheduled recurring bursts with jitter)")
+        print(f"  {'Method/Setting':<26} | {'Energy kWh':<18} | {'Shortfall min':<18}")
+        print("  " + "-" * 70)
+        for i, pt in enumerate(agg["aegis"]):
+            print(f"  aegis tau={aegis_taus[i]:<5.2f}        | {pt['energy']:>7.2f} +/-{pt['energy_ci95']:<6.2f} | {pt['shortfall']:>6.1f} +/-{pt['shortfall_ci95']:<5.1f}")
+        for i, pt in enumerate(agg["ca"]):
+            print(f"  CA util={int(ca_utils[i]*100):<3d}%           | {pt['energy']:>7.2f} +/-{pt['energy_ci95']:<6.2f} | {pt['shortfall']:>6.1f} +/-{pt['shortfall_ci95']:<5.1f}")
+        for pt in agg["oracle"]:
+            print(f"  {'oracle (perfect foresight)':<26} | {pt['energy']:>7.2f} +/-{pt['energy_ci95']:<6.2f} | {pt['shortfall']:>6.1f} +/-{pt['shortfall_ci95']:<5.1f}")
+        print(f"\n  Paired energy delta (aegis tau=0.90 - CA interpolated at aegis's shortfall), per seed: "
+              f"{[round(d,2) for d in diffs]}")
+        print(f"    mean {mean_d:+.2f} kWh, 95% t-interval +/-{ci_d:.2f}, excludes 0: {bool(mean_d - ci_d > 0 or mean_d + ci_d < 0)}")
+
+        out[pattern] = {
+            "aegis": [{"tau": t, **pt} for t, pt in zip(aegis_taus, agg["aegis"])],
+            "cluster_autoscaler": [{"util": u, **pt} for u, pt in zip(ca_utils, agg["ca"])],
+            "oracle": agg["oracle"],
+            "matched_shortfall_paired_energy_delta": {
+                "per_seed": [round(d, 3) for d in diffs],
+                "mean": round(mean_d, 3), "ci95": round(ci_d, 3),
+                "excludes_zero": bool(mean_d - ci_d > 0 or mean_d + ci_d < 0),
+            },
+        }
+    with open(os.path.join(output_dir, "pareto_frontier_results.json"), "w") as f:
+        json.dump(out, f, indent=2)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# E. Item 5: wake latency sweep
+# ---------------------------------------------------------------------------
+def run_item5(seeds: List[int], output_dir: str, patterns=("diurnal", "bursty")) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [E / ITEM 5] NODE WAKE-LATENCY SWEEP (1, 3, 5, 10, 15 min) - 5 seeds")
+    print("=" * 118)
+    cfgs = ["cluster_autoscaler", "full_aegis_conformal", "oracle"]
+    out = {}
+    crossover = {}
+    for pattern in patterns:
+        crossover_pat = None
+        for lat in (1, 3, 5, 10, 15):
+            key = f"{pattern}@{lat}m"
+            rec = {c: {m: [] for m in ("energy_kwh", "capacity_shortfall_minutes")} for c in cfgs}
+            for seed in seeds:
+                study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=lat)
+                trace = generate_pattern_trace("wake", pattern=pattern, duration_days=5, seed=seed)
+                res = study.run_comparison(trace, output_dir=output_dir, configs_to_run=cfgs)
+                for c in cfgs:
+                    for m in rec[c]:
+                        rec[c][m].append(res["configurations"][c][m])
+            out[key] = {c: {m: compute_ci95(v) for m, v in rec[c].items()} for c in cfgs}
+            a, ca = out[key]["full_aegis_conformal"], out[key]["cluster_autoscaler"]
+            beats = a["energy_kwh"][0] < ca["energy_kwh"][0] and a["capacity_shortfall_minutes"][0] <= ca["capacity_shortfall_minutes"][0]
+            if beats and crossover_pat is None:
+                crossover_pat = lat
+            print(f"\n  --- {pattern}, wake latency = {lat} min (forecast lookahead capped at horizon H=10) ---")
+            print(f"  {'Config':<28} | {'Energy kWh':<18} | {'Shortfall min':<15}")
+            print("  " + "-" * 68)
+            for c in cfgs:
+                e, s = out[key][c]["energy_kwh"], out[key][c]["capacity_shortfall_minutes"]
+                print(f"  {c:<28} | {e[0]:>7.2f} +/-{e[2]:<6.2f} | {s[0]:>6.1f}")
+        crossover[pattern] = crossover_pat
+        print(f"\n  => {pattern}: forecasting (full_aegis_conformal) first beats reactive CA on both energy and "
+              f"shortfall at W = {crossover_pat if crossover_pat else 'never (within 1-15 min)'} min")
+    with open(os.path.join(output_dir, "item5_wake_sweep.json"), "w") as f:
+        json.dump({"table": out, "forecast_first_beats_reactive_at_wake_latency_min": crossover}, f, indent=2)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# F. Item 6: measured placement effect
+# ---------------------------------------------------------------------------
+def run_item6(seeds: List[int], output_dir: str) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [F / ITEM 6] MEASURED PLACEMENT EFFECT - both arms with node power-down enabled")
+    print("=" * 118)
 
     study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
-    p_uncal, p_single, p_rolling = [], [], []
-
+    arms = {"no_placement (spread)": "forecast_plus_power_no_placement",
+            "with_placement (pack)": "full_aegis"}
+    rec = {a: {m: [] for m in ("energy_kwh", "energy_idle_kwh", "energy_dynamic_kwh",
+                               "capacity_shortfall_minutes", "mean_active_nodes", "mean_nodes_needed",
+                               "mean_allocated_replicas")} for a in arms}
     for seed in seeds:
-        trace = generate_pattern_trace(workload_id="calib-test", pattern="bursty", seed=seed)
-        res_s = study.run_comparison(trace, output_dir=output_dir, rolling_recalibration=False)
-        res_r = study.run_comparison(trace, output_dir=output_dir, rolling_recalibration=True)
-        p_uncal.append(res_s["forecaster_metrics"]["calibration_fraction_below_p90_uncalibrated"])
-        p_single.append(res_s["forecaster_metrics"]["calibration_fraction_below_p90_conformal"])
-        p_rolling.append(res_r["forecaster_metrics"]["calibration_fraction_below_p90_conformal"])
+        trace = generate_pattern_trace("place", pattern="diurnal", duration_days=5, seed=seed)
+        res = study.run_comparison(trace, output_dir=output_dir, configs_to_run=list(arms.values()))
+        for a, c in arms.items():
+            for m in rec[a]:
+                rec[a][m].append(res["configurations"][c][m])
+    summary = {a: {m: compute_ci95(v) for m, v in rec[a].items()} for a in arms}
 
-    u_m, _, u_ci = compute_ci95(p_uncal)
-    s_m, _, s_ci = compute_ci95(p_single)
-    r_m, _, r_ci = compute_ci95(p_rolling)
+    print(f"\n  {'Arm':<28} | {'Nodes needed':<14} | {'Idle kWh':<18} | {'Dyn kWh':<18} | {'Total kWh':<18} | {'Shortfall':<10}")
+    print("  " + "-" * 118)
+    for a in arms:
+        s = summary[a]
+        print(f"  {a:<28} | {s['mean_nodes_needed'][0]:>6.2f}        | {s['energy_idle_kwh'][0]:>6.2f} +/-{s['energy_idle_kwh'][2]:<6.2f} | "
+              f"{s['energy_dynamic_kwh'][0]:>6.2f} +/-{s['energy_dynamic_kwh'][2]:<6.2f} | {s['energy_kwh'][0]:>6.2f} +/-{s['energy_kwh'][2]:<6.2f} | {s['capacity_shortfall_minutes'][0]:>6.1f}")
+    d_idle = paired_diff(rec["with_placement (pack)"]["energy_idle_kwh"], rec["no_placement (spread)"]["energy_idle_kwh"])
+    d_tot = paired_diff(rec["with_placement (pack)"]["energy_kwh"], rec["no_placement (spread)"]["energy_kwh"])
+    d_nodes = paired_diff(rec["with_placement (pack)"]["mean_nodes_needed"], rec["no_placement (spread)"]["mean_nodes_needed"])
+    print(f"\n  Paired deltas (placement - no_placement): nodes {d_nodes['mean']:+.2f} +/-{d_nodes['ci95']:.2f}, "
+          f"idle {d_idle['mean']:+.2f} +/-{d_idle['ci95']:.2f} kWh, total {d_tot['mean']:+.2f} +/-{d_tot['ci95']:.2f} kWh")
 
-    print(f"  Target p90 Coverage                        : 0.9000")
-    print(f"  Uncalibrated LightGBM Coverage             : {u_m:.4f} +/- {u_ci:.4f}")
-    print(f"  Single-Day Calibration Coverage            : {s_m:.4f} +/- {s_ci:.4f}")
-    print(f"  Rolling Recalibration (1440m) Coverage     : {r_m:.4f} +/- {r_ci:.4f}")
+    # Mechanism: raw packer measurement across the replica range observed on this trace
+    print("\n  Mechanism - measured bins for the heterogeneous pod mix (50% (0.6 CPU,1.2 GB) / 50% (0.2 CPU,3.5 GB)),")
+    print("  kube-scheduler spreading vs first-fit-decreasing consolidation (no assumed pods/node):")
+    print(f"  {'pods':>6} | {'spread nodes':>13} | {'pack nodes':>11} | {'pods/node spread':>17} | {'pods/node pack':>15}")
+    print("  " + "-" * 72)
+    pack_tbl = []
+    for N in (6, 12, 24, 36, 48, 60, 72, 84, 96):
+        sp, pk = study._pack_pods(N, opt=False), study._pack_pods(N, opt=True)
+        pack_tbl.append({"pods": N, "spread_nodes": sp, "pack_nodes": pk})
+        print(f"  {N:>6} | {sp:>13} | {pk:>11} | {N/sp:>17.2f} | {N/pk:>15.2f}")
+
+    with open(os.path.join(output_dir, "item6_placement.json"), "w") as f:
+        json.dump({"arms": summary, "paired_deltas": {"nodes": d_nodes, "idle_kwh": d_idle, "total_kwh": d_tot},
+                   "packer_measurement": pack_tbl}, f, indent=2)
+    return {"arms": summary}
 
 
-def run_full_sensitivity_sweeps(seeds: List[int], output_dir: str = "eval"):
-    """
-    Executes full sensitivity sweeps with complete t-distribution 95% CIs.
-    """
-    sweep_results = {}
-    pattern = "diurnal"
-    configs = ["stock_hpa", "cluster_autoscaler", "reactive_hpa_plus_consolidation", "full_aegis_conformal", "oracle"]
+# ---------------------------------------------------------------------------
+# G. Item 7: calibration study
+# ---------------------------------------------------------------------------
+def run_item7(seeds: List[int], output_dir: str) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [G / ITEM 7] CONFORMAL CALIBRATION: SINGLE-DAY vs ROLLING RECALIBRATION (target p90 coverage 0.9000)")
+    print("  Causality: rolling residual window at decision step t is [t-H-W, t-H) - outcomes delayed by horizon H;")
+    print("  enforced and unit-tested in tests/unit/test_ablation_evaluation.py::test_rolling_recalibration_uses_only_horizon_delayed_outcomes")
+    print("=" * 118)
+    study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
+    per_seed = {}
+    for seed in seeds:
+        trace = generate_pattern_trace("calib", pattern="bursty", duration_days=5, seed=seed)
+        r_single = study.run_comparison(trace, output_dir=output_dir, rolling_recalibration=False,
+                                        configs_to_run=["full_aegis_conformal"])
+        r_roll = study.run_comparison(trace, output_dir=output_dir, rolling_recalibration=True,
+                                      configs_to_run=["full_aegis_conformal"])
+        per_seed[seed] = {
+            "uncalibrated": r_single["forecaster_metrics"]["calibration_fraction_below_p90_uncalibrated"],
+            "single_day": r_single["forecaster_metrics"]["calibration_fraction_below_p90_conformal"],
+            "rolling": r_roll["forecaster_metrics"]["calibration_fraction_below_p90_conformal"],
+            "rolling_interval_coverage_pct": r_roll["forecaster_metrics"]["interval_coverage_conformal_pct"],
+        }
+    print(f"\n  {'Seed':>6} | {'raw p90':>9} | {'single-day':>11} | {'rolling':>9}")
+    print("  " + "-" * 48)
+    for seed in seeds:
+        v = per_seed[seed]
+        print(f"  {seed:>6} | {v['uncalibrated']:>9.4f} | {v['single_day']:>11.4f} | {v['rolling']:>9.4f}")
+    for key in ("uncalibrated", "single_day", "rolling"):
+        vals = [per_seed[s][key] for s in seeds]
+        arr = np.array(vals, dtype=float)
+        mean = float(np.mean(arr))
+        if len(arr) > 1:
+            ci = float(stats.t.ppf(0.975, df=len(arr) - 1) * np.std(arr, ddof=1) / np.sqrt(len(arr)))
+        else:
+            ci = 0.0
+        print(f"  mean {key:<12}: {mean:.4f} +/- {ci:.4f} (std {np.std(arr, ddof=1):.4f})")
+    with open(os.path.join(output_dir, "item7_calibration.json"), "w") as f:
+        json.dump({"per_seed": per_seed}, f, indent=2)
+    return per_seed
 
-    print("\n" + "=" * 105)
-    print("      PARAMETER SENSITIVITY SWEEPS WITH 95% CONFIDENCE INTERVALS (Pattern: DIURNAL)")
-    print("=" * 105)
 
-    # 1. Wake-up Latency Sweep
-    print("\n>>> SWEEP 1: Node Wake-Up Latency (1m, 3m, 5m)")
-    sweep_results["wake_up_latency"] = {}
-    for lat in [1, 3, 5]:
-        res = run_experiment_suite(patterns=[pattern], seeds=seeds, wake_up_latency=lat, output_dir=output_dir)[pattern]
-        sweep_results["wake_up_latency"][f"{lat}m"] = res
-        print(f"\n--- Latency = {lat} min ---")
-        for cfg in configs:
-            e = res["configurations"][cfg]["energy_kwh"]
-            s = res["configurations"][cfg]["capacity_shortfall_minutes"]
-            print(f"  {cfg:<32}: Energy = {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} kWh | Shortfall = {s['mean']:>4.1f} +/- {s['ci95']:<4.1f} min")
+# ---------------------------------------------------------------------------
+# H. Item 8: flash crowd with HPA-realistic scale-up + step-limit sweep
+# ---------------------------------------------------------------------------
+def run_item8(seeds: List[int], output_dir: str) -> Dict:
+    print("\n" + "=" * 118)
+    print("  [H / ITEM 8] FLASH CROWD: HPA-REALISTIC SCALE-UP (max(4 pods, 100%) per 15s aggregated to 1 min)")
+    print("  vs legacy fixed caps; CA, stock HPA, Aegis conformal and oracle in one table")
+    print("=" * 118)
+    cfgs = ["stock_hpa", "cluster_autoscaler", "full_aegis_conformal", "oracle"]
 
-    # 2. Idle Power Fraction Sweep
-    print("\n>>> SWEEP 2: Idle Power Fraction (30%, 50%, 70% of P_max)")
-    sweep_results["idle_power_fraction"] = {}
-    for frac in [0.30, 0.50, 0.70]:
-        res = run_experiment_suite(patterns=[pattern], seeds=seeds, idle_power_frac=frac, output_dir=output_dir)[pattern]
-        sweep_results["idle_power_fraction"][f"{int(frac*100)}%"] = res
-        print(f"\n--- Idle Fraction = {int(frac*100)}% ---")
-        for cfg in configs:
-            e = res["configurations"][cfg]["energy_kwh"]
-            s = res["configurations"][cfg]["capacity_shortfall_minutes"]
-            print(f"  {cfg:<32}: Energy = {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} kWh | Shortfall = {s['mean']:>4.1f} +/- {s['ci95']:<4.1f} min")
+    # Main table with the realistic policy (max_scale_step=None default)
+    study = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3)
+    rec = {c: {m: [] for m in ("energy_kwh", "capacity_shortfall_minutes", "scaling_actions", "scaling_churn")} for c in cfgs}
+    for seed in seeds:
+        trace = generate_pattern_trace("fc", pattern="flash_crowd", duration_days=5, seed=seed)
+        res = study.run_comparison(trace, output_dir=output_dir, configs_to_run=cfgs)
+        for c in cfgs:
+            for m in rec[c]:
+                rec[c][m].append(res["configurations"][c][m])
+    main = {c: {m: compute_ci95(v) for m, v in rec[c].items()} for c in cfgs}
+    print(f"\n  {'Config':<28} | {'Energy kWh':<18} | {'Shortfall min':<17} | {'Action events':<16} | {'Replica delta':<15}")
+    print("  " + "-" * 100)
+    for c in cfgs:
+        e, s, a, ch = main[c]["energy_kwh"], main[c]["capacity_shortfall_minutes"], main[c]["scaling_actions"], main[c]["scaling_churn"]
+        print(f"  {c:<28} | {e[0]:>7.2f} +/-{e[2]:<6.2f} | {s[0]:>6.1f} +/-{s[2]:<5.1f} | {a[0]:>6.1f} +/-{a[2]:<5.1f} | {ch[0]:>6.1f}")
 
-    # 3. Alpha Exponent Sweep
-    print("\n>>> SWEEP 3: Alpha Exponent (1.0, 1.5, 2.0)")
-    sweep_results["alpha"] = {}
-    for a in [1.0, 1.5, 2.0]:
-        res = run_experiment_suite(patterns=[pattern], seeds=seeds, alpha=a, output_dir=output_dir)[pattern]
-        sweep_results["alpha"][f"alpha_{a}"] = res
-        print(f"\n--- Alpha = {a} ---")
-        for cfg in configs:
-            e = res["configurations"][cfg]["energy_kwh"]
-            s = res["configurations"][cfg]["capacity_shortfall_minutes"]
-            print(f"  {cfg:<32}: Energy = {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} kWh | Shortfall = {s['mean']:>4.1f} +/- {s['ci95']:<4.1f} min")
+    # Step-limit sweep (cap applied per 1-min decision step)
+    print(f"\n  Scale-up step-limit sweep on flash_crowd (full_aegis_conformal; 'HPA' = max(16, current)/min):")
+    print(f"  {'max step':<10} | {'Shortfall min':<17} | {'Action events':<16} | {'Replica delta':<15} | {'Energy kWh':<15}")
+    print("  " + "-" * 85)
+    sweep = {}
+    for cap, label in [(1, "1 pod/min"), (2, "2 pods/min"), (4, "4 pods/min"), (8, "8 pods/min"),
+                       (10, "10 pods/min (old)"), (None, "HPA-realistic")]:
+        st = AblationStudy(min_active_nodes=2, wake_up_latency_steps=3, max_scale_step=cap)
+        s_l, a_l, c_l, e_l = [], [], [], []
+        for seed in seeds:
+            trace = generate_pattern_trace("fc", pattern="flash_crowd", duration_days=5, seed=seed)
+            res = st.run_comparison(trace, output_dir=output_dir, configs_to_run=["full_aegis_conformal"])
+            m = res["configurations"]["full_aegis_conformal"]
+            s_l.append(m["capacity_shortfall_minutes"]); a_l.append(m["scaling_actions"])
+            c_l.append(m["scaling_churn"]); e_l.append(m["energy_kwh"])
+        s, a, c, e = compute_ci95(s_l), compute_ci95(a_l), compute_ci95(c_l), compute_ci95(e_l)
+        sweep[label] = {"shortfall": s, "actions": a, "churn": c, "energy": e}
+        print(f"  {label:<18} | {s[0]:>6.1f} +/-{s[2]:<5.1f} | {a[0]:>6.1f} +/-{a[2]:<5.1f} | {c[0]:>6.1f}          | {e[0]:>6.2f}")
 
-    # 4. K_min Resilience Floor Sweep
-    print("\n>>> SWEEP 4: K_min Resilience Floor (1, 2, 3 nodes)")
-    sweep_results["k_min"] = {}
-    for k in [1, 2, 3]:
-        res = run_experiment_suite(patterns=[pattern], seeds=seeds, k_min=k, output_dir=output_dir)[pattern]
-        sweep_results["k_min"][f"k_{k}"] = res
-        print(f"\n--- K_min = {k} nodes ---")
-        for cfg in configs:
-            e = res["configurations"][cfg]["energy_kwh"]
-            s = res["configurations"][cfg]["capacity_shortfall_minutes"]
-            print(f"  {cfg:<32}: Energy = {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} kWh | Shortfall = {s['mean']:>4.1f} +/- {s['ci95']:<4.1f} min")
-
-    sweep_path = os.path.join(output_dir, "sensitivity_sweep_results.json")
-    with open(sweep_path, "w") as f:
-        json.dump(sweep_results, f, indent=2)
+    with open(os.path.join(output_dir, "item8_flash_crowd.json"), "w") as f:
+        json.dump({"main": main, "step_limit_sweep": sweep}, f, indent=2)
+    return {"main": main, "sweep": sweep}
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Comprehensive IEEE Benchmark Suite.")
-    parser.add_argument("--seeds", type=str, default="42,101,202,303,404", help="Seeds")
-    parser.add_argument("--patterns", type=str, default="diurnal,steady,bursty,flash_crowd", help="Patterns")
-    parser.add_argument("--output", type=str, default="eval", help="Output directory")
+    parser = argparse.ArgumentParser(description="Aegis frozen-simulator IEEE benchmark suite.")
+    parser.add_argument("--seeds", type=str, default="42,101,202,303,404")
+    parser.add_argument("--patterns", type=str, default="diurnal,steady,bursty,structured_burst,flash_crowd")
+    parser.add_argument("--output", type=str, default="eval")
+    parser.add_argument("--sections", type=str, default="A,B,C,D,E,F,G,H",
+                        help="Comma-separated sections to run (A=primary, B=item2, ...)")
     args = parser.parse_args()
 
-    seed_list = [int(s.strip()) for s in args.seeds.split(",") if s.strip()]
-    pattern_list = [p.strip() for p in args.patterns.split(",") if p.strip()]
+    seeds = [int(s.strip()) for s in args.seeds.split(",") if s.strip()]
+    patterns = [p.strip() for p in args.patterns.split(",") if p.strip()]
+    sections = {s.strip().upper() for s in args.sections.split(",")}
+    os.makedirs(args.output, exist_ok=True)
 
-    print("=" * 105)
-    print("                    AEGIS COMPREHENSIVE IEEE PAPER EVALUATION SUITE")
-    print("=" * 105)
-    print(f"  Training dataset seed : 9999 (strictly independent from test seeds: {seed_list})")
-    print(f"  Calibration window    : Trace Day 1 (steps 0 to 1440, pre-test held-out)")
-    print(f"  Test evaluation window: Trace Days 2 to 5 (steps 1440 to 7200, strictly disjoint)")
-    print("=" * 105)
+    print("=" * 118)
+    print("  AEGIS FROZEN-SIMULATOR IEEE EVALUATION SUITE")
+    print(f"  Seeds: {seeds} | Patterns: {patterns}")
+    print("  Training data: seed 9999 pooled 6-pattern pool (independent of test seeds), cores units")
+    print("  Calibration: trace day 1 (steps 0-1440); test: steps 1440+; warm start 60 min excluded from all metrics")
+    print("=" * 118)
 
-    # 1. Primary Multi-Pattern Benchmark
-    primary_res = run_experiment_suite(
-        patterns=pattern_list,
-        seeds=seed_list,
-        output_dir=args.output,
-        study_label="Primary Multi-Pattern Benchmark",
-    )
+    if "A" in sections:
+        run_primary(seeds, patterns, args.output)
+    if "B" in sections:
+        run_item2(seeds, args.output, seed_for_series=42)
+    if "C" in sections:
+        run_item3(seeds, args.output)
+    if "D" in sections:
+        run_item4(seeds, args.output)
+    if "E" in sections:
+        run_item5(seeds, args.output)
+    if "F" in sections:
+        run_item6(seeds, args.output)
+    if "G" in sections:
+        run_item7(seeds, args.output)
+    if "H" in sections:
+        run_item8(seeds, args.output)
 
-    # Print Formatted Primary Summary Table
-    configs_list = [
-        "stock_hpa", "cluster_autoscaler", "reactive_hpa_plus_consolidation",
-        "forecast_only", "forecast_placement", "forecast_plus_power_no_placement",
-        "full_aegis", "full_aegis_conformal", "oracle"
-    ]
-
-    for p in pattern_list:
-        print(f"\n=========================================================================================================")
-        print(f"  BENCHMARK SUMMARY TABLE: {p.upper()} WORKLOAD PATTERN (5 SEEDS, t-DISTRIBUTION 95% CIs)")
-        print(f"=========================================================================================================")
-        print(f"{'Configuration':<34} | {'Total (kWh)':<15} | {'Idle (kWh)':<12} | {'Dynamic (kWh)':<14} | {'Shortfall (min)':<16} | {'Actions':<12}")
-        print("-" * 115)
-        p_res = primary_res[p]["configurations"]
-        for cfg in configs_list:
-            e = p_res[cfg]["energy_kwh"]
-            e_idl = p_res[cfg]["energy_idle_kwh"]
-            e_dyn = p_res[cfg]["energy_dynamic_kwh"]
-            s = p_res[cfg]["capacity_shortfall_minutes"]
-            a = p_res[cfg]["scaling_actions"]
-            print(f"{cfg:<34} | {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} | {e_idl['mean']:>6.2f}     | {e_dyn['mean']:>6.2f}       | {s['mean']:>5.1f} +/- {s['ci95']:<4.1f}  | {a['mean']:>5.1f} +/- {a['ci95']:<4.1f}")
-        print("-" * 115)
-        p_ca = primary_res[p]["paired_vs_cluster_autoscaler"]
-        p_rh = primary_res[p]["paired_vs_reactive_consolidation"]
-        print(f"Paired Deltas vs cluster_autoscaler (delta +/- 95% CI):")
-        print(f"  Delta Energy   : {p_ca['energy_kwh']['diff']:+.2f} +/- {p_ca['energy_kwh']['ci95']:.2f} kWh (Sig: {p_ca['energy_kwh']['excludes_zero']})")
-        print(f"  Delta Shortfall: {p_ca['shortfall_min']['diff']:+.1f} +/- {p_ca['shortfall_min']['ci95']:.1f} min (Sig: {p_ca['shortfall_min']['excludes_zero']})")
-        print(f"  Delta Actions  : {p_ca['actions']['diff']:+.1f} +/- {p_ca['actions']['ci95']:.1f} act (Sig: {p_ca['actions']['excludes_zero']})")
-
-    # 2. Pareto Frontier Headroom-Matched Sweep
-    run_pareto_frontier_study(seeds=seed_list, pattern="bursty", output_dir=args.output)
-
-    # 3. Flash Crowd Tail Extrapolation Study
-    run_flash_crowd_tail_extrapolation_study(seeds=seed_list, output_dir=args.output)
-
-    # 4. Calibration Study (Single vs Rolling)
-    run_rolling_vs_single_calibration_study(seeds=seed_list, output_dir=args.output)
-
-    # 5. Full Sensitivity Sweeps with CIs
-    run_full_sensitivity_sweeps(seeds=seed_list, output_dir=args.output)
+    print("\nSUITE COMPLETE. All JSON artifacts under eval/.")
 
 
 if __name__ == "__main__":

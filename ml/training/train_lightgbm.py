@@ -159,14 +159,31 @@ def train_all_models(
     registry = ModelRegistry()
     results = {}
 
+    if "hour_of_day" not in df.columns:
+        from ml.features.feature_engineering import build_features
+        df = build_features(df)
+
     # Identify feature columns (exclude non-features and target)
     exclude_cols = [target_col, "timestamp", "workload_id", "status"]
     feature_cols = [c for c in df.columns if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])]
 
-    # Chronological temporal 80/20 train/validation split
-    train_size = int(len(df) * 0.8)
-    train_df = df.iloc[:train_size].copy()
-    val_df = df.iloc[train_size:].copy()
+    # Chronological temporal 80/20 train/validation split. For pooled
+    # multi-workload datasets the split is applied within each workload so that
+    # every workload regime is represented in both sides (never random, so no
+    # future information crosses the split).
+    if "workload_id" in df.columns:
+        train_parts, val_parts = [], []
+        for _, w_group in df.groupby("workload_id", sort=False):
+            w_group = w_group.sort_values("timestamp")
+            w_train_size = int(len(w_group) * 0.8)
+            train_parts.append(w_group.iloc[:w_train_size])
+            val_parts.append(w_group.iloc[w_train_size:])
+        train_df = pd.concat(train_parts).copy()
+        val_df = pd.concat(val_parts).copy()
+    else:
+        train_size = int(len(df) * 0.8)
+        train_df = df.iloc[:train_size].copy()
+        val_df = df.iloc[train_size:].copy()
 
     for h in horizons:
         # Target for horizon h is the workload usage shifted forward by h periods

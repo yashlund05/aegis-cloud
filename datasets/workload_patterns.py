@@ -3,7 +3,9 @@ Workload generation with distinct realistic patterns:
 - steady: Low variance, randomized baseline and noise scale per seed
 - diurnal: Strong daily day/night cycle with autoregressive noise
 - bursty: Frequent Poisson-distributed short spikes
+- structured_burst: Scheduled recurring bursts (e.g. hourly cron jobs) with temporal jitter
 - flash_crowd: Sudden sustained multi-hour surge with randomized timing, duration, and magnitude
+- low_load: Low demand regime (1.5 - 5.5 cores) where K_min resilience floor binds
 """
 
 import numpy as np
@@ -19,7 +21,7 @@ def generate_pattern_trace(
     seed: int = 42,
 ) -> pd.DataFrame:
     """
-    Generates a realistic time-series trace with 10-60 replica demand range.
+    Generates a realistic time-series trace with multi-resource requirements.
     Randomizes parameters per seed for valid confidence intervals.
     """
     np.random.seed(seed)
@@ -69,6 +71,26 @@ def generate_pattern_trace(
         smoothed_spikes = np.convolve(spikes, kernel, mode="same")
         cpu_usage = cpu_signal + noise + smoothed_spikes
 
+    elif pattern == "structured_burst":
+        # Periodic scheduled bursts (e.g. hourly batch job) with temporal jitter
+        base = float(np.random.uniform(6.0, 7.5))
+        amplitude = float(np.random.uniform(6.0, 8.0))
+        diurnal = 0.5 * (np.sin((hours - 8.0) * (2 * np.pi / 24.0)) + 1.0)
+        cpu_signal = base + amplitude * diurnal
+        noise = np.random.normal(0, 0.4, n)
+        structured_spikes = np.zeros(n)
+        
+        # Periodic every 60 minutes with +-5 min jitter, 15 min duration
+        period = 60
+        burst_dur = 15
+        for b_start in range(20, n - burst_dur, period):
+            jitter = int(np.random.uniform(-5, 6))
+            actual_start = max(0, min(n - burst_dur, b_start + jitter))
+            burst_mag = float(np.random.uniform(12.0, 18.0))
+            structured_spikes[actual_start : actual_start + burst_dur] = burst_mag
+            
+        cpu_usage = cpu_signal + noise + structured_spikes
+
     elif pattern == "flash_crowd":
         # Baseline diurnal + sudden massive flash crowd surge with randomized timing and magnitude
         base = float(np.random.uniform(7.0, 9.0))
@@ -83,7 +105,6 @@ def generate_pattern_trace(
         surge_start = int(np.random.uniform(2000, min(n - surge_len - 60, 4500)))
         surge_amp = float(np.random.uniform(14.0, 22.0))
         
-        # Ramp up over 10 min, hold, ramp down over 15 min
         ramp_up = np.linspace(0, surge_amp, 10)
         ramp_down = np.linspace(surge_amp, 0, 15)
         flash[surge_start : surge_start + 10] = ramp_up
@@ -91,12 +112,20 @@ def generate_pattern_trace(
         flash[surge_start + surge_len - 15 : surge_start + surge_len] = ramp_down
         
         cpu_usage = cpu_signal + noise + flash
+
+    elif pattern == "low_load":
+        # Low load regime where demand is between 1.5 and 5.0 cores, testing K_min binding
+        base = float(np.random.uniform(1.8, 2.5))
+        diurnal = 0.5 * (np.sin((hours - 8.0) * (2 * np.pi / 24.0)) + 1.0)
+        cpu_signal = base + 2.2 * diurnal * weekday_factor
+        noise = np.random.normal(0, 0.25, n)
+        cpu_usage = cpu_signal + noise
     else:
         raise ValueError(f"Unknown pattern '{pattern}'")
 
-    cpu_usage = np.clip(cpu_usage, 2.0, 42.0)
+    cpu_usage = np.clip(cpu_usage, 1.2, 45.0)
     
-    # Multi-resource: generate memory demand with slight phase shift and variable ratio
+    # Multi-resource: generate memory demand
     mem_base = 0.30 + (cpu_usage / 45.0) * 0.55 + np.random.normal(0, 0.02, n)
     mem_usage = np.clip(mem_base, 0.1, 1.0)
     

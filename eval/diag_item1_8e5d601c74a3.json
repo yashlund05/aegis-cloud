@@ -1,0 +1,141 @@
+{
+  "app": "8e5d601c74a3",
+  "p90_stream": {
+    "min": 22.6055,
+    "max": 29.8607,
+    "std": 0.5384
+  },
+  "sample_points": [
+    {
+      "test_minute": 60,
+      "demand_cores": 24.03,
+      "replica_target": 76,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 322,
+      "demand_cores": 24.03,
+      "replica_target": 75,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 584,
+      "demand_cores": 22.0291,
+      "replica_target": 75,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 846,
+      "demand_cores": 24.0316,
+      "replica_target": 83,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 1108,
+      "demand_cores": 24.0316,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 1370,
+      "demand_cores": 22.0307,
+      "replica_target": 79,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 1632,
+      "demand_cores": 28.0319,
+      "replica_target": 79,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 1894,
+      "demand_cores": 26.0321,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 2156,
+      "demand_cores": 26.0325,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 2418,
+      "demand_cores": 24.031,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 2680,
+      "demand_cores": 26.0319,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 2942,
+      "demand_cores": 24.031,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 3204,
+      "demand_cores": 22.0301,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 3466,
+      "demand_cores": 26.0315,
+      "replica_target": 79,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 3728,
+      "demand_cores": 24.0287,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 3990,
+      "demand_cores": 24.0294,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 4252,
+      "demand_cores": 24.029,
+      "replica_target": 79,
+      "active_nodes": 15
+    },
+    {
+      "test_minute": 4514,
+      "demand_cores": 22.0271,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 4776,
+      "demand_cores": 22.0271,
+      "replica_target": 79,
+      "active_nodes": 14
+    },
+    {
+      "test_minute": 5039,
+      "demand_cores": 24.0287,
+      "replica_target": 79,
+      "active_nodes": 14
+    }
+  ],
+  "metrics": {
+    "action_events": 7,
+    "replica_delta": 61,
+    "energy_kwh": 190.6282,
+    "shortfall_min": 8
+  },
+  "seeds": [
+    42,
+    101,
+    202
+  ]
+}

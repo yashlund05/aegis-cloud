@@ -1,0 +1,708 @@
+{
+  "apps": {
+    "737e31dddf54": {
+      "aegis_tau": {
+        "0.5": {
+          "energy_kwh": 167.3425,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 103,
+          "scaling_churn": 680,
+          "q_hat_90": -0.9715,
+          "coverage": 0.4744
+        },
+        "0.7": {
+          "energy_kwh": 169.1306,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 106,
+          "scaling_churn": 734,
+          "q_hat_90": -0.4598,
+          "coverage": 0.5992
+        },
+        "0.9": {
+          "energy_kwh": 172.0735,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 107,
+          "scaling_churn": 770,
+          "q_hat_90": 0.2525,
+          "coverage": 0.7772
+        },
+        "0.99": {
+          "energy_kwh": 177.8236,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 100,
+          "scaling_churn": 766,
+          "q_hat_90": 1.6945,
+          "coverage": 0.8927
+        }
+      },
+      "ca_util": {
+        "0.9": {
+          "energy_kwh": 142.7911,
+          "capacity_shortfall_minutes": 34,
+          "scaling_actions": 111,
+          "scaling_churn": 705
+        },
+        "0.8": {
+          "energy_kwh": 149.7726,
+          "capacity_shortfall_minutes": 2,
+          "scaling_actions": 117,
+          "scaling_churn": 810
+        },
+        "0.7": {
+          "energy_kwh": 160.5853,
+          "capacity_shortfall_minutes": 1,
+          "scaling_actions": 122,
+          "scaling_churn": 941
+        },
+        "0.6": {
+          "energy_kwh": 170.6865,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 116,
+          "scaling_churn": 1056
+        },
+        "0.5": {
+          "energy_kwh": 180.7787,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 121,
+          "scaling_churn": 1268
+        }
+      },
+      "oracle": {
+        "energy_kwh": 168.6591,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 120,
+        "scaling_churn": 921
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 174.3189,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 112,
+        "scaling_churn": 848,
+        "coverage": 0.5909
+      },
+      "matched_shortfall": [
+        {
+          "ca_util": 0.9,
+          "ca_shortfall": 34,
+          "ca_energy": 142.7911,
+          "aegis_energy_interp": 167.343,
+          "delta_aegis_minus_ca": 24.551,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.8,
+          "ca_shortfall": 2,
+          "ca_energy": 149.7726,
+          "aegis_energy_interp": 167.343,
+          "delta_aegis_minus_ca": 17.57,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.7,
+          "ca_shortfall": 1,
+          "ca_energy": 160.5853,
+          "aegis_energy_interp": 167.343,
+          "delta_aegis_minus_ca": 6.757,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.6,
+          "ca_shortfall": 0,
+          "ca_energy": 170.6865,
+          "aegis_energy_interp": 167.343,
+          "delta_aegis_minus_ca": -3.344,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.5,
+          "ca_shortfall": 0,
+          "ca_energy": 180.7787,
+          "aegis_energy_interp": 167.343,
+          "delta_aegis_minus_ca": -13.436,
+          "extrapolated": false
+        }
+      ],
+      "aegis_frontier": [
+        [
+          0.0,
+          167.3425
+        ]
+      ]
+    },
+    "a98d35d0aed6": {
+      "aegis_tau": {
+        "0.5": {
+          "energy_kwh": 160.7297,
+          "capacity_shortfall_minutes": 11,
+          "scaling_actions": 89,
+          "scaling_churn": 592,
+          "q_hat_90": -5.2018,
+          "coverage": 0.4315
+        },
+        "0.7": {
+          "energy_kwh": 162.9107,
+          "capacity_shortfall_minutes": 7,
+          "scaling_actions": 89,
+          "scaling_churn": 615,
+          "q_hat_90": -4.118,
+          "coverage": 0.4865
+        },
+        "0.9": {
+          "energy_kwh": 180.9041,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 39,
+          "scaling_churn": 389,
+          "q_hat_90": 0.9982,
+          "coverage": 0.7387
+        },
+        "0.99": {
+          "energy_kwh": 195.1508,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 32,
+          "scaling_churn": 381,
+          "q_hat_90": 5.4063,
+          "coverage": 0.803
+        }
+      },
+      "ca_util": {
+        "0.9": {
+          "energy_kwh": 140.9879,
+          "capacity_shortfall_minutes": 299,
+          "scaling_actions": 614,
+          "scaling_churn": 6527
+        },
+        "0.8": {
+          "energy_kwh": 149.4577,
+          "capacity_shortfall_minutes": 107,
+          "scaling_actions": 618,
+          "scaling_churn": 7362
+        },
+        "0.7": {
+          "energy_kwh": 157.8281,
+          "capacity_shortfall_minutes": 41,
+          "scaling_actions": 619,
+          "scaling_churn": 8406
+        },
+        "0.6": {
+          "energy_kwh": 167.4513,
+          "capacity_shortfall_minutes": 10,
+          "scaling_actions": 616,
+          "scaling_churn": 9748
+        },
+        "0.5": {
+          "energy_kwh": 180.647,
+          "capacity_shortfall_minutes": 1,
+          "scaling_actions": 629,
+          "scaling_churn": 11837
+        }
+      },
+      "oracle": {
+        "energy_kwh": 167.6261,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 773,
+        "scaling_churn": 10343
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 207.5598,
+        "capacity_shortfall_minutes": 2,
+        "scaling_actions": 542,
+        "scaling_churn": 9879,
+        "coverage": 0.7696
+      },
+      "matched_shortfall": [
+        {
+          "ca_util": 0.9,
+          "ca_shortfall": 299,
+          "ca_energy": 140.9879,
+          "aegis_energy_interp": 160.73,
+          "delta_aegis_minus_ca": 19.742,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.8,
+          "ca_shortfall": 107,
+          "ca_energy": 149.4577,
+          "aegis_energy_interp": 160.73,
+          "delta_aegis_minus_ca": 11.272,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.7,
+          "ca_shortfall": 41,
+          "ca_energy": 157.8281,
+          "aegis_energy_interp": 160.73,
+          "delta_aegis_minus_ca": 2.902,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.6,
+          "ca_shortfall": 10,
+          "ca_energy": 167.4513,
+          "aegis_energy_interp": 161.275,
+          "delta_aegis_minus_ca": -6.176,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.5,
+          "ca_shortfall": 1,
+          "ca_energy": 180.647,
+          "aegis_energy_interp": 178.334,
+          "delta_aegis_minus_ca": -2.313,
+          "extrapolated": false
+        }
+      ],
+      "aegis_frontier": [
+        [
+          0.0,
+          180.9041
+        ],
+        [
+          7.0,
+          162.9107
+        ],
+        [
+          11.0,
+          160.7297
+        ]
+      ]
+    },
+    "d638d26f513a": {
+      "aegis_tau": {
+        "0.5": {
+          "energy_kwh": 220.6884,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 35,
+          "scaling_churn": 396,
+          "q_hat_90": -2.0694,
+          "coverage": 0.2933
+        },
+        "0.7": {
+          "energy_kwh": 222.1036,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 36,
+          "scaling_churn": 410,
+          "q_hat_90": -1.4456,
+          "coverage": 0.4113
+        },
+        "0.9": {
+          "energy_kwh": 228.3836,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 45,
+          "scaling_churn": 542,
+          "q_hat_90": 0.0593,
+          "coverage": 0.7988
+        },
+        "0.99": {
+          "energy_kwh": 240.3824,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 33,
+          "scaling_churn": 433,
+          "q_hat_90": 3.6244,
+          "coverage": 0.8474
+        }
+      },
+      "ca_util": {
+        "0.9": {
+          "energy_kwh": 184.1235,
+          "capacity_shortfall_minutes": 33,
+          "scaling_actions": 92,
+          "scaling_churn": 941
+        },
+        "0.8": {
+          "energy_kwh": 193.4284,
+          "capacity_shortfall_minutes": 3,
+          "scaling_actions": 89,
+          "scaling_churn": 1026
+        },
+        "0.7": {
+          "energy_kwh": 202.7323,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 87,
+          "scaling_churn": 1132
+        },
+        "0.6": {
+          "energy_kwh": 214.8319,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 92,
+          "scaling_churn": 1421
+        },
+        "0.5": {
+          "energy_kwh": 217.4254,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 94,
+          "scaling_churn": 1674
+        }
+      },
+      "oracle": {
+        "energy_kwh": 217.937,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 103,
+        "scaling_churn": 1301
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 240.676,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 83,
+        "scaling_churn": 1223,
+        "coverage": 0.6877
+      },
+      "matched_shortfall": [
+        {
+          "ca_util": 0.9,
+          "ca_shortfall": 33,
+          "ca_energy": 184.1235,
+          "aegis_energy_interp": 220.688,
+          "delta_aegis_minus_ca": 36.565,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.8,
+          "ca_shortfall": 3,
+          "ca_energy": 193.4284,
+          "aegis_energy_interp": 220.688,
+          "delta_aegis_minus_ca": 27.26,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.7,
+          "ca_shortfall": 0,
+          "ca_energy": 202.7323,
+          "aegis_energy_interp": 220.688,
+          "delta_aegis_minus_ca": 17.956,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.6,
+          "ca_shortfall": 0,
+          "ca_energy": 214.8319,
+          "aegis_energy_interp": 220.688,
+          "delta_aegis_minus_ca": 5.857,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.5,
+          "ca_shortfall": 0,
+          "ca_energy": 217.4254,
+          "aegis_energy_interp": 220.688,
+          "delta_aegis_minus_ca": 3.263,
+          "extrapolated": false
+        }
+      ],
+      "aegis_frontier": [
+        [
+          0.0,
+          220.6884
+        ]
+      ]
+    },
+    "e593dfd5a2c4": {
+      "aegis_tau": {
+        "0.5": {
+          "energy_kwh": 145.2047,
+          "capacity_shortfall_minutes": 4,
+          "scaling_actions": 23,
+          "scaling_churn": 136,
+          "q_hat_90": -9.0522,
+          "coverage": 0.2361
+        },
+        "0.7": {
+          "energy_kwh": 145.9052,
+          "capacity_shortfall_minutes": 2,
+          "scaling_actions": 23,
+          "scaling_churn": 138,
+          "q_hat_90": -6.3943,
+          "coverage": 0.2506
+        },
+        "0.9": {
+          "energy_kwh": 173.3507,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 74,
+          "scaling_churn": 709,
+          "q_hat_90": 2.1292,
+          "coverage": 0.9518
+        },
+        "0.99": {
+          "energy_kwh": 217.5314,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 27,
+          "scaling_churn": 313,
+          "q_hat_90": 15.5714,
+          "coverage": 0.9994
+        }
+      },
+      "ca_util": {
+        "0.9": {
+          "energy_kwh": 127.9104,
+          "capacity_shortfall_minutes": 12,
+          "scaling_actions": 30,
+          "scaling_churn": 201
+        },
+        "0.8": {
+          "energy_kwh": 134.3329,
+          "capacity_shortfall_minutes": 3,
+          "scaling_actions": 29,
+          "scaling_churn": 222
+        },
+        "0.7": {
+          "energy_kwh": 142.6804,
+          "capacity_shortfall_minutes": 1,
+          "scaling_actions": 33,
+          "scaling_churn": 269
+        },
+        "0.6": {
+          "energy_kwh": 153.0543,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 32,
+          "scaling_churn": 314
+        },
+        "0.5": {
+          "energy_kwh": 164.78,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 33,
+          "scaling_churn": 372
+        }
+      },
+      "oracle": {
+        "energy_kwh": 152.4968,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 35,
+        "scaling_churn": 287
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 148.2557,
+        "capacity_shortfall_minutes": 269,
+        "scaling_actions": 26,
+        "scaling_churn": 314,
+        "coverage": 0.5538
+      },
+      "matched_shortfall": [
+        {
+          "ca_util": 0.9,
+          "ca_shortfall": 12,
+          "ca_energy": 127.9104,
+          "aegis_energy_interp": 145.205,
+          "delta_aegis_minus_ca": 17.294,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.8,
+          "ca_shortfall": 3,
+          "ca_energy": 134.3329,
+          "aegis_energy_interp": 145.555,
+          "delta_aegis_minus_ca": 11.222,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.7,
+          "ca_shortfall": 1,
+          "ca_energy": 142.6804,
+          "aegis_energy_interp": 159.628,
+          "delta_aegis_minus_ca": 16.948,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.6,
+          "ca_shortfall": 0,
+          "ca_energy": 153.0543,
+          "aegis_energy_interp": 173.351,
+          "delta_aegis_minus_ca": 20.296,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.5,
+          "ca_shortfall": 0,
+          "ca_energy": 164.78,
+          "aegis_energy_interp": 173.351,
+          "delta_aegis_minus_ca": 8.571,
+          "extrapolated": false
+        }
+      ],
+      "aegis_frontier": [
+        [
+          0.0,
+          173.3507
+        ],
+        [
+          2.0,
+          145.9052
+        ],
+        [
+          4.0,
+          145.2047
+        ]
+      ]
+    },
+    "fadee4b59e71": {
+      "aegis_tau": {
+        "0.5": {
+          "energy_kwh": 129.2877,
+          "capacity_shortfall_minutes": 8,
+          "scaling_actions": 16,
+          "scaling_churn": 104,
+          "q_hat_90": -0.2239,
+          "coverage": 0.3024
+        },
+        "0.7": {
+          "energy_kwh": 131.1436,
+          "capacity_shortfall_minutes": 6,
+          "scaling_actions": 14,
+          "scaling_churn": 95,
+          "q_hat_90": -0.027,
+          "coverage": 0.3651
+        },
+        "0.9": {
+          "energy_kwh": 134.1377,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 17,
+          "scaling_churn": 125,
+          "q_hat_90": 0.8849,
+          "coverage": 0.4903
+        },
+        "0.99": {
+          "energy_kwh": 141.4184,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 18,
+          "scaling_churn": 142,
+          "q_hat_90": 2.5261,
+          "coverage": 0.7788
+        }
+      },
+      "ca_util": {
+        "0.9": {
+          "energy_kwh": 113.3475,
+          "capacity_shortfall_minutes": 22,
+          "scaling_actions": 45,
+          "scaling_churn": 416
+        },
+        "0.8": {
+          "energy_kwh": 120.8204,
+          "capacity_shortfall_minutes": 5,
+          "scaling_actions": 46,
+          "scaling_churn": 476
+        },
+        "0.7": {
+          "energy_kwh": 130.1789,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 51,
+          "scaling_churn": 578
+        },
+        "0.6": {
+          "energy_kwh": 141.4075,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 52,
+          "scaling_churn": 689
+        },
+        "0.5": {
+          "energy_kwh": 157.3895,
+          "capacity_shortfall_minutes": 0,
+          "scaling_actions": 51,
+          "scaling_churn": 801
+        }
+      },
+      "oracle": {
+        "energy_kwh": 133.0277,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 55,
+        "scaling_churn": 641
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 149.4324,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 52,
+        "scaling_churn": 606,
+        "coverage": 0.6125
+      },
+      "matched_shortfall": [
+        {
+          "ca_util": 0.9,
+          "ca_shortfall": 22,
+          "ca_energy": 113.3475,
+          "aegis_energy_interp": 129.288,
+          "delta_aegis_minus_ca": 15.94,
+          "extrapolated": true
+        },
+        {
+          "ca_util": 0.8,
+          "ca_shortfall": 5,
+          "ca_energy": 120.8204,
+          "aegis_energy_interp": 131.643,
+          "delta_aegis_minus_ca": 10.822,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.7,
+          "ca_shortfall": 0,
+          "ca_energy": 130.1789,
+          "aegis_energy_interp": 134.138,
+          "delta_aegis_minus_ca": 3.959,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.6,
+          "ca_shortfall": 0,
+          "ca_energy": 141.4075,
+          "aegis_energy_interp": 134.138,
+          "delta_aegis_minus_ca": -7.27,
+          "extrapolated": false
+        },
+        {
+          "ca_util": 0.5,
+          "ca_shortfall": 0,
+          "ca_energy": 157.3895,
+          "aegis_energy_interp": 134.138,
+          "delta_aegis_minus_ca": -23.252,
+          "extrapolated": false
+        }
+      ],
+      "aegis_frontier": [
+        [
+          0.0,
+          134.1377
+        ],
+        [
+          6.0,
+          131.1436
+        ],
+        [
+          8.0,
+          129.2877
+        ]
+      ]
+    }
+  },
+  "coverage_definition": "Coverage = fraction of TEST-window minutes where the actual demand y(t) lies inside the two-sided prediction interval [p10(t), p90(t)], bounds inclusive: mean( y >= p10 AND y <= p90 ). Quantiles: p10 and p90 are the LightGBM q10/q90 streams (raw), or their conformal-adjusted versions. The conformal p90 offset is the tau-quantile of one-sided upper calibration residuals y - p90 (level tau = 0.90 unless swept); the p10 offset is the 0.90-quantile of one-sided lower residuals p10 - y (fixed level 0.90 in the frozen code, independent of tau). Rolling = same intervals with the frozen horizon-delayed rolling window (W=1440, ends at t-H). Naive = same conformal path applied to the seasonal-naive point forecast (demand 1440 min earlier).",
+  "trace": "Azure Functions 2019, 68-core eligibility set (see eval/real_trace_results.json)",
+  "arms": {
+    "aegis_taus": [
+      0.5,
+      0.7,
+      0.9,
+      0.99
+    ],
+    "ca_utils": [
+      0.9,
+      0.8,
+      0.7,
+      0.6,
+      0.5
+    ],
+    "naive_lag_minutes": 1440
+  },
+  "git": {
+    "commit": "5d79e608141682a2d7a28af1f2db9e54933d23cd",
+    "tag_at_head": "sim-frozen",
+    "dirty_files": [
+      "datasets/load_real_trace.py",
+      "datasets/raw/",
+      "eval/diag_item1_8e5d60.py",
+      "eval/diag_item1_8e5d601c74a3.json",
+      "eval/real_pareto_results.json",
+      "eval/real_trace_results.json",
+      "eval/real_trace_results_80core.json",
+      "eval/run_real_pareto.py",
+      "eval/run_real_trace.py",
+      "ml/models/artifacts_real/",
+      "tests/unit/test_real_trace_split.py"
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "aegis": [
+    {
+      "param": "tau=0.5",
+      "energy_kwh": 98.42,
+      "energy_ci95": 5.51,
+      "shortfall_min": 479.0,
+      "shortfall_ci95": 97.12
+    },
+    {
+      "param": "tau=0.7",
+      "energy_kwh": 109.54,
+      "energy_ci95": 7.06,
+      "shortfall_min": 271.2,
+      "shortfall_ci95": 75.04
+    },
+    {
+      "param": "tau=0.8",
+      "energy_kwh": 113.31,
+      "energy_ci95": 4.64,
+      "shortfall_min": 213.4,
+      "shortfall_ci95": 69.76
+    },
+    {
+      "param": "tau=0.9",
+      "energy_kwh": 121.17,
+      "energy_ci95": 6.82,
+      "shortfall_min": 93.4,
+      "shortfall_ci95": 28.14
+    },
+    {
+      "param": "tau=0.95",
+      "energy_kwh": 136.29,
+      "energy_ci95": 5.3,
+      "shortfall_min": 16.8,
+      "shortfall_ci95": 9.1
+    },
+    {
+      "param": "tau=0.99",
+      "energy_kwh": 158.75,
+      "energy_ci95": 5.9,
+      "shortfall_min": 4.2,
+      "shortfall_ci95": 1.04
+    }
+  ],
+  "cluster_autoscaler": [
+    {
+      "param": "util=80%",
+      "energy_kwh": 115.41,
+      "energy_ci95": 3.41,
+      "shortfall_min": 256.4,
+      "shortfall_ci95": 57.02
+    },
+    {
+      "param": "util=70%",
+      "energy_kwh": 124.92,
+      "energy_ci95": 3.46,
+      "shortfall_min": 87.0,
+      "shortfall_ci95": 13.94
+    },
+    {
+      "param": "util=60%",
+      "energy_kwh": 137.78,
+      "energy_ci95": 3.94,
+      "shortfall_min": 19.6,
+      "shortfall_ci95": 2.26
+    },
+    {
+      "param": "util=50%",
+      "energy_kwh": 154.5,
+      "energy_ci95": 3.83,
+      "shortfall_min": 4.8,
+      "shortfall_ci95": 2.04
+    }
+  ],
+  "cluster_autoscaler_buffered": [
+    {
+      "param": "util=80%+buf1",
+      "energy_kwh": 122.82,
+      "energy_ci95": 3.49,
+      "shortfall_min": 220.0,
+      "shortfall_ci95": 50.72
+    },
+    {
+      "param": "util=70%+buf1",
+      "energy_kwh": 132.47,
+      "energy_ci95": 3.45,
+      "shortfall_min": 68.2,
+      "shortfall_ci95": 12.83
+    },
+    {
+      "param": "util=60%+buf1",
+      "energy_kwh": 145.42,
+      "energy_ci95": 3.82,
+      "shortfall_min": 13.0,
+      "shortfall_ci95": 1.76
+    },
+    {
+      "param": "util=50%+buf1",
+      "energy_kwh": 161.55,
+      "energy_ci95": 3.63,
+      "shortfall_min": 2.8,
+      "shortfall_ci95": 1.36
+    }
+  ],
+  "reactive_consolidation": []
+}

@@ -1,12 +1,22 @@
 """
-Multi-seed ablation experiment runner for Aegis (Phase 9 & Research Paper Evaluation).
-Executes across configurations over N seeds, regenerating the workload trace per seed.
-Reports mean, std, and t-distribution 95% confidence intervals for:
-- Cluster energy (kWh)
-- Capacity shortfall minutes
-- Scaling actions
-- Forecaster metrics (WMAPE, pinball loss with 4 decimals, empirical p10-p90 coverage, and calibration rates)
-- Paired differences (full_aegis vs reactive_hpa_plus_consolidation)
+Multi-seed, multi-pattern ablation experiment runner and sensitivity sweep for Aegis (Phase 9 & IEEE Paper Evaluation).
+
+Executes across configurations over N seeds and 4 workload patterns:
+- steady: Low variance, minimal diurnal swing
+- diurnal: Strong daily day/night cycle
+- bursty: Frequent Poisson-distributed short spikes
+- flash_crowd: Sudden sustained multi-hour surge
+
+Performs sensitivity sweeps over:
+- Node wake-up latency: 1, 3, 5 minutes
+- Idle power fraction: 30%, 50%, 70% of P_max
+- Alpha (energy model exponent): 1.0, 1.5, 2.0
+- Minimum active nodes (K_min): 1, 2, 3
+
+Computes Student's t-distribution 95% confidence intervals and paired per-seed differences:
+- full_aegis_conformal vs cluster_autoscaler
+- full_aegis_conformal vs reactive_hpa_plus_consolidation
+Reports whether 95% CIs exclude zero.
 """
 
 import os
@@ -14,17 +24,18 @@ import sys
 import json
 import argparse
 from datetime import datetime
+from typing import List, Dict, Any, Tuple
 import numpy as np
 import pandas as pd
 from scipy import stats
 
 sys.path.insert(0, os.path.abspath("."))
 
-from datasets.generate_sample_traces import generate_workload_trace
+from datasets.workload_patterns import generate_pattern_trace
 from ml.evaluation.ablation import AblationStudy, get_default_nodes
 
 
-def compute_ci95(data: list) -> tuple:
+def compute_ci95(data: list) -> Tuple[float, float, float]:
     """
     Computes (mean, std, ci95_half_width) for a sample list using Student's t-distribution.
     """
@@ -40,42 +51,43 @@ def compute_ci95(data: list) -> tuple:
     return round(mean, 2), round(std, 2), round(ci95, 2)
 
 
-def compute_paired_diff(a_vals: list, b_vals: list) -> tuple:
+def compute_paired_diff(a_vals: list, b_vals: list) -> Tuple[float, float, float, bool]:
     """
     Computes paired difference statistics (A - B) across seeds with t-distribution 95% CI.
+    Returns: (mean, std, ci95, excludes_zero)
     """
     diffs = np.array(a_vals, dtype=float) - np.array(b_vals, dtype=float)
     n = len(diffs)
     mean = float(np.mean(diffs))
     if n <= 1:
-        return mean, 0.0, 0.0
+        return mean, 0.0, 0.0, False
     std = float(np.std(diffs, ddof=1))
     sem = std / np.sqrt(n)
     t_crit = float(stats.t.ppf(0.975, df=n - 1))
     ci95 = float(t_crit * sem)
-    return round(mean, 2), round(std, 2), round(ci95, 2)
+    excludes_zero = (mean - ci95 > 0) or (mean + ci95 < 0)
+    return round(mean, 2), round(std, 2), round(ci95, 2), excludes_zero
 
 
-def run_multi_seed_experiments(
-    seeds: list,
-    duration_days: int = 4,
-    output_dir: str = "eval",
+def run_experiment_suite(
+    patterns: List[str],
+    seeds: List[int],
+    duration_days: int = 5,
     horizon: int = 10,
     topology: str = "large",
-    scale_workload: float = 15.0,
-):
-    nodes = get_default_nodes(topology)
+    output_dir: str = "eval",
+    wake_up_latency: int = 3,
+    idle_power_frac: float = None,
+    alpha: float = None,
+    k_min: int = 2,
+    study_label: str = "Primary Benchmark",
+) -> Dict[str, Any]:
+    nodes = get_default_nodes(scale=topology, idle_power_fraction=idle_power_frac, alpha=alpha)
     total_cpu = sum(n["cpu_capacity"] for n in nodes)
-
-    print("=" * 96)
-    print(f"      AEGIS RIGOROUS ABLATION EXPERIMENTS ({topology.upper()} TOPOLOGY: {len(nodes)} NODES, {total_cpu:.1f} CORES)")
-    print(f"      Seeds: {seeds} | Duration per seed: {duration_days} days | Workload Scale: {scale_workload}x | Horizon: {horizon} min")
-    print("=" * 96)
-
-    study = AblationStudy(nodes=nodes, min_active_nodes=2)
 
     configs_list = [
         "stock_hpa",
+        "cluster_autoscaler",
         "reactive_hpa_plus_consolidation",
         "forecast_only",
         "forecast_placement",
@@ -85,202 +97,297 @@ def run_multi_seed_experiments(
         "oracle",
     ]
 
-    metric_records = {
-        cfg: {
-            "energy_kwh": [],
-            "capacity_shortfall_minutes": [],
-            "scaling_actions": [],
-            "scaling_churn": [],
-            "mean_allocated_replicas": [],
-            "mean_active_nodes": [],
-        }
-        for cfg in configs_list
-    }
+    print("\n" + "=" * 105)
+    print(f"  {study_label.upper()}: {topology.upper()} TOPOLOGY ({len(nodes)} NODES, {total_cpu:.1f} CORES)")
+    print(f"  Patterns: {patterns} | Seeds: {seeds} | Duration: {duration_days}d | Horizon: {horizon}m")
+    print(f"  Params: wake_up_latency={wake_up_latency}m, idle_power_frac={idle_power_frac}, alpha={alpha}, K_min={k_min}")
+    print("=" * 105)
 
-    forecast_records = {
-        "wmape_p50": [],
-        "pinball_loss_p10": [],
-        "pinball_loss_p50": [],
-        "pinball_loss_p90": [],
-        "interval_coverage_p10_p90_pct": [],
-        "calibration_fraction_below_p10": [],
-        "calibration_fraction_below_p50": [],
-        "calibration_fraction_below_p90_uncalibrated": [],
-        "calibration_fraction_below_p90_conformal": [],
-    }
+    study = AblationStudy(
+        nodes=nodes,
+        min_active_nodes=k_min,
+        wake_up_latency_steps=wake_up_latency,
+        cluster_autoscaler_scale_down_delay=10,
+    )
 
-    raw_seed_runs = []
+    all_pattern_results = {}
 
-    for seed_idx, seed in enumerate(seeds):
-        print(f"\n[Seed {seed_idx + 1}/{len(seeds)} (seed={seed})] Generating independent workload trace ({duration_days} days)...")
-        trace = generate_workload_trace(
-            workload_id="prod-service",
-            start_time=pd.Timestamp("2026-01-01"),
-            duration_days=duration_days,
-            freq="1min",
-            base_cpu=0.45,
-            base_mem=0.50,
-            spike_probability=0.03,
-            seed=seed,
-        )
+    for pattern in patterns:
+        print(f"\n>>> Running Pattern: {pattern.upper()} (across {len(seeds)} seeds)...")
 
-        # First 1440 steps (day 1) used for split-conformal calibration, subsequent days for test
-        run_result = study.run_comparison(
-            trace_data=trace,
-            output_dir=output_dir,
-            forecast_horizon_minutes=horizon,
-            calibration_window_steps=1440,
-            scale_workload=scale_workload,
-        )
-        raw_seed_runs.append({"seed": seed, "run_result": run_result})
-
-        fm = run_result["forecaster_metrics"]
-        for k in forecast_records:
-            forecast_records[k].append(fm[k])
-
-        cfgs = run_result["configurations"]
-        for cfg in configs_list:
-            res = cfgs[cfg]
-            metric_records[cfg]["energy_kwh"].append(res["energy_kwh"])
-            metric_records[cfg]["capacity_shortfall_minutes"].append(res["capacity_shortfall_minutes"])
-            metric_records[cfg]["scaling_actions"].append(res["scaling_actions"])
-            metric_records[cfg]["scaling_churn"].append(res["scaling_churn"])
-            metric_records[cfg]["mean_allocated_replicas"].append(res["mean_allocated_replicas"])
-            metric_records[cfg]["mean_active_nodes"].append(res["mean_active_nodes"])
-
-    # Aggregate Statistics
-    summary_stats = {}
-    for cfg in configs_list:
-        summary_stats[cfg] = {}
-        for m_name, vals in metric_records[cfg].items():
-            mean, std, ci95 = compute_ci95(vals)
-            summary_stats[cfg][m_name] = {
-                "mean": mean,
-                "std": std,
-                "ci95": ci95,
-                "raw": vals,
+        metric_records = {
+            cfg: {
+                "energy_kwh": [],
+                "capacity_shortfall_minutes": [],
+                "scaling_actions": [],
+                "scaling_churn": [],
+                "mean_allocated_replicas": [],
+                "mean_active_nodes": [],
             }
-
-    aggregated_forecaster = {}
-    for f_name, vals in forecast_records.items():
-        arr = np.array(vals, dtype=float)
-        mean = float(np.mean(arr))
-        std = float(np.std(arr, ddof=1)) if len(arr) > 1 else 0.0
-        t_crit = float(stats.t.ppf(0.975, df=len(arr) - 1)) if len(arr) > 1 else 0.0
-        ci95 = float(t_crit * (std / np.sqrt(len(arr)))) if len(arr) > 1 else 0.0
-        aggregated_forecaster[f_name] = {
-            "mean": round(mean, 4),
-            "std": round(std, 4),
-            "ci95": round(ci95, 4),
-            "raw": vals,
+            for cfg in configs_list
         }
 
-    # Print Formatted Results
-    print("\n" + "=" * 96)
-    print("                     FORECASTING & CONFORMAL CALIBRATION BENCHMARK")
-    print("=" * 96)
-    print(f"  WMAPE (p50)                              : {aggregated_forecaster['wmape_p50']['mean']:.2f}% +/- {aggregated_forecaster['wmape_p50']['ci95']:.2f}%")
-    print(f"  Pinball Loss (q=0.10)                    : {aggregated_forecaster['pinball_loss_p10']['mean']:.4f} +/- {aggregated_forecaster['pinball_loss_p10']['ci95']:.4f}")
-    print(f"  Pinball Loss (q=0.50)                    : {aggregated_forecaster['pinball_loss_p50']['mean']:.4f} +/- {aggregated_forecaster['pinball_loss_p50']['ci95']:.4f}")
-    print(f"  Pinball Loss (q=0.90)                    : {aggregated_forecaster['pinball_loss_p90']['mean']:.4f} +/- {aggregated_forecaster['pinball_loss_p90']['ci95']:.4f}")
-    print(f"  Fraction actuals < p10 (target 0.10)     : {aggregated_forecaster['calibration_fraction_below_p10']['mean']:.4f}")
-    print(f"  Fraction actuals < p50 (target 0.50)     : {aggregated_forecaster['calibration_fraction_below_p50']['mean']:.4f}")
-    print(f"  Fraction actuals < p90 (uncalibrated)    : {aggregated_forecaster['calibration_fraction_below_p90_uncalibrated']['mean']:.4f} (target 0.9000)")
-    print(f"  Fraction actuals < p90 (conformal calib) : {aggregated_forecaster['calibration_fraction_below_p90_conformal']['mean']:.4f} (target 0.9000)")
-    print(f"  Interval Coverage (p10-p90)              : {aggregated_forecaster['interval_coverage_p10_p90_pct']['mean']:.2f}% +/- {aggregated_forecaster['interval_coverage_p10_p90_pct']['ci95']:.2f}%")
+        forecast_records = {
+            "wmape_p50": [],
+            "pinball_loss_p10": [],
+            "pinball_loss_p50": [],
+            "pinball_loss_p90": [],
+            "interval_coverage_uncalibrated_pct": [],
+            "interval_coverage_conformal_pct": [],
+            "calibration_fraction_below_p10_uncalibrated": [],
+            "calibration_fraction_below_p10_conformal": [],
+            "calibration_fraction_below_p50": [],
+            "calibration_fraction_below_p90_uncalibrated": [],
+            "calibration_fraction_below_p90_conformal": [],
+        }
 
-    print("\n" + "=" * 96)
-    print("           ABLATION STUDY SUMMARY (MEAN +/- t-DISTRIBUTION 95% CONFIDENCE INTERVAL)")
-    print("=" * 96)
-    print(f"{'Configuration':<34} | {'Energy (kWh)':<15} | {'Shortfall (min)':<18} | {'Actions':<14} | {'Active Nodes':<12}")
-    print("-" * 96)
-    for cfg in configs_list:
-        e = summary_stats[cfg]["energy_kwh"]
-        s = summary_stats[cfg]["capacity_shortfall_minutes"]
-        a = summary_stats[cfg]["scaling_actions"]
-        nd = summary_stats[cfg]["mean_active_nodes"]
-        e_str = f"{e['mean']:.2f} +/- {e['ci95']:.2f}"
-        s_str = f"{s['mean']:.1f} +/- {s['ci95']:.1f}"
-        a_str = f"{a['mean']:.1f} +/- {a['ci95']:.1f}"
-        nd_str = f"{nd['mean']:.1f} +/- {nd['ci95']:.1f}"
-        print(f"{cfg:<34} | {e_str:<15} | {s_str:<18} | {a_str:<14} | {nd_str:<12}")
-    print("=" * 96)
+        for seed in seeds:
+            trace = generate_pattern_trace(
+                workload_id=f"workload-{pattern}",
+                pattern=pattern,
+                duration_days=duration_days,
+                seed=seed,
+            )
 
-    # Paired Statistical Differences: full_aegis vs reactive_hpa_plus_consolidation
-    e_diff_mean, e_diff_std, e_diff_ci = compute_paired_diff(
-        metric_records["full_aegis"]["energy_kwh"],
-        metric_records["reactive_hpa_plus_consolidation"]["energy_kwh"],
+            # Trace day 1 (0 to 1440 steps) strictly for split-conformal calibration; test on days 2 to 5
+            res = study.run_comparison(
+                trace_data=trace,
+                output_dir=output_dir,
+                forecast_horizon_minutes=horizon,
+                calibration_window_steps=1440,
+                scale_workload=1.0,
+            )
+
+            fm = res["forecaster_metrics"]
+            for k in forecast_records:
+                if k in fm:
+                    forecast_records[k].append(fm[k])
+
+            cfgs = res["configurations"]
+            for cfg in configs_list:
+                c_res = cfgs[cfg]
+                for m_name in metric_records[cfg]:
+                    metric_records[cfg][m_name].append(c_res[m_name])
+
+        # Aggregate per-pattern stats
+        pattern_summary = {}
+        for cfg in configs_list:
+            pattern_summary[cfg] = {}
+            for m_name, vals in metric_records[cfg].items():
+                mean, std, ci95 = compute_ci95(vals)
+                pattern_summary[cfg][m_name] = {"mean": mean, "std": std, "ci95": ci95, "raw": vals}
+
+        # Print table for this pattern
+        print(f"\n--- Benchmark Summary for Pattern: {pattern.upper()} ---")
+        print(f"{'Configuration':<34} | {'Energy (kWh)':<15} | {'Shortfall (min)':<18} | {'Actions':<14} | {'Active Nodes':<12}")
+        print("-" * 105)
+        for cfg in configs_list:
+            e = pattern_summary[cfg]["energy_kwh"]
+            s = pattern_summary[cfg]["capacity_shortfall_minutes"]
+            a = pattern_summary[cfg]["scaling_actions"]
+            nd = pattern_summary[cfg]["mean_active_nodes"]
+            print(f"{cfg:<34} | {e['mean']:>6.2f} +/- {e['ci95']:<4.2f} | {s['mean']:>6.1f} +/- {s['ci95']:<4.1f} | {a['mean']:>6.1f} +/- {a['ci95']:<4.1f} | {nd['mean']:>4.1f} +/- {nd['ci95']:<4.1f}")
+        print("-" * 105)
+
+        # Paired differences
+        # 1. full_aegis_conformal vs cluster_autoscaler
+        e_diff_ca_mean, _, e_diff_ca_ci, e_diff_ca_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["energy_kwh"],
+            metric_records["cluster_autoscaler"]["energy_kwh"],
+        )
+        s_diff_ca_mean, _, s_diff_ca_ci, s_diff_ca_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["capacity_shortfall_minutes"],
+            metric_records["cluster_autoscaler"]["capacity_shortfall_minutes"],
+        )
+        a_diff_ca_mean, _, a_diff_ca_ci, a_diff_ca_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["scaling_actions"],
+            metric_records["cluster_autoscaler"]["scaling_actions"],
+        )
+
+        # 2. full_aegis_conformal vs reactive_hpa_plus_consolidation
+        e_diff_rh_mean, _, e_diff_rh_ci, e_diff_rh_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["energy_kwh"],
+            metric_records["reactive_hpa_plus_consolidation"]["energy_kwh"],
+        )
+        s_diff_rh_mean, _, s_diff_rh_ci, s_diff_rh_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["capacity_shortfall_minutes"],
+            metric_records["reactive_hpa_plus_consolidation"]["capacity_shortfall_minutes"],
+        )
+        a_diff_rh_mean, _, a_diff_rh_ci, a_diff_rh_sig = compute_paired_diff(
+            metric_records["full_aegis_conformal"]["scaling_actions"],
+            metric_records["reactive_hpa_plus_consolidation"]["scaling_actions"],
+        )
+
+        print(f"Paired Deltas vs cluster_autoscaler (delta +/- 95% CI):")
+        print(f"  Delta Energy   : {e_diff_ca_mean:+.2f} +/- {e_diff_ca_ci:.2f} kWh (Excludes zero: {e_diff_ca_sig})")
+        print(f"  Delta Shortfall: {s_diff_ca_mean:+.1f} +/- {s_diff_ca_ci:.1f} min (Excludes zero: {s_diff_ca_sig})")
+        print(f"  Delta Actions  : {a_diff_ca_mean:+.1f} +/- {a_diff_ca_ci:.1f} act (Excludes zero: {a_diff_ca_sig})")
+
+        print(f"Paired Deltas vs reactive_hpa_plus_consolidation (delta +/- 95% CI):")
+        print(f"  Delta Energy   : {e_diff_rh_mean:+.2f} +/- {e_diff_rh_ci:.2f} kWh (Excludes zero: {e_diff_rh_sig})")
+        print(f"  Delta Shortfall: {s_diff_rh_mean:+.1f} +/- {s_diff_rh_ci:.1f} min (Excludes zero: {s_diff_rh_sig})")
+        print(f"  Delta Actions  : {a_diff_rh_mean:+.1f} +/- {a_diff_rh_ci:.1f} act (Excludes zero: {a_diff_rh_sig})")
+
+        all_pattern_results[pattern] = {
+            "configurations": pattern_summary,
+            "forecaster_metrics": {k: compute_ci95(v) for k, v in forecast_records.items()},
+            "paired_vs_cluster_autoscaler": {
+                "energy_kwh": {"diff": e_diff_ca_mean, "ci95": e_diff_ca_ci, "excludes_zero": e_diff_ca_sig},
+                "shortfall_min": {"diff": s_diff_ca_mean, "ci95": s_diff_ca_ci, "excludes_zero": s_diff_ca_sig},
+                "actions": {"diff": a_diff_ca_mean, "ci95": a_diff_ca_ci, "excludes_zero": a_diff_ca_sig},
+            },
+            "paired_vs_reactive_consolidation": {
+                "energy_kwh": {"diff": e_diff_rh_mean, "ci95": e_diff_rh_ci, "excludes_zero": e_diff_rh_sig},
+                "shortfall_min": {"diff": s_diff_rh_mean, "ci95": s_diff_rh_ci, "excludes_zero": s_diff_rh_sig},
+                "actions": {"diff": a_diff_rh_mean, "ci95": a_diff_rh_ci, "excludes_zero": a_diff_rh_sig},
+            },
+        }
+
+    return all_pattern_results
+
+
+def run_sensitivity_sweeps(seeds: List[int], output_dir: str = "eval"):
+    """
+    Executes parameter sensitivity sweeps over:
+    - Wake-up latency: 1, 3, 5 min
+    - Idle power fraction: 0.30, 0.50, 0.70 of P_max
+    - Alpha: 1.0, 1.5, 2.0
+    - Minimum active nodes (K_min): 1, 2, 3
+    """
+    sweep_results = {}
+    pattern = "diurnal"
+
+    print("\n" + "=" * 105)
+    print("                    STARTING PARAMETER SENSITIVITY SWEEPS (Pattern: DIURNAL)")
+    print("=" * 105)
+
+    # 1. Wake-up Latency Sweep
+    print("\n>>> SENSITIVITY SWEEP 1: Node Wake-Up Latency (1m, 3m, 5m)")
+    sweep_results["wake_up_latency"] = {}
+    for lat in [1, 3, 5]:
+        res = run_experiment_suite(
+            patterns=[pattern],
+            seeds=seeds,
+            topology="large",
+            wake_up_latency=lat,
+            output_dir=output_dir,
+            study_label=f"Wake-up Latency = {lat} min",
+        )
+        sweep_results["wake_up_latency"][f"{lat}m"] = res[pattern]
+
+    # 2. Idle Power Fraction Sweep
+    print("\n>>> SENSITIVITY SWEEP 2: Idle Power Fraction (30%, 50%, 70% of P_max)")
+    sweep_results["idle_power_fraction"] = {}
+    for frac in [0.30, 0.50, 0.70]:
+        res = run_experiment_suite(
+            patterns=[pattern],
+            seeds=seeds,
+            topology="large",
+            idle_power_frac=frac,
+            output_dir=output_dir,
+            study_label=f"Idle Power Fraction = {int(frac*100)}%",
+        )
+        sweep_results["idle_power_fraction"][f"{int(frac*100)}%"] = res[pattern]
+
+    # 3. Alpha (Energy Model Exponent) Sweep
+    print("\n>>> SENSITIVITY SWEEP 3: Alpha Exponent (1.0, 1.5, 2.0)")
+    sweep_results["alpha"] = {}
+    for a in [1.0, 1.5, 2.0]:
+        res = run_experiment_suite(
+            patterns=[pattern],
+            seeds=seeds,
+            topology="large",
+            alpha=a,
+            output_dir=output_dir,
+            study_label=f"Alpha = {a}",
+        )
+        sweep_results["alpha"][f"alpha_{a}"] = res[pattern]
+
+    # 4. K_min (Minimum Active Nodes) Sweep
+    print("\n>>> SENSITIVITY SWEEP 4: K_min Resilience Floor (1, 2, 3 nodes)")
+    sweep_results["k_min"] = {}
+    for k in [1, 2, 3]:
+        res = run_experiment_suite(
+            patterns=[pattern],
+            seeds=seeds,
+            topology="large",
+            k_min=k,
+            output_dir=output_dir,
+            study_label=f"K_min = {k} nodes",
+        )
+        sweep_results["k_min"][f"k_{k}"] = res[pattern]
+
+    sweep_path = os.path.join(output_dir, "sensitivity_sweep_results.json")
+    with open(sweep_path, "w") as f:
+        json.dump(sweep_results, f, indent=2)
+    print(f"\nSensitivity sweep artifacts saved to: {sweep_path}")
+    return sweep_results
+
+
+def run_small_cluster_baseline(seeds: List[int], output_dir: str = "eval"):
+    """
+    Runs the 4-node cluster scenario to diagnose and demonstrate action count inversion
+    and pinned K_min behavior.
+    """
+    print("\n" + "=" * 105)
+    print("        SECONDARY BENCHMARK: SMALL CLUSTER BASELINE (4 NODES, 16 CORES)")
+    print("=" * 105)
+    return run_experiment_suite(
+        patterns=["diurnal"],
+        seeds=seeds,
+        topology="small",
+        k_min=2,
+        output_dir=output_dir,
+        study_label="Small Cluster Baseline (4 Nodes)",
     )
-    s_diff_mean, s_diff_std, s_diff_ci = compute_paired_diff(
-        metric_records["full_aegis"]["capacity_shortfall_minutes"],
-        metric_records["reactive_hpa_plus_consolidation"]["capacity_shortfall_minutes"],
-    )
-    a_diff_mean, a_diff_std, a_diff_ci = compute_paired_diff(
-        metric_records["full_aegis"]["scaling_actions"],
-        metric_records["reactive_hpa_plus_consolidation"]["scaling_actions"],
-    )
-
-    print("\n" + "=" * 96)
-    print("   PAIRED DIFFERENCES: full_aegis MINUS reactive_hpa_plus_consolidation (per-seed delta)")
-    print("=" * 96)
-    print(f"  Delta Energy (kWh)       : {e_diff_mean:+.2f} +/- {e_diff_ci:.2f} kWh  (Negative = Aegis saves more energy)")
-    print(f"  Delta Shortfall (minutes): {s_diff_mean:+.1f} +/- {s_diff_ci:.1f} min  (Negative = Aegis prevents shortfalls)")
-    print(f"  Delta Scaling Actions    : {a_diff_mean:+.1f} +/- {a_diff_ci:.1f} act  (Negative = Aegis reduces churn)")
-    print("=" * 96)
-
-    # Save to eval/ablation_results.json
-    final_output = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "topology": topology,
-        "node_count": len(nodes),
-        "total_cpu_cores": total_cpu,
-        "seeds": seeds,
-        "duration_days": duration_days,
-        "workload_scale": scale_workload,
-        "forecast_horizon_minutes": horizon,
-        "forecaster_metrics": aggregated_forecaster,
-        "configurations": summary_stats,
-        "paired_comparison_full_aegis_vs_reactive_consolidation": {
-            "delta_energy_kwh": {"mean": e_diff_mean, "std": e_diff_std, "ci95": e_diff_ci},
-            "delta_shortfall_minutes": {"mean": s_diff_mean, "std": s_diff_std, "ci95": s_diff_ci},
-            "delta_scaling_actions": {"mean": a_diff_mean, "std": a_diff_std, "ci95": a_diff_ci},
-        },
-        "raw_runs": raw_seed_runs,
-    }
-    json_path = os.path.join(output_dir, "ablation_results.json")
-    with open(json_path, "w") as f:
-        json.dump(final_output, f, indent=2)
-    print(f"\nFinal multi-seed benchmark artifacts saved to: {json_path}")
-    return final_output
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Aegis Multi-Seed Ablation Study Runner.")
-    parser.add_argument("--seed", type=int, default=None, help="Single random seed to run (default: runs 5 seeds)")
-    parser.add_argument("--seeds", type=str, default="42,101,202,303,404", help="Comma-separated seed list")
-    parser.add_argument("--days", type=int, default=4, help="Trace length in days (default: 4, 1 calib + 3 test)")
-    parser.add_argument("--horizon", type=int, default=10, help="Forecast horizon in minutes (default: 10)")
-    parser.add_argument("--topology", type=str, default="large", choices=["small", "large"], help="Cluster topology: 'large' (20 nodes) or 'small' (4 nodes)")
-    parser.add_argument("--scale", type=float, default=15.0, help="Workload scale factor (default: 15.0 for 20-node cluster)")
-    parser.add_argument("--output", type=str, default="eval", help="Output directory for results")
+    parser = argparse.ArgumentParser(description="Aegis Multi-Pattern Ablation & Sensitivity Runner.")
+    parser.add_argument("--seeds", type=str, default="42,101,202,303,404", help="Comma-separated seeds")
+    parser.add_argument("--patterns", type=str, default="diurnal,steady,bursty,flash_crowd", help="Patterns")
+    parser.add_argument("--days", type=int, default=5, help="Trace length in days (default: 5)")
+    parser.add_argument("--horizon", type=int, default=10, help="Forecast horizon in minutes")
+    parser.add_argument("--output", type=str, default="eval", help="Output directory")
+    parser.add_argument("--sweep", action="store_true", help="Run full sensitivity sweeps")
+    parser.add_argument("--small", action="store_true", help="Run small cluster baseline")
     args = parser.parse_args()
 
-    if args.seed is not None:
-        seed_list = [args.seed]
-    else:
-        seed_list = [int(s.strip()) for s in args.seeds.split(",") if s.strip()]
+    seed_list = [int(s.strip()) for s in args.seeds.split(",") if s.strip()]
+    pattern_list = [p.strip() for p in args.patterns.split(",") if p.strip()]
 
-    # If small topology requested, default scale factor to 1.0
-    scale = args.scale if args.topology == "large" else 1.0
+    # Print Disjoint Data Split Windows
+    print("=" * 105)
+    print("                             DISJOINT DATA SPLIT BOUNDARIES")
+    print("=" * 105)
+    print("  1. Historical LightGBM Training : Day 0 to Day 7 (datasets/training_trace.parquet)")
+    print("  2. Split-Conformal Calibration  : Trace Day 1 (steps 0 to 1440, strictly pre-test held-out)")
+    print("  3. Out-of-Sample Test Evaluation: Trace Days 2 to 5 (steps 1440 to 7200, strictly disjoint)")
+    print("=" * 105)
 
-    run_multi_seed_experiments(
+    # 1. Primary Benchmark (Multi-pattern, multi-seed on 20-node topology)
+    primary_results = run_experiment_suite(
+        patterns=pattern_list,
         seeds=seed_list,
         duration_days=args.days,
-        output_dir=args.output,
         horizon=args.horizon,
-        topology=args.topology,
-        scale_workload=scale,
+        topology="large",
+        output_dir=args.output,
+        study_label="Primary Multi-Pattern Benchmark (20 Nodes)",
     )
+
+    primary_path = os.path.join(args.output, "multi_pattern_ablation_results.json")
+    with open(primary_path, "w") as f:
+        json.dump(primary_results, f, indent=2)
+    print(f"\nMulti-pattern ablation artifacts saved to: {primary_path}")
+
+    # 2. Small cluster baseline
+    if args.small:
+        run_small_cluster_baseline(seeds=seed_list, output_dir=args.output)
+
+    # 3. Sensitivity sweeps
+    if args.sweep:
+        run_sensitivity_sweeps(seeds=seed_list, output_dir=args.output)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,3046 @@
+{
+  "diurnal": {
+    "configurations": {
+      "stock_hpa": {
+        "energy_kwh": {
+          "mean": 203.72,
+          "std": 0.12,
+          "ci95": 0.15,
+          "raw": [
+            203.6124,
+            203.8954,
+            203.7492,
+            203.739,
+            203.605
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 247.8,
+          "std": 8.76,
+          "ci95": 10.87,
+          "raw": [
+            234,
+            255,
+            245,
+            250,
+            255
+          ]
+        },
+        "scaling_churn": {
+          "mean": 975.4,
+          "std": 24.4,
+          "ci95": 30.3,
+          "raw": [
+            956,
+            985,
+            950,
+            975,
+            1011
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 38.97,
+          "std": 0.17,
+          "ci95": 0.21,
+          "raw": [
+            38.75,
+            39.21,
+            38.92,
+            39.03,
+            38.95
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "cluster_autoscaler": {
+        "energy_kwh": {
+          "mean": 98.5,
+          "std": 0.64,
+          "ci95": 0.8,
+          "raw": [
+            97.6018,
+            99.4138,
+            98.5257,
+            98.5703,
+            98.4037
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 247.8,
+          "std": 8.76,
+          "ci95": 10.87,
+          "raw": [
+            234,
+            255,
+            245,
+            250,
+            255
+          ]
+        },
+        "scaling_churn": {
+          "mean": 975.4,
+          "std": 24.4,
+          "ci95": 30.3,
+          "raw": [
+            956,
+            985,
+            950,
+            975,
+            1011
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 38.97,
+          "std": 0.17,
+          "ci95": 0.21,
+          "raw": [
+            38.75,
+            39.21,
+            38.92,
+            39.03,
+            38.95
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.01,
+          "std": 0.07,
+          "ci95": 0.08,
+          "raw": [
+            6.91,
+            7.1,
+            7.0,
+            7.0,
+            7.02
+          ]
+        }
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": {
+          "mean": 98.2,
+          "std": 0.62,
+          "ci95": 0.77,
+          "raw": [
+            97.3196,
+            99.0662,
+            98.2182,
+            98.2866,
+            98.1331
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 247.8,
+          "std": 8.76,
+          "ci95": 10.87,
+          "raw": [
+            234,
+            255,
+            245,
+            250,
+            255
+          ]
+        },
+        "scaling_churn": {
+          "mean": 975.4,
+          "std": 24.4,
+          "ci95": 30.3,
+          "raw": [
+            956,
+            985,
+            950,
+            975,
+            1011
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 38.97,
+          "std": 0.17,
+          "ci95": 0.21,
+          "raw": [
+            38.75,
+            39.21,
+            38.92,
+            39.03,
+            38.95
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 6.94,
+          "std": 0.06,
+          "ci95": 0.08,
+          "raw": [
+            6.85,
+            7.02,
+            6.93,
+            6.93,
+            6.95
+          ]
+        }
+      },
+      "forecast_only": {
+        "energy_kwh": {
+          "mean": 203.72,
+          "std": 0.12,
+          "ci95": 0.15,
+          "raw": [
+            203.6124,
+            203.8954,
+            203.7492,
+            203.739,
+            203.605
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 217.2,
+          "std": 13.54,
+          "ci95": 16.81,
+          "raw": [
+            209,
+            209,
+            205,
+            236,
+            227
+          ]
+        },
+        "scaling_churn": {
+          "mean": 964.4,
+          "std": 47.52,
+          "ci95": 59.01,
+          "raw": [
+            938,
+            932,
+            921,
+            1025,
+            1006
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.32,
+          "std": 0.22,
+          "ci95": 0.27,
+          "raw": [
+            43.21,
+            43.52,
+            43.45,
+            43.43,
+            42.99
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_placement": {
+        "energy_kwh": {
+          "mean": 227.12,
+          "std": 0.17,
+          "ci95": 0.21,
+          "raw": [
+            226.9593,
+            227.3674,
+            227.1502,
+            227.1586,
+            226.9713
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 217.2,
+          "std": 13.54,
+          "ci95": 16.81,
+          "raw": [
+            209,
+            209,
+            205,
+            236,
+            227
+          ]
+        },
+        "scaling_churn": {
+          "mean": 964.4,
+          "std": 47.52,
+          "ci95": 59.01,
+          "raw": [
+            938,
+            932,
+            921,
+            1025,
+            1006
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.32,
+          "std": 0.22,
+          "ci95": 0.27,
+          "raw": [
+            43.21,
+            43.52,
+            43.45,
+            43.43,
+            42.99
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_plus_power_no_placement": {
+        "energy_kwh": {
+          "mean": 104.21,
+          "std": 0.25,
+          "ci95": 0.31,
+          "raw": [
+            104.0093,
+            104.5613,
+            104.1518,
+            104.3616,
+            103.9528
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 217.2,
+          "std": 13.54,
+          "ci95": 16.81,
+          "raw": [
+            209,
+            209,
+            205,
+            236,
+            227
+          ]
+        },
+        "scaling_churn": {
+          "mean": 964.4,
+          "std": 47.52,
+          "ci95": 59.01,
+          "raw": [
+            938,
+            932,
+            921,
+            1025,
+            1006
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.32,
+          "std": 0.22,
+          "ci95": 0.27,
+          "raw": [
+            43.21,
+            43.52,
+            43.45,
+            43.43,
+            42.99
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.54,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            7.54,
+            7.56,
+            7.54,
+            7.55,
+            7.51
+          ]
+        }
+      },
+      "full_aegis": {
+        "energy_kwh": {
+          "mean": 115.85,
+          "std": 0.27,
+          "ci95": 0.34,
+          "raw": [
+            115.6695,
+            116.2481,
+            115.7654,
+            115.9942,
+            115.5654
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 217.2,
+          "std": 13.54,
+          "ci95": 16.81,
+          "raw": [
+            209,
+            209,
+            205,
+            236,
+            227
+          ]
+        },
+        "scaling_churn": {
+          "mean": 964.4,
+          "std": 47.52,
+          "ci95": 59.01,
+          "raw": [
+            938,
+            932,
+            921,
+            1025,
+            1006
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.32,
+          "std": 0.22,
+          "ci95": 0.27,
+          "raw": [
+            43.21,
+            43.52,
+            43.45,
+            43.43,
+            42.99
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.54,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            7.54,
+            7.56,
+            7.54,
+            7.55,
+            7.51
+          ]
+        }
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": {
+          "mean": 116.01,
+          "std": 0.75,
+          "ci95": 0.93,
+          "raw": [
+            115.7707,
+            117.2906,
+            115.584,
+            115.9614,
+            115.42
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 218.0,
+          "std": 14.44,
+          "ci95": 17.93,
+          "raw": [
+            227,
+            205,
+            200,
+            232,
+            226
+          ]
+        },
+        "scaling_churn": {
+          "mean": 953.6,
+          "std": 67.06,
+          "ci95": 83.27,
+          "raw": [
+            1012,
+            883,
+            878,
+            1001,
+            994
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.36,
+          "std": 0.44,
+          "ci95": 0.55,
+          "raw": [
+            43.01,
+            44.04,
+            43.49,
+            43.32,
+            42.94
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.55,
+          "std": 0.06,
+          "ci95": 0.08,
+          "raw": [
+            7.55,
+            7.66,
+            7.52,
+            7.54,
+            7.5
+          ]
+        }
+      },
+      "oracle": {
+        "energy_kwh": {
+          "mean": 109.45,
+          "std": 0.56,
+          "ci95": 0.69,
+          "raw": [
+            108.8551,
+            110.2834,
+            109.631,
+            109.4432,
+            109.0473
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 2.0,
+          "std": 1.41,
+          "ci95": 1.76,
+          "raw": [
+            3,
+            3,
+            3,
+            1,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 297.6,
+          "std": 19.28,
+          "ci95": 23.94,
+          "raw": [
+            297,
+            289,
+            296,
+            277,
+            329
+          ]
+        },
+        "scaling_churn": {
+          "mean": 1084.4,
+          "std": 94.76,
+          "ci95": 117.66,
+          "raw": [
+            1095,
+            1049,
+            1066,
+            977,
+            1235
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 39.16,
+          "std": 0.16,
+          "ci95": 0.2,
+          "raw": [
+            39.07,
+            39.42,
+            39.17,
+            38.99,
+            39.14
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 6.86,
+          "std": 0.02,
+          "ci95": 0.03,
+          "raw": [
+            6.84,
+            6.9,
+            6.86,
+            6.85,
+            6.84
+          ]
+        }
+      }
+    },
+    "forecaster_metrics": {
+      "wmape_p50": [
+        7.0,
+        0.23,
+        0.29
+      ],
+      "pinball_loss_p10": [
+        0.2,
+        0.01,
+        0.01
+      ],
+      "pinball_loss_p50": [
+        0.46,
+        0.01,
+        0.02
+      ],
+      "pinball_loss_p90": [
+        0.2,
+        0.01,
+        0.01
+      ],
+      "interval_coverage_uncalibrated_pct": [
+        80.62,
+        1.14,
+        1.41
+      ],
+      "interval_coverage_conformal_pct": [
+        80.25,
+        2.09,
+        2.59
+      ],
+      "calibration_fraction_below_p10_uncalibrated": [
+        0.1,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p10_conformal": [
+        0.11,
+        0.02,
+        0.02
+      ],
+      "calibration_fraction_below_p50": [
+        0.5,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p90_uncalibrated": [
+        0.91,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p90_conformal": [
+        0.91,
+        0.01,
+        0.02
+      ]
+    },
+    "paired_vs_cluster_autoscaler": {
+      "energy_kwh": {
+        "diff": 17.5,
+        "ci95": 0.63,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 0.0,
+        "ci95": 0.0,
+        "excludes_zero": false
+      },
+      "actions": {
+        "diff": -29.8,
+        "ci95": 22.37,
+        "excludes_zero": true
+      }
+    },
+    "paired_vs_reactive_consolidation": {
+      "energy_kwh": {
+        "diff": 17.8,
+        "ci95": 0.64,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 0.0,
+        "ci95": 0.0,
+        "excludes_zero": false
+      },
+      "actions": {
+        "diff": -29.8,
+        "ci95": 22.37,
+        "excludes_zero": true
+      }
+    }
+  },
+  "steady": {
+    "configurations": {
+      "stock_hpa": {
+        "energy_kwh": {
+          "mean": 206.54,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            206.5242,
+            206.5661,
+            206.5457,
+            206.5461,
+            206.5238
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 6.0,
+          "std": 4.0,
+          "ci95": 4.97,
+          "raw": [
+            8,
+            4,
+            0,
+            8,
+            10
+          ]
+        },
+        "scaling_churn": {
+          "mean": 30.4,
+          "std": 19.77,
+          "ci95": 24.55,
+          "raw": [
+            40,
+            22,
+            0,
+            40,
+            50
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.49,
+          "std": 0.29,
+          "ci95": 0.36,
+          "raw": [
+            43.64,
+            43.57,
+            43.0,
+            43.76,
+            43.5
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "cluster_autoscaler": {
+        "energy_kwh": {
+          "mean": 108.09,
+          "std": 1.54,
+          "ci95": 1.91,
+          "raw": [
+            106.9731,
+            109.4657,
+            110.0482,
+            107.1642,
+            106.8164
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 6.0,
+          "std": 4.0,
+          "ci95": 4.97,
+          "raw": [
+            8,
+            4,
+            0,
+            8,
+            10
+          ]
+        },
+        "scaling_churn": {
+          "mean": 30.4,
+          "std": 19.77,
+          "ci95": 24.55,
+          "raw": [
+            40,
+            22,
+            0,
+            40,
+            50
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.49,
+          "std": 0.29,
+          "ci95": 0.36,
+          "raw": [
+            43.64,
+            43.57,
+            43.0,
+            43.76,
+            43.5
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.7,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            7.53,
+            7.9,
+            8.0,
+            7.55,
+            7.5
+          ]
+        }
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": {
+          "mean": 108.08,
+          "std": 1.55,
+          "ci95": 1.93,
+          "raw": [
+            106.9502,
+            109.4657,
+            110.0482,
+            107.1412,
+            106.788
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 6.0,
+          "std": 4.0,
+          "ci95": 4.97,
+          "raw": [
+            8,
+            4,
+            0,
+            8,
+            10
+          ]
+        },
+        "scaling_churn": {
+          "mean": 30.4,
+          "std": 19.77,
+          "ci95": 24.55,
+          "raw": [
+            40,
+            22,
+            0,
+            40,
+            50
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.49,
+          "std": 0.29,
+          "ci95": 0.36,
+          "raw": [
+            43.64,
+            43.57,
+            43.0,
+            43.76,
+            43.5
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.7,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            7.53,
+            7.9,
+            8.0,
+            7.55,
+            7.5
+          ]
+        }
+      },
+      "forecast_only": {
+        "energy_kwh": {
+          "mean": 206.54,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            206.5242,
+            206.5661,
+            206.5457,
+            206.5461,
+            206.5238
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 11.0,
+          "std": 5.66,
+          "ci95": 7.02,
+          "raw": [
+            15,
+            13,
+            1,
+            13,
+            13
+          ]
+        },
+        "scaling_churn": {
+          "mean": 56.6,
+          "std": 29.13,
+          "ci95": 36.17,
+          "raw": [
+            76,
+            70,
+            5,
+            66,
+            66
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 48.34,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            48.34,
+            48.63,
+            47.99,
+            48.45,
+            48.28
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_placement": {
+        "energy_kwh": {
+          "mean": 233.05,
+          "std": 0.03,
+          "ci95": 0.03,
+          "raw": [
+            233.0236,
+            233.0857,
+            233.0531,
+            233.0512,
+            233.026
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 0.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "scaling_actions": {
+          "mean": 11.0,
+          "std": 5.66,
+          "ci95": 7.02,
+          "raw": [
+            15,
+            13,
+            1,
+            13,
+            13
+          ]
+        },
+        "scaling_churn": {
+          "mean": 56.6,
+          "std": 29.13,
+          "ci95": 36.17,
+          "raw": [
+            76,
+            70,
+            5,
+            66,
+            66
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 48.34,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            48.34,
+            48.63,
+            47.99,
+            48.45,
+            48.28
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_plus_power_no_placement": {
+        "energy_kwh": {
+          "mean": 115.67,
+          "std": 0.16,
+          "ci95": 0.19,
+          "raw": [
+            115.6243,
+            115.8561,
+            115.8042,
+            115.5021,
+            115.5445
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 11.0,
+          "std": 5.66,
+          "ci95": 7.02,
+          "raw": [
+            15,
+            13,
+            1,
+            13,
+            13
+          ]
+        },
+        "scaling_churn": {
+          "mean": 56.6,
+          "std": 29.13,
+          "ci95": 36.17,
+          "raw": [
+            76,
+            70,
+            5,
+            66,
+            66
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 48.34,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            48.34,
+            48.63,
+            47.99,
+            48.45,
+            48.28
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 8.49,
+          "std": 0.01,
+          "ci95": 0.02,
+          "raw": [
+            8.48,
+            8.51,
+            8.48,
+            8.48,
+            8.48
+          ]
+        }
+      },
+      "full_aegis": {
+        "energy_kwh": {
+          "mean": 129.25,
+          "std": 0.18,
+          "ci95": 0.22,
+          "raw": [
+            129.1899,
+            129.489,
+            129.3802,
+            129.0757,
+            129.1295
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 11.0,
+          "std": 5.66,
+          "ci95": 7.02,
+          "raw": [
+            15,
+            13,
+            1,
+            13,
+            13
+          ]
+        },
+        "scaling_churn": {
+          "mean": 56.6,
+          "std": 29.13,
+          "ci95": 36.17,
+          "raw": [
+            76,
+            70,
+            5,
+            66,
+            66
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 48.34,
+          "std": 0.24,
+          "ci95": 0.29,
+          "raw": [
+            48.34,
+            48.63,
+            47.99,
+            48.45,
+            48.28
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 8.49,
+          "std": 0.01,
+          "ci95": 0.02,
+          "raw": [
+            8.48,
+            8.51,
+            8.48,
+            8.48,
+            8.48
+          ]
+        }
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": {
+          "mean": 124.12,
+          "std": 0.15,
+          "ci95": 0.18,
+          "raw": [
+            124.1383,
+            124.34,
+            124.1088,
+            123.9297,
+            124.0994
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 11.8,
+          "std": 2.17,
+          "ci95": 2.69,
+          "raw": [
+            11,
+            9,
+            14,
+            14,
+            11
+          ]
+        },
+        "scaling_churn": {
+          "mean": 61.2,
+          "std": 9.63,
+          "ci95": 11.95,
+          "raw": [
+            58,
+            49,
+            70,
+            72,
+            57
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 46.34,
+          "std": 0.31,
+          "ci95": 0.39,
+          "raw": [
+            45.97,
+            46.75,
+            46.32,
+            46.55,
+            46.13
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 8.06,
+          "std": 0.01,
+          "ci95": 0.01,
+          "raw": [
+            8.06,
+            8.07,
+            8.06,
+            8.05,
+            8.06
+          ]
+        }
+      },
+      "oracle": {
+        "energy_kwh": {
+          "mean": 121.49,
+          "std": 0.17,
+          "ci95": 0.21,
+          "raw": [
+            121.5222,
+            121.6518,
+            121.5397,
+            121.5515,
+            121.2047
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 6.4,
+          "std": 3.29,
+          "ci95": 4.08,
+          "raw": [
+            8,
+            4,
+            2,
+            8,
+            10
+          ]
+        },
+        "scaling_churn": {
+          "mean": 32.4,
+          "std": 16.09,
+          "ci95": 19.97,
+          "raw": [
+            40,
+            22,
+            10,
+            40,
+            50
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.56,
+          "std": 0.2,
+          "ci95": 0.25,
+          "raw": [
+            43.65,
+            43.57,
+            43.23,
+            43.76,
+            43.59
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.69,
+          "std": 0.01,
+          "ci95": 0.01,
+          "raw": [
+            7.69,
+            7.7,
+            7.69,
+            7.69,
+            7.68
+          ]
+        }
+      }
+    },
+    "forecaster_metrics": {
+      "wmape_p50": [
+        3.59,
+        0.04,
+        0.05
+      ],
+      "pinball_loss_p10": [
+        0.16,
+        0.0,
+        0.0
+      ],
+      "pinball_loss_p50": [
+        0.26,
+        0.0,
+        0.0
+      ],
+      "pinball_loss_p90": [
+        0.16,
+        0.0,
+        0.0
+      ],
+      "interval_coverage_uncalibrated_pct": [
+        98.44,
+        0.18,
+        0.22
+      ],
+      "interval_coverage_conformal_pct": [
+        80.02,
+        0.92,
+        1.15
+      ],
+      "calibration_fraction_below_p10_uncalibrated": [
+        0.01,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p10_conformal": [
+        0.1,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p50": [
+        0.48,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p90_uncalibrated": [
+        0.99,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p90_conformal": [
+        0.9,
+        0.01,
+        0.01
+      ]
+    },
+    "paired_vs_cluster_autoscaler": {
+      "energy_kwh": {
+        "diff": 16.03,
+        "ci95": 1.82,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 0.0,
+        "ci95": 0.0,
+        "excludes_zero": false
+      },
+      "actions": {
+        "diff": 5.8,
+        "ci95": 6.17,
+        "excludes_zero": false
+      }
+    },
+    "paired_vs_reactive_consolidation": {
+      "energy_kwh": {
+        "diff": 16.04,
+        "ci95": 1.84,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 0.0,
+        "ci95": 0.0,
+        "excludes_zero": false
+      },
+      "actions": {
+        "diff": 5.8,
+        "ci95": 6.17,
+        "excludes_zero": false
+      }
+    }
+  },
+  "bursty": {
+    "configurations": {
+      "stock_hpa": {
+        "energy_kwh": {
+          "mean": 200.81,
+          "std": 0.26,
+          "ci95": 0.32,
+          "raw": [
+            200.8362,
+            200.8299,
+            200.991,
+            201.0113,
+            200.377
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 29.8,
+          "std": 3.83,
+          "ci95": 4.76,
+          "raw": [
+            27,
+            33,
+            25,
+            30,
+            34
+          ]
+        },
+        "scaling_actions": {
+          "mean": 925.8,
+          "std": 72.78,
+          "ci95": 90.37,
+          "raw": [
+            954,
+            931,
+            954,
+            989,
+            801
+          ]
+        },
+        "scaling_churn": {
+          "mean": 7423.6,
+          "std": 615.69,
+          "ci95": 764.48,
+          "raw": [
+            7603,
+            7463,
+            7594,
+            8059,
+            6399
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 39.26,
+          "std": 0.52,
+          "ci95": 0.65,
+          "raw": [
+            39.29,
+            39.48,
+            39.49,
+            39.67,
+            38.36
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "cluster_autoscaler": {
+        "energy_kwh": {
+          "mean": 104.65,
+          "std": 1.65,
+          "ci95": 2.05,
+          "raw": [
+            104.4797,
+            105.0255,
+            105.4941,
+            106.2966,
+            101.9377
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 96.8,
+          "std": 11.67,
+          "ci95": 14.49,
+          "raw": [
+            87,
+            99,
+            93,
+            116,
+            89
+          ]
+        },
+        "scaling_actions": {
+          "mean": 925.8,
+          "std": 72.78,
+          "ci95": 90.37,
+          "raw": [
+            954,
+            931,
+            954,
+            989,
+            801
+          ]
+        },
+        "scaling_churn": {
+          "mean": 7423.6,
+          "std": 615.69,
+          "ci95": 764.48,
+          "raw": [
+            7603,
+            7463,
+            7594,
+            8059,
+            6399
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 39.26,
+          "std": 0.52,
+          "ci95": 0.65,
+          "raw": [
+            39.29,
+            39.48,
+            39.49,
+            39.67,
+            38.36
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.58,
+          "std": 0.13,
+          "ci95": 0.16,
+          "raw": [
+            7.57,
+            7.65,
+            7.62,
+            7.69,
+            7.37
+          ]
+        }
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": {
+          "mean": 102.05,
+          "std": 1.55,
+          "ci95": 1.92,
+          "raw": [
+            102.0048,
+            102.5638,
+            102.686,
+            103.5244,
+            99.457
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 114.0,
+          "std": 17.44,
+          "ci95": 21.65,
+          "raw": [
+            111,
+            115,
+            100,
+            143,
+            101
+          ]
+        },
+        "scaling_actions": {
+          "mean": 925.8,
+          "std": 72.78,
+          "ci95": 90.37,
+          "raw": [
+            954,
+            931,
+            954,
+            989,
+            801
+          ]
+        },
+        "scaling_churn": {
+          "mean": 7423.6,
+          "std": 615.69,
+          "ci95": 764.48,
+          "raw": [
+            7603,
+            7463,
+            7594,
+            8059,
+            6399
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 39.26,
+          "std": 0.52,
+          "ci95": 0.65,
+          "raw": [
+            39.29,
+            39.48,
+            39.49,
+            39.67,
+            38.36
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.1,
+          "std": 0.1,
+          "ci95": 0.12,
+          "raw": [
+            7.08,
+            7.17,
+            7.13,
+            7.17,
+            6.93
+          ]
+        }
+      },
+      "forecast_only": {
+        "energy_kwh": {
+          "mean": 200.63,
+          "std": 0.23,
+          "ci95": 0.29,
+          "raw": [
+            200.6722,
+            200.677,
+            200.797,
+            200.7822,
+            200.2326
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 150.0,
+          "std": 17.61,
+          "ci95": 21.86,
+          "raw": [
+            154,
+            156,
+            148,
+            170,
+            122
+          ]
+        },
+        "scaling_actions": {
+          "mean": 836.2,
+          "std": 56.14,
+          "ci95": 69.71,
+          "raw": [
+            849,
+            862,
+            848,
+            883,
+            739
+          ]
+        },
+        "scaling_churn": {
+          "mean": 6537.6,
+          "std": 526.57,
+          "ci95": 653.82,
+          "raw": [
+            6646,
+            6746,
+            6615,
+            7037,
+            5644
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.44,
+          "std": 0.47,
+          "ci95": 0.58,
+          "raw": [
+            43.43,
+            43.62,
+            43.6,
+            43.89,
+            42.66
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_placement": {
+        "energy_kwh": {
+          "mean": 223.13,
+          "std": 0.34,
+          "ci95": 0.43,
+          "raw": [
+            223.178,
+            223.2346,
+            223.3242,
+            223.3824,
+            222.5306
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 150.0,
+          "std": 17.61,
+          "ci95": 21.86,
+          "raw": [
+            154,
+            156,
+            148,
+            170,
+            122
+          ]
+        },
+        "scaling_actions": {
+          "mean": 836.2,
+          "std": 56.14,
+          "ci95": 69.71,
+          "raw": [
+            849,
+            862,
+            848,
+            883,
+            739
+          ]
+        },
+        "scaling_churn": {
+          "mean": 6537.6,
+          "std": 526.57,
+          "ci95": 653.82,
+          "raw": [
+            6646,
+            6746,
+            6615,
+            7037,
+            5644
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.44,
+          "std": 0.47,
+          "ci95": 0.58,
+          "raw": [
+            43.43,
+            43.62,
+            43.6,
+            43.89,
+            42.66
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_plus_power_no_placement": {
+        "energy_kwh": {
+          "mean": 105.34,
+          "std": 1.39,
+          "ci95": 1.73,
+          "raw": [
+            105.7839,
+            105.9725,
+            105.7089,
+            106.333,
+            102.8845
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 155.2,
+          "std": 19.43,
+          "ci95": 24.13,
+          "raw": [
+            161,
+            163,
+            152,
+            176,
+            124
+          ]
+        },
+        "scaling_actions": {
+          "mean": 836.2,
+          "std": 56.14,
+          "ci95": 69.71,
+          "raw": [
+            849,
+            862,
+            848,
+            883,
+            739
+          ]
+        },
+        "scaling_churn": {
+          "mean": 6537.6,
+          "std": 526.57,
+          "ci95": 653.82,
+          "raw": [
+            6646,
+            6746,
+            6615,
+            7037,
+            5644
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.44,
+          "std": 0.47,
+          "ci95": 0.58,
+          "raw": [
+            43.43,
+            43.62,
+            43.6,
+            43.89,
+            42.66
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.31,
+          "std": 0.05,
+          "ci95": 0.06,
+          "raw": [
+            7.32,
+            7.33,
+            7.35,
+            7.34,
+            7.23
+          ]
+        }
+      },
+      "full_aegis": {
+        "energy_kwh": {
+          "mean": 116.09,
+          "std": 1.44,
+          "ci95": 1.78,
+          "raw": [
+            116.5321,
+            116.7492,
+            116.496,
+            117.1092,
+            113.557
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 155.2,
+          "std": 19.43,
+          "ci95": 24.13,
+          "raw": [
+            161,
+            163,
+            152,
+            176,
+            124
+          ]
+        },
+        "scaling_actions": {
+          "mean": 836.2,
+          "std": 56.14,
+          "ci95": 69.71,
+          "raw": [
+            849,
+            862,
+            848,
+            883,
+            739
+          ]
+        },
+        "scaling_churn": {
+          "mean": 6537.6,
+          "std": 526.57,
+          "ci95": 653.82,
+          "raw": [
+            6646,
+            6746,
+            6615,
+            7037,
+            5644
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.44,
+          "std": 0.47,
+          "ci95": 0.58,
+          "raw": [
+            43.43,
+            43.62,
+            43.6,
+            43.89,
+            42.66
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.31,
+          "std": 0.05,
+          "ci95": 0.06,
+          "raw": [
+            7.32,
+            7.33,
+            7.35,
+            7.34,
+            7.23
+          ]
+        }
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": {
+          "mean": 125.17,
+          "std": 2.43,
+          "ci95": 3.02,
+          "raw": [
+            122.2878,
+            123.4128,
+            126.0068,
+            128.533,
+            125.5976
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 49.2,
+          "std": 15.45,
+          "ci95": 19.18,
+          "raw": [
+            68,
+            59,
+            52,
+            35,
+            32
+          ]
+        },
+        "scaling_actions": {
+          "mean": 751.8,
+          "std": 58.64,
+          "ci95": 72.81,
+          "raw": [
+            778,
+            791,
+            768,
+            774,
+            648
+          ]
+        },
+        "scaling_churn": {
+          "mean": 6244.2,
+          "std": 514.85,
+          "ci95": 639.27,
+          "raw": [
+            6426,
+            6488,
+            6365,
+            6605,
+            5337
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 49.57,
+          "std": 1.74,
+          "ci95": 2.17,
+          "raw": [
+            47.59,
+            48.01,
+            49.9,
+            51.68,
+            50.69
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 8.31,
+          "std": 0.25,
+          "ci95": 0.31,
+          "raw": [
+            8.0,
+            8.09,
+            8.37,
+            8.57,
+            8.51
+          ]
+        }
+      },
+      "oracle": {
+        "energy_kwh": {
+          "mean": 110.43,
+          "std": 1.53,
+          "ci95": 1.9,
+          "raw": [
+            110.9738,
+            110.5869,
+            111.1285,
+            111.6793,
+            107.7757
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 97.0,
+          "std": 14.27,
+          "ci95": 17.71,
+          "raw": [
+            96,
+            112,
+            83,
+            111,
+            83
+          ]
+        },
+        "scaling_actions": {
+          "mean": 964.0,
+          "std": 78.56,
+          "ci95": 97.54,
+          "raw": [
+            1000,
+            971,
+            989,
+            1031,
+            829
+          ]
+        },
+        "scaling_churn": {
+          "mean": 7553.2,
+          "std": 650.6,
+          "ci95": 807.82,
+          "raw": [
+            7787,
+            7619,
+            7742,
+            8169,
+            6449
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 39.4,
+          "std": 0.52,
+          "ci95": 0.65,
+          "raw": [
+            39.47,
+            39.6,
+            39.67,
+            39.77,
+            38.49
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 6.58,
+          "std": 0.06,
+          "ci95": 0.07,
+          "raw": [
+            6.59,
+            6.6,
+            6.61,
+            6.62,
+            6.48
+          ]
+        }
+      }
+    },
+    "forecaster_metrics": {
+      "wmape_p50": [
+        18.25,
+        0.8,
+        0.99
+      ],
+      "pinball_loss_p10": [
+        0.75,
+        0.05,
+        0.06
+      ],
+      "pinball_loss_p50": [
+        1.1,
+        0.06,
+        0.07
+      ],
+      "pinball_loss_p90": [
+        0.79,
+        0.05,
+        0.06
+      ],
+      "interval_coverage_uncalibrated_pct": [
+        64.33,
+        1.68,
+        2.09
+      ],
+      "interval_coverage_conformal_pct": [
+        79.34,
+        3.44,
+        4.27
+      ],
+      "calibration_fraction_below_p10_uncalibrated": [
+        0.18,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p10_conformal": [
+        0.1,
+        0.02,
+        0.02
+      ],
+      "calibration_fraction_below_p50": [
+        0.49,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p90_uncalibrated": [
+        0.82,
+        0.01,
+        0.01
+      ],
+      "calibration_fraction_below_p90_conformal": [
+        0.9,
+        0.02,
+        0.02
+      ]
+    },
+    "paired_vs_cluster_autoscaler": {
+      "energy_kwh": {
+        "diff": 20.52,
+        "ci95": 3.09,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": -47.6,
+        "ci95": 28.61,
+        "excludes_zero": true
+      },
+      "actions": {
+        "diff": -174.0,
+        "ci95": 36.34,
+        "excludes_zero": true
+      }
+    },
+    "paired_vs_reactive_consolidation": {
+      "energy_kwh": {
+        "diff": 23.12,
+        "ci95": 3.16,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": -64.8,
+        "ci95": 32.37,
+        "excludes_zero": true
+      },
+      "actions": {
+        "diff": -174.0,
+        "ci95": 36.34,
+        "excludes_zero": true
+      }
+    }
+  },
+  "flash_crowd": {
+    "configurations": {
+      "stock_hpa": {
+        "energy_kwh": {
+          "mean": 204.45,
+          "std": 0.04,
+          "ci95": 0.04,
+          "raw": [
+            204.4371,
+            204.4833,
+            204.486,
+            204.3999,
+            204.4477
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 3.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        "scaling_actions": {
+          "mean": 77.2,
+          "std": 6.98,
+          "ci95": 8.67,
+          "raw": [
+            72,
+            71,
+            75,
+            80,
+            88
+          ]
+        },
+        "scaling_churn": {
+          "mean": 385.6,
+          "std": 29.24,
+          "ci95": 36.3,
+          "raw": [
+            357,
+            363,
+            386,
+            391,
+            431
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 40.5,
+          "std": 0.07,
+          "ci95": 0.09,
+          "raw": [
+            40.49,
+            40.46,
+            40.52,
+            40.43,
+            40.62
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "cluster_autoscaler": {
+        "energy_kwh": {
+          "mean": 101.1,
+          "std": 0.61,
+          "ci95": 0.75,
+          "raw": [
+            100.9721,
+            101.2814,
+            101.0665,
+            101.938,
+            100.2558
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 8.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            8,
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        "scaling_actions": {
+          "mean": 77.2,
+          "std": 6.98,
+          "ci95": 8.67,
+          "raw": [
+            72,
+            71,
+            75,
+            80,
+            88
+          ]
+        },
+        "scaling_churn": {
+          "mean": 385.6,
+          "std": 29.24,
+          "ci95": 36.3,
+          "raw": [
+            357,
+            363,
+            386,
+            391,
+            431
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 40.5,
+          "std": 0.07,
+          "ci95": 0.09,
+          "raw": [
+            40.49,
+            40.46,
+            40.52,
+            40.43,
+            40.62
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.17,
+          "std": 0.08,
+          "ci95": 0.1,
+          "raw": [
+            7.16,
+            7.19,
+            7.17,
+            7.28,
+            7.06
+          ]
+        }
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": {
+          "mean": 100.94,
+          "std": 0.6,
+          "ci95": 0.74,
+          "raw": [
+            100.8023,
+            101.1386,
+            100.9068,
+            101.7472,
+            100.0977
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 8.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            8,
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        "scaling_actions": {
+          "mean": 77.2,
+          "std": 6.98,
+          "ci95": 8.67,
+          "raw": [
+            72,
+            71,
+            75,
+            80,
+            88
+          ]
+        },
+        "scaling_churn": {
+          "mean": 385.6,
+          "std": 29.24,
+          "ci95": 36.3,
+          "raw": [
+            357,
+            363,
+            386,
+            391,
+            431
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 40.5,
+          "std": 0.07,
+          "ci95": 0.09,
+          "raw": [
+            40.49,
+            40.46,
+            40.52,
+            40.43,
+            40.62
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.15,
+          "std": 0.08,
+          "ci95": 0.09,
+          "raw": [
+            7.14,
+            7.17,
+            7.14,
+            7.25,
+            7.04
+          ]
+        }
+      },
+      "forecast_only": {
+        "energy_kwh": {
+          "mean": 204.41,
+          "std": 0.03,
+          "ci95": 0.04,
+          "raw": [
+            204.3955,
+            204.4426,
+            204.4425,
+            204.3596,
+            204.4104
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 11.2,
+          "std": 0.45,
+          "ci95": 0.56,
+          "raw": [
+            11,
+            11,
+            11,
+            12,
+            11
+          ]
+        },
+        "scaling_actions": {
+          "mean": 95.4,
+          "std": 9.32,
+          "ci95": 11.57,
+          "raw": [
+            103,
+            80,
+            98,
+            102,
+            94
+          ]
+        },
+        "scaling_churn": {
+          "mean": 463.2,
+          "std": 43.76,
+          "ci95": 54.34,
+          "raw": [
+            499,
+            391,
+            495,
+            474,
+            457
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 44.65,
+          "std": 0.21,
+          "ci95": 0.26,
+          "raw": [
+            44.95,
+            44.51,
+            44.51,
+            44.81,
+            44.49
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_placement": {
+        "energy_kwh": {
+          "mean": 228.91,
+          "std": 0.03,
+          "ci95": 0.04,
+          "raw": [
+            228.8727,
+            228.9502,
+            228.9028,
+            228.9233,
+            228.8799
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 11.2,
+          "std": 0.45,
+          "ci95": 0.56,
+          "raw": [
+            11,
+            11,
+            11,
+            12,
+            11
+          ]
+        },
+        "scaling_actions": {
+          "mean": 95.4,
+          "std": 9.32,
+          "ci95": 11.57,
+          "raw": [
+            103,
+            80,
+            98,
+            102,
+            94
+          ]
+        },
+        "scaling_churn": {
+          "mean": 463.2,
+          "std": 43.76,
+          "ci95": 54.34,
+          "raw": [
+            499,
+            391,
+            495,
+            474,
+            457
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 44.65,
+          "std": 0.21,
+          "ci95": 0.26,
+          "raw": [
+            44.95,
+            44.51,
+            44.51,
+            44.81,
+            44.49
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 20.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "forecast_plus_power_no_placement": {
+        "energy_kwh": {
+          "mean": 107.2,
+          "std": 0.17,
+          "ci95": 0.22,
+          "raw": [
+            107.1119,
+            107.468,
+            107.1909,
+            107.2208,
+            106.9999
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 16.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            16,
+            16,
+            16,
+            16,
+            16
+          ]
+        },
+        "scaling_actions": {
+          "mean": 95.4,
+          "std": 9.32,
+          "ci95": 11.57,
+          "raw": [
+            103,
+            80,
+            98,
+            102,
+            94
+          ]
+        },
+        "scaling_churn": {
+          "mean": 463.2,
+          "std": 43.76,
+          "ci95": 54.34,
+          "raw": [
+            499,
+            391,
+            495,
+            474,
+            457
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 44.65,
+          "std": 0.21,
+          "ci95": 0.26,
+          "raw": [
+            44.95,
+            44.51,
+            44.51,
+            44.81,
+            44.49
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.81,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            7.8,
+            7.83,
+            7.81,
+            7.83,
+            7.79
+          ]
+        }
+      },
+      "full_aegis": {
+        "energy_kwh": {
+          "mean": 119.41,
+          "std": 0.21,
+          "ci95": 0.26,
+          "raw": [
+            119.2903,
+            119.7045,
+            119.3927,
+            119.4959,
+            119.1522
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 16.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            16,
+            16,
+            16,
+            16,
+            16
+          ]
+        },
+        "scaling_actions": {
+          "mean": 95.4,
+          "std": 9.32,
+          "ci95": 11.57,
+          "raw": [
+            103,
+            80,
+            98,
+            102,
+            94
+          ]
+        },
+        "scaling_churn": {
+          "mean": 463.2,
+          "std": 43.76,
+          "ci95": 54.34,
+          "raw": [
+            499,
+            391,
+            495,
+            474,
+            457
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 44.65,
+          "std": 0.21,
+          "ci95": 0.26,
+          "raw": [
+            44.95,
+            44.51,
+            44.51,
+            44.81,
+            44.49
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.81,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            7.8,
+            7.83,
+            7.81,
+            7.83,
+            7.79
+          ]
+        }
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": {
+          "mean": 117.01,
+          "std": 0.15,
+          "ci95": 0.19,
+          "raw": [
+            116.8816,
+            117.2497,
+            117.0098,
+            117.0617,
+            116.8713
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 16.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            16,
+            16,
+            16,
+            16,
+            16
+          ]
+        },
+        "scaling_actions": {
+          "mean": 101.0,
+          "std": 3.74,
+          "ci95": 4.65,
+          "raw": [
+            101,
+            101,
+            103,
+            105,
+            95
+          ]
+        },
+        "scaling_churn": {
+          "mean": 465.0,
+          "std": 16.14,
+          "ci95": 20.04,
+          "raw": [
+            473,
+            463,
+            468,
+            482,
+            439
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 43.25,
+          "std": 0.24,
+          "ci95": 0.3,
+          "raw": [
+            43.19,
+            43.45,
+            43.17,
+            43.52,
+            42.92
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.56,
+          "std": 0.02,
+          "ci95": 0.02,
+          "raw": [
+            7.55,
+            7.57,
+            7.54,
+            7.58,
+            7.54
+          ]
+        }
+      },
+      "oracle": {
+        "energy_kwh": {
+          "mean": 113.33,
+          "std": 0.15,
+          "ci95": 0.18,
+          "raw": [
+            113.2446,
+            113.5605,
+            113.2992,
+            113.1848,
+            113.3766
+          ]
+        },
+        "capacity_shortfall_minutes": {
+          "mean": 6.0,
+          "std": 0.0,
+          "ci95": 0.0,
+          "raw": [
+            6,
+            6,
+            6,
+            6,
+            6
+          ]
+        },
+        "scaling_actions": {
+          "mean": 91.0,
+          "std": 3.74,
+          "ci95": 4.65,
+          "raw": [
+            92,
+            90,
+            97,
+            88,
+            88
+          ]
+        },
+        "scaling_churn": {
+          "mean": 419.2,
+          "std": 11.43,
+          "ci95": 14.2,
+          "raw": [
+            424,
+            417,
+            436,
+            406,
+            413
+          ]
+        },
+        "mean_allocated_replicas": {
+          "mean": 40.75,
+          "std": 0.14,
+          "ci95": 0.18,
+          "raw": [
+            40.74,
+            40.99,
+            40.63,
+            40.72,
+            40.66
+          ]
+        },
+        "mean_active_nodes": {
+          "mean": 7.17,
+          "std": 0.0,
+          "ci95": 0.01,
+          "raw": [
+            7.17,
+            7.17,
+            7.17,
+            7.16,
+            7.17
+          ]
+        }
+      }
+    },
+    "forecaster_metrics": {
+      "wmape_p50": [
+        5.61,
+        0.19,
+        0.24
+      ],
+      "pinball_loss_p10": [
+        0.19,
+        0.0,
+        0.0
+      ],
+      "pinball_loss_p50": [
+        0.38,
+        0.01,
+        0.02
+      ],
+      "pinball_loss_p90": [
+        0.25,
+        0.02,
+        0.03
+      ],
+      "interval_coverage_uncalibrated_pct": [
+        92.29,
+        0.29,
+        0.36
+      ],
+      "interval_coverage_conformal_pct": [
+        77.43,
+        1.0,
+        1.24
+      ],
+      "calibration_fraction_below_p10_uncalibrated": [
+        0.02,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p10_conformal": [
+        0.1,
+        0.0,
+        0.01
+      ],
+      "calibration_fraction_below_p50": [
+        0.47,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p90_uncalibrated": [
+        0.95,
+        0.0,
+        0.0
+      ],
+      "calibration_fraction_below_p90_conformal": [
+        0.88,
+        0.01,
+        0.01
+      ]
+    },
+    "paired_vs_cluster_autoscaler": {
+      "energy_kwh": {
+        "diff": 15.91,
+        "ci95": 0.66,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 8.0,
+        "ci95": 0.0,
+        "excludes_zero": true
+      },
+      "actions": {
+        "diff": 23.8,
+        "ci95": 11.89,
+        "excludes_zero": true
+      }
+    },
+    "paired_vs_reactive_consolidation": {
+      "energy_kwh": {
+        "diff": 16.08,
+        "ci95": 0.64,
+        "excludes_zero": true
+      },
+      "shortfall_min": {
+        "diff": 8.0,
+        "ci95": 0.0,
+        "excludes_zero": true
+      },
+      "actions": {
+        "diff": 23.8,
+        "ci95": 11.89,
+        "excludes_zero": true
+      }
+    }
+  }
+}

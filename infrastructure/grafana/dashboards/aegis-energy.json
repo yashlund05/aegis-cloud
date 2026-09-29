@@ -1,0 +1,77 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 3,
+  "links": [],
+  "liveNow": true,
+  "title": "Aegis - Cluster Energy & Power Management",
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "timezone": "utc",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Cluster Power Draw (Watts): Aegis vs Unmanaged Baseline",
+      "type": "timeseries",
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(aegis_node_power_watts)",
+          "legendFormat": "Aegis Managed Power (Watts)",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(kepler_node_platform_joules_total)",
+          "legendFormat": "Kepler Measured Joules",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Cumulative Energy Saved (kWh)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 8, "x": 0, "y": 9 },
+      "targets": [
+        {
+          "expr": "aegis_cumulative_energy_saved_kwh",
+          "legendFormat": "Energy Saved (kWh)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Active vs Cordoned Nodes",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 8, "x": 8, "y": 9 },
+      "targets": [
+        {
+          "expr": "count(aegis_node_status{status=\"active\"})",
+          "legendFormat": "Active Nodes",
+          "refId": "A"
+        },
+        {
+          "expr": "count(aegis_node_status{status=\"cordoned\"})",
+          "legendFormat": "Cordoned / Sleeping Nodes",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Energy Efficiency (Watts per Request)",
+      "type": "timeseries",
+      "gridPos": { "h": 6, "w": 8, "x": 16, "y": 9 },
+      "targets": [
+        {
+          "expr": "sum(aegis_node_power_watts) / sum(rate(http_requests_total[5m]))",
+          "legendFormat": "Joules / Request",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

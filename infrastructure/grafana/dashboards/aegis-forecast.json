@@ -1,0 +1,82 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 2,
+  "links": [],
+  "liveNow": true,
+  "title": "Aegis - Workload Forecasting & Quantiles",
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "timezone": "utc",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Quantile Forecast Bands (p10, p50, p90) vs Actual Demand",
+      "type": "timeseries",
+      "gridPos": { "h": 9, "w": 24, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "aegis_workload_demand_actual{workload=\"cart-service\"}",
+          "legendFormat": "Actual CPU Demand",
+          "refId": "A"
+        },
+        {
+          "expr": "aegis_workload_forecast_quantile{workload=\"cart-service\", quantile=\"0.9\"}",
+          "legendFormat": "p90 Forecast (Upper Bound)",
+          "refId": "B"
+        },
+        {
+          "expr": "aegis_workload_forecast_quantile{workload=\"cart-service\", quantile=\"0.5\"}",
+          "legendFormat": "p50 Forecast (Median)",
+          "refId": "C"
+        },
+        {
+          "expr": "aegis_workload_forecast_quantile{workload=\"cart-service\", quantile=\"0.1\"}",
+          "legendFormat": "p10 Forecast (Lower Bound)",
+          "refId": "D"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Forecast Rolling WMAPE",
+      "type": "gauge",
+      "gridPos": { "h": 6, "w": 8, "x": 0, "y": 9 },
+      "targets": [
+        {
+          "expr": "aegis_forecast_wmape{workload=\"cart-service\"}",
+          "legendFormat": "WMAPE",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Concept Drift KS p-value",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 8, "x": 8, "y": 9 },
+      "targets": [
+        {
+          "expr": "aegis_drift_ks_pvalue{workload=\"cart-service\"}",
+          "legendFormat": "KS Test p-value",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Inference Latency (p99 ms)",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 8, "x": 16, "y": 9 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(aegis_prediction_duration_seconds_bucket[5m])) by (le)) * 1000",
+          "legendFormat": "p99 Latency (ms)",
+          "refId": "A"
+        }
+      ]
+    }
+  ]
+}

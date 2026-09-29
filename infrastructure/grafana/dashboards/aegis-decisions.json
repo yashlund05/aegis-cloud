@@ -1,0 +1,64 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 4,
+  "links": [],
+  "liveNow": true,
+  "title": "Aegis - Decision Engine & Control Loop Timeline",
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "timezone": "utc",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Control Cycle Duration & Solver Solve Time (ms)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "aegis_control_cycle_duration_ms",
+          "legendFormat": "Total Cycle Duration (ms)",
+          "refId": "A"
+        },
+        {
+          "expr": "aegis_solver_solve_time_ms",
+          "legendFormat": "CP-SAT Solve Time (ms)",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Scaling Mutations (Replicas Added / Removed)",
+      "type": "timeseries",
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(aegis_replica_scaling_events_total[5m]))",
+          "legendFormat": "Scale Events / min",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Fallback Trigger Events (FFD / HPA)",
+      "type": "stat",
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(aegis_solver_fallback_events_total)",
+          "legendFormat": "FFD Fallbacks",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(aegis_hpa_fallback_events_total)",
+          "legendFormat": "HPA Emergency Fallbacks",
+          "refId": "B"
+        }
+      ]
+    }
+  ]
+}

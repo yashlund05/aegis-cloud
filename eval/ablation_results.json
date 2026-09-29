@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-09-29T13:08:50.828371",
+  "trace_steps": 100,
+  "configurations": {
+    "stock_hpa": {
+      "energy_kwh": 0.665,
+      "slo_violations": 16,
+      "slo_violation_rate_pct": 16.0,
+      "scaling_churn": 75,
+      "mean_allocated_replicas": 5.96,
+      "mean_active_nodes": 4.0
+    },
+    "forecast_only": {
+      "energy_kwh": 0.665,
+      "slo_violations": 0,
+      "slo_violation_rate_pct": 0.0,
+      "scaling_churn": 214,
+      "mean_allocated_replicas": 4.77,
+      "mean_active_nodes": 4.0
+    },
+    "forecast_placement": {
+      "energy_kwh": 0.7101,
+      "slo_violations": 0,
+      "slo_violation_rate_pct": 0.0,
+      "scaling_churn": 214,
+      "mean_allocated_replicas": 4.77,
+      "mean_active_nodes": 4.0
+    },
+    "full_aegis": {
+      "energy_kwh": 0.3674,
+      "slo_violations": 0,
+      "slo_violation_rate_pct": 0.0,
+      "scaling_churn": 74,
+      "mean_allocated_replicas": 6.54,
+      "mean_active_nodes": 2.0
+    }
+  },
+  "improvements": {
+    "energy_savings_vs_hpa_pct": 44.75,
+    "slo_violation_reduction_pct": 100.0,
+    "churn_reduction_pct": 1.33
+  }
+}

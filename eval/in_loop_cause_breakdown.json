@@ -1,0 +1,9 @@
+{
+  "cause_breakdown": {
+    "a_plan_target_below_demand": 158,
+    "b_blocked_by_safety": 218,
+    "b_altered_by_max_step": 0,
+    "c_node_side_boot_or_ceiling": -5
+  },
+  "total_shortfall": 371
+}

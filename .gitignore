@@ -42,8 +42,10 @@ Thumbs.db
 models/*.bin
 
 # Datasets
+datasets/raw/
 datasets/*.csv
 datasets/*.parquet
+*.tar.xz
 !datasets/README.md
 
 # Kubernetes

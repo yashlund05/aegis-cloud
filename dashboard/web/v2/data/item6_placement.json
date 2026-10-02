@@ -1,0 +1,142 @@
+{
+  "arms": {
+    "no_placement (spread)": {
+      "energy_kwh": [
+        116.81,
+        3.01,
+        3.74
+      ],
+      "energy_idle_kwh": [
+        84.19,
+        1.64,
+        2.03
+      ],
+      "energy_dynamic_kwh": [
+        30.89,
+        1.48,
+        1.83
+      ],
+      "capacity_shortfall_minutes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_active_nodes": [
+        9.47,
+        0.18,
+        0.23
+      ],
+      "mean_nodes_needed": [
+        9.43,
+        0.18,
+        0.23
+      ],
+      "mean_allocated_replicas": [
+        43.09,
+        0.79,
+        0.98
+      ]
+    },
+    "with_placement (pack)": {
+      "energy_kwh": [
+        121.05,
+        2.87,
+        3.57
+      ],
+      "energy_idle_kwh": [
+        73.58,
+        1.25,
+        1.56
+      ],
+      "energy_dynamic_kwh": [
+        45.97,
+        1.82,
+        2.26
+      ],
+      "capacity_shortfall_minutes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_active_nodes": [
+        8.26,
+        0.15,
+        0.18
+      ],
+      "mean_nodes_needed": [
+        8.22,
+        0.14,
+        0.18
+      ],
+      "mean_allocated_replicas": [
+        43.09,
+        0.79,
+        0.98
+      ]
+    }
+  },
+  "paired_deltas": {
+    "nodes": {
+      "mean": -1.206,
+      "ci95": 0.058,
+      "excludes_zero": true
+    },
+    "idle_kwh": {
+      "mean": -10.609,
+      "ci95": 0.517,
+      "excludes_zero": true
+    },
+    "total_kwh": {
+      "mean": 4.239,
+      "ci95": 0.303,
+      "excludes_zero": true
+    }
+  },
+  "packer_measurement": [
+    {
+      "pods": 6,
+      "spread_nodes": 2,
+      "pack_nodes": 2
+    },
+    {
+      "pods": 12,
+      "spread_nodes": 3,
+      "pack_nodes": 3
+    },
+    {
+      "pods": 24,
+      "spread_nodes": 5,
+      "pack_nodes": 5
+    },
+    {
+      "pods": 36,
+      "spread_nodes": 9,
+      "pack_nodes": 7
+    },
+    {
+      "pods": 48,
+      "spread_nodes": 11,
+      "pack_nodes": 9
+    },
+    {
+      "pods": 60,
+      "spread_nodes": 13,
+      "pack_nodes": 11
+    },
+    {
+      "pods": 72,
+      "spread_nodes": 15,
+      "pack_nodes": 14
+    },
+    {
+      "pods": 84,
+      "spread_nodes": 17,
+      "pack_nodes": 16
+    },
+    {
+      "pods": 96,
+      "spread_nodes": 21,
+      "pack_nodes": 18
+    }
+  ]
+}

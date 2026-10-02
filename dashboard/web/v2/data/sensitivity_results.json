@@ -1,0 +1,1858 @@
+{
+  "grid": {
+    "alpha=1.0_ratio=0.3": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 123.3143,
+          "full_aegis_conformal": 121.197,
+          "forecast_plus_power_no_placement": 131.4761,
+          "oracle": 115.00373333333334
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            128.678,
+            124.5432,
+            116.7217
+          ],
+          "full_aegis_conformal": [
+            129.6115,
+            120.5068,
+            113.4727
+          ],
+          "forecast_plus_power_no_placement": [
+            140.905,
+            130.9509,
+            122.5724
+          ],
+          "oracle": [
+            119.8031,
+            116.1042,
+            109.1039
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -2.117,
+        "placement_on_minus_off": -10.279
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 174.5892,
+          "full_aegis_conformal": 172.86880000000002,
+          "forecast_plus_power_no_placement": 183.74041999999997,
+          "oracle": 165.04208
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            176.8802,
+            171.7587,
+            223.6201,
+            157.4253,
+            143.2617
+          ],
+          "full_aegis_conformal": [
+            168.595,
+            173.3872,
+            223.0246,
+            167.6418,
+            131.6954
+          ],
+          "forecast_plus_power_no_placement": [
+            179.73,
+            183.7942,
+            233.1763,
+            180.8203,
+            141.1813
+          ],
+          "oracle": [
+            165.8786,
+            163.4476,
+            214.5633,
+            150.3712,
+            130.9497
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -1.72,
+        "placement_on_minus_off": -10.872
+      }
+    },
+    "alpha=1.0_ratio=0.5": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 150.74949999999998,
+          "full_aegis_conformal": 147.44063333333335,
+          "forecast_plus_power_no_placement": 163.76576666666668,
+          "oracle": 136.68736666666666
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            157.2814,
+            151.861,
+            143.1061
+          ],
+          "full_aegis_conformal": [
+            159.1713,
+            145.5044,
+            137.6462
+          ],
+          "forecast_plus_power_no_placement": [
+            177.1979,
+            161.8906,
+            152.2088
+          ],
+          "oracle": [
+            142.2955,
+            137.7767,
+            129.9899
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -3.309,
+        "placement_on_minus_off": -16.325
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 211.53954,
+          "full_aegis_conformal": 209.04634000000001,
+          "forecast_plus_power_no_placement": 226.58243999999996,
+          "oracle": 195.13335999999998
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            214.191,
+            211.6615,
+            268.0685,
+            188.6934,
+            175.0833
+          ],
+          "full_aegis_conformal": [
+            200.6459,
+            215.9086,
+            267.0332,
+            205.4343,
+            156.2097
+          ],
+          "forecast_plus_power_no_placement": [
+            218.6245,
+            232.5241,
+            283.6732,
+            226.5075,
+            171.5829
+          ],
+          "oracle": [
+            195.8176,
+            195.8126,
+            252.347,
+            177.0093,
+            154.6803
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -2.493,
+        "placement_on_minus_off": -17.536
+      }
+    },
+    "alpha=1.0_ratio=0.7": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 178.18476666666666,
+          "full_aegis_conformal": 173.6842,
+          "forecast_plus_power_no_placement": 196.05550000000002,
+          "oracle": 158.37103333333334
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            185.8849,
+            179.1789,
+            169.4905
+          ],
+          "full_aegis_conformal": [
+            188.731,
+            170.502,
+            161.8196
+          ],
+          "forecast_plus_power_no_placement": [
+            213.4908,
+            192.8304,
+            181.8453
+          ],
+          "oracle": [
+            164.788,
+            159.4493,
+            150.8758
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -4.501,
+        "placement_on_minus_off": -22.371
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 248.48982,
+          "full_aegis_conformal": 245.22393999999994,
+          "forecast_plus_power_no_placement": 269.42444,
+          "oracle": 225.22466000000003
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            251.5017,
+            251.5643,
+            312.5169,
+            219.9614,
+            206.9048
+          ],
+          "full_aegis_conformal": [
+            232.6969,
+            258.4301,
+            311.0418,
+            243.2268,
+            180.7241
+          ],
+          "forecast_plus_power_no_placement": [
+            257.519,
+            281.2539,
+            334.1702,
+            272.1946,
+            201.9845
+          ],
+          "oracle": [
+            225.7566,
+            228.1777,
+            290.1307,
+            203.6474,
+            178.4109
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -3.266,
+        "placement_on_minus_off": -24.201
+      }
+    },
+    "alpha=1.25_ratio=0.3": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 110.96213333333333,
+          "full_aegis_conformal": 118.19313333333334,
+          "forecast_plus_power_no_placement": 118.0527,
+          "oracle": 111.99983333333334
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            115.7863,
+            112.1107,
+            104.9894
+          ],
+          "full_aegis_conformal": [
+            126.5162,
+            117.4602,
+            110.603
+          ],
+          "forecast_plus_power_no_placement": [
+            126.3714,
+            117.6807,
+            110.106
+          ],
+          "oracle": [
+            116.7077,
+            113.0576,
+            106.2342
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 7.231,
+        "placement_on_minus_off": 0.14
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 157.50696,
+          "full_aegis_conformal": 168.92352,
+          "forecast_plus_power_no_placement": 165.30092000000002,
+          "oracle": 161.09678000000002
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            159.4169,
+            155.0478,
+            202.0222,
+            142.2311,
+            128.8168
+          ],
+          "full_aegis_conformal": [
+            164.5904,
+            169.7275,
+            217.898,
+            163.8959,
+            128.5058
+          ],
+          "forecast_plus_power_no_placement": [
+            161.8321,
+            165.1845,
+            210.0437,
+            162.3137,
+            127.1306
+          ],
+          "oracle": [
+            161.874,
+            159.7879,
+            209.4366,
+            146.6253,
+            127.7601
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 11.417,
+        "placement_on_minus_off": 3.623
+      }
+    },
+    "alpha=1.25_ratio=0.5": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 141.92656666666667,
+          "full_aegis_conformal": 145.295,
+          "forecast_plus_power_no_placement": 154.1777,
+          "oracle": 134.5417666666667
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            148.0731,
+            142.9807,
+            134.7259
+          ],
+          "full_aegis_conformal": [
+            156.9603,
+            143.3283,
+            135.5964
+          ],
+          "forecast_plus_power_no_placement": [
+            166.8168,
+            152.412,
+            143.3043
+          ],
+          "oracle": [
+            140.0846,
+            135.6006,
+            127.9401
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 3.368,
+        "placement_on_minus_off": -8.883
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 199.33792,
+          "full_aegis_conformal": 206.22832,
+          "forecast_plus_power_no_placement": 213.41134000000002,
+          "oracle": 192.31530000000004
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            201.7172,
+            199.7251,
+            252.6414,
+            177.8404,
+            164.7655
+          ],
+          "full_aegis_conformal": [
+            197.7856,
+            213.2946,
+            263.3713,
+            202.7586,
+            153.9315
+          ],
+          "forecast_plus_power_no_placement": [
+            205.8402,
+            219.2314,
+            267.15,
+            213.2885,
+            161.5466
+          ],
+          "oracle": [
+            192.9572,
+            193.1986,
+            248.6851,
+            174.3336,
+            152.402
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 6.89,
+        "placement_on_minus_off": -7.183
+      }
+    },
+    "alpha=1.25_ratio=0.7": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 172.891,
+          "full_aegis_conformal": 172.3969,
+          "forecast_plus_power_no_placement": 190.30263333333335,
+          "oracle": 157.08363333333332
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            180.3599,
+            173.8507,
+            164.4624
+          ],
+          "full_aegis_conformal": [
+            187.4045,
+            169.1964,
+            160.5898
+          ],
+          "forecast_plus_power_no_placement": [
+            207.2621,
+            187.1432,
+            176.5026
+          ],
+          "oracle": [
+            163.4614,
+            158.1436,
+            149.6459
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": -0.494,
+        "placement_on_minus_off": -17.906
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 241.16888,
+          "full_aegis_conformal": 243.53309999999996,
+          "forecast_plus_power_no_placement": 261.52178000000004,
+          "oracle": 223.53382000000002
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            244.0174,
+            244.4025,
+            303.2607,
+            213.4496,
+            200.7142
+          ],
+          "full_aegis_conformal": [
+            230.9807,
+            256.8616,
+            308.8447,
+            241.6214,
+            179.3571
+          ],
+          "forecast_plus_power_no_placement": [
+            249.8484,
+            273.2783,
+            324.2563,
+            264.2632,
+            195.9627
+          ],
+          "oracle": [
+            224.0404,
+            226.6092,
+            287.9335,
+            202.042,
+            177.044
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 2.364,
+        "placement_on_minus_off": -17.989
+      }
+    },
+    "alpha=1.5_ratio=0.3": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 101.32276666666667,
+          "full_aegis_conformal": 115.4876,
+          "forecast_plus_power_no_placement": 107.84896666666667,
+          "oracle": 109.29429999999998
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            105.7235,
+            102.3756,
+            95.8692
+          ],
+          "full_aegis_conformal": [
+            123.7185,
+            114.7164,
+            108.0279
+          ],
+          "forecast_plus_power_no_placement": [
+            115.46,
+            107.4929,
+            100.594
+          ],
+          "oracle": [
+            113.91,
+            110.3138,
+            103.6591
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 14.165,
+        "placement_on_minus_off": 7.639
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 144.01834,
+          "full_aegis_conformal": 165.29204000000001,
+          "forecast_plus_power_no_placement": 151.07402000000002,
+          "oracle": 157.46534
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            145.6145,
+            142.1726,
+            184.7198,
+            130.058,
+            117.5268
+          ],
+          "full_aegis_conformal": [
+            160.9085,
+            166.3686,
+            213.1318,
+            160.4577,
+            125.5936
+          ],
+          "forecast_plus_power_no_placement": [
+            147.7737,
+            151.2955,
+            191.8687,
+            148.3562,
+            116.076
+          ],
+          "oracle": [
+            158.1921,
+            156.429,
+            204.6705,
+            143.1871,
+            124.848
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 21.274,
+        "placement_on_minus_off": 14.218
+      }
+    },
+    "alpha=1.5_ratio=0.5": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 135.0413,
+          "full_aegis_conformal": 143.36246666666668,
+          "forecast_plus_power_no_placement": 146.8893,
+          "oracle": 132.60923333333332
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            140.8854,
+            136.027,
+            128.2115
+          ],
+          "full_aegis_conformal": [
+            154.962,
+            141.3684,
+            133.757
+          ],
+          "forecast_plus_power_no_placement": [
+            159.0229,
+            145.135,
+            136.51
+          ],
+          "oracle": [
+            138.0862,
+            133.6408,
+            126.1007
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 8.321,
+        "placement_on_minus_off": -3.527
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 189.70319999999998,
+          "full_aegis_conformal": 203.63438000000002,
+          "forecast_plus_power_no_placement": 203.24928,
+          "oracle": 189.7214
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            191.8583,
+            190.5286,
+            240.2826,
+            169.1453,
+            156.7012
+          ],
+          "full_aegis_conformal": [
+            195.1556,
+            210.8953,
+            259.9669,
+            200.3028,
+            151.8513
+          ],
+          "forecast_plus_power_no_placement": [
+            195.7986,
+            209.3107,
+            254.1678,
+            203.3188,
+            153.6505
+          ],
+          "oracle": [
+            190.3273,
+            190.7993,
+            245.2807,
+            171.8778,
+            150.3219
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 13.931,
+        "placement_on_minus_off": 0.385
+      }
+    },
+    "alpha=1.5_ratio=0.7": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 168.75983333333335,
+          "full_aegis_conformal": 171.23736666666665,
+          "forecast_plus_power_no_placement": 185.92960000000002,
+          "oracle": 155.92413333333334
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            176.0473,
+            169.6785,
+            160.5537
+          ],
+          "full_aegis_conformal": [
+            186.2055,
+            168.0205,
+            159.4861
+          ],
+          "forecast_plus_power_no_placement": [
+            202.5858,
+            182.777,
+            172.426
+          ],
+          "oracle": [
+            162.2624,
+            156.9677,
+            148.5423
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 2.478,
+        "placement_on_minus_off": -14.692
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 235.38802,
+          "full_aegis_conformal": 241.97676,
+          "forecast_plus_power_no_placement": 255.42453999999998,
+          "oracle": 221.97748
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            238.1021,
+            238.8845,
+            295.8453,
+            208.2326,
+            195.8756
+          ],
+          "full_aegis_conformal": [
+            229.4027,
+            255.4221,
+            306.802,
+            240.1479,
+            178.1091
+          ],
+          "forecast_plus_power_no_placement": [
+            243.8234,
+            267.3259,
+            316.467,
+            258.2814,
+            191.225
+          ],
+          "oracle": [
+            222.4624,
+            225.1697,
+            285.8909,
+            200.5685,
+            175.7959
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 6.589,
+        "placement_on_minus_off": -13.448
+      }
+    },
+    "alpha=2.0_ratio=0.3": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 87.90500000000002,
+          "full_aegis_conformal": 110.73553333333332,
+          "forecast_plus_power_no_placement": 94.15076666666666,
+          "oracle": 104.54223333333334
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            91.7134,
+            88.7621,
+            83.2395
+          ],
+          "full_aegis_conformal": [
+            118.7867,
+            109.896,
+            103.5239
+          ],
+          "forecast_plus_power_no_placement": [
+            101.0606,
+            93.6326,
+            87.7591
+          ],
+          "oracle": [
+            108.9782,
+            105.4934,
+            99.1551
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 22.831,
+        "placement_on_minus_off": 16.585
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 124.90106,
+          "full_aegis_conformal": 158.75526,
+          "forecast_plus_power_no_placement": 131.5358,
+          "oracle": 150.92856
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            126.0649,
+            124.4407,
+            159.7326,
+            112.4727,
+            101.7944
+          ],
+          "full_aegis_conformal": [
+            154.2887,
+            160.3352,
+            204.489,
+            154.2894,
+            120.374
+          ],
+          "forecast_plus_power_no_placement": [
+            128.041,
+            133.0034,
+            166.3124,
+            129.8,
+            100.5222
+          ],
+          "oracle": [
+            151.5723,
+            150.3956,
+            196.0277,
+            137.0188,
+            119.6284
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 33.854,
+        "placement_on_minus_off": 27.219
+      }
+    },
+    "alpha=2.0_ratio=0.5": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 125.45719999999999,
+          "full_aegis_conformal": 139.96816666666666,
+          "forecast_plus_power_no_placement": 137.10483333333335,
+          "oracle": 129.2149
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            130.8782,
+            126.3031,
+            119.1903
+          ],
+          "full_aegis_conformal": [
+            151.4393,
+            137.9253,
+            130.5399
+          ],
+          "forecast_plus_power_no_placement": [
+            148.7376,
+            135.2347,
+            127.3422
+          ],
+          "oracle": [
+            134.5635,
+            130.1976,
+            122.8836
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 14.511,
+        "placement_on_minus_off": 2.863
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 176.04798,
+          "full_aegis_conformal": 198.9653,
+          "forecast_plus_power_no_placement": 189.29340000000002,
+          "oracle": 185.05228000000002
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            177.8943,
+            177.8629,
+            222.4345,
+            156.5844,
+            145.4638
+          ],
+          "full_aegis_conformal": [
+            190.4272,
+            206.5858,
+            253.7935,
+            195.8969,
+            148.1231
+          ],
+          "forecast_plus_power_no_placement": [
+            181.7038,
+            196.2449,
+            235.9133,
+            190.0644,
+            142.5406
+          ],
+          "oracle": [
+            185.5988,
+            186.4898,
+            239.1073,
+            167.4719,
+            146.5936
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 22.917,
+        "placement_on_minus_off": 9.672
+      }
+    },
+    "alpha=2.0_ratio=0.7": {
+      "synthetic_diurnal": {
+        "energy_mean": {
+          "cluster_autoscaler": 163.00936666666666,
+          "full_aegis_conformal": 169.20076666666668,
+          "forecast_plus_power_no_placement": 180.0589,
+          "oracle": 153.88753333333332
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            170.043,
+            163.8441,
+            155.141
+          ],
+          "full_aegis_conformal": [
+            184.0918,
+            165.9546,
+            157.5559
+          ],
+          "forecast_plus_power_no_placement": [
+            196.4146,
+            176.8368,
+            166.9253
+          ],
+          "oracle": [
+            160.1488,
+            154.9018,
+            146.612
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 0.0,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            0,
+            0,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 6.191,
+        "placement_on_minus_off": -10.858
+      },
+      "real_68core": {
+        "energy_mean": {
+          "cluster_autoscaler": 227.19490000000005,
+          "full_aegis_conformal": 239.17526000000004,
+          "forecast_plus_power_no_placement": 247.05101999999997,
+          "oracle": 219.17597999999998
+        },
+        "energy_per_trace": {
+          "cluster_autoscaler": [
+            229.7237,
+            231.2852,
+            285.1365,
+            200.696,
+            189.1331
+          ],
+          "full_aegis_conformal": [
+            226.5656,
+            252.8363,
+            303.098,
+            237.5043,
+            175.8721
+          ],
+          "forecast_plus_power_no_placement": [
+            235.3665,
+            259.4864,
+            305.5143,
+            250.3288,
+            184.5591
+          ],
+          "oracle": [
+            219.6254,
+            222.5839,
+            282.1868,
+            197.9249,
+            173.5589
+          ]
+        },
+        "shortfall_mean": {
+          "cluster_autoscaler": 8.6,
+          "full_aegis_conformal": 0.0,
+          "forecast_plus_power_no_placement": 0.0,
+          "oracle": 0.0
+        },
+        "shortfall_per_trace": {
+          "cluster_autoscaler": [
+            1,
+            41,
+            0,
+            1,
+            0
+          ],
+          "full_aegis_conformal": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "forecast_plus_power_no_placement": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "oracle": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "aegis_minus_ca": 11.98,
+        "placement_on_minus_off": -7.876
+      }
+    }
+  },
+  "sign_flips": [
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.3,
+      "value": -2.117,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.5,
+      "value": -3.309,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.7,
+      "value": -4.501,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.25,
+      "idle_ratio": 0.7,
+      "value": -0.494,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.25,
+      "idle_ratio": 0.3,
+      "value": 0.14,
+      "default_cell_sign": "-"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.5,
+      "idle_ratio": 0.3,
+      "value": 7.639,
+      "default_cell_sign": "-"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 2.0,
+      "idle_ratio": 0.3,
+      "value": 16.585,
+      "default_cell_sign": "-"
+    },
+    {
+      "dataset": "synthetic_diurnal",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 2.0,
+      "idle_ratio": 0.5,
+      "value": 2.863,
+      "default_cell_sign": "-"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.3,
+      "value": -1.72,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.5,
+      "value": -2.493,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Aegis - CA energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.7,
+      "value": -3.266,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.3,
+      "value": -10.872,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.5,
+      "value": -17.536,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.0,
+      "idle_ratio": 0.7,
+      "value": -24.201,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.25,
+      "idle_ratio": 0.5,
+      "value": -7.183,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.25,
+      "idle_ratio": 0.7,
+      "value": -17.989,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 1.5,
+      "idle_ratio": 0.7,
+      "value": -13.448,
+      "default_cell_sign": "+"
+    },
+    {
+      "dataset": "real_68core",
+      "metric": "Placement ON - OFF energy",
+      "alpha": 2.0,
+      "idle_ratio": 0.7,
+      "value": -7.876,
+      "default_cell_sign": "+"
+    }
+  ],
+  "grid_axes": {
+    "alpha": [
+      1.0,
+      1.25,
+      1.5,
+      2.0
+    ],
+    "idle_ratio": [
+      0.3,
+      0.5,
+      0.7
+    ],
+    "default_cell": [
+      1.5,
+      0.5
+    ]
+  },
+  "datasets": {
+    "synthetic_diurnal_seeds": [
+      42,
+      101,
+      202
+    ],
+    "real_68core_apps": [
+      "737e31dddf54",
+      "a98d35d0aed6",
+      "d638d26f513a",
+      "e593dfd5a2c4",
+      "fadee4b59e71"
+    ]
+  },
+  "protocol": {
+    "configs": {
+      "cluster_autoscaler": "util 0.70",
+      "full_aegis_conformal": "tau 0.9, placement ON (also the placement-ON arm)",
+      "forecast_plus_power_no_placement": "placement OFF, fed the SAME static conformal stream",
+      "oracle": "defaults"
+    },
+    "power_override": "get_default_nodes(idle_power_fraction=frac, alpha=alpha) -> AblationStudy(nodes=...)",
+    "synthetic_streams": "production artifacts; conformal tau=0.90 on first 1440 target minutes; test = targets from 1440 on; warm start 60 min excluded inside the simulator",
+    "real_streams": "eval/run_real_trace.prepare_streams (60/15/25 split, static conformal tau=0.90)"
+  },
+  "simulator_config_hash": "25d66f72a7354b50251785842da473172cb2851a2857a1e5a2ad2c0662e03375",
+  "git": {
+    "commit": "1aec64ef31d0ce2e082aa2372638893602dbb9e0",
+    "tag_at_head": "sim-frozen",
+    "dirty_files": [
+      "eval/real_ablation_results.json",
+      "eval/run_real_ablation.py",
+      "eval/run_sensitivity.py"
+    ]
+  }
+}

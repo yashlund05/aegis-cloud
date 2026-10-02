@@ -1,0 +1,1290 @@
+{
+  "workloads": {
+    "737e31dddf54": {
+      "app": "737e31dddf54",
+      "file": "datasets\\real_737e31dddf54.parquet",
+      "n_minutes": 20160,
+      "split_boundaries": {
+        "train_minutes": [
+          0,
+          12096
+        ],
+        "calibration_minutes": [
+          12096,
+          15120
+        ],
+        "test_minutes": [
+          15120,
+          20160
+        ],
+        "train_end_timestamp": "2019-07-09 09:35:00+00:00",
+        "calibration_start_timestamp": "2019-07-09 09:36:00+00:00",
+        "calibration_end_timestamp": "2019-07-11 11:59:00+00:00",
+        "test_start_timestamp": "2019-07-11 12:00:00+00:00"
+      },
+      "test_demand_cores": {
+        "mean": 22.289,
+        "max": 36.803
+      },
+      "forecast_metrics": {
+        "wmape_p50": 4.16,
+        "mae_cores": 0.9268,
+        "pinball_p10": 0.233,
+        "pinball_p50": 0.4634,
+        "pinball_p90": 0.239,
+        "raw_p10_p90_coverage_test": 0.6784,
+        "static_conformal_coverage_test": 0.7772,
+        "rolling_conformal_coverage_test": 0.7901,
+        "q_hat_90_static": 0.2525,
+        "q_hat_10_static": 0.2907
+      },
+      "configs": {
+        "stock_hpa": {
+          "energy_kwh": {
+            "mean": 199.793,
+            "std": 0.0,
+            "raw": [
+              199.7933,
+              199.7933,
+              199.7933
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 1.0,
+            "std": 0.0,
+            "raw": [
+              1,
+              1,
+              1
+            ]
+          },
+          "scaling_actions": {
+            "mean": 122.0,
+            "std": 0.0,
+            "raw": [
+              122,
+              122,
+              122
+            ]
+          },
+          "scaling_churn": {
+            "mean": 941.0,
+            "std": 0.0,
+            "raw": [
+              941,
+              941,
+              941
+            ]
+          }
+        },
+        "cluster_autoscaler": {
+          "energy_kwh": {
+            "mean": 160.585,
+            "std": 0.0,
+            "raw": [
+              160.5853,
+              160.5853,
+              160.5853
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 1.0,
+            "std": 0.0,
+            "raw": [
+              1,
+              1,
+              1
+            ]
+          },
+          "scaling_actions": {
+            "mean": 122.0,
+            "std": 0.0,
+            "raw": [
+              122,
+              122,
+              122
+            ]
+          },
+          "scaling_churn": {
+            "mean": 941.0,
+            "std": 0.0,
+            "raw": [
+              941,
+              941,
+              941
+            ]
+          }
+        },
+        "full_aegis_conformal": {
+          "energy_kwh": {
+            "mean": 172.073,
+            "std": 0.0,
+            "raw": [
+              172.0735,
+              172.0735,
+              172.0735
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 107.0,
+            "std": 0.0,
+            "raw": [
+              107,
+              107,
+              107
+            ]
+          },
+          "scaling_churn": {
+            "mean": 770.0,
+            "std": 0.0,
+            "raw": [
+              770,
+              770,
+              770
+            ]
+          }
+        },
+        "oracle": {
+          "energy_kwh": {
+            "mean": 168.659,
+            "std": 0.0,
+            "raw": [
+              168.6591,
+              168.6591,
+              168.6591
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 120.0,
+            "std": 0.0,
+            "raw": [
+              120,
+              120,
+              120
+            ]
+          },
+          "scaling_churn": {
+            "mean": 921.0,
+            "std": 0.0,
+            "raw": [
+              921,
+              921,
+              921
+            ]
+          }
+        },
+        "full_aegis_conformal_rolling": {
+          "energy_kwh": {
+            "mean": 172.651,
+            "std": 0.0,
+            "raw": [
+              172.6513,
+              172.6513,
+              172.6513
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 110.0,
+            "std": 0.0,
+            "raw": [
+              110,
+              110,
+              110
+            ]
+          },
+          "scaling_churn": {
+            "mean": 800.0,
+            "std": 0.0,
+            "raw": [
+              800,
+              800,
+              800
+            ]
+          }
+        }
+      }
+    },
+    "8e5d601c74a3": {
+      "app": "8e5d601c74a3",
+      "file": "datasets\\real_8e5d601c74a3.parquet",
+      "n_minutes": 20160,
+      "split_boundaries": {
+        "train_minutes": [
+          0,
+          12096
+        ],
+        "calibration_minutes": [
+          12096,
+          15120
+        ],
+        "test_minutes": [
+          15120,
+          20160
+        ],
+        "train_end_timestamp": "2019-07-09 09:35:00+00:00",
+        "calibration_start_timestamp": "2019-07-09 09:36:00+00:00",
+        "calibration_end_timestamp": "2019-07-11 11:59:00+00:00",
+        "test_start_timestamp": "2019-07-11 12:00:00+00:00"
+      },
+      "test_demand_cores": {
+        "mean": 24.318,
+        "max": 74.045
+      },
+      "forecast_metrics": {
+        "wmape_p50": 5.89,
+        "mae_cores": 1.4316,
+        "pinball_p10": 0.324,
+        "pinball_p50": 0.7158,
+        "pinball_p90": 0.3828,
+        "raw_p10_p90_coverage_test": 0.8454,
+        "static_conformal_coverage_test": 0.826,
+        "rolling_conformal_coverage_test": 0.8052,
+        "q_hat_90_static": 0.0845,
+        "q_hat_10_static": -0.0916
+      },
+      "configs": {
+        "stock_hpa": {
+          "energy_kwh": {
+            "mean": 203.649,
+            "std": 0.0,
+            "raw": [
+              203.6488,
+              203.6488,
+              203.6488
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 8.0,
+            "std": 0.0,
+            "raw": [
+              8,
+              8,
+              8
+            ]
+          },
+          "scaling_actions": {
+            "mean": 168.0,
+            "std": 0.0,
+            "raw": [
+              168,
+              168,
+              168
+            ]
+          },
+          "scaling_churn": {
+            "mean": 3160.0,
+            "std": 0.0,
+            "raw": [
+              3160,
+              3160,
+              3160
+            ]
+          }
+        },
+        "cluster_autoscaler": {
+          "energy_kwh": {
+            "mean": 179.466,
+            "std": 0.0,
+            "raw": [
+              179.4658,
+              179.4658,
+              179.4658
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 8.0,
+            "std": 0.0,
+            "raw": [
+              8,
+              8,
+              8
+            ]
+          },
+          "scaling_actions": {
+            "mean": 168.0,
+            "std": 0.0,
+            "raw": [
+              168,
+              168,
+              168
+            ]
+          },
+          "scaling_churn": {
+            "mean": 3160.0,
+            "std": 0.0,
+            "raw": [
+              3160,
+              3160,
+              3160
+            ]
+          }
+        },
+        "full_aegis_conformal": {
+          "energy_kwh": {
+            "mean": 190.628,
+            "std": 0.0,
+            "raw": [
+              190.6282,
+              190.6282,
+              190.6282
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 8.0,
+            "std": 0.0,
+            "raw": [
+              8,
+              8,
+              8
+            ]
+          },
+          "scaling_actions": {
+            "mean": 7.0,
+            "std": 0.0,
+            "raw": [
+              7,
+              7,
+              7
+            ]
+          },
+          "scaling_churn": {
+            "mean": 61.0,
+            "std": 0.0,
+            "raw": [
+              61,
+              61,
+              61
+            ]
+          }
+        },
+        "oracle": {
+          "energy_kwh": {
+            "mean": 191.808,
+            "std": 0.0,
+            "raw": [
+              191.8082,
+              191.8082,
+              191.8082
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 3.0,
+            "std": 0.0,
+            "raw": [
+              3,
+              3,
+              3
+            ]
+          },
+          "scaling_actions": {
+            "mean": 266.0,
+            "std": 0.0,
+            "raw": [
+              266,
+              266,
+              266
+            ]
+          },
+          "scaling_churn": {
+            "mean": 4516.0,
+            "std": 0.0,
+            "raw": [
+              4516,
+              4516,
+              4516
+            ]
+          }
+        },
+        "full_aegis_conformal_rolling": {
+          "energy_kwh": {
+            "mean": 190.182,
+            "std": 0.0,
+            "raw": [
+              190.1817,
+              190.1817,
+              190.1817
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 9.0,
+            "std": 0.0,
+            "raw": [
+              9,
+              9,
+              9
+            ]
+          },
+          "scaling_actions": {
+            "mean": 7.0,
+            "std": 0.0,
+            "raw": [
+              7,
+              7,
+              7
+            ]
+          },
+          "scaling_churn": {
+            "mean": 60.0,
+            "std": 0.0,
+            "raw": [
+              60,
+              60,
+              60
+            ]
+          }
+        }
+      }
+    },
+    "a98d35d0aed6": {
+      "app": "a98d35d0aed6",
+      "file": "datasets\\real_a98d35d0aed6.parquet",
+      "n_minutes": 20160,
+      "split_boundaries": {
+        "train_minutes": [
+          0,
+          12096
+        ],
+        "calibration_minutes": [
+          12096,
+          15120
+        ],
+        "test_minutes": [
+          15120,
+          20160
+        ],
+        "train_end_timestamp": "2019-07-09 09:35:00+00:00",
+        "calibration_start_timestamp": "2019-07-09 09:36:00+00:00",
+        "calibration_end_timestamp": "2019-07-11 11:59:00+00:00",
+        "test_start_timestamp": "2019-07-11 12:00:00+00:00"
+      },
+      "test_demand_cores": {
+        "mean": 20.273,
+        "max": 43.878
+      },
+      "forecast_metrics": {
+        "wmape_p50": 22.14,
+        "mae_cores": 4.4893,
+        "pinball_p10": 1.1314,
+        "pinball_p50": 2.2447,
+        "pinball_p90": 0.8287,
+        "raw_p10_p90_coverage_test": 0.772,
+        "static_conformal_coverage_test": 0.7387,
+        "rolling_conformal_coverage_test": 0.7669,
+        "q_hat_90_static": 0.9982,
+        "q_hat_10_static": -0.7542
+      },
+      "configs": {
+        "stock_hpa": {
+          "energy_kwh": {
+            "mean": 194.851,
+            "std": 0.0,
+            "raw": [
+              194.8515,
+              194.8515,
+              194.8515
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 36.0,
+            "std": 0.0,
+            "raw": [
+              36,
+              36,
+              36
+            ]
+          },
+          "scaling_actions": {
+            "mean": 619.0,
+            "std": 0.0,
+            "raw": [
+              619,
+              619,
+              619
+            ]
+          },
+          "scaling_churn": {
+            "mean": 8406.0,
+            "std": 0.0,
+            "raw": [
+              8406,
+              8406,
+              8406
+            ]
+          }
+        },
+        "cluster_autoscaler": {
+          "energy_kwh": {
+            "mean": 157.828,
+            "std": 0.0,
+            "raw": [
+              157.8281,
+              157.8281,
+              157.8281
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 41.0,
+            "std": 0.0,
+            "raw": [
+              41,
+              41,
+              41
+            ]
+          },
+          "scaling_actions": {
+            "mean": 619.0,
+            "std": 0.0,
+            "raw": [
+              619,
+              619,
+              619
+            ]
+          },
+          "scaling_churn": {
+            "mean": 8406.0,
+            "std": 0.0,
+            "raw": [
+              8406,
+              8406,
+              8406
+            ]
+          }
+        },
+        "full_aegis_conformal": {
+          "energy_kwh": {
+            "mean": 180.904,
+            "std": 0.0,
+            "raw": [
+              180.9041,
+              180.9041,
+              180.9041
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 39.0,
+            "std": 0.0,
+            "raw": [
+              39,
+              39,
+              39
+            ]
+          },
+          "scaling_churn": {
+            "mean": 389.0,
+            "std": 0.0,
+            "raw": [
+              389,
+              389,
+              389
+            ]
+          }
+        },
+        "oracle": {
+          "energy_kwh": {
+            "mean": 167.626,
+            "std": 0.0,
+            "raw": [
+              167.6261,
+              167.6261,
+              167.6261
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 773.0,
+            "std": 0.0,
+            "raw": [
+              773,
+              773,
+              773
+            ]
+          },
+          "scaling_churn": {
+            "mean": 10343.0,
+            "std": 0.0,
+            "raw": [
+              10343,
+              10343,
+              10343
+            ]
+          }
+        },
+        "full_aegis_conformal_rolling": {
+          "energy_kwh": {
+            "mean": 177.493,
+            "std": 0.0,
+            "raw": [
+              177.4932,
+              177.4932,
+              177.4932
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 44.0,
+            "std": 0.0,
+            "raw": [
+              44,
+              44,
+              44
+            ]
+          },
+          "scaling_churn": {
+            "mean": 436.0,
+            "std": 0.0,
+            "raw": [
+              436,
+              436,
+              436
+            ]
+          }
+        }
+      }
+    },
+    "d638d26f513a": {
+      "app": "d638d26f513a",
+      "file": "datasets\\real_d638d26f513a.parquet",
+      "n_minutes": 20160,
+      "split_boundaries": {
+        "train_minutes": [
+          0,
+          12096
+        ],
+        "calibration_minutes": [
+          12096,
+          15120
+        ],
+        "test_minutes": [
+          15120,
+          20160
+        ],
+        "train_end_timestamp": "2019-07-09 09:35:00+00:00",
+        "calibration_start_timestamp": "2019-07-09 09:36:00+00:00",
+        "calibration_end_timestamp": "2019-07-11 11:59:00+00:00",
+        "test_start_timestamp": "2019-07-11 12:00:00+00:00"
+      },
+      "test_demand_cores": {
+        "mean": 29.063,
+        "max": 43.387
+      },
+      "forecast_metrics": {
+        "wmape_p50": 6.58,
+        "mae_cores": 1.9137,
+        "pinball_p10": 0.5731,
+        "pinball_p50": 0.9568,
+        "pinball_p90": 0.4063,
+        "raw_p10_p90_coverage_test": 0.7454,
+        "static_conformal_coverage_test": 0.7988,
+        "rolling_conformal_coverage_test": 0.7988,
+        "q_hat_90_static": 0.0593,
+        "q_hat_10_static": 0.5806
+      },
+      "configs": {
+        "stock_hpa": {
+          "energy_kwh": {
+            "mean": 218.098,
+            "std": 0.0,
+            "raw": [
+              218.098,
+              218.098,
+              218.098
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 87.0,
+            "std": 0.0,
+            "raw": [
+              87,
+              87,
+              87
+            ]
+          },
+          "scaling_churn": {
+            "mean": 1132.0,
+            "std": 0.0,
+            "raw": [
+              1132,
+              1132,
+              1132
+            ]
+          }
+        },
+        "cluster_autoscaler": {
+          "energy_kwh": {
+            "mean": 202.732,
+            "std": 0.0,
+            "raw": [
+              202.7323,
+              202.7323,
+              202.7323
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 87.0,
+            "std": 0.0,
+            "raw": [
+              87,
+              87,
+              87
+            ]
+          },
+          "scaling_churn": {
+            "mean": 1132.0,
+            "std": 0.0,
+            "raw": [
+              1132,
+              1132,
+              1132
+            ]
+          }
+        },
+        "full_aegis_conformal": {
+          "energy_kwh": {
+            "mean": 228.384,
+            "std": 0.0,
+            "raw": [
+              228.3836,
+              228.3836,
+              228.3836
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 45.0,
+            "std": 0.0,
+            "raw": [
+              45,
+              45,
+              45
+            ]
+          },
+          "scaling_churn": {
+            "mean": 542.0,
+            "std": 0.0,
+            "raw": [
+              542,
+              542,
+              542
+            ]
+          }
+        },
+        "oracle": {
+          "energy_kwh": {
+            "mean": 217.937,
+            "std": 0.0,
+            "raw": [
+              217.937,
+              217.937,
+              217.937
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 103.0,
+            "std": 0.0,
+            "raw": [
+              103,
+              103,
+              103
+            ]
+          },
+          "scaling_churn": {
+            "mean": 1301.0,
+            "std": 0.0,
+            "raw": [
+              1301,
+              1301,
+              1301
+            ]
+          }
+        },
+        "full_aegis_conformal_rolling": {
+          "energy_kwh": {
+            "mean": 226.064,
+            "std": 0.0,
+            "raw": [
+              226.0638,
+              226.0638,
+              226.0638
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 0.0,
+            "std": 0.0,
+            "raw": [
+              0,
+              0,
+              0
+            ]
+          },
+          "scaling_actions": {
+            "mean": 46.0,
+            "std": 0.0,
+            "raw": [
+              46,
+              46,
+              46
+            ]
+          },
+          "scaling_churn": {
+            "mean": 552.0,
+            "std": 0.0,
+            "raw": [
+              552,
+              552,
+              552
+            ]
+          }
+        }
+      }
+    },
+    "e7e51baac8d5": {
+      "app": "e7e51baac8d5",
+      "file": "datasets\\real_e7e51baac8d5.parquet",
+      "n_minutes": 20160,
+      "split_boundaries": {
+        "train_minutes": [
+          0,
+          12096
+        ],
+        "calibration_minutes": [
+          12096,
+          15120
+        ],
+        "test_minutes": [
+          15120,
+          20160
+        ],
+        "train_end_timestamp": "2019-07-09 09:35:00+00:00",
+        "calibration_start_timestamp": "2019-07-09 09:36:00+00:00",
+        "calibration_end_timestamp": "2019-07-11 11:59:00+00:00",
+        "test_start_timestamp": "2019-07-11 12:00:00+00:00"
+      },
+      "test_demand_cores": {
+        "mean": 49.055,
+        "max": 78.382
+      },
+      "forecast_metrics": {
+        "wmape_p50": 4.41,
+        "mae_cores": 2.1629,
+        "pinball_p10": 0.882,
+        "pinball_p50": 1.0814,
+        "pinball_p90": 0.6835,
+        "raw_p10_p90_coverage_test": 0.8597,
+        "static_conformal_coverage_test": 0.8446,
+        "rolling_conformal_coverage_test": 0.7815,
+        "q_hat_90_static": -0.2337,
+        "q_hat_10_static": -1.0057
+      },
+      "configs": {
+        "stock_hpa": {
+          "energy_kwh": {
+            "mean": 289.371,
+            "std": 0.0,
+            "raw": [
+              289.3713,
+              289.3713,
+              289.3713
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 34.0,
+            "std": 0.0,
+            "raw": [
+              34,
+              34,
+              34
+            ]
+          },
+          "scaling_actions": {
+            "mean": 202.0,
+            "std": 0.0,
+            "raw": [
+              202,
+              202,
+              202
+            ]
+          },
+          "scaling_churn": {
+            "mean": 5688.0,
+            "std": 0.0,
+            "raw": [
+              5688,
+              5688,
+              5688
+            ]
+          }
+        },
+        "cluster_autoscaler": {
+          "energy_kwh": {
+            "mean": 289.371,
+            "std": 0.0,
+            "raw": [
+              289.3713,
+              289.3713,
+              289.3713
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 34.0,
+            "std": 0.0,
+            "raw": [
+              34,
+              34,
+              34
+            ]
+          },
+          "scaling_actions": {
+            "mean": 202.0,
+            "std": 0.0,
+            "raw": [
+              202,
+              202,
+              202
+            ]
+          },
+          "scaling_churn": {
+            "mean": 5688.0,
+            "std": 0.0,
+            "raw": [
+              5688,
+              5688,
+              5688
+            ]
+          }
+        },
+        "full_aegis_conformal": {
+          "energy_kwh": {
+            "mean": 310.413,
+            "std": 0.0,
+            "raw": [
+              310.4132,
+              310.4132,
+              310.4132
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 31.0,
+            "std": 0.0,
+            "raw": [
+              31,
+              31,
+              31
+            ]
+          },
+          "scaling_actions": {
+            "mean": 44.0,
+            "std": 0.0,
+            "raw": [
+              44,
+              44,
+              44
+            ]
+          },
+          "scaling_churn": {
+            "mean": 830.0,
+            "std": 0.0,
+            "raw": [
+              830,
+              830,
+              830
+            ]
+          }
+        },
+        "oracle": {
+          "energy_kwh": {
+            "mean": 310.427,
+            "std": 0.0,
+            "raw": [
+              310.427,
+              310.427,
+              310.427
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 31.0,
+            "std": 0.0,
+            "raw": [
+              31,
+              31,
+              31
+            ]
+          },
+          "scaling_actions": {
+            "mean": 238.0,
+            "std": 0.0,
+            "raw": [
+              238,
+              238,
+              238
+            ]
+          },
+          "scaling_churn": {
+            "mean": 6934.0,
+            "std": 0.0,
+            "raw": [
+              6934,
+              6934,
+              6934
+            ]
+          }
+        },
+        "full_aegis_conformal_rolling": {
+          "energy_kwh": {
+            "mean": 310.413,
+            "std": 0.0,
+            "raw": [
+              310.4132,
+              310.4132,
+              310.4132
+            ]
+          },
+          "capacity_shortfall_minutes": {
+            "mean": 31.0,
+            "std": 0.0,
+            "raw": [
+              31,
+              31,
+              31
+            ]
+          },
+          "scaling_actions": {
+            "mean": 51.0,
+            "std": 0.0,
+            "raw": [
+              51,
+              51,
+              51
+            ]
+          },
+          "scaling_churn": {
+            "mean": 954.0,
+            "std": 0.0,
+            "raw": [
+              954,
+              954,
+              954
+            ]
+          }
+        }
+      }
+    }
+  },
+  "trace": {
+    "name": "Azure Functions 2019 (AzurePublicDataset, 'Serverless in the Wild' USENIX ATC 2020)",
+    "source_url": "https://github.com/Azure/AzurePublicDataset/releases/download/dataset-functions-2019/azurefunctions_dataset2019_azurefunctions-dataset2019.tar.xz",
+    "raw_files": "datasets/raw/azurefunctions2019/ (invocations + durations d01-d14, app memory d01-d12)",
+    "demand_conversion": "cores(t) = sum_f invocations(f,t) * exec_time_ms(f,day)/1000/60; 1 vCPU per concurrent execution is the only normalization; invocation counts and durations are measured trace values",
+    "selection_rule": "apps with <5% missing minutes and peak <= cluster capacity, top-5 by mean load (see datasets/load_real_trace.py for the binding threshold)",
+    "loader": "datasets/load_real_trace.py"
+  },
+  "protocol": {
+    "split_fractions": [
+      0.6,
+      0.15,
+      0.25
+    ],
+    "horizon_minutes": 10,
+    "seeds": [
+      42,
+      101,
+      202
+    ],
+    "configs": [
+      "stock_hpa",
+      "cluster_autoscaler",
+      "full_aegis_conformal",
+      "oracle"
+    ],
+    "models_dir": "ml/models/artifacts_real",
+    "conformal": {
+      "static": "single offset from calibration residuals, tau=0.9",
+      "rolling": "frozen rolling_conformal_adjustment, W=1440, residuals end at t-H"
+    },
+    "determinism_note": "the frozen simulator has no stochasticity given a fixed trace; the three seeds produce identical runs (std = 0) and are reported for provenance",
+    "bootstrap": {
+      "blocks": "3 full test days per app (trailing half-day dropped), each replayed independently",
+      "B": 10000,
+      "rng_seed": 12345,
+      "statistic": "mean paired difference over pooled blocks"
+    }
+  },
+  "git": {
+    "commit": "5d79e608141682a2d7a28af1f2db9e54933d23cd",
+    "tag_at_head": "sim-frozen",
+    "dirty_files": [
+      "datasets/load_real_trace.py",
+      "datasets/raw/",
+      "eval/diag_item1_8e5d60.py",
+      "eval/diag_item1_8e5d601c74a3.json",
+      "eval/real_trace_results.json",
+      "eval/run_real_trace.py",
+      "ml/models/artifacts_real/",
+      "tests/unit/test_real_trace_split.py"
+    ]
+  },
+  "bootstrap_paired_aegis_vs_ca": {
+    "n_blocks": 15,
+    "blocks_per_app": 3,
+    "n_bootstrap": 10000,
+    "rng_seed": 12345,
+    "energy_diff_kwh": {
+      "mean": 5.035,
+      "ci95_low": 4.14,
+      "ci95_high": 5.919
+    },
+    "shortfall_diff_min": {
+      "mean": -2.8,
+      "ci95_low": -7.2,
+      "ci95_high": -0.267
+    },
+    "per_app_block_diffs": {
+      "737e31dddf54": {
+        "energy": [
+          3.224,
+          3.021,
+          3.395
+        ],
+        "shortfall": [
+          -1,
+          0,
+          0
+        ]
+      },
+      "8e5d601c74a3": {
+        "energy": [
+          2.03,
+          3.603,
+          3.204
+        ],
+        "shortfall": [
+          1,
+          0,
+          -1
+        ]
+      },
+      "a98d35d0aed6": {
+        "energy": [
+          6.282,
+          5.619,
+          6.619
+        ],
+        "shortfall": [
+          -3,
+          -31,
+          -4
+        ]
+      },
+      "d638d26f513a": {
+        "energy": [
+          6.267,
+          6.178,
+          8.656
+        ],
+        "shortfall": [
+          0,
+          0,
+          0
+        ]
+      },
+      "e7e51baac8d5": {
+        "energy": [
+          5.43,
+          5.987,
+          6.011
+        ],
+        "shortfall": [
+          -3,
+          0,
+          0
+        ]
+      }
+    }
+  }
+}

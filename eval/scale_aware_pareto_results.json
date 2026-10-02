@@ -1,0 +1,316 @@
+{
+  "git_commit": "50b1be9417e1953edae9f14409f2e94867423d15",
+  "config_hash": "5ac8f478f1f785df514c4fa994f00a6ea554488024757a18f026c3f80f86e54c",
+  "configuration": {
+    "ca_utilizations": [
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8
+    ],
+    "aegis_taus": [
+      0.5,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.99
+    ],
+    "shortfall_targets_pct": [
+      0.0,
+      0.1,
+      1.0
+    ],
+    "aci_gammas": [
+      0.005,
+      0.02
+    ],
+    "horizon_minutes": 10,
+    "rolling_window_steps": 1440,
+    "bootstrap_iterations": 10000
+  },
+  "coverage_summary": {
+    "test_apps_count": 20,
+    "median_iqr": {
+      "raw": [
+        86.77,
+        12.23
+      ],
+      "static": [
+        99.99,
+        0.33
+      ],
+      "scale_aware": [
+        97.6,
+        5.08
+      ],
+      "rolling": [
+        90.0,
+        0.71
+      ],
+      "aci_005": [
+        89.94,
+        0.8
+      ],
+      "aci_020": [
+        89.98,
+        0.49
+      ]
+    }
+  },
+  "matched_shortfall_pareto": {
+    "0.0%": {
+      "static": {
+        "ca_median_energy": 183.12,
+        "aegis_median_energy": 224.28,
+        "mean_delta_energy": 50.216,
+        "bootstrap_ci95": [
+          12.771,
+          87.868
+        ],
+        "cheaper_fraction_pct": 45.0,
+        "ca_extrapolations": 16,
+        "aegis_extrapolations": 3
+      },
+      "scale_aware": {
+        "ca_median_energy": 183.12,
+        "aegis_median_energy": 130.54,
+        "mean_delta_energy": -16.739,
+        "bootstrap_ci95": [
+          -32.95,
+          -2.647
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 16,
+        "aegis_extrapolations": 12
+      },
+      "rolling": {
+        "ca_median_energy": 183.12,
+        "aegis_median_energy": 114.05,
+        "mean_delta_energy": -38.834,
+        "bootstrap_ci95": [
+          -62.352,
+          -16.587
+        ],
+        "cheaper_fraction_pct": 85.0,
+        "ca_extrapolations": 16,
+        "aegis_extrapolations": 14
+      },
+      "aci_005": {
+        "ca_median_energy": 183.12,
+        "aegis_median_energy": 103.58,
+        "mean_delta_energy": -56.323,
+        "bootstrap_ci95": [
+          -80.712,
+          -33.548
+        ],
+        "cheaper_fraction_pct": 90.0,
+        "ca_extrapolations": 16,
+        "aegis_extrapolations": 19
+      },
+      "aci_020": {
+        "ca_median_energy": 183.12,
+        "aegis_median_energy": 110.55,
+        "mean_delta_energy": -45.98,
+        "bootstrap_ci95": [
+          -69.755,
+          -23.154
+        ],
+        "cheaper_fraction_pct": 85.0,
+        "ca_extrapolations": 16,
+        "aegis_extrapolations": 16
+      }
+    },
+    "0.1%": {
+      "static": {
+        "ca_median_energy": 154.78,
+        "aegis_median_energy": 205.15,
+        "mean_delta_energy": 39.878,
+        "bootstrap_ci95": [
+          -2.807,
+          85.012
+        ],
+        "cheaper_fraction_pct": 40.0,
+        "ca_extrapolations": 12,
+        "aegis_extrapolations": 3
+      },
+      "scale_aware": {
+        "ca_median_energy": 154.78,
+        "aegis_median_energy": 123.01,
+        "mean_delta_energy": -31.181,
+        "bootstrap_ci95": [
+          -53.155,
+          -11.945
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 12,
+        "aegis_extrapolations": 6
+      },
+      "rolling": {
+        "ca_median_energy": 154.78,
+        "aegis_median_energy": 99.25,
+        "mean_delta_energy": -35.735,
+        "bootstrap_ci95": [
+          -61.567,
+          -12.455
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 12,
+        "aegis_extrapolations": 10
+      },
+      "aci_005": {
+        "ca_median_energy": 154.78,
+        "aegis_median_energy": 95.9,
+        "mean_delta_energy": -48.601,
+        "bootstrap_ci95": [
+          -73.178,
+          -26.085
+        ],
+        "cheaper_fraction_pct": 75.0,
+        "ca_extrapolations": 12,
+        "aegis_extrapolations": 14
+      },
+      "aci_020": {
+        "ca_median_energy": 154.78,
+        "aegis_median_energy": 95.49,
+        "mean_delta_energy": -40.205,
+        "bootstrap_ci95": [
+          -65.116,
+          -17.217
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 12,
+        "aegis_extrapolations": 9
+      }
+    },
+    "1.0%": {
+      "static": {
+        "ca_median_energy": 122.19,
+        "aegis_median_energy": 95.13,
+        "mean_delta_energy": -15.897,
+        "bootstrap_ci95": [
+          -51.178,
+          26.298
+        ],
+        "cheaper_fraction_pct": 65.0,
+        "ca_extrapolations": 13,
+        "aegis_extrapolations": 7
+      },
+      "scale_aware": {
+        "ca_median_energy": 122.19,
+        "aegis_median_energy": 92.4,
+        "mean_delta_energy": -38.216,
+        "bootstrap_ci95": [
+          -65.091,
+          -14.461
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 13,
+        "aegis_extrapolations": 11
+      },
+      "rolling": {
+        "ca_median_energy": 122.19,
+        "aegis_median_energy": 84.21,
+        "mean_delta_energy": -39.301,
+        "bootstrap_ci95": [
+          -66.19,
+          -15.985
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 13,
+        "aegis_extrapolations": 6
+      },
+      "aci_005": {
+        "ca_median_energy": 122.19,
+        "aegis_median_energy": 82.85,
+        "mean_delta_energy": -44.012,
+        "bootstrap_ci95": [
+          -71.753,
+          -19.106
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 13,
+        "aegis_extrapolations": 8
+      },
+      "aci_020": {
+        "ca_median_energy": 122.19,
+        "aegis_median_energy": 83.81,
+        "mean_delta_energy": -41.78,
+        "bootstrap_ci95": [
+          -68.541,
+          -18.17
+        ],
+        "cheaper_fraction_pct": 70.0,
+        "ca_extrapolations": 13,
+        "aegis_extrapolations": 7
+      }
+    }
+  },
+  "tertile_stratification": {
+    "Tertile 1 (Low Load: <= 0.83 cores)": {
+      "n_apps": 7,
+      "aegis_vs_ca_deltas": {
+        "energy": {
+          "mean": 108.391,
+          "ci95": [
+            101.686,
+            115.274
+          ],
+          "p_value": 0.015625
+        },
+        "shortfall": {
+          "mean": -125.857,
+          "ci95": [
+            -256.143,
+            -24.425
+          ],
+          "p_value": 0.015625
+        }
+      }
+    },
+    "Tertile 2 (Mid Load: 0.83 - 1.28 cores)": {
+      "n_apps": 6,
+      "aegis_vs_ca_deltas": {
+        "energy": {
+          "mean": 104.083,
+          "ci95": [
+            84.786,
+            118.165
+          ],
+          "p_value": 0.03125
+        },
+        "shortfall": {
+          "mean": -920.0,
+          "ci95": [
+            -1392.667,
+            -435.333
+          ],
+          "p_value": 0.03125
+        }
+      }
+    },
+    "Tertile 3 (High Load: > 1.28 cores)": {
+      "n_apps": 7,
+      "aegis_vs_ca_deltas": {
+        "energy": {
+          "mean": 65.672,
+          "ci95": [
+            -27.084,
+            116.96
+          ],
+          "p_value": 0.296875
+        },
+        "shortfall": {
+          "mean": -1328.857,
+          "ci95": [
+            -2298.571,
+            -449.571
+          ],
+          "p_value": 0.015625
+        }
+      }
+    }
+  }
+}

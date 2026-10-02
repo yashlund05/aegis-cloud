@@ -1,0 +1,194 @@
+{
+  "bursty": {
+    "aegis": [
+      {
+        "tau": 0.5,
+        "energy": 112.19,
+        "energy_ci95": 3.5,
+        "shortfall": 372.0,
+        "shortfall_ci95": 86.67
+      },
+      {
+        "tau": 0.7,
+        "energy": 118.4,
+        "energy_ci95": 4.03,
+        "shortfall": 252.2,
+        "shortfall_ci95": 46.63
+      },
+      {
+        "tau": 0.8,
+        "energy": 124.85,
+        "energy_ci95": 3.26,
+        "shortfall": 154.2,
+        "shortfall_ci95": 4.16
+      },
+      {
+        "tau": 0.9,
+        "energy": 134.53,
+        "energy_ci95": 5.26,
+        "shortfall": 70.0,
+        "shortfall_ci95": 26.4
+      },
+      {
+        "tau": 0.95,
+        "energy": 150.06,
+        "energy_ci95": 4.39,
+        "shortfall": 13.8,
+        "shortfall_ci95": 3.87
+      },
+      {
+        "tau": 0.99,
+        "energy": 174.51,
+        "energy_ci95": 5.89,
+        "shortfall": 1.0,
+        "shortfall_ci95": 1.24
+      }
+    ],
+    "cluster_autoscaler": [
+      {
+        "util": 0.8,
+        "energy": 117.89,
+        "energy_ci95": 3.44,
+        "shortfall": 220.2,
+        "shortfall_ci95": 43.47
+      },
+      {
+        "util": 0.7,
+        "energy": 127.75,
+        "energy_ci95": 3.69,
+        "shortfall": 60.2,
+        "shortfall_ci95": 13.12
+      },
+      {
+        "util": 0.6,
+        "energy": 140.5,
+        "energy_ci95": 3.91,
+        "shortfall": 9.0,
+        "shortfall_ci95": 1.24
+      },
+      {
+        "util": 0.5,
+        "energy": 156.67,
+        "energy_ci95": 4.06,
+        "shortfall": 1.6,
+        "shortfall_ci95": 0.68
+      }
+    ],
+    "oracle": [
+      {
+        "energy": 126.29,
+        "energy_ci95": 3.69,
+        "shortfall": 0.0,
+        "shortfall_ci95": 0.0
+      }
+    ],
+    "matched_shortfall_paired_energy_delta": {
+      "per_seed": [
+        6.461,
+        4.246,
+        2.81,
+        8.618,
+        10.027
+      ],
+      "mean": 6.432,
+      "ci95": 3.704,
+      "excludes_zero": true
+    }
+  },
+  "structured_burst": {
+    "aegis": [
+      {
+        "tau": 0.5,
+        "energy": 141.34,
+        "energy_ci95": 3.18,
+        "shortfall": 3.0,
+        "shortfall_ci95": 3.17
+      },
+      {
+        "tau": 0.7,
+        "energy": 142.81,
+        "energy_ci95": 3.41,
+        "shortfall": 2.4,
+        "shortfall_ci95": 2.86
+      },
+      {
+        "tau": 0.8,
+        "energy": 143.76,
+        "energy_ci95": 3.44,
+        "shortfall": 2.0,
+        "shortfall_ci95": 2.32
+      },
+      {
+        "tau": 0.9,
+        "energy": 145.47,
+        "energy_ci95": 3.46,
+        "shortfall": 1.6,
+        "shortfall_ci95": 1.88
+      },
+      {
+        "tau": 0.95,
+        "energy": 148.23,
+        "energy_ci95": 3.52,
+        "shortfall": 1.4,
+        "shortfall_ci95": 1.42
+      },
+      {
+        "tau": 0.99,
+        "energy": 167.28,
+        "energy_ci95": 15.0,
+        "shortfall": 0.0,
+        "shortfall_ci95": 0.0
+      }
+    ],
+    "cluster_autoscaler": [
+      {
+        "util": 0.8,
+        "energy": 126.43,
+        "energy_ci95": 3.24,
+        "shortfall": 336.6,
+        "shortfall_ci95": 29.63
+      },
+      {
+        "util": 0.7,
+        "energy": 136.93,
+        "energy_ci95": 3.05,
+        "shortfall": 258.2,
+        "shortfall_ci95": 20.64
+      },
+      {
+        "util": 0.6,
+        "energy": 150.88,
+        "energy_ci95": 3.79,
+        "shortfall": 178.2,
+        "shortfall_ci95": 20.37
+      },
+      {
+        "util": 0.5,
+        "energy": 164.39,
+        "energy_ci95": 3.11,
+        "shortfall": 104.4,
+        "shortfall_ci95": 9.11
+      }
+    ],
+    "oracle": [
+      {
+        "energy": 134.7,
+        "energy_ci95": 3.82,
+        "shortfall": 0.0,
+        "shortfall_ci95": 0.0
+      }
+    ],
+    "matched_shortfall_paired_energy_delta": {
+      "per_seed": [
+        -17.659,
+        -18.32,
+        -19.141,
+        -20.246,
+        -19.267
+      ],
+      "mean": -18.927,
+      "ci95": 1.223,
+      "excludes_zero": true
+    }
+  }
+}

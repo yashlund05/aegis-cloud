@@ -1,0 +1,1162 @@
+{
+  "git_commit": "50b1be9417e1953edae9f14409f2e94867423d15",
+  "config_hash": "b80c1cd4d8214881364e05597c790a806d75dc58b55b01fb5648caee34db0c7f",
+  "configuration": {
+    "selection_seed": 42,
+    "n_train_apps": 30,
+    "n_calib_apps": 10,
+    "n_test_apps": 20,
+    "forecast_horizon_minutes": 10,
+    "cluster_capacity_cores": 68.0,
+    "nodes": 20,
+    "cores_per_node": 4.0,
+    "allocatable_factor": 0.85,
+    "hpa_target_util": 0.7,
+    "dead_zone_pct": 0.1,
+    "cooldown_seconds": 300,
+    "wake_up_latency_steps": 3,
+    "min_active_nodes": 2,
+    "bootstrap_iterations": 10000
+  },
+  "app_partition": {
+    "n_train": 30,
+    "n_calibrate": 10,
+    "n_test": 20,
+    "train_apps": [
+      "6fbe506ff5fb56ed8b8d05f7623b871f29a46495a88c181920c1e50e61da6716",
+      "16d8b97e6aadada03f9805051f61da0894a37ade03bba5803164a109354a17e1",
+      "2ed92d2f5c78d82290c4c8b360a4ace1a503ec7418fc141102aa1c6aaacc18b4",
+      "e758308325b346db631103d2c5b76e35c51e3bec461cf1c25a6771cc7142d5f2",
+      "ebbcf89d4d6a98bf26dbcdb954e22c8b564376df94062c3f9719194e50f657b0",
+      "383d96afc4e0f941f036ef43dd1ed1801f3f8344a0be3a11e8d813cc54f52bc1",
+      "fadee4b59e712829429beab862db7189aef0e3c39720e66997cdaf3af1424607",
+      "fec9d94b0f4eaf1c16eec9bab3ebe5ce72edbc26d05f7412f1ca300597eedacf",
+      "4fd81007be341e8c51ce8a772c4a79d2a04324e7d6842130e7c2603ba1fae0f5",
+      "fcef321cd420ece3fddf5dde31ac829caef88388eabd0d482f70e4aba6f07844",
+      "38e955c568456da8b521e69a981e9a6e39ce0cf4bd6bd5a1265562db9214ede3",
+      "35e36c537c483d2f396c7959f4707e25a9db7b8d4d7434e8cc87421724664569",
+      "d8cce90ec1d139c3470ee07a3d8c467b2acac4e1eb71886ac7e8a97e249dda32",
+      "69c938347c6ce4b82bdddb660855cd5d142538e7cf2f8bebee3fa3facb707823",
+      "65a94dbdccd40629da54f6d4a22eacf72eb4154926fa81d17d1949abbc13acf4",
+      "70b3bf92f992b4ceafd06b7b4f651a4d4f527b2a521cc3a3699b6c401c2f6b68",
+      "79ef8b5f674692faeeb653ad0b7e75cd3173c4c78c308790f733bdbb0a617e48",
+      "713f2ae2899a5f36717e1f58305ddb652f9311442b593f75598f38d48e6b7ff6",
+      "06e94a81060912223c9ba2f3fb6f116c1139ead8e2e88bf2935d7b1b9a720002",
+      "4099a9b67944e385c00513f7e1a5d87fb1ab58e1b255550fc21704858b9747e1",
+      "4a5f418e126cafe278458f2c3fdaba579701a6b785784361512de55ebe51dfae",
+      "a25573733fb3595ebbd53726c808b26974229051ea7ee4dcb29e560a87ac191b",
+      "41b5178cfc8d0e2a4be83a4bc5705e3c98a95bc2cc59accd0b2e7a8536410682",
+      "33acaa007ad8e9d90ed34b8450440799d6f9d13a13619d1831cc3ec784fa94b1",
+      "3a4b2a0f4d779e2ca62301feab2e6e271e477ab9126a2c41a0bbbdf3f1b5cdab",
+      "1659ad008507f6bccd186629fbc143db8c2abfdcb93bc00feeaaa3817f517be7",
+      "89b6b0b7e539fc7d5360956070a2bbf677f8e78f280f18de48535fda170a36c5",
+      "26fb5c3829774e41a95b995b756991f57d6d6919e99d5a7047fecd3e0f690703",
+      "3b12b1859600226bfc1dd3edbc8ff43e29dac117b23da0732825931273532e44",
+      "ae61668c8bd72d93796f449574baec02427f62092ec5584d083a1a4b0b4715a0"
+    ],
+    "calibrate_apps": [
+      "9e3df95350f330051bcafbc86f149d0fb734e15f0b224c02a4b6074d702a1b6c",
+      "e593dfd5a2c472da66d07bd2e19fb6c8ca035acdcd37678e002ad536d531cab7",
+      "d27d1fdd4ee2883ff944789b74199b31659a9ff9a790b798937c37bff2e28b98",
+      "4989e42a3fc6c41572e7943ac90fd6971b5d37e0ced6b0c07fb4bd6277aa62bc",
+      "082c182b450b12a8a95ab3d3b6683c70311c14141051480c3a54540a87ac70c0",
+      "5260390a6367271d67b34091eff7f222a78e65ec4b664194e3727ae1d23ee6ff",
+      "009f72f7ae1bc39581c27a9bc53c34ef59d6694bdd09147181251c3ea43caea7",
+      "4614d518deefbab6a0750f7081f847fcfbca3831d3094864945fdb2b70909a20",
+      "d638d26f513a17352f00d3db3a753ddbe19ea9bfb4142f22d8019436b11027dc",
+      "529436dc89ff080e107874e8b2e200b332c7bffd70963db565495f58a89a8337"
+    ],
+    "test_apps": [
+      "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+      "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3",
+      "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+      "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+      "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+      "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+      "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+      "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+      "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+      "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+      "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+      "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+      "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+      "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+      "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+      "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+      "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+      "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+      "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d",
+      "0e18802d31bf22abefa07cef938d2563cbba9a7155145618501ce2b447bc8e46"
+    ]
+  },
+  "conformal_calibration": {
+    "m_observations": 187100,
+    "q_hat_90_cores": 8.6468,
+    "q_hat_10_cores": 0.0,
+    "q_hat_naive_cores": 4.9693
+  },
+  "censoring_audit": {
+    "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1": {
+      "mean_cores": 0.591,
+      "peak_cores": 3.085,
+      "peak_ratio_pct": 4.54,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3": {
+      "mean_cores": 0.856,
+      "peak_cores": 17.109,
+      "peak_ratio_pct": 25.16,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280": {
+      "mean_cores": 0.689,
+      "peak_cores": 3.013,
+      "peak_ratio_pct": 4.43,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac": {
+      "mean_cores": 0.99,
+      "peak_cores": 10.944,
+      "peak_ratio_pct": 16.09,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26": {
+      "mean_cores": 5.618,
+      "peak_cores": 33.213,
+      "peak_ratio_pct": 48.84,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a": {
+      "mean_cores": 5.614,
+      "peak_cores": 37.828,
+      "peak_ratio_pct": 55.63,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69": {
+      "mean_cores": 1.35,
+      "peak_cores": 32.3,
+      "peak_ratio_pct": 47.5,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2": {
+      "mean_cores": 0.81,
+      "peak_cores": 1.161,
+      "peak_ratio_pct": 1.71,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e": {
+      "mean_cores": 1.116,
+      "peak_cores": 11.386,
+      "peak_ratio_pct": 16.74,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45": {
+      "mean_cores": 0.882,
+      "peak_cores": 15.019,
+      "peak_ratio_pct": 22.09,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3": {
+      "mean_cores": 0.894,
+      "peak_cores": 47.012,
+      "peak_ratio_pct": 69.14,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381": {
+      "mean_cores": 7.212,
+      "peak_cores": 59.008,
+      "peak_ratio_pct": 86.78,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926": {
+      "mean_cores": 3.208,
+      "peak_cores": 56.345,
+      "peak_ratio_pct": 82.86,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea": {
+      "mean_cores": 2.984,
+      "peak_cores": 27.65,
+      "peak_ratio_pct": 40.66,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286": {
+      "mean_cores": 0.726,
+      "peak_cores": 2.712,
+      "peak_ratio_pct": 3.99,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783": {
+      "mean_cores": 0.901,
+      "peak_cores": 11.105,
+      "peak_ratio_pct": 16.33,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5": {
+      "mean_cores": 0.547,
+      "peak_cores": 2.684,
+      "peak_ratio_pct": 3.95,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4": {
+      "mean_cores": 1.032,
+      "peak_cores": 10.472,
+      "peak_ratio_pct": 15.4,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d": {
+      "mean_cores": 0.674,
+      "peak_cores": 10.874,
+      "peak_ratio_pct": 15.99,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    },
+    "0e18802d31bf22abefa07cef938d2563cbba9a7155145618501ce2b447bc8e46": {
+      "mean_cores": 5.106,
+      "peak_cores": 25.56,
+      "peak_ratio_pct": 37.59,
+      "minutes_above_90pct_cap": 0,
+      "minutes_above_95pct_cap": 0,
+      "censored_fraction_pct": 0.0
+    }
+  },
+  "per_app_distributions": {
+    "cluster_autoscaler": {
+      "energy": {
+        "median": 91.31,
+        "iqr": 117.34,
+        "mean": 146.77,
+        "std": 141.57
+      },
+      "shortfall": {
+        "median": 299.0,
+        "iqr": 1214.0,
+        "mean": 836.5,
+        "std": 1083.32
+      },
+      "events": {
+        "median": 2718.0,
+        "iqr": 3166.5,
+        "mean": 3384.25,
+        "std": 3391.19
+      },
+      "churn": {
+        "median": 6168.0,
+        "iqr": 26955.5,
+        "mean": 31391.45,
+        "std": 61052.3
+      }
+    },
+    "reactive_hpa_plus_consolidation": {
+      "energy": {
+        "median": 88.7,
+        "iqr": 110.08,
+        "mean": 141.69,
+        "std": 132.05
+      },
+      "shortfall": {
+        "median": 303.5,
+        "iqr": 1216.0,
+        "mean": 937.75,
+        "std": 1341.9
+      },
+      "events": {
+        "median": 2718.0,
+        "iqr": 3166.5,
+        "mean": 3384.25,
+        "std": 3391.19
+      },
+      "churn": {
+        "median": 6168.0,
+        "iqr": 26955.5,
+        "mean": 31391.45,
+        "std": 61052.3
+      }
+    },
+    "full_aegis_conformal": {
+      "energy": {
+        "median": 203.57,
+        "iqr": 109.9,
+        "mean": 241.09,
+        "std": 99.23
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 6.25,
+        "mean": 54.75,
+        "std": 185.28
+      },
+      "events": {
+        "median": 85.0,
+        "iqr": 646.5,
+        "mean": 797.25,
+        "std": 1513.65
+      },
+      "churn": {
+        "median": 412.5,
+        "iqr": 4663.25,
+        "mean": 10537.9,
+        "std": 25946.13
+      }
+    },
+    "seasonal_naive_conformal": {
+      "energy": {
+        "median": 160.06,
+        "iqr": 120.5,
+        "mean": 193.89,
+        "std": 133.67
+      },
+      "shortfall": {
+        "median": 5.0,
+        "iqr": 73.25,
+        "mean": 132.5,
+        "std": 269.69
+      },
+      "events": {
+        "median": 1012.5,
+        "iqr": 2864.5,
+        "mean": 2157.8,
+        "std": 2820.5
+      },
+      "churn": {
+        "median": 3262.5,
+        "iqr": 36042.5,
+        "mean": 31726.85,
+        "std": 60953.01
+      }
+    },
+    "oracle": {
+      "energy": {
+        "median": 85.94,
+        "iqr": 102.39,
+        "mean": 137.58,
+        "std": 132.53
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 0.0,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "events": {
+        "median": 3432.0,
+        "iqr": 3639.5,
+        "mean": 3845.95,
+        "std": 2694.28
+      },
+      "churn": {
+        "median": 8245.5,
+        "iqr": 47253.0,
+        "mean": 40246.7,
+        "std": 63154.62
+      }
+    }
+  },
+  "statistical_tests": {
+    "energy_kwh": {
+      "cluster_autoscaler": {
+        "mean_difference": 94.321,
+        "bootstrap_ci95": [
+          63.283,
+          113.662
+        ],
+        "wilcoxon_stat": 20.0,
+        "raw_p_value": 0.0007076263427734375,
+        "holm_adjusted_p_value": 0.0014476776123046875
+      },
+      "reactive_hpa_plus_consolidation": {
+        "mean_difference": 99.398,
+        "bootstrap_ci95": [
+          74.596,
+          114.693
+        ],
+        "wilcoxon_stat": 12.0,
+        "raw_p_value": 0.000133514404296875,
+        "holm_adjusted_p_value": 0.0005340576171875
+      },
+      "seasonal_naive_conformal": {
+        "mean_difference": 47.204,
+        "bootstrap_ci95": [
+          23.533,
+          62.959
+        ],
+        "wilcoxon_stat": 20.0,
+        "raw_p_value": 0.0007076263427734375,
+        "holm_adjusted_p_value": 0.0014476776123046875
+      },
+      "oracle": {
+        "mean_difference": 103.508,
+        "bootstrap_ci95": [
+          76.59,
+          119.804
+        ],
+        "wilcoxon_stat": 18.0,
+        "raw_p_value": 0.0004825592041015625,
+        "holm_adjusted_p_value": 0.0014476776123046875
+      }
+    },
+    "capacity_shortfall_minutes": {
+      "cluster_autoscaler": {
+        "mean_difference": -781.75,
+        "bootstrap_ci95": [
+          -1223.95,
+          -394.724
+        ],
+        "wilcoxon_stat": 0.0,
+        "raw_p_value": 1.9073486328125e-06,
+        "holm_adjusted_p_value": 7.62939453125e-06
+      },
+      "reactive_hpa_plus_consolidation": {
+        "mean_difference": -883.0,
+        "bootstrap_ci95": [
+          -1474.467,
+          -403.596
+        ],
+        "wilcoxon_stat": 0.0,
+        "raw_p_value": 1.9073486328125e-06,
+        "holm_adjusted_p_value": 7.62939453125e-06
+      },
+      "seasonal_naive_conformal": {
+        "mean_difference": -77.75,
+        "bootstrap_ci95": [
+          -186.454,
+          -1.399
+        ],
+        "wilcoxon_stat": 13.0,
+        "raw_p_value": 0.00753746672663691,
+        "holm_adjusted_p_value": 0.01507493345327382
+      },
+      "oracle": {
+        "mean_difference": 54.75,
+        "bootstrap_ci95": [
+          1.8,
+          145.2
+        ],
+        "wilcoxon_stat": 0.0,
+        "raw_p_value": 0.011718685599768628,
+        "holm_adjusted_p_value": 0.01507493345327382
+      }
+    },
+    "scaling_actions": {
+      "cluster_autoscaler": {
+        "mean_difference": -2587.0,
+        "bootstrap_ci95": [
+          -3593.155,
+          -1705.398
+        ],
+        "wilcoxon_stat": 0.0,
+        "raw_p_value": 1.9073486328125e-06,
+        "holm_adjusted_p_value": 7.62939453125e-06
+      },
+      "reactive_hpa_plus_consolidation": {
+        "mean_difference": -2587.0,
+        "bootstrap_ci95": [
+          -3593.155,
+          -1705.398
+        ],
+        "wilcoxon_stat": 0.0,
+        "raw_p_value": 1.9073486328125e-06,
+        "holm_adjusted_p_value": 7.62939453125e-06
+      },
+      "seasonal_naive_conformal": {
+        "mean_difference": -1360.55,
+        "bootstrap_ci95": [
+          -2181.185,
+          -694.419
+        ],
+        "wilcoxon_stat": 3.0,
+        "raw_p_value": 0.0001399457931085244,
+        "holm_adjusted_p_value": 0.0001399457931085244
+      },
+      "oracle": {
+        "mean_difference": -3048.7,
+        "bootstrap_ci95": [
+          -4002.456,
+          -2123.971
+        ],
+        "wilcoxon_stat": 1.0,
+        "raw_p_value": 3.814697265625e-06,
+        "holm_adjusted_p_value": 7.62939453125e-06
+      }
+    }
+  },
+  "per_app_raw_metrics": {
+    "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1": {
+      "cluster_autoscaler": {
+        "energy_kwh": 57.3275,
+        "capacity_shortfall_minutes": 52,
+        "scaling_actions": 891,
+        "scaling_churn": 954
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 57.3246,
+        "capacity_shortfall_minutes": 52,
+        "scaling_actions": 891,
+        "scaling_churn": 954
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 169.6316,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 27,
+        "scaling_churn": 84
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 100.8647,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 99,
+        "scaling_churn": 205
+      },
+      "oracle": {
+        "energy_kwh": 57.9416,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 1767,
+        "scaling_churn": 1856
+      }
+    },
+    "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3": {
+      "cluster_autoscaler": {
+        "energy_kwh": 63.7256,
+        "capacity_shortfall_minutes": 3,
+        "scaling_actions": 12,
+        "scaling_churn": 89
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 63.6494,
+        "capacity_shortfall_minutes": 3,
+        "scaling_actions": 12,
+        "scaling_churn": 89
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 159.0466,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 6,
+        "scaling_churn": 33
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 103.3418,
+        "capacity_shortfall_minutes": 2,
+        "scaling_actions": 8,
+        "scaling_churn": 91
+      },
+      "oracle": {
+        "energy_kwh": 60.3153,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 176,
+        "scaling_churn": 255
+      }
+    },
+    "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280": {
+      "cluster_autoscaler": {
+        "energy_kwh": 56.9196,
+        "capacity_shortfall_minutes": 50,
+        "scaling_actions": 770,
+        "scaling_churn": 875
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 56.9032,
+        "capacity_shortfall_minutes": 50,
+        "scaling_actions": 770,
+        "scaling_churn": 875
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 159.36,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 4,
+        "scaling_churn": 13
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 93.1094,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 82,
+        "scaling_churn": 198
+      },
+      "oracle": {
+        "energy_kwh": 57.7569,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 1662,
+        "scaling_churn": 1762
+      }
+    },
+    "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac": {
+      "cluster_autoscaler": {
+        "energy_kwh": 107.0706,
+        "capacity_shortfall_minutes": 1220,
+        "scaling_actions": 3047,
+        "scaling_churn": 23252
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 104.3628,
+        "capacity_shortfall_minutes": 1220,
+        "scaling_actions": 3047,
+        "scaling_churn": 23252
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 228.2041,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 505,
+        "scaling_churn": 2155
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 190.0265,
+        "capacity_shortfall_minutes": 8,
+        "scaling_actions": 2502,
+        "scaling_churn": 34992
+      },
+      "oracle": {
+        "energy_kwh": 103.7405,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 6653,
+        "scaling_churn": 97898
+      }
+    },
+    "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26": {
+      "cluster_autoscaler": {
+        "energy_kwh": 206.0905,
+        "capacity_shortfall_minutes": 238,
+        "scaling_actions": 2965,
+        "scaling_churn": 14100
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 202.1742,
+        "capacity_shortfall_minutes": 246,
+        "scaling_actions": 2965,
+        "scaling_churn": 14100
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 322.202,
+        "capacity_shortfall_minutes": 13,
+        "scaling_actions": 578,
+        "scaling_churn": 4494
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 271.9124,
+        "capacity_shortfall_minutes": 72,
+        "scaling_actions": 1731,
+        "scaling_churn": 12264
+      },
+      "oracle": {
+        "energy_kwh": 200.4169,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 3982,
+        "scaling_churn": 17541
+      }
+    },
+    "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a": {
+      "cluster_autoscaler": {
+        "energy_kwh": 185.6109,
+        "capacity_shortfall_minutes": 4,
+        "scaling_actions": 1930,
+        "scaling_churn": 5471
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 185.2392,
+        "capacity_shortfall_minutes": 4,
+        "scaling_actions": 1930,
+        "scaling_churn": 5471
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 293.0548,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 31,
+        "scaling_churn": 279
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 246.8498,
+        "capacity_shortfall_minutes": 2,
+        "scaling_actions": 124,
+        "scaling_churn": 806
+      },
+      "oracle": {
+        "energy_kwh": 167.9229,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 2552,
+        "scaling_churn": 6982
+      }
+    },
+    "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69": {
+      "cluster_autoscaler": {
+        "energy_kwh": 75.5534,
+        "capacity_shortfall_minutes": 360,
+        "scaling_actions": 3388,
+        "scaling_churn": 6865
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 73.0464,
+        "capacity_shortfall_minutes": 361,
+        "scaling_actions": 3388,
+        "scaling_churn": 6865
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 190.2658,
+        "capacity_shortfall_minutes": 6,
+        "scaling_actions": 115,
+        "scaling_churn": 624
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 133.9489,
+        "capacity_shortfall_minutes": 18,
+        "scaling_actions": 1137,
+        "scaling_churn": 4505
+      },
+      "oracle": {
+        "energy_kwh": 68.0806,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 5314,
+        "scaling_churn": 9509
+      }
+    },
+    "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2": {
+      "cluster_autoscaler": {
+        "energy_kwh": 57.5984,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 81,
+        "scaling_churn": 82
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 57.5984,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 81,
+        "scaling_churn": 82
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 178.5767,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 0,
+        "scaling_churn": 0
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 91.2169,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 2,
+        "scaling_churn": 4
+      },
+      "oracle": {
+        "energy_kwh": 58.8417,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 156,
+        "scaling_churn": 160
+      }
+    },
+    "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e": {
+      "cluster_autoscaler": {
+        "energy_kwh": 118.4441,
+        "capacity_shortfall_minutes": 900,
+        "scaling_actions": 2471,
+        "scaling_churn": 15579
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 114.2884,
+        "capacity_shortfall_minutes": 900,
+        "scaling_actions": 2471,
+        "scaling_churn": 15579
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 236.7966,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 48,
+        "scaling_churn": 228
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 186.5128,
+        "capacity_shortfall_minutes": 2,
+        "scaling_actions": 2305,
+        "scaling_churn": 24692
+      },
+      "oracle": {
+        "energy_kwh": 103.1813,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 6850,
+        "scaling_churn": 83764
+      }
+    },
+    "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45": {
+      "cluster_autoscaler": {
+        "energy_kwh": 121.958,
+        "capacity_shortfall_minutes": 1812,
+        "scaling_actions": 5994,
+        "scaling_churn": 47982
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 116.5743,
+        "capacity_shortfall_minutes": 1812,
+        "scaling_actions": 5994,
+        "scaling_churn": 47982
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 220.3142,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 553,
+        "scaling_churn": 2472
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 198.103,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 3987,
+        "scaling_churn": 55848
+      },
+      "oracle": {
+        "energy_kwh": 114.6075,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 3239,
+        "scaling_churn": 50932
+      }
+    },
+    "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3": {
+      "cluster_autoscaler": {
+        "energy_kwh": 158.6483,
+        "capacity_shortfall_minutes": 1419,
+        "scaling_actions": 5159,
+        "scaling_churn": 41924
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 139.2977,
+        "capacity_shortfall_minutes": 1455,
+        "scaling_actions": 5159,
+        "scaling_churn": 41924
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 216.8652,
+        "capacity_shortfall_minutes": 123,
+        "scaling_actions": 966,
+        "scaling_churn": 5516
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 186.1791,
+        "capacity_shortfall_minutes": 152,
+        "scaling_actions": 3460,
+        "scaling_churn": 42684
+      },
+      "oracle": {
+        "energy_kwh": 123.5209,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 3523,
+        "scaling_churn": 42720
+      }
+    },
+    "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381": {
+      "cluster_autoscaler": {
+        "energy_kwh": 661.7549,
+        "capacity_shortfall_minutes": 4051,
+        "scaling_actions": 13750,
+        "scaling_churn": 265387
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 603.1246,
+        "capacity_shortfall_minutes": 4175,
+        "scaling_actions": 13750,
+        "scaling_churn": 265387
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 487.5873,
+        "capacity_shortfall_minutes": 850,
+        "scaling_actions": 4051,
+        "scaling_churn": 69579
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 638.4765,
+        "capacity_shortfall_minutes": 750,
+        "scaling_actions": 11393,
+        "scaling_churn": 263499
+      },
+      "oracle": {
+        "energy_kwh": 616.3521,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 11796,
+        "scaling_churn": 266115
+      }
+    },
+    "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926": {
+      "cluster_autoscaler": {
+        "energy_kwh": 177.5141,
+        "capacity_shortfall_minutes": 988,
+        "scaling_actions": 3676,
+        "scaling_churn": 24382
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 167.8718,
+        "capacity_shortfall_minutes": 1000,
+        "scaling_actions": 3676,
+        "scaling_churn": 24382
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 282.099,
+        "capacity_shortfall_minutes": 93,
+        "scaling_actions": 1377,
+        "scaling_churn": 10195
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 215.3492,
+        "capacity_shortfall_minutes": 899,
+        "scaling_actions": 2823,
+        "scaling_churn": 23169
+      },
+      "oracle": {
+        "energy_kwh": 160.4706,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 3858,
+        "scaling_churn": 27842
+      }
+    },
+    "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea": {
+      "cluster_autoscaler": {
+        "energy_kwh": 197.3488,
+        "capacity_shortfall_minutes": 1423,
+        "scaling_actions": 5549,
+        "scaling_churn": 40246
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 191.7605,
+        "capacity_shortfall_minutes": 1427,
+        "scaling_actions": 5549,
+        "scaling_churn": 40246
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 291.5651,
+        "capacity_shortfall_minutes": 2,
+        "scaling_actions": 1394,
+        "scaling_churn": 11230
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 247.3552,
+        "capacity_shortfall_minutes": 20,
+        "scaling_actions": 4587,
+        "scaling_churn": 40497
+      },
+      "oracle": {
+        "energy_kwh": 174.9098,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 6384,
+        "scaling_churn": 49890
+      }
+    },
+    "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286": {
+      "cluster_autoscaler": {
+        "energy_kwh": 57.3966,
+        "capacity_shortfall_minutes": 482,
+        "scaling_actions": 3001,
+        "scaling_churn": 4337
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 57.3578,
+        "capacity_shortfall_minutes": 482,
+        "scaling_actions": 3001,
+        "scaling_churn": 4337
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 178.182,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 12,
+        "scaling_churn": 40
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 114.3413,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 888,
+        "scaling_churn": 2020
+      },
+      "oracle": {
+        "energy_kwh": 58.4211,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 4281,
+        "scaling_churn": 5936
+      }
+    },
+    "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783": {
+      "cluster_autoscaler": {
+        "energy_kwh": 65.3724,
+        "capacity_shortfall_minutes": 79,
+        "scaling_actions": 617,
+        "scaling_churn": 2141
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 65.0535,
+        "capacity_shortfall_minutes": 80,
+        "scaling_actions": 617,
+        "scaling_churn": 2141
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 175.8379,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 61,
+        "scaling_churn": 401
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 92.3217,
+        "capacity_shortfall_minutes": 11,
+        "scaling_actions": 4,
+        "scaling_churn": 8
+      },
+      "oracle": {
+        "energy_kwh": 64.9317,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 1280,
+        "scaling_churn": 3270
+      }
+    },
+    "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5": {
+      "cluster_autoscaler": {
+        "energy_kwh": 56.4884,
+        "capacity_shortfall_minutes": 57,
+        "scaling_actions": 848,
+        "scaling_churn": 977
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 56.4729,
+        "capacity_shortfall_minutes": 57,
+        "scaling_actions": 848,
+        "scaling_churn": 977
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 162.462,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 29,
+        "scaling_churn": 87
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 96.9763,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 164,
+        "scaling_churn": 366
+      },
+      "oracle": {
+        "energy_kwh": 57.204,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 1871,
+        "scaling_churn": 2029
+      }
+    },
+    "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4": {
+      "cluster_autoscaler": {
+        "energy_kwh": 66.1679,
+        "capacity_shortfall_minutes": 203,
+        "scaling_actions": 2111,
+        "scaling_churn": 3387
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 65.5412,
+        "capacity_shortfall_minutes": 203,
+        "scaling_actions": 2111,
+        "scaling_churn": 3387
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 185.8477,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 109,
+        "scaling_churn": 424
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 116.1631,
+        "capacity_shortfall_minutes": 1,
+        "scaling_actions": 657,
+        "scaling_churn": 2010
+      },
+      "oracle": {
+        "energy_kwh": 63.7146,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 3341,
+        "scaling_churn": 4720
+      }
+    },
+    "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d": {
+      "cluster_autoscaler": {
+        "energy_kwh": 68.4057,
+        "capacity_shortfall_minutes": 237,
+        "scaling_actions": 1100,
+        "scaling_churn": 1531
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 68.1984,
+        "capacity_shortfall_minutes": 237,
+        "scaling_actions": 1100,
+        "scaling_churn": 1531
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 170.7307,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 44,
+        "scaling_churn": 184
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 103.8435,
+        "capacity_shortfall_minutes": 632,
+        "scaling_actions": 250,
+        "scaling_churn": 689
+      },
+      "oracle": {
+        "energy_kwh": 68.7007,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 2238,
+        "scaling_churn": 3187
+      }
+    },
+    "0e18802d31bf22abefa07cef938d2563cbba9a7155145618501ce2b447bc8e46": {
+      "cluster_autoscaler": {
+        "energy_kwh": 376.018,
+        "capacity_shortfall_minutes": 3151,
+        "scaling_actions": 10325,
+        "scaling_churn": 128268
+      },
+      "reactive_hpa_plus_consolidation": {
+        "energy_kwh": 388.0317,
+        "capacity_shortfall_minutes": 4990,
+        "scaling_actions": 10325,
+        "scaling_churn": 128268
+      },
+      "full_aegis_conformal": {
+        "energy_kwh": 513.2067,
+        "capacity_shortfall_minutes": 7,
+        "scaling_actions": 6035,
+        "scaling_churn": 102720
+      },
+      "seasonal_naive_conformal": {
+        "energy_kwh": 450.8601,
+        "capacity_shortfall_minutes": 80,
+        "scaling_actions": 6953,
+        "scaling_churn": 125990
+      },
+      "oracle": {
+        "energy_kwh": 370.6448,
+        "capacity_shortfall_minutes": 0,
+        "scaling_actions": 5996,
+        "scaling_churn": 128566
+      }
+    }
+  }
+}

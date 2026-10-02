@@ -1,0 +1,341 @@
+{
+  "git_commit": "50b1be9417e1953edae9f14409f2e94867423d15",
+  "cooldown_audit_3_apps": {
+    "cb34fd874e255dde6735e5d3dbf5b13bc3dbdaffcf22c0618036d071c356f918": {
+      "category": "Small",
+      "mean_cores": 0.547,
+      "peak_cores": 2.684,
+      "cluster_autoscaler": {
+        "blocked_scale_ups": 0,
+        "blocked_scale_downs": 0,
+        "shortfall_faithful_min": 0,
+        "shortfall_cooldown_min": 0,
+        "shortfall_attributable_to_blocked_scaleups_min": 0
+      },
+      "reactive_hpa_plus_consolidation": {
+        "blocked_scale_ups": 0,
+        "blocked_scale_downs": 0,
+        "shortfall_faithful_min": 0,
+        "shortfall_cooldown_min": 0,
+        "shortfall_attributable_to_blocked_scaleups_min": 0
+      }
+    },
+    "d514ebc393839b56f93bc67341e4b85c18e1d5e68341144f849cf0b3a32fcfc3": {
+      "category": "Mid",
+      "mean_cores": 1.35,
+      "peak_cores": 32.3,
+      "cluster_autoscaler": {
+        "blocked_scale_ups": 0,
+        "blocked_scale_downs": 0,
+        "shortfall_faithful_min": 0,
+        "shortfall_cooldown_min": 0,
+        "shortfall_attributable_to_blocked_scaleups_min": 0
+      },
+      "reactive_hpa_plus_consolidation": {
+        "blocked_scale_ups": 0,
+        "blocked_scale_downs": 0,
+        "shortfall_faithful_min": 0,
+        "shortfall_cooldown_min": 0,
+        "shortfall_attributable_to_blocked_scaleups_min": 0
+      }
+    },
+    "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381": {
+      "category": "Large",
+      "mean_cores": 7.212,
+      "peak_cores": 59.008,
+      "cluster_autoscaler": {
+        "blocked_scale_ups": 7870,
+        "blocked_scale_downs": 5079,
+        "shortfall_faithful_min": 4086,
+        "shortfall_cooldown_min": 5150,
+        "shortfall_attributable_to_blocked_scaleups_min": 1064
+      },
+      "reactive_hpa_plus_consolidation": {
+        "blocked_scale_ups": 7870,
+        "blocked_scale_downs": 5079,
+        "shortfall_faithful_min": 4236,
+        "shortfall_cooldown_min": 5156,
+        "shortfall_attributable_to_blocked_scaleups_min": 920
+      }
+    }
+  },
+  "derivation_provenance": {
+    "source_files": [
+      "datasets/raw/azurefunctions2019/invocations_per_function_md.anon.d*.csv",
+      "datasets/raw/azurefunctions2019/function_durations_percentiles.anon.d*.csv"
+    ],
+    "formula": "cores(app, t) = sum_f [ invocations(f, t) * (Average_duration_ms(f, day) / 1000) / 60 * 1.0 ]",
+    "units": "vCPU cores"
+  },
+  "control_arms_distributions": {
+    "full_aegis_conformal": {
+      "energy": {
+        "median": 203.57,
+        "iqr": 109.9
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 6.25
+      },
+      "events": {
+        "median": 85.0,
+        "iqr": 646.5
+      }
+    },
+    "reactive_plus_headroom": {
+      "energy": {
+        "median": 238.55,
+        "iqr": 85.74
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 2.5
+      },
+      "events": {
+        "median": 274.5,
+        "iqr": 2509.75
+      }
+    },
+    "cluster_autoscaler_faithful": {
+      "energy": {
+        "median": 91.53,
+        "iqr": 115.63
+      },
+      "shortfall": {
+        "median": 300.0,
+        "iqr": 1216.5
+      },
+      "events": {
+        "median": 2718.0,
+        "iqr": 3166.5
+      }
+    }
+  },
+  "per_app_table_sorted": [
+    {
+      "app_id": "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+      "mean_cores": 0.5549578748219374,
+      "peak_cores": 2.6839999999999997,
+      "aegis_energy": 162.462,
+      "aegis_shortfall": 0,
+      "headroom_energy": 203.95,
+      "headroom_shortfall": 0,
+      "ca_energy": 56.67,
+      "ca_shortfall": 57
+    },
+    {
+      "app_id": "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+      "mean_cores": 0.584838823005698,
+      "peak_cores": 3.084866666666666,
+      "aegis_energy": 169.6316,
+      "aegis_shortfall": 0,
+      "headroom_energy": 188.51,
+      "headroom_shortfall": 0,
+      "ca_energy": 57.5,
+      "ca_shortfall": 52
+    },
+    {
+      "app_id": "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+      "mean_cores": 0.6674794622507122,
+      "peak_cores": 3.01295,
+      "aegis_energy": 159.36,
+      "aegis_shortfall": 0,
+      "headroom_energy": 204.17,
+      "headroom_shortfall": 0,
+      "ca_energy": 57.1,
+      "ca_shortfall": 50
+    },
+    {
+      "app_id": "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d",
+      "mean_cores": 0.7193292245370372,
+      "peak_cores": 10.874266666666667,
+      "aegis_energy": 170.7307,
+      "aegis_shortfall": 0,
+      "headroom_energy": 215.28,
+      "headroom_shortfall": 0,
+      "ca_energy": 68.58,
+      "ca_shortfall": 237
+    },
+    {
+      "app_id": "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3",
+      "mean_cores": 0.7229507977207977,
+      "peak_cores": 17.108900000000002,
+      "aegis_energy": 159.0466,
+      "aegis_shortfall": 1,
+      "headroom_energy": 210.46,
+      "headroom_shortfall": 0,
+      "ca_energy": 64.04,
+      "ca_shortfall": 3
+    },
+    {
+      "app_id": "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+      "mean_cores": 0.7257482932692307,
+      "peak_cores": 2.7118,
+      "aegis_energy": 178.182,
+      "aegis_shortfall": 0,
+      "headroom_energy": 204.43,
+      "headroom_shortfall": 0,
+      "ca_energy": 57.58,
+      "ca_shortfall": 482
+    },
+    {
+      "app_id": "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+      "mean_cores": 0.8103880956196581,
+      "peak_cores": 1.161,
+      "aegis_energy": 178.5767,
+      "aegis_shortfall": 0,
+      "headroom_energy": 204.6,
+      "headroom_shortfall": 0,
+      "ca_energy": 57.78,
+      "ca_shortfall": 1
+    },
+    {
+      "app_id": "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+      "mean_cores": 0.8650763425925926,
+      "peak_cores": 15.018500000000001,
+      "aegis_energy": 220.3142,
+      "aegis_shortfall": 0,
+      "headroom_energy": 261.82,
+      "headroom_shortfall": 1,
+      "ca_energy": 122.9,
+      "ca_shortfall": 1812
+    },
+    {
+      "app_id": "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+      "mean_cores": 0.8815567637108263,
+      "peak_cores": 47.01200000000001,
+      "aegis_energy": 216.8652,
+      "aegis_shortfall": 123,
+      "headroom_energy": 269.77,
+      "headroom_shortfall": 173,
+      "ca_energy": 158.45,
+      "ca_shortfall": 1429
+    },
+    {
+      "app_id": "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+      "mean_cores": 0.9315893652065527,
+      "peak_cores": 11.105433333333334,
+      "aegis_energy": 175.8379,
+      "aegis_shortfall": 0,
+      "headroom_energy": 211.36,
+      "headroom_shortfall": 0,
+      "ca_energy": 65.52,
+      "ca_shortfall": 79
+    },
+    {
+      "app_id": "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+      "mean_cores": 0.9925837793803419,
+      "peak_cores": 10.9441,
+      "aegis_energy": 228.2041,
+      "aegis_shortfall": 0,
+      "headroom_energy": 275.92,
+      "headroom_shortfall": 0,
+      "ca_energy": 107.38,
+      "ca_shortfall": 1220
+    },
+    {
+      "app_id": "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+      "mean_cores": 1.0655228027065526,
+      "peak_cores": 10.472000000000001,
+      "aegis_energy": 185.8477,
+      "aegis_shortfall": 0,
+      "headroom_energy": 208.99,
+      "headroom_shortfall": 0,
+      "ca_energy": 66.35,
+      "ca_shortfall": 203
+    },
+    {
+      "app_id": "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+      "mean_cores": 1.1159627270299144,
+      "peak_cores": 11.386166666666668,
+      "aegis_energy": 236.7966,
+      "aegis_shortfall": 0,
+      "headroom_energy": 271.21,
+      "headroom_shortfall": 0,
+      "ca_energy": 118.77,
+      "ca_shortfall": 900
+    },
+    {
+      "app_id": "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+      "mean_cores": 1.3539494248575499,
+      "peak_cores": 32.3,
+      "aegis_energy": 190.2658,
+      "aegis_shortfall": 6,
+      "headroom_energy": 211.39,
+      "headroom_shortfall": 5,
+      "ca_energy": 75.69,
+      "ca_shortfall": 360
+    },
+    {
+      "app_id": "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+      "mean_cores": 3.0141324216524215,
+      "peak_cores": 27.64975,
+      "aegis_energy": 291.5651,
+      "aegis_shortfall": 2,
+      "headroom_energy": 329.14,
+      "headroom_shortfall": 2,
+      "ca_energy": 198.55,
+      "ca_shortfall": 1432
+    },
+    {
+      "app_id": "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+      "mean_cores": 3.2249311422720797,
+      "peak_cores": 56.24865,
+      "aegis_energy": 282.099,
+      "aegis_shortfall": 93,
+      "headroom_energy": 293.38,
+      "headroom_shortfall": 4,
+      "ca_energy": 175.39,
+      "ca_shortfall": 994
+    },
+    {
+      "app_id": "0e18802d31bf22abefa07cef938d2563cbba9a7155145618501ce2b447bc8e46",
+      "mean_cores": 5.081311828703703,
+      "peak_cores": 25.559733333333334,
+      "aegis_energy": 513.2067,
+      "aegis_shortfall": 7,
+      "headroom_energy": 568.9,
+      "headroom_shortfall": 1441,
+      "ca_energy": 384.18,
+      "ca_shortfall": 3157
+    },
+    {
+      "app_id": "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+      "mean_cores": 5.576707630876069,
+      "peak_cores": 17.7012,
+      "aegis_energy": 293.0548,
+      "aegis_shortfall": 0,
+      "headroom_energy": 294.39,
+      "headroom_shortfall": 0,
+      "ca_energy": 186.24,
+      "ca_shortfall": 4
+    },
+    {
+      "app_id": "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+      "mean_cores": 5.619554806801994,
+      "peak_cores": 33.213,
+      "aegis_energy": 322.202,
+      "aegis_shortfall": 13,
+      "headroom_energy": 332.65,
+      "headroom_shortfall": 1,
+      "ca_energy": 205.92,
+      "ca_shortfall": 240
+    },
+    {
+      "app_id": "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+      "mean_cores": 7.235686199252136,
+      "peak_cores": 59.008,
+      "aegis_energy": 487.5873,
+      "aegis_shortfall": 850,
+      "headroom_energy": 636.47,
+      "headroom_shortfall": 2008,
+      "ca_energy": 694.31,
+      "ca_shortfall": 4086
+    }
+  ],
+  "spearman_correlation": {
+    "rho": 0.8682,
+    "p_value": 7.014308244599412e-07,
+    "sample_size": 20
+  }
+}

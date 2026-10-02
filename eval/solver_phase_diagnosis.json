@@ -1,0 +1,152 @@
+{
+  "steps": [
+    {
+      "step": 2134,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 16516147.08
+    },
+    {
+      "step": 2134,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 1,
+      "observed_solve_time_ms_in_run": 16516147.08
+    },
+    {
+      "step": 2133,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 13473452.79
+    },
+    {
+      "step": 2133,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 1,
+      "observed_solve_time_ms_in_run": 13473452.79
+    },
+    {
+      "step": 2132,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 930340.69
+    },
+    {
+      "step": 2132,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 1,
+      "observed_solve_time_ms_in_run": 930340.69
+    },
+    {
+      "step": 249,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10597.94
+    },
+    {
+      "step": 172,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10548.85
+    },
+    {
+      "step": 700,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10531.04
+    },
+    {
+      "step": 744,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10496.56
+    },
+    {
+      "step": 1779,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10490.74
+    },
+    {
+      "step": 554,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10488.39
+    },
+    {
+      "step": 1677,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10476.95
+    },
+    {
+      "step": 289,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10455.09
+    },
+    {
+      "step": 293,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10445.73
+    },
+    {
+      "step": 656,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10437.25
+    },
+    {
+      "step": 1953,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10430.77
+    },
+    {
+      "step": 154,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10419.25
+    },
+    {
+      "step": 1941,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10416.93
+    },
+    {
+      "step": 748,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10408.57
+    },
+    {
+      "step": 180,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10400.08
+    },
+    {
+      "step": 316,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10380.92
+    },
+    {
+      "step": 374,
+      "error": "NameError: name 'n' is not defined",
+      "num_workers": 4,
+      "observed_solve_time_ms_in_run": 10378.85
+    }
+  ],
+  "num_workers_frozen": 4,
+  "time_limit_s": 10.0,
+  "presolve_note": "ortools applies max_time_in_seconds to the whole Solve call (presolve + search); the captured log_search_progress excerpts are in log_excerpt fields",
+  "git": {
+    "commit": "50b1be9417e1953edae9f14409f2e94867423d15",
+    "tag_at_head": "sim-v3",
+    "dirty_files": [
+      "eval/diagnose_solver_phases.py"
+    ]
+  }
+}

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aegis — prototype evaluation dashboard</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --ink: #1a202c; --muted: #5a6472;
+    --line: #d7dce3; --accent: #2456a6; --accent2: #7a3ea1; --good: #1d7a3e;
+    --warn: #9a6b0a; --bad: #a53030; --bar: #4a76c4; --oracle: #8a5fb8;
+    --code: #eef1f5; --shadow: 0 1px 3px rgba(20,30,50,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12161c; --panel: #1b2129; --ink: #e6eaf0; --muted: #9aa5b4;
+      --line: #2c3540; --accent: #6d9ceb; --accent2: #b98fe0; --good: #57c07d;
+      --warn: #d9ab4e; --bad: #e07a7a; --bar: #5d87d6; --oracle: #a98ad0;
+      --code: #232b35; --shadow: 0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 17px; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif; line-height: 1.5; }
+  header { padding: 18px 22px 10px; }
+  h1 { font-size: 1.45rem; margin: 0 0 2px; }
+  .sub { color: var(--muted); font-size: .95rem; }
+  .banner { margin: 10px 22px; padding: 10px 14px; border: 1px solid var(--warn);
+            border-radius: 8px; background: color-mix(in srgb, var(--warn) 8%, transparent);
+            font-size: .95rem; }
+  nav { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 22px 0; }
+  nav button { font: inherit; font-size: 1rem; padding: 8px 14px; border-radius: 8px 8px 0 0;
+               border: 1px solid var(--line); border-bottom: none; background: var(--panel);
+               color: var(--ink); cursor: pointer; opacity: .75; }
+  nav button.active { opacity: 1; font-weight: 600; border-bottom: 2px solid var(--accent); }
+  main { padding: 16px 22px 60px; max-width: 1200px; }
+  section.tab { display: none; }
+  section.tab.active { display: block; }
+  h2 { font-size: 1.15rem; margin: 22px 0 8px; }
+  h3 { font-size: 1.02rem; margin: 16px 0 6px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+          padding: 14px 16px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .num { font-size: 1.7rem; font-weight: 700; color: var(--accent); }
+  .num small { font-size: .95rem; font-weight: 500; color: var(--muted); }
+  .kpi-label { color: var(--muted); font-size: .92rem; margin-top: 2px; }
+  .tag { display: inline-block; font-size: .78rem; padding: 1px 8px; border-radius: 999px;
+         border: 1px solid var(--line); color: var(--muted); margin-left: 6px; vertical-align: middle; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { border-bottom: 1px solid var(--line); padding: 7px 9px; text-align: left; }
+  th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .pill { font-size: .8rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; }
+  .pill.imp { background: color-mix(in srgb, var(--good) 15%, transparent); color: var(--good); border: 1px solid var(--good); }
+  .pill.part { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); border: 1px solid var(--warn); }
+  .pill.stub { background: color-mix(in srgb, var(--bad) 12%, transparent); color: var(--bad); border: 1px solid var(--bad); }
+  .na { color: var(--bad); font-style: italic; }
+  /* horizontal bar chart */
+  .chart { margin: 6px 0 2px; }
+  .bar-row { display: grid; grid-template-columns: 210px 1fr 130px; gap: 10px; align-items: center;
+             margin: 7px 0; }
+  .bar-row .name { font-size: .92rem; text-align: right; color: var(--muted); }
+  .bar-track { position: relative; height: 24px; background: var(--code); border-radius: 6px; overflow: visible; }
+  .bar-fill { position: absolute; inset: 0 auto 0 0; background: var(--bar); border-radius: 6px; min-width: 2px; }
+  .bar-fill.oracle { background: transparent; border: 2px dashed var(--oracle); }
+  .oracle-line { position: absolute; top: -4px; bottom: -4px; border-left: 3px dashed var(--oracle); }
+  .bar-val { font-size: .9rem; font-variant-numeric: tabular-nums; }
+  select, button.act { font: inherit; font-size: .98rem; padding: 6px 12px; border-radius: 8px;
+                       border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  button.act { background: var(--accent); color: #fff; border-color: var(--accent); cursor: pointer; }
+  button.act:disabled { opacity: .5; cursor: wait; }
+  pre.term { background: var(--code); border: 1px solid var(--line); border-radius: 8px;
+             padding: 12px; font-family: Consolas, "Courier New", monospace; font-size: .85rem;
+             max-height: 420px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .stage { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--panel); }
+  .stage b { color: var(--accent); }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0 14px;
+          font-weight: 600; color: var(--accent); }
+  ul { margin: 6px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .foot { color: var(--muted); font-size: .88rem; margin-top: 26px; border-top: 1px solid var(--line); padding-top: 10px; }
+  @media (max-width: 760px) {
+    .bar-row { grid-template-columns: 120px 1fr 110px; }
+    html { font-size: 16px; }
+    main, header, nav, .banner { padding-left: 12px; padding-right: 12px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Aegis — prototype evaluation dashboard</h1>
+  <div class="sub">Simulation-based evaluation of the Aegis autoscaling prototype · snapshot of result JSONs ·
+    all energy figures are <b>modeled</b> (power model), none are measured</div>
+</header>
+<div class="banner"><b>Honesty notes:</b> every energy number on this page comes from the simulated power model —
+  nothing was measured on hardware. The live demo tab is a <b>toy single-workload demo</b>; any sub-100&nbsp;ms
+  timings it prints (e.g. 20&nbsp;ms solve, 14.5&nbsp;ms cycle) are toy-demo figures, not system latency.
+  CP-SAT is <b>Partial</b>: tested on one app, solve-time bounding still in progress.</div>
+<nav id="tabs"></nav>
+<main>
+  <section class="tab" id="tab-overview"><div class="card"><div class="na">loading…</div></div></section>
+  <section class="tab" id="tab-control"><div class="card"><div class="na">loading…</div></div></section>
+  <section class="tab" id="tab-demo">
+    <div class="card">
+      <h2 style="margin-top:0">Live demo <span class="tag">toy single-workload demo</span></h2>
+      <p>Runs <code>scripts/demo.ps1</code> (test suites + predictor + decision demo) and streams its output.
+         Timings printed by the script are toy-demo figures, not measured system latency.</p>
+      <button class="act" id="demoBtn">Run demo</button>
+      <span id="demoState" class="kpi-label"></span>
+      <pre class="term" id="demoTerm">(not started)</pre>
+    </div>
+  </section>
+  <section class="tab" id="tab-forecast"><div class="card"><div class="na">loading…</div></div></section>
+  <section class="tab" id="tab-ablation">
+    <div class="card">
+      <h2 style="margin-top:0">Ablation benchmark (synthetic patterns, modeled energy)</h2>
+      <p style="margin:4px 0 10px">
+        <label>Pattern: <select id="ablPattern"></select></label>
+        &nbsp; <label>Metric: <select id="ablMetric">
+          <option value="energy_kwh">Energy (kWh, modeled)</option>
+          <option value="capacity_shortfall_minutes">Shortfall (min)</option>
+          <option value="scaling_actions">Scaling events</option>
+        </select></label>
+      </p>
+      <div class="chart" id="ablChart"></div>
+      <div class="kpi-label">Dashed purple marker = oracle (perfect foresight) upper bound.
+        Error text = 95% t-interval over 5 seeds. Lower is better for all three metrics.</div>
+    </div>
+  </section>
+  <section class="tab" id="tab-real"><div class="card"><div class="na">loading…</div></div></section>
+  <section class="tab" id="tab-status"><div class="card"><div class="na">loading…</div></div></section>
+  <section class="tab" id="tab-limits"><div class="card"><div class="na">loading…</div></div></section>
+  <div class="foot">Aegis prototype evaluation · snapshot generated from <code>eval/*.json</code> result files ·
+    all energy values modeled · simulation-based; no component was deployed on a live cluster.</div>
+</main>
+<script>
+"use strict";
+/* ---------- tiny data layer: load snapshot JSONs from ./data, fail soft ---------- */
+const DATA = {};
+async function loadData(name) {
+  if (name in DATA) return DATA[name];
+  try {
+    const r = await fetch("data/" + name, {cache: "no-store"});
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    DATA[name] = await r.json();
+  } catch (e) {
+    DATA[name] = null; // renderers must show "not available"
+  }
+  return DATA[name];
+}
+const NA = '<span class="na">not available</span>';
+const fmt = (x, d = 2) => (typeof x === "number" && isFinite(x)) ? x.toFixed(d) : null;
+const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
+const MODELED = '<span class="tag">modeled</span>';
+
+/* ---------- tabs ---------- */
+const TABS = [
+  ["overview", "Overview"], ["control", "Control loop"], ["demo", "Live demo"],
+  ["forecast", "Forecast quality"], ["ablation", "Ablation"], ["real", "Real traces"],
+  ["status", "Status"], ["limits", "Limitations"],
+];
+const nav = document.getElementById("tabs");
+TABS.forEach(([id, label], i) => {
+  const b = document.createElement("button");
+  b.textContent = label; b.dataset.tab = id;
+  if (i === 0) b.classList.add("active");
+  b.onclick = () => {
+    document.querySelectorAll("nav button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    document.querySelectorAll("section.tab").forEach(s => s.classList.remove("active"));
+    document.getElementById("tab-" + id).classList.add("active");
+    render(id);
+  };
+  nav.appendChild(b);
+});
+function show(id) { document.querySelector(`nav button[data-tab="${id}"]`).click(); }
+
+/* ---------- 1. overview ---------- */
+async function renderOverview() {
+  const el = document.getElementById("tab-overview");
+  const mp = await loadData("multi_pattern_ablation_results.json");
+  const rt = await loadData("real_trace_results.json");
+  const al = await loadData("system_in_loop_aligned_results.json");
+  const ra = await loadData("real_ablation_results.json");
+
+  // headline 1: in-loop real-service chain vs oracle energy (2-day, modeled)
+  let h1 = NA, h1sub = "system_in_loop_aligned_results.json missing";
+  if (al && al.comparison_2day) {
+    const c = al.comparison_2day;
+    const dE = c.in_loop_after_aligned.energy_kwh - c.oracle.energy_kwh;
+    h1 = `${dE >= 0 ? "+" : ""}${fmt(dE)} kWh`;
+    h1sub = `real CP-SAT chain vs oracle, 2-day real-trace window (modeled) · shortfall ${c.in_loop_after_aligned.capacity_shortfall_minutes} vs ${c.oracle.capacity_shortfall_minutes} min`;
+  }
+  // headline 2: full Aegis vs CA shortfall on the 5 real apps
+  let h2 = NA, h2sub = "real_trace_results.json missing";
+  if (rt && rt.workloads) {
+    const apps = Object.values(rt.workloads);
+    const ae = mean(apps.map(w => w.configs.full_aegis_conformal.capacity_shortfall_minutes.mean));
+    const ca = mean(apps.map(w => w.configs.cluster_autoscaler.capacity_shortfall_minutes.mean));
+    h2 = `${fmt(ae, 1)} vs ${fmt(ca, 1)} min`;
+    h2sub = "mean shortfall: full Aegis (conformal) vs cluster-autoscaler, 5 real apps (test windows)";
+  }
+  // headline 3: replica churn vs CA across synthetic patterns
+  let h3 = NA, h3sub = "multi_pattern_ablation_results.json missing";
+  if (mp) {
+    const ds = Object.values(mp).map(p => p.paired_vs_cluster_autoscaler.churn_vs_ca.mean);
+    h3 = `${mean(ds) >= 0 ? "+" : ""}${fmt(mean(ds), 0)} pods`;
+    h3sub = "mean replica-churn delta, Aegis conformal − CA, across 5 synthetic patterns";
+  }
+  // headline 4: real CP-SAT decisions in the loop
+  let h4 = NA, h4sub = "system_in_loop_aligned_results.json missing";
+  if (al) {
+    h4 = `${al.window_steps}`;
+    h4sub = `real CP-SAT decisions executed in-loop · FFD fallback rate ${(100 * al.infeasible_or_fallback_rate).toFixed(1)}% · validator rejections ${al.validator_rejections}`;
+  }
+  el.innerHTML = `<div class="card">
+    <h2 style="margin-top:0">Headline numbers <span class="tag">computed from the snapshot JSONs</span></h2>
+    <div class="grid">
+      <div class="card" style="margin:0"><div class="num">${h1} ${MODELED}</div><div class="kpi-label">${h1sub}</div></div>
+      <div class="card" style="margin:0"><div class="num">${h2}</div><div class="kpi-label">${h2sub}</div></div>
+      <div class="card" style="margin:0"><div class="num">${h3}</div><div class="kpi-label">${h3sub}</div></div>
+      <div class="card" style="margin:0"><div class="num">${h4}</div><div class="kpi-label">${h4sub}</div></div>
+    </div>
+    <h3>Context (from the same snapshot)</h3>
+    <ul>
+      <li><b>Benchmark:</b> 9 configurations × 5 synthetic workload patterns × 5 seeds, plus a real
+        Azure Functions 2019 trace (5 apps, 60/15/25 split per app, LightGBM q10/q50/q90 + split-conformal).</li>
+      <li><b>Best-performing comparison on real traces:</b> Aegis conformal eliminates shortfall on the hardest
+        app (${(() => { try { const w = rt.workloads; const a = Object.entries(w).filter(([, x]) => x.configs.cluster_autoscaler.capacity_shortfall_minutes.mean > 20); return a.map(([k]) => k).join(", ") || "n/a"; } catch (e) { return "n/a"; } })()}) at higher modeled energy — the trade is per-app and reported as-is.</li>
+      <li><b>Component ablation (real traces, mean over apps):</b> removing node power-down costs
+        ${(() => { try { return "+" + fmt(ra.component_cost_mean_over_apps["minus power-down"].d_energy_kwh) + " kWh"; } catch (e) { return NA; } })()}
+        (modeled); removing the forecast saves energy but adds
+        ${(() => { try { return fmt(ra.component_cost_mean_over_apps["minus forecast (reactive+consolidation)"].d_shortfall_min, 1); } catch (e) { return NA; } })()}
+        shortfall-min and
+        ${(() => { try { return fmt(ra.component_cost_mean_over_apps["minus forecast (reactive+consolidation)"].d_events, 0); } catch (e) { return NA; } })()}
+        events on average.</li>
+      <li>Every number here is <b>simulation-based</b>; energy is a power-model computation, not a measurement.</li>
+    </ul></div>`;
+}
+
+/* ---------- 2. control loop ---------- */
+async function renderControl() {
+  const el = document.getElementById("tab-control");
+  const al = await loadData("system_in_loop_aligned_results.json");
+  const inLoop = al ? {
+    steps: al.window_steps,
+    rej: al.safety_rejections, alt: al.safety_altered, vreject: al.validator_rejections,
+    ffr: (100 * al.infeasible_or_fallback_rate).toFixed(1),
+    med: al.solve_time_ms.median, p95: al.solve_time_ms.p95,
+  } : null;
+  el.innerHTML = `<div class="card">
+    <h2 style="margin-top:0">Control loop: what runs where</h2>
+    <div class="flow">Monitor → Forecast → Optimize → Validate → Execute</div>
+    <div class="stages">
+      <div class="stage"><b>1 · Monitor</b><br>Per-minute demand replayed into the simulator;
+        telemetry-collector service exists (partial). No live cluster.</div>
+      <div class="stage"><b>2 · Forecast</b><br>LightGBM q10/q50/q90 (5/10/15-min horizons) + split-conformal
+        calibration (static or rolling, horizon-delayed residuals). Real artifacts loaded by the harness.</div>
+      <div class="stage"><b>3 · Optimize</b><br>Real <code>services/decision-engine</code> CP-SAT solver
+        (10 s internal limit, FFD fallback) executed in-loop from a child process. Status: <b>Partial</b> —
+        tested on one app; solve-time bounding in progress (see Status tab).</div>
+      <div class="stage"><b>4 · Validate</b><br>Real orchestrator <code>validate_decision_plan</code>
+        (replica ceilings, node-power plan checks), then real autoscaler <code>SafetyChecker</code>.</div>
+      <div class="stage"><b>5 · Execute</b><br>Real node-power <code>PowerSafetyChecker</code> (K_min=2 guard)
+        gates cordons; approved decisions applied by the frozen simulator physics
+        (boot latency, energy model, shortfall accounting).</div>
+    </div>
+    <h3>Safety guards</h3>
+    <table><tr><th>Guard</th><th>Service value</th><th>Frozen-simulator value</th><th>Used in the aligned in-loop run</th></tr>
+      <tr><td>Dead zone</td><td>±10%</td><td>±10%</td><td>±10%</td></tr>
+      <tr><td>Cooldown</td><td>300 s</td><td>none (per-minute cadence)</td><td>0 s (aligned; the 300 s default was measured separately and throttled 97% of steps)</td></tr>
+      <tr><td>Max step</td><td>10 replicas/min</td><td>HPA-realistic max(16, current)/min</td><td>10 replicas/min (real default kept)</td></tr>
+      <tr><td>K_min</td><td>2 active nodes</td><td>2 active nodes</td><td>2 (both in the checker and the physics)</td></tr>
+      <tr><td>Fallbacks</td><td colspan="3">FFD on CP-SAT infeasible/timeout; hard 15 s process watchdog → FFD; quality-gate shadow/promote on retraining</td></tr>
+    </table>
+    <h3>Measured in-loop (2-day real-trace window, real services deciding)</h3>
+    ${inLoop ? `<table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Control steps with real CP-SAT plans</td><td class="num">${inLoop.steps}</td></tr>
+      <tr><td>Validator rejections</td><td class="num">${inLoop.vreject}</td></tr>
+      <tr><td>Autoscaler-safety rejections (no-op / dead zone / cooldown)</td><td class="num">${inLoop.rej}</td></tr>
+      <tr><td>Plans altered by max-step clamp</td><td class="num">${inLoop.alt}</td></tr>
+      <tr><td>FFD fallback rate</td><td class="num">${inLoop.ffr}%</td></tr>
+      <tr><td>Plan solve time (median / p95, includes python model build)</td><td class="num">${inLoop.med} ms / ${inLoop.p95} ms</td></tr>
+    </table>
+    <p class="kpi-label">Solve times here are the real integration's model-build+solve times on the full cluster
+      model (seconds), not the toy-demo millisecond figures.</p>`
+      : NA}
+  </div>`;
+}
+
+/* ---------- 3. live demo ---------- */
+let demoBusy = false;
+async function runDemo() {
+  if (demoBusy) return;
+  const btn = document.getElementById("demoBtn"), term = document.getElementById("demoTerm"),
+        st = document.getElementById("demoState");
+  demoBusy = true; btn.disabled = true; st.textContent = "running…";
+  term.textContent = "";
+  try {
+    const r = await fetch("/run-demo", {method: "POST"});
+    if (!r.ok || !r.body) throw new Error("HTTP " + r.status);
+    const reader = r.body.getReader(), dec = new TextDecoder();
+    for (;;) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      term.textContent += dec.decode(value);
+      term.scrollTop = term.scrollHeight;
+    }
+    st.textContent = "finished";
+  } catch (e) {
+    st.textContent = "";
+    term.textContent += `\n[demo endpoint unavailable: ${e.message}]`;
+  } finally { demoBusy = false; btn.disabled = false; }
+}
+
+/* ---------- 4. forecast quality ---------- */
+async function renderForecast() {
+  const el = document.getElementById("tab-forecast");
+  const rt = await loadData("real_trace_results.json");
+  const cal = await loadData("item7_calibration.json");
+  let html = `<div class="card"><h2 style="margin-top:0">Forecast quality on real-trace test windows
+    (Azure Functions 2019 apps)</h2>`;
+  if (!rt || !rt.workloads) {
+    html += NA;
+  } else {
+    html += `<table><tr><th>Workload</th><th class="num">WMAPE p50</th><th class="num">Pinball p50</th>
+      <th class="num">raw p10–p90 coverage</th><th class="num">static conformal</th>
+      <th class="num">rolling conformal</th></tr>`;
+    for (const [app, w] of Object.entries(rt.workloads)) {
+      const f = w.forecast_metrics;
+      html += `<tr><td>${app}</td>
+        <td class="num">${fmt(f.wmape_p50)}%</td>
+        <td class="num">${fmt(f.pinball_p50, 4)}</td>
+        <td class="num">${fmt(f.raw_p10_p90_coverage_test, 4)}</td>
+        <td class="num">${fmt(f.static_conformal_coverage_test, 4)}</td>
+        <td class="num">${f.rolling_conformal_coverage_test !== undefined ? fmt(f.rolling_conformal_coverage_test, 4) : "—"}</td></tr>`;
+    }
+    html += `</table>
+    <p class="kpi-label">Coverage = fraction of test minutes with actual demand inside the two-sided
+      [p10, p90] interval, bounds inclusive. Conformal target level τ=0.90; neither variant hits it
+      exactly on every app — reported as measured. Apps are 5-day real traces (60/15/25 split);
+      conformal offsets estimated only on the 15% calibration segment.</p>`;
+  }
+  if (cal && cal.per_seed) {
+    html += `<h3>Per-seed p90 coverage, synthetic bursty trace (4 decimals)</h3>
+      <table><tr><th>Seed</th><th class="num">raw p90</th><th class="num">single-day conformal</th>
+      <th class="num">rolling conformal</th></tr>`;
+    for (const [seed, v] of Object.entries(cal.per_seed)) {
+      html += `<tr><td>${seed}</td><td class="num">${v.uncalibrated.toFixed(4)}</td>
+        <td class="num">${v.single_day.toFixed(4)}</td><td class="num">${v.rolling.toFixed(4)}</td></tr>`;
+    }
+    html += `</table><p class="kpi-label">Target coverage 0.9000. Rolling recalibration uses only
+      outcomes observable at decision time (delayed by the 10-min horizon) — verified by a mutation unit test.</p>`;
+  } else { html += `<h3>Per-seed p90 coverage</h3>${NA}`; }
+  el.innerHTML = html + "</div>";
+}
+
+/* ---------- 5. ablation ---------- */
+const ABL_CONFIGS = ["stock_hpa", "cluster_autoscaler", "reactive_hpa_plus_consolidation",
+  "forecast_only", "forecast_placement", "forecast_plus_power_no_placement",
+  "full_aegis", "full_aegis_conformal", "oracle"];
+async function renderAblation() {
+  const mp = await loadData("multi_pattern_ablation_results.json");
+  const pSel = document.getElementById("ablPattern");
+  const patterns = mp ? Object.keys(mp) : [];
+  if (pSel.options.length === 0) {
+    (patterns.length ? patterns : ["diurnal", "bursty", "flash_crowd"]).forEach(p => {
+      const o = document.createElement("option"); o.value = p; o.textContent = p; pSel.appendChild(o);
+    });
+    pSel.onchange = drawAbl; document.getElementById("ablMetric").onchange = drawAbl;
+  }
+  drawAbl();
+  function drawAbl() {
+    const el = document.getElementById("ablChart");
+    if (!mp || !mp[pSel.value]) { el.innerHTML = NA; return; }
+    const metric = document.getElementById("ablMetric").value;
+    const metricLabel = {energy_kwh: "Energy (kWh, modeled)", capacity_shortfall_minutes: "Shortfall (min)",
+                         scaling_actions: "Scaling events"}[metric];
+    const cfgs = ABL_CONFIGS.filter(c => mp[pSel.value].configurations[c]);
+    const vals = cfgs.map(c => mp[pSel.value].configurations[c][metric].mean);
+    const cis = cfgs.map(c => mp[pSel.value].configurations[c][metric].ci95);
+    const oracleV = mp[pSel.value].configurations.oracle[metric].mean;
+    const maxV = Math.max(...vals, 0.0001);
+    el.innerHTML = `<div class="kpi-label">${pSel.value} — ${metricLabel} · mean over 5 seeds ${MODELED}</div>`
+      + cfgs.map((c, i) => {
+        const w = Math.max(0.5, 100 * vals[i] / maxV);
+        const isOracle = c === "oracle";
+        const marker = !isOracle && oracleV <= maxV
+          ? `<div class="oracle-line" style="left:${100 * oracleV / maxV}%"></div>` : "";
+        return `<div class="bar-row"><div class="name">${c}</div>
+          <div class="bar-track"><div class="bar-fill${isOracle ? " oracle" : ""}" style="width:${w}%"></div>${marker}</div>
+          <div class="bar-val">${fmt(vals[i], metric === "energy_kwh" ? 2 : 1)} ± ${fmt(cis[i], 1)}</div></div>`;
+      }).join("");
+  }
+}
+
+/* ---------- 6. real traces ---------- */
+async function renderReal() {
+  const el = document.getElementById("tab-real");
+  const ra = await loadData("real_ablation_results.json");
+  const rt = await loadData("real_trace_results.json");
+  let html = `<div class="card"><h2 style="margin-top:0">Real traces (Azure Functions 2019) — modeled energy</h2>`;
+  html += `<h3>Component ablation (each row removes one component from full Aegis)</h3>`;
+  if (ra && ra.apps) {
+    const rows = [["full (all components)", "full"], ["minus conformal", "conformal"],
+                  ["minus placement", "placement"], ["minus power-down", "power-down"],
+                  ["minus forecast (reactive+consolidation)", "forecast"]];
+    html += `<table><tr><th>App</th>${rows.map(r => `<th>${r[0]}</th>`).join("")}</tr>`;
+    for (const [app, arms] of Object.entries(ra.apps)) {
+      html += `<tr><td>${app}</td>` + rows.map(([label]) => {
+        const a = arms[label];
+        return a ? `<td class="num">${fmt(a.energy_kwh)} kWh / ${fmt(a.capacity_shortfall_minutes, 0)} min / ${fmt(a.scaling_actions, 0)} ev</td>` : NA;
+      }).join("") + "</tr>";
+    }
+    html += `</table><p class="kpi-label">cells: energy kWh (modeled) / shortfall min / events.
+      Mean component cost: removing power-down
+      ${(() => { try { return "+" + fmt(ra.component_cost_mean_over_apps["minus power-down"].d_energy_kwh) + " kWh"; } catch (e) { return ""; } })()},
+      removing the forecast
+      ${(() => { try { return fmt(ra.component_cost_mean_over_apps["minus forecast (reactive+consolidation)"].d_energy_kwh) + " kWh and +" + fmt(ra.component_cost_mean_over_apps["minus forecast (reactive+consolidation)"].d_shortfall_min, 1) + " shortfall-min"; } catch (e) { return ""; } })()}.</p>`;
+  } else { html += NA; }
+  html += `<h3>Per-app configuration comparison (test windows)</h3>`;
+  if (rt && rt.workloads) {
+    const cfgs = ["stock_hpa", "cluster_autoscaler", "full_aegis_conformal", "oracle"];
+    html += `<table><tr><th>App</th><th>Config</th><th class="num">Energy kWh (modeled)</th>
+      <th class="num">Shortfall min</th><th class="num">Events</th><th class="num">Replica delta</th></tr>`;
+    for (const [app, w] of Object.entries(rt.workloads)) {
+      for (const c of cfgs) {
+        const m = w.configs[c];
+        html += `<tr><td>${app}</td><td>${c}</td>
+          <td class="num">${fmt(m.energy_kwh.mean)} ± ${fmt(m.energy_kwh.std)}</td>
+          <td class="num">${fmt(m.capacity_shortfall_minutes.mean, 1)}</td>
+          <td class="num">${fmt(m.scaling_actions.mean, 1)}</td>
+          <td class="num">${fmt(m.scaling_churn.mean, 1)}</td></tr>`;
+      }
+    }
+    html += `</table><p class="kpi-label">Deterministic simulator: std over seeds 42/101/202 is 0 by
+      construction. Split boundaries and conformal details are in
+      <code>data/real_trace_results.json</code>.</p>`;
+  } else { html += NA; }
+  el.innerHTML = html + "</div>";
+}
+
+/* ---------- 7. status ---------- */
+async function renderStatus() {
+  const el = document.getElementById("tab-status");
+  const rows = [
+    ["Predictor (LightGBM q10/q50/q90 + conformal)", "Implemented",
+     "Trained on real-trace train splits; validated on test windows; causal rolling variant unit-tested."],
+    ["Decision engine — CP-SAT solver", "Partial",
+     "Runs for real inside the loop (2880 steps, one app); solve-time bounding in progress (10 s limit overshot on ~10% of steps; hard process watchdog added)."],
+    ["Decision engine — FFD fallback", "Implemented",
+     "Real fallback exercised on infeasible models and available on watchdog kill."],
+    ["Orchestrator validator", "Implemented",
+     "Real validator ran on every in-loop plan (0 rejections)."],
+    ["Autoscaler controller (dead zone / cooldown / max step)", "Implemented",
+     "Real SafetyChecker decided every in-loop step (2797 rejections, 3 clamps)."],
+    ["Node power controller (K_min guard)", "Implemented",
+     "Real PowerSafetyChecker gated cordons in-loop (0 refusals needed)."],
+    ["Energy module", "Partial",
+     "Modeled only: linear idle + convex dynamic power. No hardware measurement."],
+    ["Telemetry collector", "Partial", "Prometheus/Grafana configs exist; not exercised end-to-end in the evaluation."],
+    ["Recommendation engine", "Stub", "Not evaluated."],
+    ["API gateway", "Stub", "Not evaluated."],
+    ["Go scheduler plugin", "Partial", "Unit-tested in the demo script; not deployed on a live cluster."],
+    ["Simulation / eval harness", "Implemented",
+     "Frozen benchmark + real-trace studies + in-loop integration; all results simulation-based."],
+  ];
+  el.innerHTML = `<div class="card"><h2 style="margin-top:0">Component status</h2>
+    <table><tr><th>Component</th><th>Status</th><th>Evidence / scope</th></tr>
+    ${rows.map(([c, s, e]) => {
+      const cls = s === "Implemented" ? "imp" : (s === "Partial" ? "part" : "stub");
+      return `<tr><td>${c}</td><td><span class="pill ${cls}">${s}</span></td><td>${e}</td></tr>`;
+    }).join("")}</table></div>`;
+}
+
+/* ---------- 8. limitations ---------- */
+async function renderLimits() {
+  const el = document.getElementById("tab-limits");
+  el.innerHTML = `<div class="card"><h2 style="margin-top:0">Limitations (read this before citing any number)</h2>
+    <ul>
+      <li><b>Synthetic traces:</b> the headline benchmark replays five synthetic workload patterns
+        (diurnal, steady, bursty, structured burst, flash crowd) from a fixed generator with 5 seeds.
+        The real-trace studies use Azure Functions 2019 data converted via
+        invocations × measured duration with a 1-vCPU-per-execution normalization.</li>
+      <li><b>Modeled energy:</b> every energy figure is computed from a power model
+        (linear idle draw + convex utilization-dependent dynamic power, α ∈ [1, 2] sensitivity-swept).
+        No power meter, no hardware.</li>
+      <li><b>Simulation-based:</b> all evaluation runs inside a discrete-minute simulator. Pod startup,
+        node boot latency, and demand serving are modeled, not observed.</li>
+      <li><b>No live cluster:</b> the scheduler and controllers were never deployed on Kubernetes; the
+        "execution" stage is the simulator applying validated plans.</li>
+      <li><b>CP-SAT bounding in progress:</b> the real solver's 10 s limit was overshot on ~10% of
+        in-loop steps and catastrophically 3 times; the hard process watchdog now bounds it, but the
+        root cause inside CP-SAT is not yet identified.</li>
+      <li><b>Single-workload integration:</b> the real-service in-loop run covers one app and a 2-day
+        window; the full multi-app experiment was not run.</li>
+      <li><b>Conformal coverage misses the nominal level on some apps</b> (0.49–0.95 measured vs 0.90
+        target) — reported as measured, not corrected.</li>
+    </ul></div>`;
+}
+
+/* ---------- boot ---------- */
+const RENDERERS = {overview: renderOverview, control: renderControl, forecast: renderForecast,
+  ablation: renderAblation, real: renderReal, status: renderStatus, limits: renderLimits,
+  demo: async () => {}};
+function render(id) { if (RENDERERS[id]) RENDERERS[id](); }
+render("overview");
+document.getElementById("demoBtn").onclick = runDemo;
+</script>
+</body>
+</html>

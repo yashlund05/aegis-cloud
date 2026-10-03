@@ -857,6 +857,8 @@ def run_headline_study(
     equal_headroom_control = None
     if os.path.exists(AUDIT_CONTROLS_JSON):
         try:
+            with open(AUDIT_CONTROLS_JSON, "r", encoding="utf-8") as f:
+                ac_data = json.load(f)
             dist = ac_data.get("control_arms_distributions", {})
             equal_headroom_control = {
                 "source_file": AUDIT_CONTROLS_JSON,

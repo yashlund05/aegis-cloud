@@ -1,10 +1,10 @@
 {
   "schema_version": "v4",
   "study_name": "Aegis Clean Headline Benchmark Study",
-  "git_commit": "8b63ebcec713b306fa39c106b5d2e755b91bd04b",
+  "git_commit": "314daee93cf42477403fc7853cc4de4d79fcbbaf",
   "dirty_flag": false,
   "config_hash": "af9326cf96472bfec6cf7b33e8f0c18cd7303ddd63fc95d71f1909e19b0da40a",
-  "timestamp_utc": "2026-10-03T07:57:15.335161+00:00",
+  "timestamp_utc": "2026-10-03T08:17:53.035059+00:00",
   "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
   "seeds": [
     42
@@ -12539,11 +12539,5 @@
       }
     }
   },
-  "equal_headroom_control": {
-    "source_file": "eval/audit_controls_results.json",
-    "calibrated_static_headroom_cores": 8.6468,
-    "control_arm_a_reactive_headroom": null,
-    "control_arm_b_ca_hpa_guards": null,
-    "aegis_conformal_baseline": null
-  }
+  "equal_headroom_control": null
 }

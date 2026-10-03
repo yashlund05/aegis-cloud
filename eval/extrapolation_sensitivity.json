@@ -1,0 +1,421 @@
+{
+  "provenance": {
+    "git_commit": "3176fbf5ca747b82c760456ee471aaa4a6876292",
+    "dirty_flag": true,
+    "config_sha256": "0b368f01d8ef5e387f7236e5bd8e74369e315c5cac1ff6bcfe6da4a2dfac461f",
+    "timestamp_utc": "2026-10-03T06:19:16.651200+00:00",
+    "seeds": [
+      42
+    ]
+  },
+  "threshold_minimum_apps": 8,
+  "sensitivity": {
+    "0.0%": {
+      "static": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -104.13,
+        "bootstrap_ci95": [
+          -172.79,
+          -39.0
+        ]
+      },
+      "scale_aware": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -118.1,
+        "bootstrap_ci95": [
+          -180.98,
+          -68.42
+        ]
+      },
+      "rolling": {
+        "n_total": 20,
+        "n_included": 2,
+        "status": "underpowered",
+        "included_app_ids": [
+          "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286"
+        ],
+        "mean_delta_energy": -111.47,
+        "bootstrap_ci95": null
+      },
+      "aci_005": {
+        "n_total": 20,
+        "n_included": 2,
+        "status": "underpowered",
+        "included_app_ids": [
+          "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5"
+        ],
+        "mean_delta_energy": -77.26,
+        "bootstrap_ci95": null
+      },
+      "aci_020": {
+        "n_total": 20,
+        "n_included": 2,
+        "status": "underpowered",
+        "included_app_ids": [
+          "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286"
+        ],
+        "mean_delta_energy": -111.47,
+        "bootstrap_ci95": null
+      }
+    },
+    "0.1%": {
+      "static": {
+        "n_total": 20,
+        "n_included": 12,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -6.85,
+        "bootstrap_ci95": [
+          -82.69,
+          70.92
+        ]
+      },
+      "scale_aware": {
+        "n_total": 20,
+        "n_included": 12,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -71.19,
+        "bootstrap_ci95": [
+          -162.94,
+          -0.72
+        ]
+      },
+      "rolling": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -92.72,
+        "bootstrap_ci95": [
+          -203.13,
+          -8.78
+        ]
+      },
+      "aci_005": {
+        "n_total": 20,
+        "n_included": 6,
+        "status": "underpowered",
+        "included_app_ids": [
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -101.01,
+        "bootstrap_ci95": null
+      },
+      "aci_020": {
+        "n_total": 20,
+        "n_included": 9,
+        "status": "valid",
+        "included_app_ids": [
+          "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1",
+          "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280",
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4"
+        ],
+        "mean_delta_energy": -105.02,
+        "bootstrap_ci95": [
+          -220.95,
+          -13.93
+        ]
+      }
+    },
+    "1.0%": {
+      "static": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+          "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d"
+        ],
+        "mean_delta_energy": -70.06,
+        "bootstrap_ci95": [
+          -159.65,
+          -10.0
+        ]
+      },
+      "scale_aware": {
+        "n_total": 20,
+        "n_included": 12,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+          "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d"
+        ],
+        "mean_delta_energy": -57.98,
+        "bootstrap_ci95": [
+          -133.58,
+          -9.06
+        ]
+      },
+      "rolling": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+          "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d"
+        ],
+        "mean_delta_energy": -67.06,
+        "bootstrap_ci95": [
+          -156.73,
+          -7.65
+        ]
+      },
+      "aci_005": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+          "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d"
+        ],
+        "mean_delta_energy": -67.35,
+        "bootstrap_ci95": [
+          -156.97,
+          -7.86
+        ]
+      },
+      "aci_020": {
+        "n_total": 20,
+        "n_included": 11,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea",
+          "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286",
+          "ef6b52970da1265ef5a936aed0aeb0dac52725b7b84476f26eeb0fc77950c783",
+          "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5",
+          "714e8fb561f4512b7ee0f0e1fa6b0fded30f41ae0dd813518c163974ef537ef4",
+          "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d"
+        ],
+        "mean_delta_energy": -61.96,
+        "bootstrap_ci95": [
+          -143.94,
+          -7.75
+        ]
+      }
+    },
+    "5.0%": {
+      "static": {
+        "n_total": 20,
+        "n_included": 9,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+          "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea"
+        ],
+        "mean_delta_energy": -108.79,
+        "bootstrap_ci95": [
+          -193.76,
+          -37.63
+        ]
+      },
+      "scale_aware": {
+        "n_total": 20,
+        "n_included": 10,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "2728cf1bdcbb17a3c596d600226fda46aa5ccac71d2855a2477d153cd5c7b86a",
+          "d514ebc393839b564aa65e2fb0d59def6cab0ceada795c3fb61f8f1b0c10de69",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+          "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea"
+        ],
+        "mean_delta_energy": -96.76,
+        "bootstrap_ci95": [
+          -176.9,
+          -29.41
+        ]
+      },
+      "rolling": {
+        "n_total": 20,
+        "n_included": 8,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+          "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea"
+        ],
+        "mean_delta_energy": -118.33,
+        "bootstrap_ci95": [
+          -208.74,
+          -39.91
+        ]
+      },
+      "aci_005": {
+        "n_total": 20,
+        "n_included": 8,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+          "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea"
+        ],
+        "mean_delta_energy": -120.36,
+        "bootstrap_ci95": [
+          -210.28,
+          -42.06
+        ]
+      },
+      "aci_020": {
+        "n_total": 20,
+        "n_included": 8,
+        "status": "valid",
+        "included_app_ids": [
+          "7c7af5258a7b62b7f469944401efccdc84ca52ba25aadd5f522a543468ba8eac",
+          "ea400a14c46ff8b9c2f06210f16a786c21020ede657c1be829c620e8c1dd0e26",
+          "5d009ed0bddb9a6c30c3fcb652b0d69d8ea59f3764eb70f33545fdac3c0ca49e",
+          "1c3996201adbe052a945ea57aa92f040120997f251576d8ec71a6f4ddae3ab45",
+          "5d312706e735a36c6396365f0f9ac20ce734075de98388a67770a2b07613a9b3",
+          "fe5c01bb7981a5dcb7aebd13280cebe229cf6e04670b1ccf9442ed0bb0c87381",
+          "19cd74b6f9cd796c3c8632b567d235df6b02a855e77b2e6bbbfb2a2b9b0b2926",
+          "f42387b15e1c9e6bb628f12c1c1c6246327020089421072330cb0ce74a03d5ea"
+        ],
+        "mean_delta_energy": -118.15,
+        "bootstrap_ci95": [
+          -208.22,
+          -39.67
+        ]
+      }
+    }
+  }
+}

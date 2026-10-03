@@ -80,8 +80,7 @@ graph TD
 ## 6. Decision Engine & Energy Model
 - **Solver:** OR-Tools CP-SAT with a configurable wall-clock timeout. Fallback to First-Fit Decreasing (FFD).
 - **Variables:** Replica count, pod-to-node placement, node power state.
-- **Objective:** Minimize Energy + SLO Violations + Scaling Slack.
-- **Energy Model:** $P_i(u_i) = P_{idle,i} + (P_{max,i} - P_{idle,i}) \times u_i^\alpha$. Calibrated via Kepler.
+- **Energy Model:** $P_i(u_i) = P_{idle,i} + (P_{max,i} - P_{idle,i}) \times u_i^\alpha$. Analytical simulation model (Note: `kepler.py` is a stub; live hardware/Kepler calibration has not been performed).
 
 ## 7. Execution Systems
 - **Scheduler Plugin:** Written in Go using K8s Scheduling Framework. Scoring: $w_1(1-predicted\_util) + w_2(-energy\_cost) + w_3(balance\_penalty)$.

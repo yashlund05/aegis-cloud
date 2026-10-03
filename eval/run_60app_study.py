@@ -68,17 +68,22 @@ CLUSTER_CAP_CORES = 68.0
 BOOTSTRAP_B = 10000
 
 
-def get_git_commit() -> str:
+try:
+    from eval.provenance import compute_config_hash, get_git_commit, get_provenance
+except ImportError:
     try:
-        res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5)
-        return res.stdout.strip()
-    except Exception:
-        return "50b1be9417e1953edae9f14409f2e94867423d15"
+        from provenance import compute_config_hash, get_git_commit, get_provenance
+    except ImportError:
+        def get_git_commit() -> str:
+            try:
+                res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5)
+                return res.stdout.strip()
+            except Exception:
+                return "50b1be9417e1953edae9f14409f2e94867423d15"
 
-
-def compute_config_hash(cfg: dict) -> str:
-    raw = json.dumps(cfg, sort_keys=True)
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+        def compute_config_hash(cfg: dict) -> str:
+            raw = json.dumps(cfg, sort_keys=True)
+            return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
 def holm_bonferroni(p_values: List[float]) -> List[float]:

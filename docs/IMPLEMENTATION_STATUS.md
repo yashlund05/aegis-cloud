@@ -7,11 +7,11 @@ All 10 phases of the Aegis closed-loop Kubernetes orchestration system have been
 ### Phase 1 — Foundations (Cluster + Monitoring + Storage)
 - **Local Infrastructure**: kind cluster configuration (1 control plane + 3 workers, port mappings 30080, 30090, 30300).
 - **Namespaces & RBAC**: Least-privilege ServiceAccounts and ClusterRoles for orchestrator, scheduler, collector, autoscaler, and node power controller.
-- **Monitoring & Telemetry**: Prometheus scrape configs, Kepler DaemonSet, Grafana datasources and dashboards.
+- **Monitoring & Telemetry**: Prometheus scrape configs, Kepler DaemonSet manifest (configured for kind cluster deployment), Grafana datasources and dashboards.
 - **Storage Layer**: TimescaleDB hypertables with 30-day retention policies (`infrastructure/postgres/init.sql`) and Redis 7 with LRU eviction.
 
 ### Phase 2 — Data Pipeline (Telemetry + Traces + Preprocessing)
-- **PromQL Client**: `services/telemetry-collector/promql.py` querying CPU/Memory, network I/O, disk IOPS, request rate, pod counts, and Kepler energy.
+- **PromQL Client**: `services/telemetry-collector/promql.py` querying CPU/Memory, network I/O, disk IOPS, request rate, and pod counts. *(Transparency Note: `services/energy-module/kepler.py` is an unintegrated stub; live physical validation has not been done, and all study energy metrics are calculated via an analytical simulator).*
 - **Feature Aggregation**: `services/telemetry-collector/aggregator.py` with 15m/60m rolling statistics, 10 autoregressive lag features ($t-1 \dots t-10$), and 99.9th percentile outlier clipping.
 - **Trace Preprocessing & Synthetic Generation**: 40,320 records generated and verified (`datasets/processed_sample_trace.parquet`).
 

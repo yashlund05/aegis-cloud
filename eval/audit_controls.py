@@ -44,16 +44,35 @@ from ml.training.train_lightgbm import QuantileModelWrapper
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("audit_controls")
 
-HEADROOM_CORES = 8.6468
-OUTPUT_JSON = "eval/audit_controls_results.json"
-
-
-def get_git_commit() -> str:
+try:
+    from eval.provenance import compute_config_hash, get_git_commit, get_provenance
+except ImportError:
     try:
-        res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5)
-        return res.stdout.strip()
-    except Exception:
-        return "50b1be9417e1953edae9f14409f2e94867423d15"
+        from provenance import compute_config_hash, get_git_commit, get_provenance
+    except ImportError:
+        def get_git_commit() -> str:
+            try:
+                res = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5)
+                return res.stdout.strip()
+            except Exception:
+                return "50b1be9417e1953edae9f14409f2e94867423d15"
+
+
+def load_calibrated_headroom(default_headroom: float = 8.6468) -> float:
+    """Reads calibrated q_hat_90 headroom dynamically from sixty_app_study_results.json."""
+    results_path = "eval/sixty_app_study_results.json"
+    if os.path.exists(results_path):
+        try:
+            with open(results_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            return float(data["conformal_calibration"]["q_hat_90_cores"])
+        except Exception as e:
+            logger.warning(f"Could not load headroom from {results_path}: {e}")
+    return default_headroom
+
+
+HEADROOM_CORES = load_calibrated_headroom()
+OUTPUT_JSON = "eval/audit_controls_results.json"
 
 
 def simulate_reactive_with_cooldown(

@@ -9,7 +9,7 @@ Aegis provides two distinct dashboard suites:
 - **Datasources**: Prometheus (scraping kubelet, cAdvisor, Kepler, and Aegis services).
 - **Pre-provisioned Dashboards** (located in `infrastructure/grafana/dashboards/`):
   - `aegis-overview.json`: Real-time cluster CPU/memory utilization, active nodes, control loop cycle latency, and SLO compliance.
-  - Forecasting & Energy Dashboards: LightGBM forecast tracking ($p_{10}, p_{50}, p_{90}$) against ground truth, and Kepler vs analytical power models.
+  - Forecasting & Energy Dashboards: LightGBM forecast tracking ($p_{10}, p_{50}, p_{90}$) against ground truth, and analytical power model simulations. *(Note: `kepler.py` is an unintegrated stub; live physical validation has not been performed).*
 
 ---
 

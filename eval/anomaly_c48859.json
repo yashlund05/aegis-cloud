@@ -1,0 +1,728 @@
+{
+  "provenance": {
+    "git_commit": "3176fbf5ca747b82c760456ee471aaa4a6876292",
+    "dirty_flag": true,
+    "config_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "timestamp_utc": "2026-10-03T07:23:00.764996+00:00",
+    "seeds": [
+      42
+    ]
+  },
+  "target_app": "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+  "verdict": "design floor",
+  "evidence_summary": "App c48859281eb8efa5 is an ultra-low-load workload (mean = 0.810 cores, peak = 1.16 cores). Because total peak demand (1.16 cores) requires at most 3 pods (1.5 cores), all pods fit on a single node (6.8 allocatable cores). Under the service-style safety guard min_active_nodes=2 (ml/evaluation/ablation.py:163), exactly 2 nodes remain active at every minute for all Aegis taus (min=2, median=2, max=2). Shortfall is identically 0.0 minutes across all taus, causing Aegis energy to be completely invariant to tau (58.84 kWh everywhere). For Cluster Autoscaler, as target utilization U increases (U >= 0.70), CA accepts high shortfall (up to 153 min) and consumes 171.61 kWh. However, at matched shortfall targets 0.1% (18.72 min), 1.0% (187.2 min), and 5.0% (936.0 min), the Pareto interpolation clamps Aegis to 58.84 kWh (at shortfall 0.0 min), while CA's convex envelope at target 18.72 min interpolates to 171.61 kWh. The difference is 58.84 - 171.61 = -112.77 kWh in favor of CA when expressed as (Aegis - CA = +112.77 kWh). This is a design floor imposed by min_active_nodes=2 and the frontier boundary clamping mechanism, not a software bug.",
+  "code_locations_of_floors": [
+    {
+      "file": "ml/evaluation/ablation.py",
+      "line": 163,
+      "parameter": "min_active_nodes = 2"
+    },
+    {
+      "file": "ml/evaluation/ablation.py",
+      "line": 650,
+      "logic": "nodes_needed = max(self.min_active_nodes, self._pack_pods(...))"
+    },
+    {
+      "file": "eval/audit_controls.py",
+      "line": 106,
+      "logic": "node_states = ['active' if i < study.min_active_nodes else 'sleeping']"
+    },
+    {
+      "file": "eval/audit_controls.py",
+      "line": 191,
+      "logic": "nodes_needed = max(study.min_active_nodes, study._pack_pods(...))"
+    },
+    {
+      "file": "ml/evaluation/ablation.py",
+      "line": 207,
+      "constant": "allocatable_cpu = node_capacity * 0.85 = 6.8 cores per node"
+    },
+    {
+      "file": "ml/evaluation/ablation.py",
+      "line": 547,
+      "constant": "per_replica_cpu = 0.5 cores"
+    }
+  ],
+  "c4_frontier": {
+    "app_id": "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2",
+    "mean_cores": 0.8103065963955027,
+    "peak_cores": 1.161,
+    "ca_frontier": [
+      {
+        "u": 0.1,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 150.18,
+        "scaling_actions": 349
+      },
+      {
+        "u": 0.15,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 87.12,
+        "scaling_actions": 349
+      },
+      {
+        "u": 0.2,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 86.81,
+        "scaling_actions": 349
+      },
+      {
+        "u": 0.25,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 63.6,
+        "scaling_actions": 349
+      },
+      {
+        "u": 0.3,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 58.42,
+        "scaling_actions": 343
+      },
+      {
+        "u": 0.35,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 349
+      },
+      {
+        "u": 0.4,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 86
+      },
+      {
+        "u": 0.45,
+        "shortfall_minutes": 0.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 318
+      },
+      {
+        "u": 0.5,
+        "shortfall_minutes": 1.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 101
+      },
+      {
+        "u": 0.55,
+        "shortfall_minutes": 1.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 276
+      },
+      {
+        "u": 0.6,
+        "shortfall_minutes": 1.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 290
+      },
+      {
+        "u": 0.65,
+        "shortfall_minutes": 1.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 58
+      },
+      {
+        "u": 0.7,
+        "shortfall_minutes": 1.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 81
+      },
+      {
+        "u": 0.75,
+        "shortfall_minutes": 7.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 73
+      },
+      {
+        "u": 0.8,
+        "shortfall_minutes": 8.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 55
+      },
+      {
+        "u": 0.85,
+        "shortfall_minutes": 113.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 227
+      },
+      {
+        "u": 0.9,
+        "shortfall_minutes": 136.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 273
+      },
+      {
+        "u": 0.95,
+        "shortfall_minutes": 153.0,
+        "energy_kwh": 57.75,
+        "scaling_actions": 76
+      }
+    ],
+    "aegis_frontiers": {
+      "static": [
+        {
+          "tau": 0.3,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 159
+        },
+        {
+          "tau": 0.4,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 219
+        },
+        {
+          "tau": 0.5,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 880
+        },
+        {
+          "tau": 0.6,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 973
+        },
+        {
+          "tau": 0.7,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 1014
+        },
+        {
+          "tau": 0.8,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 859
+        },
+        {
+          "tau": 0.85,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 88.34,
+          "scaling_actions": 72
+        },
+        {
+          "tau": 0.9,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 178.48,
+          "scaling_actions": 0
+        },
+        {
+          "tau": 0.95,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 235.99,
+          "scaling_actions": 0
+        },
+        {
+          "tau": 0.975,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 267.07,
+          "scaling_actions": 0
+        },
+        {
+          "tau": 0.99,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 354.1,
+          "scaling_actions": 0
+        },
+        {
+          "tau": 0.995,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 457.65,
+          "scaling_actions": 0
+        },
+        {
+          "tau": 0.999,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 569.62,
+          "scaling_actions": 0
+        }
+      ],
+      "scale_aware": [
+        {
+          "tau": 0.3,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 133
+        },
+        {
+          "tau": 0.4,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 336
+        },
+        {
+          "tau": 0.5,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 910
+        },
+        {
+          "tau": 0.6,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 375
+        },
+        {
+          "tau": 0.7,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 995
+        },
+        {
+          "tau": 0.8,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 991
+        },
+        {
+          "tau": 0.85,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 988
+        },
+        {
+          "tau": 0.9,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 1117
+        },
+        {
+          "tau": 0.95,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 63.54,
+          "scaling_actions": 1190
+        },
+        {
+          "tau": 0.975,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 63.92,
+          "scaling_actions": 903
+        },
+        {
+          "tau": 0.99,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 88.35,
+          "scaling_actions": 428
+        },
+        {
+          "tau": 0.995,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 96.07,
+          "scaling_actions": 560
+        },
+        {
+          "tau": 0.999,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 170.47,
+          "scaling_actions": 515
+        }
+      ],
+      "rolling": [
+        {
+          "tau": 0.3,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 377
+        },
+        {
+          "tau": 0.4,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 437
+        },
+        {
+          "tau": 0.5,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 481
+        },
+        {
+          "tau": 0.6,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 485
+        },
+        {
+          "tau": 0.7,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 488
+        },
+        {
+          "tau": 0.8,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 516
+        },
+        {
+          "tau": 0.85,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 528
+        },
+        {
+          "tau": 0.9,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 583
+        },
+        {
+          "tau": 0.95,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 666
+        },
+        {
+          "tau": 0.975,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 733
+        },
+        {
+          "tau": 0.99,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 749
+        },
+        {
+          "tau": 0.995,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 809
+        },
+        {
+          "tau": 0.999,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 880
+        }
+      ],
+      "aci_005": [
+        {
+          "tau": 0.3,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 379
+        },
+        {
+          "tau": 0.4,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 452
+        },
+        {
+          "tau": 0.5,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 512
+        },
+        {
+          "tau": 0.6,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 561
+        },
+        {
+          "tau": 0.7,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 589
+        },
+        {
+          "tau": 0.8,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 661
+        },
+        {
+          "tau": 0.85,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 657
+        },
+        {
+          "tau": 0.9,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 668
+        },
+        {
+          "tau": 0.95,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 698
+        },
+        {
+          "tau": 0.975,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 727
+        },
+        {
+          "tau": 0.99,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 731
+        },
+        {
+          "tau": 0.995,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 731
+        },
+        {
+          "tau": 0.999,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 602
+        }
+      ],
+      "aci_020": [
+        {
+          "tau": 0.3,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 512
+        },
+        {
+          "tau": 0.4,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 633
+        },
+        {
+          "tau": 0.5,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 687
+        },
+        {
+          "tau": 0.6,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 661
+        },
+        {
+          "tau": 0.7,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 721
+        },
+        {
+          "tau": 0.8,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 861
+        },
+        {
+          "tau": 0.85,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 851
+        },
+        {
+          "tau": 0.9,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 796
+        },
+        {
+          "tau": 0.95,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 814
+        },
+        {
+          "tau": 0.975,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 782
+        },
+        {
+          "tau": 0.99,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 812
+        },
+        {
+          "tau": 0.995,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 815
+        },
+        {
+          "tau": 0.999,
+          "shortfall_minutes": 0.0,
+          "energy_kwh": 58.81,
+          "scaling_actions": 784
+        }
+      ]
+    }
+  },
+  "c4_active_nodes_summary": {
+    "ca_u50": {
+      "energy_kwh": 57.75,
+      "shortfall_minutes": 1.0,
+      "min_active_nodes": 2,
+      "median_active_nodes": 2,
+      "max_active_nodes": 2
+    },
+    "aegis_scale_aware_tau50": {
+      "energy_kwh": 58.8102,
+      "shortfall_minutes": 0.0,
+      "min_active_nodes": 2,
+      "median_active_nodes": 2,
+      "max_active_nodes": 2
+    },
+    "aegis_scale_aware_tau99": {
+      "energy_kwh": 88.3461,
+      "shortfall_minutes": 0.0,
+      "min_active_nodes": 2,
+      "median_active_nodes": 3,
+      "max_active_nodes": 3
+    }
+  },
+  "low_load_tertile_apps": {
+    "cb34fd874e255ddeaf1a38d86e7f3a41dffb0efdee8e46329d4ba8c2dad0fab5": {
+      "mean_cores": 0.547,
+      "peak_cores": 2.68,
+      "ca_shortfall_range": [
+        0.0,
+        518.0
+      ],
+      "ca_energy_range": [
+        56.55,
+        120.26
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        249.0
+      ],
+      "scale_aware_energy_range": [
+        57.14,
+        100.91
+      ]
+    },
+    "a788ca3dd335b57639f304ad5ad9e8250ca7f8ecbae298ef6b65786886745ee1": {
+      "mean_cores": 0.591,
+      "peak_cores": 3.08,
+      "ca_shortfall_range": [
+        0.0,
+        547.0
+      ],
+      "ca_energy_range": [
+        57.08,
+        132.73
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        134.0
+      ],
+      "scale_aware_energy_range": [
+        57.91,
+        101.61
+      ]
+    },
+    "58361d84c6f1d50c82048309c46bcffe4b7383ce7759cfaefcb32e05ebfbc06d": {
+      "mean_cores": 0.674,
+      "peak_cores": 10.87,
+      "ca_shortfall_range": [
+        23.0,
+        487.0
+      ],
+      "ca_energy_range": [
+        66.53,
+        133.37
+      ],
+      "scale_aware_shortfall_range": [
+        10.0,
+        502.0
+      ],
+      "scale_aware_energy_range": [
+        67.03,
+        118.11
+      ]
+    },
+    "9c5f550769c9c25ba83a98056957f2028cae41ed326602bbcaf0c2526c169280": {
+      "mean_cores": 0.689,
+      "peak_cores": 3.01,
+      "ca_shortfall_range": [
+        0.0,
+        220.0
+      ],
+      "ca_energy_range": [
+        56.96,
+        129.79
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        100.0
+      ],
+      "scale_aware_energy_range": [
+        57.71,
+        87.99
+      ]
+    },
+    "11a2f12e57bfa87a760d18a126f5e32832d4d1e2421522bc042cbc92aa339286": {
+      "mean_cores": 0.726,
+      "peak_cores": 2.71,
+      "ca_shortfall_range": [
+        0.0,
+        1548.0
+      ],
+      "ca_energy_range": [
+        57.29,
+        189.83
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        610.0
+      ],
+      "scale_aware_energy_range": [
+        58.31,
+        125.12
+      ]
+    },
+    "c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2": {
+      "mean_cores": 0.81,
+      "peak_cores": 1.16,
+      "ca_shortfall_range": [
+        0.0,
+        153.0
+      ],
+      "ca_energy_range": [
+        57.75,
+        150.18
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        0.0
+      ],
+      "scale_aware_energy_range": [
+        58.81,
+        170.47
+      ]
+    },
+    "c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3": {
+      "mean_cores": 0.856,
+      "peak_cores": 17.11,
+      "ca_shortfall_range": [
+        0.0,
+        7.0
+      ],
+      "ca_energy_range": [
+        58.94,
+        120.74
+      ],
+      "scale_aware_shortfall_range": [
+        0.0,
+        1766.0
+      ],
+      "scale_aware_energy_range": [
+        59.93,
+        115.58
+      ]
+    }
+  }
+}

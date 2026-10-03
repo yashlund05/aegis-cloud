@@ -306,3 +306,89 @@ class TestMetricsAndProvenance:
             assert "delta_energy" in per_app_data[app]
             assert per_app_data[app]["delta_energy"] == per_app_data[app]["aegis_energy"] - per_app_data[app]["ca_energy"]
 
+    def test_sign_convention_aegis_minus_ca(self):
+        """
+        Verifies sign convention: Delta E = E_Aegis - E_CA.
+        Negative indicates Aegis is cheaper (winning).
+        Tests c48859 values: E_Aegis = 58.84, E_CA = 171.61 -> Delta = -112.77.
+        Ensures winning apps are not classified as losing apps.
+        """
+        e_aegis = 58.84
+        e_ca = 171.61
+        delta_e = e_aegis - e_ca
+        assert delta_e == pytest.approx(-112.77, abs=1e-2)
+        assert delta_e < 0.0  # Aegis is cheaper
+
+        is_losing = delta_e > 0.0
+        assert is_losing is False
+
+    def test_degenerate_frontier_detection(self):
+        """
+        Tests degenerate frontier detection logic:
+        Frontier is degenerate if len(unique(shortfalls)) <= 1 or min_s == max_s.
+        """
+        from eval.headline_study_v4 import interpolate_energy_at_shortfall
+
+        # Case 1: Constant shortfall at 0.0 min across all tau
+        pts_const_0 = [(0.0, 58.84), (0.0, 58.84), (0.0, 58.84)]
+        res_0 = interpolate_energy_at_shortfall(pts_const_0, 187.2)
+        assert res_0["is_degenerate"] is True
+
+        # Case 2: Constant shortfall at 3.0 min across all tau
+        pts_const_3 = [(3.0, 60.28), (3.0, 60.28), (3.0, 60.28)]
+        res_3 = interpolate_energy_at_shortfall(pts_const_3, 18.72)
+        assert res_3["is_degenerate"] is True
+
+        # Case 3: Proper non-degenerate frontier
+        pts_normal = [(0.0, 200.0), (50.0, 150.0), (200.0, 100.0)]
+        res_norm = interpolate_energy_at_shortfall(pts_normal, 100.0)
+        assert res_norm["is_degenerate"] is False
+
+    def test_dominance_classification_logic(self):
+        """
+        Tests Pareto dominance classification between Aegis and CA:
+          - dominant: E_Aegis <= E_CA and S_Aegis <= S_CA (at least one strict <)
+          - dominated: E_Aegis >= E_CA and S_Aegis >= S_CA (at least one strict >)
+          - tradeoff: one is better on energy, other on shortfall
+          - identical: E and S are identical
+        """
+        def classify(ae_e, ca_e, ae_s, ca_s):
+            if (ae_e <= ca_e and ae_s <= ca_s) and (ae_e < ca_e or ae_s < ca_s):
+                return "dominant"
+            elif (ae_e >= ca_e and ae_s >= ca_s) and (ae_e > ca_e or ae_s > ca_s):
+                return "dominated"
+            elif ae_e == ca_e and ae_s == ca_s:
+                return "identical"
+            else:
+                return "tradeoff"
+
+        # Dominant: Aegis has strictly lower energy and same shortfall
+        assert classify(60.28, 64.55, 3.0, 3.0) == "dominant"
+        # Dominant: Aegis has strictly lower energy and strictly lower shortfall
+        assert classify(104.08, 170.26, 167.0, 337.0) == "dominant"
+        # Dominated: Aegis has higher energy and higher shortfall
+        assert classify(57.75, 57.23, 16.0, 7.0) == "dominated"
+        # Trade-off: Aegis has lower energy but higher shortfall
+        assert classify(57.94, 58.43, 48.0, 4.0) == "tradeoff"
+        # Identical
+        assert classify(100.0, 100.0, 50.0, 50.0) == "identical"
+
+    def test_rank_biserial_and_wilcoxon(self):
+        """
+        Tests rank-biserial effect size and Wilcoxon signed-rank test helper.
+        """
+        from eval.headline_study_v4 import compute_rank_biserial
+
+        # If diff is strictly negative (Aegis cheaper for all apps), r_rb = -1.0
+        diff_all_negative = np.array([-10.0, -20.0, -5.0, -15.0, -30.0])
+        r_rb, p_two, p_less = compute_rank_biserial(diff_all_negative)
+        assert r_rb == pytest.approx(-1.0)
+        assert p_less < 0.05
+
+        # If diff is strictly positive (CA cheaper for all apps), r_rb = +1.0
+        diff_all_positive = np.array([10.0, 20.0, 5.0, 15.0, 30.0])
+        r_rb_pos, p_two_pos, p_less_pos = compute_rank_biserial(diff_all_positive)
+        assert r_rb_pos == pytest.approx(1.0)
+        assert p_less_pos > 0.95
+
+

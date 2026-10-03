@@ -24,12 +24,213 @@ from typing import Any, Dict, List
 
 
 def fmt_ci(ci: List[float], digits: int = 2) -> str:
+    if ci is None:
+        return "N/A"
     if len(ci) == 2:
         return f"[{ci[0]:.{digits}f}, {ci[1]:.{digits}f}]"
     return str(ci)
 
 
+def render_headline_v4_report(data: Dict[str, Any], json_path: str) -> str:
+    md: List[str] = []
+    md.append("# Aegis Clean Headline Benchmark Evaluation Report (v4)")
+    md.append("")
+    md.append(f"**Source JSON**: `{json_path}`  ")
+    md.append(f"**Git Commit**: `{data.get('git_commit', 'unknown')}`  ")
+    md.append(f"**Working Tree Dirty Flag**: `{data.get('dirty_flag', 'unknown')}`  ")
+    md.append(f"**Config SHA-256**: `{data.get('config_hash', 'unknown')}`  ")
+    md.append(f"**Timestamp UTC**: `{data.get('timestamp_utc', 'unknown')}`  ")
+    md.append(f"**Primary Aegis Arm**: `{data.get('configuration', {}).get('primary_arm', 'rolling')}` (per Decision D-7)  ")
+    md.append("")
+
+    # 1. Coverage Summary Table
+    cov = data.get("coverage_summary", {})
+    med_iqr = cov.get("median_iqr", {})
+    md.append("## 1. Conformal Coverage Summary (20 Validation Apps)")
+    md.append("*Source key path: `coverage_summary.median_iqr.<method>`*")
+    md.append("")
+    md.append("| Method | Median Coverage (%) | IQR (%) | Role | Key Path |")
+    md.append("| :--- | :---: | :---: | :---: | :--- |")
+    labels = {
+        "raw": "Raw Forecast (No Conformal)",
+        "static": "Static Conformal Offset",
+        "scale_aware": "Scale-Aware Conformal (Normalized Residuals)",
+        "rolling": "Per-App Rolling Conformal (W=1440, H=10)",
+        "aci_005": "Adaptive Conformal (ACI gamma=0.005)",
+        "aci_020": "Adaptive Conformal (ACI gamma=0.020)",
+    }
+    roles = {
+        "raw": "Baseline",
+        "static": "Ablation",
+        "scale_aware": "Ablation / Variant",
+        "rolling": "**Primary Arm (D-7)**",
+        "aci_005": "Ablation / Variant",
+        "aci_020": "Ablation / Variant",
+    }
+    for k, label in labels.items():
+        if k in med_iqr:
+            vals = med_iqr[k]
+            md.append(f"| {label} | {vals[0]:.2f}% | {vals[1]:.2f}% | {roles.get(k, '')} | `coverage_summary.median_iqr.{k}` |")
+    md.append("")
+
+    # 2. Matched Shortfall Pareto Frontiers
+    pareto = data.get("matched_shortfall_pareto", {})
+    md.append("## 2. Matched-Shortfall Pareto Frontier Evaluation")
+    md.append("*Source key path: `matched_shortfall_pareto.<target_shortfall>.<method>`*")
+    md.append("")
+    md.append("> [!NOTE]")
+    md.append("> **Statistical Metric Disambiguation**:[^1]")
+    md.append("> - **Diff of Medians (kWh)**: Marginal median difference across apps ($E_{\\text{Aegis}}^{\\text{med}} - E_{\\text{CA}}^{\\text{med}}$).")
+    md.append("> - **All-App Mean DeltaE (kWh)**: Sample mean of individual per-app paired differences ($\\frac{1}{N}\\sum_{i=1}^N (E_{\\text{Aegis}, i} - E_{\\text{CA}, i})$), with 95% bootstrap percentile CI.")
+    md.append("> - **Sign Convention**: $\\Delta E = E_{\\text{Aegis}} - E_{\\text{CA}}$ (negative = Aegis cheaper).")
+    md.append("")
+
+    target_priority = {
+        "1.0%": "Primary Benchmark Target (Lowest Extrapolation Rate per D-6)",
+        "0.1%": "Secondary Benchmark Target (Strict SLA)",
+        "0.0%": "Supplementary Target (Zero Shortfall Lower Bound)",
+        "5.0%": "Supplementary Target (High Shortfall Upper Bound)",
+    }
+
+    for target, methods in pareto.items():
+        prio_label = target_priority.get(target, "Shortfall Target")
+        md.append(f"### Target Shortfall: {target} ({methods.get('rolling', {}).get('target_shortfall_minutes', 0.0)} min / 18,720 min) — *{prio_label}*")
+        md.append(f"*Source key path: `matched_shortfall_pareto['{target}']`*")
+        md.append("")
+
+        md.append("| Conformal Method | CA Median (kWh) | Aegis Median (kWh) | Diff of Medians (kWh) | All-App DeltaE (kWh) [95% CI] | Interp-Only DeltaE (kWh) [95% CI] | Clean Cohort DeltaE (kWh) [95% CI] | Cheaper (%) | Extrap (CA / Aegis) [Below/Above] | Degenerate Frontiers | Key Path |")
+        md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
+
+        for m_key, m_data in methods.items():
+            ca_med = m_data.get("ca_median_energy", 0.0)
+            ae_med = m_data.get("aegis_median_energy", 0.0)
+            diff_of_meds = ae_med - ca_med
+            mean_delta = m_data.get("mean_delta_energy", 0.0)
+            ci = m_data.get("bootstrap_ci95", [0.0, 0.0])
+            cheaper_pct = m_data.get("cheaper_fraction_pct", 0.0)
+            ca_ext = m_data.get("ca_extrapolations", 0)
+            ae_ext = m_data.get("aegis_extrapolations", 0)
+            degen_cnt = m_data.get("degenerate_frontiers_count", 0)
+
+            ca_sides = m_data.get("ca_extrapolation_sides", {})
+            ae_sides = m_data.get("aegis_extrapolation_sides", {})
+            ca_side_str = f"[{ca_sides.get('below_min_shortfall', 0)}B/{ca_sides.get('above_max_shortfall', 0)}A]"
+            ae_side_str = f"[{ae_sides.get('below_min_shortfall', 0)}B/{ae_sides.get('above_max_shortfall', 0)}A]"
+
+            interp = m_data.get("interpolated_only", {})
+            if interp.get("status") == "valid":
+                interp_ci = interp.get("bootstrap_ci95", [0.0, 0.0])
+                interp_str = f"{interp.get('mean_delta_energy', 0.0):+.2f} {fmt_ci(interp_ci)} (N={interp.get('n_included')})"
+            else:
+                interp_str = f"Underpowered (N={interp.get('n_included', 0)}/20)"
+
+            clean = m_data.get("clean_cohort", {})
+            if clean.get("status") == "valid":
+                clean_ci = clean.get("bootstrap_ci95", [0.0, 0.0])
+                clean_str = f"{clean.get('mean_delta_energy', 0.0):+.2f} {fmt_ci(clean_ci)} (N={clean.get('n_included')})"
+            else:
+                clean_str = f"Underpowered (N={clean.get('n_included', 0)}/20)"
+
+            k_path = f"`matched_shortfall_pareto['{target}']['{m_key}']`"
+            m_label = labels.get(m_key, m_key)
+            if m_key == "rolling":
+                m_label = f"**{m_label} (Primary)**"
+
+            md.append(
+                f"| {m_label} | {ca_med:.2f} | {ae_med:.2f} | {diff_of_meds:+.2f} | {mean_delta:+.2f} {fmt_ci(ci)} | {interp_str} | {clean_str} | {cheaper_pct:.1f}% | {ca_ext} {ca_side_str} / {ae_ext} {ae_side_str} | {degen_cnt}/20 | {k_path} |"
+            )
+        md.append("")
+
+        # Tertile stratification for primary target
+        tertiles = methods.get("rolling", {}).get("tertiles", {})
+        if tertiles:
+            md.append(f"**Tertile Stratification for Primary Arm (Rolling Conformal) at {target} Shortfall**:")
+            md.append("*Source key path: `matched_shortfall_pareto['" + target + "']['rolling']['tertiles']`*")
+            md.append("")
+            md.append("| Tertile | N Apps | CA Median (kWh) | Aegis Median (kWh) | Diff of Medians (kWh) | Mean Paired DeltaE (kWh) [95% CI] | Cheaper Fraction (%) | Key Path |")
+            md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
+            for t_name, t_data in tertiles.items():
+                t_ca_m = t_data.get("ca_median_energy", 0.0)
+                t_ae_m = t_data.get("aegis_median_energy", 0.0)
+                t_diff = t_data.get("median_diff_energy", 0.0)
+                t_mean = t_data.get("mean_delta_energy", 0.0)
+                t_ci = t_data.get("bootstrap_ci95", [0.0, 0.0])
+                t_cheap = t_data.get("cheaper_fraction_pct", 0.0)
+                t_path = f"`matched_shortfall_pareto['{target}']['rolling']['tertiles']['{t_name}']`"
+                md.append(f"| {t_name} | {t_data.get('n_apps')} | {t_ca_m:.2f} | {t_ae_m:.2f} | {t_diff:+.2f} | {t_mean:+.2f} {fmt_ci(t_ci)} | {t_cheap:.1f}% | {t_path} |")
+            md.append("")
+
+        # Losing apps table
+        rolling_losing = methods.get("rolling", {}).get("losing_apps", [])
+        if rolling_losing:
+            md.append(f"**Losing Apps for Rolling Conformal at {target} Shortfall ({len(rolling_losing)}/20 apps where $\\Delta E > 0$)**:")
+            for la in rolling_losing:
+                poor_flag = "⚠️ Poor Coverage" if la.get("is_poorly_covered") else "Normal Coverage"
+                md.append(f"- App `{la['app_id'][:16]}...`: $\\Delta E = {la['delta_energy_kwh']:+.3f}\\text{{ kWh}}$, Mean Cores = `{la['mean_cores']:.3f}`, Peak = `{la['peak_cores']:.2f}` ({poor_flag})")
+            md.append("")
+
+    # 3. Natural Operating Points Section
+    ops = data.get("natural_operating_points", {})
+    if ops:
+        md.append("## 3. Natural Operating Point Benchmark Comparisons (Fixed tau=0.90)")
+        md.append("*Source key path: `natural_operating_points.<method>.<ca_setting>`*")
+        md.append("")
+        md.append("> [!NOTE]")
+        md.append("> Compares Aegis operating at fixed nominal quantile $\\tau=0.90$ directly against Cluster Autoscaler at target utilizations $U=50\\%$ and $U=60\\%$.")
+        md.append("")
+
+        md.append("| Conformal Method | CA Target | CA Median Energy (kWh) | Aegis Median Energy (kWh) | Mean DeltaE (kWh) [95% CI] | Wilcoxon p (Two-Sided / One-Sided Less) | Holm-Bonf Adj p | Rank-Biserial $r_{rb}$ | CA Med Shortfall (min) | Aegis Med Shortfall (min) | Dominance (Dom / Dmd / Trade / Ident) | Key Path |")
+        md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
+
+        for m_key in ["rolling", "scale_aware", "aci_005", "aci_020", "static"]:
+            if m_key not in ops:
+                continue
+            for u_key in ["ca_u_50", "ca_u_60"]:
+                op_data = ops[m_key].get(u_key, {})
+                ca_u_pct = int(op_data.get("ca_target_utilization", 0.5) * 100)
+                ca_e = op_data.get("ca_median_energy", 0.0)
+                ae_e = op_data.get("aegis_median_energy", 0.0)
+                d_e = op_data.get("mean_delta_energy", 0.0)
+                ci_e = op_data.get("bootstrap_ci95_energy", [0.0, 0.0])
+                p_two = op_data.get("wilcoxon_two_sided_p", 1.0)
+                p_less = op_data.get("wilcoxon_one_sided_p_less", 1.0)
+                p_hb = op_data.get("wilcoxon_holm_bonferroni_p", 1.0)
+                r_rb = op_data.get("rank_biserial_effect_size", 0.0)
+                ca_s = op_data.get("ca_median_shortfall", 0.0)
+                ae_s = op_data.get("aegis_median_shortfall", 0.0)
+                dom = op_data.get("dominance_counts", {})
+                dom_str = f"{dom.get('dominant', 0)} / {dom.get('dominated', 0)} / {dom.get('tradeoff', 0)} / {dom.get('identical', 0)}"
+                k_path = f"`natural_operating_points['{m_key}']['{u_key}']`"
+                m_label = labels.get(m_key, m_key)
+                if m_key == "rolling":
+                    m_label = f"**{m_label}**"
+
+                md.append(
+                    f"| {m_label} | U={ca_u_pct}% | {ca_e:.2f} | {ae_e:.2f} | {d_e:+.2f} {fmt_ci(ci_e)} | {p_two:.4e} / {p_less:.4e} | {p_hb:.4e} | {r_rb:+.4f} | {ca_s:.1f} | {ae_s:.1f} | {dom_str} | {k_path} |"
+                )
+        md.append("")
+
+    # 4. Equal Headroom Control
+    eh = data.get("equal_headroom_control", {})
+    if eh:
+        md.append("## 4. Equal-Headroom Reactive Baseline & Audit Control Comparison")
+        md.append("*Source key path: `equal_headroom_control`*")
+        md.append("")
+        md.append(f"- **Calibrated Static Headroom Margin**: `+{eh.get('calibrated_static_headroom_cores', 8.6468)} cores` (`equal_headroom_control.calibrated_static_headroom_cores`)")
+        md.append(f"- **Control Arm (a) — Reactive + Static Headroom**: Energy Median = `{eh.get('control_arm_a_reactive_headroom', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('control_arm_a_reactive_headroom', {}).get('shortfall_minutes_median')}` min")
+        md.append(f"- **Control Arm (b) — CA (U=70%, HPA Guards)**: Energy Median = `{eh.get('control_arm_b_ca_hpa_guards', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('control_arm_b_ca_hpa_guards', {}).get('shortfall_minutes_median')}` min")
+        md.append(f"- **Aegis Conformal Baseline (tau=0.90)**: Energy Median = `{eh.get('aegis_conformal_baseline', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('aegis_conformal_baseline', {}).get('shortfall_minutes_median')}` min")
+        md.append("")
+
+    md.append("[^1]: **Statistical Footnote**: 'Diff of Medians' is the difference between marginal distribution medians ($E_{\\text{Aegis}}^{\\text{med}} - E_{\\text{CA}}^{\\text{med}}$). 'All-App Mean DeltaE' is the sample average of paired differences $\\frac{1}{N}\\sum (E_{\\text{Aegis}, i} - E_{\\text{CA}, i})$. Because workload demand and energy distributions exhibit skew across heterogeneous applications, the expectation of paired differences differs from the difference of marginal medians.")
+    md.append("")
+    return "\n".join(md)
+
+
 def render_scale_aware_pareto_report(data: Dict[str, Any], json_path: str) -> str:
+    if data.get("schema_version") == "v4":
+        return render_headline_v4_report(data, json_path)
+
     md: List[str] = []
     md.append("# Aegis Scale-Aware Conformal & Matched-Shortfall Pareto Report")
     md.append("")
@@ -108,34 +309,6 @@ def render_scale_aware_pareto_report(data: Dict[str, Any], json_path: str) -> st
                     f"| {labels.get(m_key, m_key)} | {ca_med:.2f} | {ae_med:.2f} | {diff_of_meds:+.2f} | {mean_delta:+.2f} {fmt_ci(ci)} | {interp_str} | {cheaper_pct:.1f}% | {ca_ext} {ca_side_str} / {ae_ext} {ae_side_str} | {k_path} |"
                 )
             md.append("")
-
-            # Losing Apps Summary for this target
-            scale_aware_losing = methods.get("scale_aware", {}).get("losing_apps", [])
-            if scale_aware_losing:
-                md.append(f"**Losing Apps for Scale-Aware Conformal at {target} shortfall ({len(scale_aware_losing)}/20 apps where Aegis > CA energy)**:")
-                for la in scale_aware_losing:
-                    poor_flag = "⚠️ **Poor Coverage Overlap**" if la.get("is_poorly_covered") else "Normal Coverage"
-                    md.append(f"- App `{la['app_id'][:16]}...`: Delta = `{la['delta_energy_kwh']:+.2f} kWh`, Mean Cores = `{la['mean_cores']:.3f}`, Peak Cores = `{la['peak_cores']:.2f}` ({poor_flag})")
-                md.append("")
-
-            # Significance shift audit (All-App vs Interp-Only)
-            sig_shifts = []
-            for m_key, m_data in methods.items():
-                ci_all = m_data.get("bootstrap_ci95", [0.0, 0.0])
-                interp = m_data.get("interpolated_only", {})
-                if interp.get("status") == "valid":
-                    ci_int = interp.get("bootstrap_ci95", [0.0, 0.0])
-                    sig_all = (ci_all[0] > 0 or ci_all[1] < 0)
-                    sig_int = (ci_int[0] > 0 or ci_int[1] < 0)
-                    if sig_all != sig_int:
-                        all_desc = "excludes 0 (sig)" if sig_all else "crosses 0 (non-sig)"
-                        int_desc = "excludes 0 (sig)" if sig_int else "crosses 0 (non-sig)"
-                        sig_shifts.append(f"{labels.get(m_key, m_key)}: all-app {all_desc} -> interp-only {int_desc}")
-            if sig_shifts:
-                md.append(f"**Cohort Significance Audit ({target})**: Significance changed on filtering: {'; '.join(sig_shifts)}.")
-            else:
-                md.append(f"**Cohort Significance Audit ({target})**: No change in significance direction across valid cohorts on filtering.")
-            md.append("")
         else:
             md.append("| Conformal Method | CA Median Energy (kWh) | Aegis Median Energy (kWh) | median of per-app energies (Aegis - CA) (kWh) | mean paired delta energy (Aegis - CA) (kWh) [95% CI] | Aegis Cheaper (%) | Extrapolated Apps (CA / Aegis) | Key Path |")
             md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
@@ -150,7 +323,6 @@ def render_scale_aware_pareto_report(data: Dict[str, Any], json_path: str) -> st
                 ca_ext = m_data.get("ca_extrapolations", 0)
                 ae_ext = m_data.get("aegis_extrapolations", 0)
                 k_path = f"`matched_shortfall_pareto['{target}']['{m_key}']`"
-
                 md.append(
                     f"| {labels.get(m_key, m_key)} | {ca_med:.2f} | {ae_med:.2f} | {diff_of_meds:+.2f} | {mean_delta:+.2f} {fmt_ci(ci)} | {cheaper_pct:.1f}% | {ca_ext} / {ae_ext} | {k_path} |"
                 )
@@ -176,14 +348,9 @@ def render_scale_aware_pareto_report(data: Dict[str, Any], json_path: str) -> st
             s_ci = s_info.get("ci95", [0.0, 0.0])
             s_p = s_info.get("p_value", 1.0)
             t_path = f"`tertile_stratification['{t_name}'].aegis_vs_ca_deltas`"
-
             md.append(
                 f"| {t_name} | {n_apps} | {e_mean:+.2f} {fmt_ci(e_ci)} | {e_p:.4e} | {s_mean:+.2f} {fmt_ci(s_ci)} | {s_p:.4e} | {t_path} |"
             )
-        md.append("")
-        md.append("> [!IMPORTANT]")
-        md.append("> **Tertile Per-Arm Marginal Distribution Notice**:")
-        md.append("> Per-arm medians/IQRs for each tertile (e.g. Tertile 1 CA 57.6 kWh vs Aegis 169.6 kWh) were computed in-memory during study execution from `eval/audit_controls_results.json` (`per_app_table_sorted`) and `eval/sixty_app_study_results.json` (`per_app_raw_metrics`). Only the paired deltas above are stored within `scale_aware_pareto_results.json`.")
         md.append("")
     md.append("[^1]: **Statistical Footnote**: 'median of per-app energies (Aegis - CA)' represents the difference of marginal medians across apps, whereas 'mean paired delta energy (Aegis - CA)' is the sample average of per-app differences $(E_{\\text{Aegis}, i} - E_{\\text{CA}, i})$. Because workload demand and energy distributions exhibit positive skew across heterogeneous applications, the expectation of paired differences differs from the difference of marginal medians.")
     md.append("")
@@ -198,7 +365,6 @@ def render_audit_controls_report(data: Dict[str, Any], json_path: str) -> str:
     md.append(f"**Git Commit**: `{data.get('git_commit', 'unknown')}`  ")
     md.append("")
 
-    # 1. Cooldown Audit
     cd_audit = data.get("cooldown_audit_3_apps", {})
     md.append("## 1. Cooldown Audit (3 Apps: Small, Mid, Large)")
     md.append("*Source key path: `cooldown_audit_3_apps.<app_id>`*")
@@ -217,7 +383,6 @@ def render_audit_controls_report(data: Dict[str, Any], json_path: str) -> str:
         )
     md.append("")
 
-    # 2. Control Arms Distributions
     arms = data.get("control_arms_distributions", {})
     md.append("## 2. Control Arms Distributions (20 Test Apps)")
     md.append("*Source key path: `control_arms_distributions.<arm_name>`*")
@@ -236,7 +401,6 @@ def render_audit_controls_report(data: Dict[str, Any], json_path: str) -> str:
         )
     md.append("")
 
-    # 3. Spearman Correlation
     sp = data.get("spearman_correlation", {})
     md.append("## 3. Spearman Rank Correlation")
     md.append("*Source key path: `spearman_correlation`*")
@@ -257,7 +421,6 @@ def render_sixty_app_study_report(data: Dict[str, Any], json_path: str) -> str:
     md.append(f"**Config SHA-256**: `{data.get('config_hash', 'unknown')}`  ")
     md.append("")
 
-    # Partition
     part = data.get("app_partition", {})
     md.append("## 1. App Partition")
     md.append("*Source key path: `app_partition`*")
@@ -266,7 +429,6 @@ def render_sixty_app_study_report(data: Dict[str, Any], json_path: str) -> str:
     md.append(f"- Test Apps: {len(part.get('test_apps', []))} (`app_partition.test_apps`)")
     md.append("")
 
-    # Conformal Calibration
     cal = data.get("conformal_calibration", {})
     md.append("## 2. Conformal Calibration Margin")
     md.append("*Source key path: `conformal_calibration`*")
@@ -274,7 +436,6 @@ def render_sixty_app_study_report(data: Dict[str, Any], json_path: str) -> str:
     md.append(f"- Calibrated $\\hat{{q}}_{{90}}$ Headroom: `{cal.get('q_hat_90_cores', 0.0):.4f}` cores (`conformal_calibration.q_hat_90_cores`)")
     md.append("")
 
-    # Distributions
     dists = data.get("per_app_distributions", {})
     md.append("## 3. Main Configurations Distributions (20 Test Apps)")
     md.append("*Source key path: `per_app_distributions.<config>`*")
@@ -293,7 +454,6 @@ def render_sixty_app_study_report(data: Dict[str, Any], json_path: str) -> str:
         )
     md.append("")
 
-    # Statistical Tests
     stats = data.get("statistical_tests", {})
     md.append("## 4. Statistical Tests (Aegis vs. Baselines)")
     md.append("*Source key path: `statistical_tests.<metric>.<baseline>`*")
@@ -319,15 +479,15 @@ def render_report_from_json(json_path: str) -> str:
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Route based on detected schema
-    if "matched_shortfall_pareto" in data:
+    if data.get("schema_version") == "v4":
+        return render_headline_v4_report(data, json_path)
+    elif "matched_shortfall_pareto" in data:
         return render_scale_aware_pareto_report(data, json_path)
     elif "cooldown_audit_3_apps" in data:
         return render_audit_controls_report(data, json_path)
     elif "conformal_calibration" in data and "censoring_audit" in data:
         return render_sixty_app_study_report(data, json_path)
     else:
-        # Generic fallback
         md = [f"# Generic Results Report for `{json_path}`\n"]
         for k, v in data.items():
             if isinstance(v, (str, int, float, bool)):

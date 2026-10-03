@@ -211,15 +211,21 @@ def render_headline_v4_report(data: Dict[str, Any], json_path: str) -> str:
         md.append("")
 
     # 4. Equal Headroom Control
-    eh = data.get("equal_headroom_control", {})
+    eh = data.get("equal_headroom_control") or {}
     if eh:
         md.append("## 4. Equal-Headroom Reactive Baseline & Audit Control Comparison")
         md.append("*Source key path: `equal_headroom_control`*")
         md.append("")
         md.append(f"- **Calibrated Static Headroom Margin**: `+{eh.get('calibrated_static_headroom_cores', 8.6468)} cores` (`equal_headroom_control.calibrated_static_headroom_cores`)")
-        md.append(f"- **Control Arm (a) — Reactive + Static Headroom**: Energy Median = `{eh.get('control_arm_a_reactive_headroom', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('control_arm_a_reactive_headroom', {}).get('shortfall_minutes_median')}` min")
-        md.append(f"- **Control Arm (b) — CA (U=70%, HPA Guards)**: Energy Median = `{eh.get('control_arm_b_ca_hpa_guards', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('control_arm_b_ca_hpa_guards', {}).get('shortfall_minutes_median')}` min")
-        md.append(f"- **Aegis Conformal Baseline (tau=0.90)**: Energy Median = `{eh.get('aegis_conformal_baseline', {}).get('energy_kwh_median')}` kWh, Shortfall Median = `{eh.get('aegis_conformal_baseline', {}).get('shortfall_minutes_median')}` min")
+        rh = eh.get("control_arm_a_reactive_headroom") or {}
+        ca = eh.get("control_arm_b_ca_hpa_guards") or {}
+        ae = eh.get("aegis_conformal_baseline") or {}
+        if isinstance(rh, dict) and "energy" in rh:
+            md.append(f"- **Control Arm (a) — Reactive + Static Headroom**: Energy Median = `{rh.get('energy', {}).get('median', 'N/A')}` kWh (IQR {rh.get('energy', {}).get('iqr', 'N/A')}), Shortfall Median = `{rh.get('shortfall', {}).get('median', 'N/A')}` min (IQR {rh.get('shortfall', {}).get('iqr', 'N/A')})")
+        if isinstance(ca, dict) and "energy" in ca:
+            md.append(f"- **Control Arm (b) — CA (U=70%, HPA Guards)**: Energy Median = `{ca.get('energy', {}).get('median', 'N/A')}` kWh (IQR {ca.get('energy', {}).get('iqr', 'N/A')}), Shortfall Median = `{ca.get('shortfall', {}).get('median', 'N/A')}` min (IQR {ca.get('shortfall', {}).get('iqr', 'N/A')})")
+        if isinstance(ae, dict) and "energy" in ae:
+            md.append(f"- **Aegis Conformal Baseline (tau=0.90)**: Energy Median = `{ae.get('energy', {}).get('median', 'N/A')}` kWh (IQR {ae.get('energy', {}).get('iqr', 'N/A')}), Shortfall Median = `{ae.get('shortfall', {}).get('median', 'N/A')}` min (IQR {ae.get('shortfall', {}).get('iqr', 'N/A')})")
         md.append("")
 
     md.append("[^1]: **Statistical Footnote**: 'Diff of Medians' is the difference between marginal distribution medians ($E_{\\text{Aegis}}^{\\text{med}} - E_{\\text{CA}}^{\\text{med}}$). 'All-App Mean DeltaE' is the sample average of paired differences $\\frac{1}{N}\\sum (E_{\\text{Aegis}, i} - E_{\\text{CA}, i})$. Because workload demand and energy distributions exhibit skew across heterogeneous applications, the expectation of paired differences differs from the difference of marginal medians.")

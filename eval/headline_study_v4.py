@@ -857,14 +857,13 @@ def run_headline_study(
     equal_headroom_control = None
     if os.path.exists(AUDIT_CONTROLS_JSON):
         try:
-            with open(AUDIT_CONTROLS_JSON, "r", encoding="utf-8") as f:
-                ac_data = json.load(f)
+            dist = ac_data.get("control_arms_distributions", {})
             equal_headroom_control = {
                 "source_file": AUDIT_CONTROLS_JSON,
                 "calibrated_static_headroom_cores": 8.6468,
-                "control_arm_a_reactive_headroom": ac_data.get("summary_comparison", {}).get("control_arm_a_reactive_headroom"),
-                "control_arm_b_ca_hpa_guards": ac_data.get("summary_comparison", {}).get("control_arm_b_ca_hpa_guards"),
-                "aegis_conformal_baseline": ac_data.get("summary_comparison", {}).get("aegis_conformal"),
+                "control_arm_a_reactive_headroom": dist.get("reactive_plus_headroom"),
+                "control_arm_b_ca_hpa_guards": dist.get("cluster_autoscaler_faithful"),
+                "aegis_conformal_baseline": dist.get("full_aegis_conformal"),
             }
         except Exception as e:
             logger.warning(f"Could not load audit controls results: {e}")

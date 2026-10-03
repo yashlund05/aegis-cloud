@@ -1,10 +1,10 @@
 {
   "schema_version": "v4",
   "study_name": "Aegis Clean Headline Benchmark Study",
-  "git_commit": "314daee93cf42477403fc7853cc4de4d79fcbbaf",
+  "git_commit": "7e9d4212f9880e5215881fb240baf3197985189b",
   "dirty_flag": false,
   "config_hash": "af9326cf96472bfec6cf7b33e8f0c18cd7303ddd63fc95d71f1909e19b0da40a",
-  "timestamp_utc": "2026-10-03T08:17:53.035059+00:00",
+  "timestamp_utc": "2026-10-03T08:40:15.989584+00:00",
   "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
   "seeds": [
     42
@@ -12539,5 +12539,50 @@
       }
     }
   },
-  "equal_headroom_control": null
+  "equal_headroom_control": {
+    "source_file": "eval/audit_controls_results.json",
+    "calibrated_static_headroom_cores": 8.6468,
+    "control_arm_a_reactive_headroom": {
+      "energy": {
+        "median": 238.55,
+        "iqr": 85.74
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 2.5
+      },
+      "events": {
+        "median": 274.5,
+        "iqr": 2509.75
+      }
+    },
+    "control_arm_b_ca_hpa_guards": {
+      "energy": {
+        "median": 91.53,
+        "iqr": 115.63
+      },
+      "shortfall": {
+        "median": 300.0,
+        "iqr": 1216.5
+      },
+      "events": {
+        "median": 2718.0,
+        "iqr": 3166.5
+      }
+    },
+    "aegis_conformal_baseline": {
+      "energy": {
+        "median": 203.57,
+        "iqr": 109.9
+      },
+      "shortfall": {
+        "median": 0.0,
+        "iqr": 6.25
+      },
+      "events": {
+        "median": 85.0,
+        "iqr": 646.5
+      }
+    }
+  }
 }

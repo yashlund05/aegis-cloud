@@ -58,6 +58,12 @@ def render_headline_v4_report(data: Dict[str, Any], json_path: str) -> str:
         "rolling": "Per-App Rolling Conformal (W=1440, H=10)",
         "aci_005": "Adaptive Conformal (ACI gamma=0.005)",
         "aci_020": "Adaptive Conformal (ACI gamma=0.020)",
+        "lightgbm_point_rolling": "LightGBM Point + Rolling Conformal",
+        "seasonal_naive": "Seasonal Naive + Rolling Conformal",
+        "holt_winters": "Holt-Winters + Rolling Conformal",
+        "quantile_linear": "Quantile Linear + Rolling Conformal",
+        "fixed_margin": "Fixed Headroom Margin (Raw LGBM + Margin)",
+        "no_cpsat_ffd": "No CP-SAT / FFD Consolidation Fallback",
     }
     roles = {
         "raw": "Baseline",
@@ -66,12 +72,19 @@ def render_headline_v4_report(data: Dict[str, Any], json_path: str) -> str:
         "rolling": "**Primary Arm (D-7)**",
         "aci_005": "Ablation / Variant",
         "aci_020": "Ablation / Variant",
+        "lightgbm_point_rolling": "Control / Baseline",
+        "seasonal_naive": "Baseline Forecaster",
+        "holt_winters": "Baseline Forecaster",
+        "quantile_linear": "Baseline Forecaster",
+        "fixed_margin": "Component Ablation",
+        "no_cpsat_ffd": "Component Ablation",
     }
     for k, label in labels.items():
         if k in med_iqr:
             vals = med_iqr[k]
             md.append(f"| {label} | {vals[0]:.2f}% | {vals[1]:.2f}% | {roles.get(k, '')} | `coverage_summary.median_iqr.{k}` |")
     md.append("")
+
 
     # 2. Matched Shortfall Pareto Frontiers
     pareto = data.get("matched_shortfall_pareto", {})
@@ -182,10 +195,13 @@ def render_headline_v4_report(data: Dict[str, Any], json_path: str) -> str:
         md.append("| Conformal Method | CA Target | CA Median Energy (kWh) | Aegis Median Energy (kWh) | Mean DeltaE (kWh) [95% CI] | Wilcoxon p (Two-Sided / One-Sided Less) | Holm-Bonf Adj p | Rank-Biserial $r_{rb}$ | CA Med Shortfall (min) | Aegis Med Shortfall (min) | Dominance (Dom / Dmd / Trade / Ident) | Key Path |")
         md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |")
 
-        for m_key in ["rolling", "scale_aware", "aci_005", "aci_020", "static"]:
-            if m_key not in ops:
+        for m_key in ops.keys():
+            if not isinstance(ops[m_key], dict):
                 continue
             for u_key in ["ca_u_50", "ca_u_60"]:
+                if u_key not in ops[m_key]:
+                    continue
+
                 op_data = ops[m_key].get(u_key, {})
                 ca_u_pct = int(op_data.get("ca_target_utilization", 0.5) * 100)
                 ca_e = op_data.get("ca_median_energy", 0.0)

@@ -1,0 +1,149 @@
+================================================================================
+FILE: eval\scale_aware_pareto_results.json
+================================================================================
+TOP-LEVEL KEYS: ['git_commit', 'config_hash', 'configuration', 'coverage_summary', 'matched_shortfall_pareto', 'tertile_stratification']
+git_commit:    50b1be9417e1953edae9f14409f2e94867423d15
+dirty_flag:    None
+config_hash:   5ac8f478f1f785df514c4fa994f00a6ea554488024757a18f026c3f80f86e54c
+timestamp_utc: None
+seeds:         None
+
+--- COVERAGE SUMMARY ---
+test_apps_count: 20
+  raw         : median=86.77%, IQR=12.23%
+  static      : median=99.99%, IQR=0.33%
+  scale_aware : median=97.60%, IQR=5.08%
+  rolling     : median=90.00%, IQR=0.71%
+  aci_005     : median=89.94%, IQR=0.80%
+  aci_020     : median=89.98%, IQR=0.49%
+
+--- WORST-APP COVERAGE BENCHMARK (0e18802d31bf22ab & fe5c01bb7981a5dc) ---
+  0e18802d31bf22ab: raw=66.8643%
+  fe5c01bb7981a5dc: raw=82.1688%
+
+--- CONFIGURATION BLOCK ---
+{
+  "ca_utilizations": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8
+  ],
+  "aegis_taus": [
+    0.5,
+    0.7,
+    0.8,
+    0.9,
+    0.95,
+    0.99
+  ],
+  "shortfall_targets_pct": [
+    0.0,
+    0.1,
+    1.0
+  ],
+  "aci_gammas": [
+    0.005,
+    0.02
+  ],
+  "horizon_minutes": 10,
+  "rolling_window_steps": 1440,
+  "bootstrap_iterations": 10000
+}
+
+--- MATCHED SHORTFALL PARETO (TARGETS 0.1% and 1.0%) ---
+================== TARGET 0.1% ==================
+  [ARM: static]
+    ca_median_energy: 154.78
+    aegis_median_energy: 205.15
+    mean_delta_energy: 39.878
+    bootstrap_ci95: [-2.807, 85.012]
+    cheaper_fraction_pct: 40.0
+    ca_extrapolations: 12
+    aegis_extrapolations: 3
+
+  [ARM: scale_aware]
+    ca_median_energy: 154.78
+    aegis_median_energy: 123.01
+    mean_delta_energy: -31.181
+    bootstrap_ci95: [-53.155, -11.945]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 12
+    aegis_extrapolations: 6
+
+  [ARM: rolling]
+    ca_median_energy: 154.78
+    aegis_median_energy: 99.25
+    mean_delta_energy: -35.735
+    bootstrap_ci95: [-61.567, -12.455]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 12
+    aegis_extrapolations: 10
+
+  [ARM: aci_005]
+    ca_median_energy: 154.78
+    aegis_median_energy: 95.9
+    mean_delta_energy: -48.601
+    bootstrap_ci95: [-73.178, -26.085]
+    cheaper_fraction_pct: 75.0
+    ca_extrapolations: 12
+    aegis_extrapolations: 14
+
+  [ARM: aci_020]
+    ca_median_energy: 154.78
+    aegis_median_energy: 95.49
+    mean_delta_energy: -40.205
+    bootstrap_ci95: [-65.116, -17.217]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 12
+    aegis_extrapolations: 9
+
+================== TARGET 1.0% ==================
+  [ARM: static]
+    ca_median_energy: 122.19
+    aegis_median_energy: 95.13
+    mean_delta_energy: -15.897
+    bootstrap_ci95: [-51.178, 26.298]
+    cheaper_fraction_pct: 65.0
+    ca_extrapolations: 13
+    aegis_extrapolations: 7
+
+  [ARM: scale_aware]
+    ca_median_energy: 122.19
+    aegis_median_energy: 92.4
+    mean_delta_energy: -38.216
+    bootstrap_ci95: [-65.091, -14.461]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 13
+    aegis_extrapolations: 11
+
+  [ARM: rolling]
+    ca_median_energy: 122.19
+    aegis_median_energy: 84.21
+    mean_delta_energy: -39.301
+    bootstrap_ci95: [-66.19, -15.985]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 13
+    aegis_extrapolations: 6
+
+  [ARM: aci_005]
+    ca_median_energy: 122.19
+    aegis_median_energy: 82.85
+    mean_delta_energy: -44.012
+    bootstrap_ci95: [-71.753, -19.106]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 13
+    aegis_extrapolations: 8
+
+  [ARM: aci_020]
+    ca_median_energy: 122.19
+    aegis_median_energy: 83.81
+    mean_delta_energy: -41.78
+    bootstrap_ci95: [-68.541, -18.17]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 13
+    aegis_extrapolations: 7
+
+--- ROLLING ARM TERTILES BLOCK ---

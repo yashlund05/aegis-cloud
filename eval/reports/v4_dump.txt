@@ -1,0 +1,635 @@
+================================================================================
+FILE: eval\headline_results_v4.json
+================================================================================
+TOP-LEVEL KEYS: ['schema_version', 'study_name', 'git_commit', 'dirty_flag', 'config_hash', 'timestamp_utc', 'python_version', 'seeds', 'configuration', 'app_partition', 'coverage_summary', 'matched_shortfall_pareto', 'natural_operating_points', 'equal_headroom_control']
+git_commit:    7e9d4212f9880e5215881fb240baf3197985189b
+dirty_flag:    False
+config_hash:   af9326cf96472bfec6cf7b33e8f0c18cd7303ddd63fc95d71f1909e19b0da40a
+timestamp_utc: 2026-10-03T08:40:15.989584+00:00
+seeds:         [42]
+
+--- COVERAGE SUMMARY ---
+test_apps_count: 20
+  raw         : median=86.77%, IQR=12.23%
+  static      : median=99.99%, IQR=0.33%
+  scale_aware : median=97.60%, IQR=5.08%
+  rolling     : median=90.06%, IQR=0.72%
+  aci_005     : median=89.94%, IQR=0.80%
+  aci_020     : median=89.98%, IQR=0.49%
+
+--- WORST-APP COVERAGE BENCHMARK (0e18802d31bf22ab & fe5c01bb7981a5dc) ---
+  0e18802d31bf22ab: raw=66.8643%, rolling_v4=89.5513%
+  fe5c01bb7981a5dc: raw=82.1688%, rolling_v4=90.0748%
+  All 6 methods [min, max]:
+    raw:         min=66.86%, max=100.00%
+    static:      min=82.28%, max=100.00%
+    scale_aware: min=73.32%, max=100.00%
+    rolling:     min=87.71%, max=98.30%
+    aci_005:     min=88.25%, max=98.80%
+    aci_020:     min=89.58%, max=99.07%
+
+--- CONFIGURATION BLOCK ---
+{
+  "protocol": "SPLIT_PROTOCOL",
+  "primary_arm": "rolling",
+  "secondary_arms": [
+    "scale_aware",
+    "aci_005",
+    "aci_020",
+    "static"
+  ],
+  "horizon_minutes": 10,
+  "bootstrap_b": 10000,
+  "ca_utilizations": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "aegis_taus": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    0.975,
+    0.99,
+    0.995,
+    0.999
+  ],
+  "shortfall_targets_pct": [
+    0.0,
+    0.1,
+    1.0,
+    5.0
+  ],
+  "energy_floor_kwh": 62.4,
+  "natural_operating_points": {
+    "aegis_tau": 0.9,
+    "ca_utilizations": [
+      0.5,
+      0.6
+    ]
+  }
+}
+
+--- EQUAL HEADROOM CONTROL ---
+{
+  "source_file": "eval/audit_controls_results.json",
+  "calibrated_static_headroom_cores": 8.6468,
+  "control_arm_a_reactive_headroom": {
+    "energy": {
+      "median": 238.55,
+      "iqr": 85.74
+    },
+    "shortfall": {
+      "median": 0.0,
+      "iqr": 2.5
+    },
+    "events": {
+      "median": 274.5,
+      "iqr": 2509.75
+    }
+  },
+  "control_arm_b_ca_hpa_guards": {
+    "energy": {
+      "median": 91.53,
+      "iqr": 115.63
+    },
+    "shortfall": {
+      "median": 300.0,
+      "iqr": 1216.5
+    },
+    "events": {
+      "median": 2718.0,
+      "iqr": 3166.5
+    }
+  },
+  "aegis_conformal_baseline": {
+    "energy": {
+      "median": 203.57,
+      "iqr": 109.9
+    },
+    "shortfall": {
+      "median": 0.0,
+      "iqr": 6.25
+    },
+    "events": {
+      "median": 85.0,
+      "iqr": 646.5
+    }
+  }
+}
+
+--- MATCHED SHORTFALL PARETO (TARGETS 0.1% and 1.0%) ---
+================== TARGET 0.1% ==================
+  [ARM: rolling]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 125.73
+    median_diff_energy: -33.98
+    mean_delta_energy: -66.771
+    bootstrap_ci95: [-132.378, -12.691]
+    cheaper_fraction_pct: 65.0
+    mean_delta_energy_above_floor: -66.829
+    bootstrap_ci95_above_floor: [-132.389, -12.787]
+    ca_extrapolations: 7
+    aegis_extrapolations: 4
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 1, 'above_max_shortfall': 3, 'none': 16}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -93.17, 'bootstrap_ci95': [-203.56, -9.46]}
+    clean_cohort: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -93.17, 'bootstrap_ci95': [-203.56, -9.46]}
+
+  [ARM: scale_aware]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 139.89
+    median_diff_energy: -19.82
+    mean_delta_energy: -55.954
+    bootstrap_ci95: [-119.528, -3.313]
+    cheaper_fraction_pct: 60.0
+    mean_delta_energy_above_floor: -56.307
+    bootstrap_ci95_above_floor: [-119.574, -3.827]
+    ca_extrapolations: 7
+    aegis_extrapolations: 3
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 2, 'above_max_shortfall': 1, 'none': 17}
+    degenerate_frontiers_count: 1
+    degenerate_apps: [{'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -71.19, 'bootstrap_ci95': [-162.94, -0.72]}
+    clean_cohort: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -71.19, 'bootstrap_ci95': [-162.94, -0.72]}
+
+  [ARM: aci_005]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 97.45
+    median_diff_energy: -62.26
+    mean_delta_energy: -96.975
+    bootstrap_ci95: [-158.276, -44.73]
+    cheaper_fraction_pct: 75.0
+    mean_delta_energy_above_floor: -96.928
+    bootstrap_ci95_above_floor: [-158.371, -44.689]
+    ca_extrapolations: 7
+    aegis_extrapolations: 13
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 10, 'above_max_shortfall': 3, 'none': 7}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 6, 'status': 'underpowered', 'note': 'Fewer than 8 apps remain (6/20) without extrapolation at this target', 'mean_delta_energy': -101.01, 'bootstrap_ci95': None}
+    clean_cohort: {'n_included': 6, 'status': 'underpowered', 'note': 'Fewer than 8 apps remain (6/20) in clean non-degenerate cohort', 'mean_delta_energy': -101.01, 'bootstrap_ci95': None}
+
+  [ARM: aci_020]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 102.06
+    median_diff_energy: -57.65
+    mean_delta_energy: -85.178
+    bootstrap_ci95: [-146.659, -33.877]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -85.132
+    bootstrap_ci95_above_floor: [-146.599, -33.781]
+    ca_extrapolations: 7
+    aegis_extrapolations: 8
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 5, 'above_max_shortfall': 3, 'none': 12}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 9, 'status': 'valid', 'mean_delta_energy': -105.02, 'bootstrap_ci95': [-220.95, -13.93]}
+    clean_cohort: {'n_included': 9, 'status': 'valid', 'mean_delta_energy': -105.02, 'bootstrap_ci95': [-220.95, -13.93]}
+
+  [ARM: static]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 182.74
+    median_diff_energy: 23.03
+    mean_delta_energy: -7.031
+    bootstrap_ci95: [-79.727, 73.011]
+    cheaper_fraction_pct: 60.0
+    mean_delta_energy_above_floor: -7.583
+    bootstrap_ci95_above_floor: [-80.005, 71.927]
+    ca_extrapolations: 7
+    aegis_extrapolations: 1
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 1, 'none': 19}
+    degenerate_frontiers_count: 1
+    degenerate_apps: [{'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -6.85, 'bootstrap_ci95': [-82.69, 70.92]}
+    clean_cohort: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -6.85, 'bootstrap_ci95': [-82.69, 70.92]}
+
+================== TARGET 1.0% ==================
+  [ARM: rolling]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 86.92
+    median_diff_energy: -34.87
+    mean_delta_energy: -75.132
+    bootstrap_ci95: [-132.463, -26.957]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -75.454
+    bootstrap_ci95_above_floor: [-132.717, -27.487]
+    ca_extrapolations: 6
+    aegis_extrapolations: 6
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 6, 'none': 14}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.05, 'bootstrap_ci95': [-156.86, -7.56]}
+    clean_cohort: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.05, 'bootstrap_ci95': [-156.86, -7.56]}
+
+  [ARM: scale_aware]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 96.23
+    median_diff_energy: -25.55
+    mean_delta_energy: -64.532
+    bootstrap_ci95: [-124.085, -14.694]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -64.913
+    bootstrap_ci95_above_floor: [-124.214, -15.327]
+    ca_extrapolations: 6
+    aegis_extrapolations: 3
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 3, 'none': 17}
+    degenerate_frontiers_count: 1
+    degenerate_apps: [{'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -57.98, 'bootstrap_ci95': [-133.58, -9.06]}
+    clean_cohort: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -57.98, 'bootstrap_ci95': [-133.58, -9.06]}
+
+  [ARM: aci_005]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 81.38
+    median_diff_energy: -40.4
+    mean_delta_energy: -79.096
+    bootstrap_ci95: [-137.393, -29.481]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -79.313
+    bootstrap_ci95_above_floor: [-137.595, -29.809]
+    ca_extrapolations: 6
+    aegis_extrapolations: 7
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 1, 'above_max_shortfall': 6, 'none': 13}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.35, 'bootstrap_ci95': [-156.97, -7.86]}
+    clean_cohort: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.35, 'bootstrap_ci95': [-156.97, -7.86]}
+
+  [ARM: aci_020]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 81.97
+    median_diff_energy: -39.81
+    mean_delta_energy: -77.738
+    bootstrap_ci95: [-134.957, -29.434]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -77.955
+    bootstrap_ci95_above_floor: [-135.124, -29.783]
+    ca_extrapolations: 6
+    aegis_extrapolations: 5
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 5, 'none': 15}
+    degenerate_frontiers_count: 2
+    degenerate_apps: [{'app_id': 'c89aaedc8b6ecd5ad8468f1fbd0d9020bc466890448b80b1744eefbf5720d6f3', 'min_shortfall': 3.0, 'max_shortfall': 3.0}, {'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 11, 'status': 'valid', 'mean_delta_energy': -61.96, 'bootstrap_ci95': [-143.94, -7.75]}
+    clean_cohort: {'n_included': 11, 'status': 'valid', 'mean_delta_energy': -61.96, 'bootstrap_ci95': [-143.94, -7.75]}
+
+  [ARM: static]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 94.51
+    median_diff_energy: -27.28
+    mean_delta_energy: -54.897
+    bootstrap_ci95: [-129.06, 26.677]
+    cheaper_fraction_pct: 70.0
+    mean_delta_energy_above_floor: -55.289
+    bootstrap_ci95_above_floor: [-129.138, 25.744]
+    ca_extrapolations: 6
+    aegis_extrapolations: 5
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 5, 'none': 15}
+    degenerate_frontiers_count: 1
+    degenerate_apps: [{'app_id': 'c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2', 'min_shortfall': 0.0, 'max_shortfall': 0.0}]
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -70.06, 'bootstrap_ci95': [-159.65, -10.0]}
+    clean_cohort: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -70.06, 'bootstrap_ci95': [-159.65, -10.0]}
+
+--- ROLLING ARM TERTILES BLOCK ---
+  Target 0.1% Rolling Tertiles:
+{
+    "low_load": {
+        "n_apps": 7,
+        "ca_median_energy": 57.86,
+        "aegis_median_energy": 58.42,
+        "median_diff_energy": 0.56,
+        "mean_delta_energy": -5.2,
+        "bootstrap_ci95": [
+            -20.3,
+            6.78
+        ],
+        "cheaper_fraction_pct": 42.86
+    },
+    "mid_load": {
+        "n_apps": 7,
+        "ca_median_energy": 227.53,
+        "aegis_median_energy": 130.59,
+        "median_diff_energy": -96.94,
+        "mean_delta_energy": -120.07,
+        "bootstrap_ci95": [
+            -259.96,
+            3.8
+        ],
+        "cheaper_fraction_pct": 85.71
+    },
+    "high_load": {
+        "n_apps": 6,
+        "ca_median_energy": 478.93,
+        "aegis_median_energy": 363.5,
+        "median_diff_energy": -115.44,
+        "mean_delta_energy": -76.41,
+        "bootstrap_ci95": [
+            -187.29,
+            0.76
+        ],
+        "cheaper_fraction_pct": 66.67
+    }
+}
+
+  Target 1.0% Rolling Tertiles:
+{
+    "low_load": {
+        "n_apps": 7,
+        "ca_median_energy": 57.78,
+        "aegis_median_energy": 58.4,
+        "median_diff_energy": 0.62,
+        "mean_delta_energy": 3.15,
+        "bootstrap_ci95": [
+            -0.04,
+            8.91
+        ],
+        "cheaper_fraction_pct": 28.57
+    },
+    "mid_load": {
+        "n_apps": 7,
+        "ca_median_energy": 163.37,
+        "aegis_median_energy": 94.87,
+        "median_diff_energy": -68.5,
+        "mean_delta_energy": -150.66,
+        "bootstrap_ci95": [
+            -271.13,
+            -40.24
+        ],
+        "cheaper_fraction_pct": 100.0
+    },
+    "high_load": {
+        "n_apps": 6,
+        "ca_median_energy": 371.43,
+        "aegis_median_energy": 240.3,
+        "median_diff_energy": -131.13,
+        "mean_delta_energy": -78.34,
+        "bootstrap_ci95": [
+            -127.02,
+            -25.69
+        ],
+        "cheaper_fraction_pct": 83.33
+    }
+}
+
+--- NATURAL OPERATING POINTS (U=0.5, U=0.6) ---
+  [ARM: rolling]
+    Setting: ca_u_50
+      aegis_tau: 0.9
+      ca_target_utilization: 0.5
+      ca_median_energy: 127.35
+      aegis_median_energy: 76.2
+      median_diff_energy: -51.15
+      mean_delta_energy: -29.508
+      bootstrap_ci95_energy: [-44.886, -15.6]
+      ca_median_shortfall: 74.0
+      aegis_median_shortfall: 65.5
+      median_diff_shortfall: -8.5
+      mean_delta_shortfall: -404.5
+      bootstrap_ci95_shortfall: [-877.662, -30.645]
+      cheaper_fraction_pct: 85.0
+      lower_shortfall_fraction_pct: 45.0
+      dominance_counts: {'dominant': 8, 'dominated': 1, 'tradeoff': 11, 'identical': 0}
+      wilcoxon_two_sided_p: 0.000395
+      wilcoxon_one_sided_p_less: 0.000197
+      rank_biserial_effect_size: -0.8381
+      wilcoxon_holm_bonferroni_p: 0.003553
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 58.43, "aegis_median_energy": 58.42, "mean_delta_energy": -1.27, "bootstrap_ci95_energy": [-2.75, 0.09], "ca_median_shortfall": 7.0, "aegis_median_shortfall": 16.0, "mean_delta_shortfall": 6.57, "bootstrap_ci95_shortfall": [-31.0, 37.14], "cheaper_fraction_pct": 71.43}, "mid_load": {"n_apps": 7, "ca_median_energy": 164.44, "aegis_median_energy": 82.77, "mean_delta_energy": -48.79, "bootstrap_ci95_energy": [-77.98, -23.57], "ca_median_shortfall": 86.0, "aegis_median_shortfall": 162.0, "mean_delta_shortfall": -196.0, "bootstrap_ci95_shortfall": [-510.29, 19.14], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 255.59, "aegis_median_energy": 199.43, "mean_delta_energy": -39.95, "bootstrap_ci95_energy": [-58.73, -17.64], "ca_median_shortfall": 588.5, "aegis_median_shortfall": 80.5, "mean_delta_shortfall": -1127.33, "bootstrap_ci95_shortfall": [-2331.0, 14.5], "cheaper_fraction_pct": 83.33}}
+    Setting: ca_u_60
+      aegis_tau: 0.9
+      ca_target_utilization: 0.6
+      ca_median_energy: 117.06
+      aegis_median_energy: 76.2
+      median_diff_energy: -40.86
+      mean_delta_energy: -15.774
+      bootstrap_ci95_energy: [-31.002, 0.279]
+      ca_median_shortfall: 164.0
+      aegis_median_shortfall: 65.5
+      median_diff_shortfall: -98.5
+      mean_delta_shortfall: -569.9
+      bootstrap_ci95_shortfall: [-1058.554, -172.845]
+      cheaper_fraction_pct: 70.0
+      lower_shortfall_fraction_pct: 65.0
+      dominance_counts: {'dominant': 11, 'dominated': 3, 'tradeoff': 6, 'identical': 0}
+      wilcoxon_two_sided_p: 0.007296
+      wilcoxon_one_sided_p_less: 0.003648
+      rank_biserial_effect_size: -0.6667
+      wilcoxon_holm_bonferroni_p: 0.031948
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 57.8, "aegis_median_energy": 58.42, "mean_delta_energy": -0.37, "bootstrap_ci95_energy": [-1.75, 0.61], "ca_median_shortfall": 21.0, "aegis_median_shortfall": 16.0, "mean_delta_shortfall": -31.43, "bootstrap_ci95_shortfall": [-121.71, 23.43], "cheaper_fraction_pct": 28.57}, "mid_load": {"n_apps": 7, "ca_median_energy": 151.7, "aegis_median_energy": 82.77, "mean_delta_energy": -37.83, "bootstrap_ci95_energy": [-61.78, -16.66], "ca_median_shortfall": 729.0, "aegis_median_shortfall": 162.0, "mean_delta_shortfall": -495.29, "bootstrap_ci95_shortfall": [-894.71, -132.14], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 222.2, "aegis_median_energy": 199.43, "mean_delta_energy": -8.01, "bootstrap_ci95_energy": [-41.5, 33.04], "ca_median_shortfall": 870.0, "aegis_median_shortfall": 80.5, "mean_delta_shortfall": -1285.17, "bootstrap_ci95_shortfall": [-2571.17, -109.17], "cheaper_fraction_pct": 83.33}}
+
+  [ARM: scale_aware]
+    Setting: ca_u_50
+      aegis_tau: 0.9
+      ca_target_utilization: 0.5
+      ca_median_energy: 127.35
+      aegis_median_energy: 101.17
+      median_diff_energy: -26.19
+      mean_delta_energy: -19.424
+      bootstrap_ci95_energy: [-40.996, -4.292]
+      ca_median_shortfall: 74.0
+      aegis_median_shortfall: 20.0
+      median_diff_shortfall: -54.0
+      mean_delta_shortfall: -442.85
+      bootstrap_ci95_shortfall: [-860.419, -95.048]
+      cheaper_fraction_pct: 65.0
+      lower_shortfall_fraction_pct: 80.0
+      dominance_counts: {'dominant': 11, 'dominated': 2, 'tradeoff': 7, 'identical': 0}
+      wilcoxon_two_sided_p: 0.044054
+      wilcoxon_one_sided_p_less: 0.022027
+      rank_biserial_effect_size: -0.5143
+      wilcoxon_holm_bonferroni_p: 0.088108
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 58.43, "aegis_median_energy": 58.45, "mean_delta_energy": 0.51, "bootstrap_ci95_energy": [-0.5, 1.45], "ca_median_shortfall": 7.0, "aegis_median_shortfall": 2.0, "mean_delta_shortfall": -27.0, "bootstrap_ci95_shortfall": [-64.43, 8.29], "cheaper_fraction_pct": 42.86}, "mid_load": {"n_apps": 7, "ca_median_energy": 164.44, "aegis_median_energy": 122.39, "mean_delta_energy": -23.75, "bootstrap_ci95_energy": [-44.62, -7.48], "ca_median_shortfall": 86.0, "aegis_median_shortfall": 11.0, "mean_delta_shortfall": -381.57, "bootstrap_ci95_shortfall": [-791.29, -68.57], "cheaper_fraction_pct": 85.71}, "high_load": {"n_apps": 6, "ca_median_energy": 255.59, "aegis_median_energy": 243.73, "mean_delta_energy": -37.63, "bootstrap_ci95_energy": [-100.26, 1.08], "ca_median_shortfall": 588.5, "aegis_median_shortfall": 46.0, "mean_delta_shortfall": -999.5, "bootstrap_ci95_shortfall": [-2073.83, 14.67], "cheaper_fraction_pct": 66.67}}
+    Setting: ca_u_60
+      aegis_tau: 0.9
+      ca_target_utilization: 0.6
+      ca_median_energy: 117.06
+      aegis_median_energy: 101.17
+      median_diff_energy: -15.9
+      mean_delta_energy: -5.69
+      bootstrap_ci95_energy: [-30.732, 13.388]
+      ca_median_shortfall: 164.0
+      aegis_median_shortfall: 20.0
+      median_diff_shortfall: -144.0
+      mean_delta_shortfall: -608.25
+      bootstrap_ci95_shortfall: [-1048.665, -239.584]
+      cheaper_fraction_pct: 25.0
+      lower_shortfall_fraction_pct: 85.0
+      dominance_counts: {'dominant': 5, 'dominated': 3, 'tradeoff': 12, 'identical': 0}
+      wilcoxon_two_sided_p: 0.311794
+      wilcoxon_one_sided_p_less: 0.852874
+      rank_biserial_effect_size: 0.2667
+      wilcoxon_holm_bonferroni_p: 0.311794
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 57.8, "aegis_median_energy": 58.45, "mean_delta_energy": 1.41, "bootstrap_ci95_energy": [0.5, 2.72], "ca_median_shortfall": 21.0, "aegis_median_shortfall": 2.0, "mean_delta_shortfall": -65.0, "bootstrap_ci95_shortfall": [-149.43, 0.29], "cheaper_fraction_pct": 0.0}, "mid_load": {"n_apps": 7, "ca_median_energy": 151.7, "aegis_median_energy": 122.39, "mean_delta_energy": -12.79, "bootstrap_ci95_energy": [-28.23, -1.63], "ca_median_shortfall": 729.0, "aegis_median_shortfall": 11.0, "mean_delta_shortfall": -680.86, "bootstrap_ci95_shortfall": [-1151.44, -263.71], "cheaper_fraction_pct": 57.14}, "high_load": {"n_apps": 6, "ca_median_energy": 222.2, "aegis_median_energy": 243.73, "mean_delta_energy": -5.69, "bootstrap_ci95_energy": [-88.94, 48.54], "ca_median_shortfall": 870.0, "aegis_median_shortfall": 46.0, "mean_delta_shortfall": -1157.33, "bootstrap_ci95_shortfall": [-2198.5, -119.33], "cheaper_fraction_pct": 16.67}}
+
+  [ARM: aci_005]
+    Setting: ca_u_50
+      aegis_tau: 0.9
+      ca_target_utilization: 0.5
+      ca_median_energy: 127.35
+      aegis_median_energy: 77.03
+      median_diff_energy: -50.33
+      mean_delta_energy: -33.689
+      bootstrap_ci95_energy: [-51.298, -17.459]
+      ca_median_shortfall: 74.0
+      aegis_median_shortfall: 93.0
+      median_diff_shortfall: 19.0
+      mean_delta_shortfall: -385.5
+      bootstrap_ci95_shortfall: [-832.504, -29.993]
+      cheaper_fraction_pct: 85.0
+      lower_shortfall_fraction_pct: 45.0
+      dominance_counts: {'dominant': 8, 'dominated': 1, 'tradeoff': 11, 'identical': 0}
+      wilcoxon_two_sided_p: 0.000322
+      wilcoxon_one_sided_p_less: 0.000161
+      rank_biserial_effect_size: -0.8476
+      wilcoxon_holm_bonferroni_p: 0.003223
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 58.43, "aegis_median_energy": 58.42, "mean_delta_energy": -1.27, "bootstrap_ci95_energy": [-2.75, 0.1], "ca_median_shortfall": 7.0, "aegis_median_shortfall": 23.0, "mean_delta_shortfall": 2.57, "bootstrap_ci95_shortfall": [-32.0, 26.29], "cheaper_fraction_pct": 71.43}, "mid_load": {"n_apps": 7, "ca_median_energy": 164.44, "aegis_median_energy": 84.42, "mean_delta_energy": -49.16, "bootstrap_ci95_energy": [-77.94, -23.86], "ca_median_shortfall": 86.0, "aegis_median_shortfall": 168.0, "mean_delta_shortfall": -200.86, "bootstrap_ci95_shortfall": [-514.0, 21.14], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 255.59, "aegis_median_energy": 196.18, "mean_delta_energy": -53.46, "bootstrap_ci95_energy": [-86.84, -23.42], "ca_median_shortfall": 588.5, "aegis_median_shortfall": 207.5, "mean_delta_shortfall": -1053.67, "bootstrap_ci95_shortfall": [-2156.33, 41.83], "cheaper_fraction_pct": 83.33}}
+    Setting: ca_u_60
+      aegis_tau: 0.9
+      ca_target_utilization: 0.6
+      ca_median_energy: 117.06
+      aegis_median_energy: 77.03
+      median_diff_energy: -40.04
+      mean_delta_energy: -19.955
+      bootstrap_ci95_energy: [-39.113, -1.565]
+      ca_median_shortfall: 164.0
+      aegis_median_shortfall: 93.0
+      median_diff_shortfall: -71.0
+      mean_delta_shortfall: -550.9
+      bootstrap_ci95_shortfall: [-1013.861, -171.299]
+      cheaper_fraction_pct: 70.0
+      lower_shortfall_fraction_pct: 65.0
+      dominance_counts: {'dominant': 11, 'dominated': 3, 'tradeoff': 6, 'identical': 0}
+      wilcoxon_two_sided_p: 0.00639
+      wilcoxon_one_sided_p_less: 0.003195
+      rank_biserial_effect_size: -0.6762
+      wilcoxon_holm_bonferroni_p: 0.031948
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 57.8, "aegis_median_energy": 58.42, "mean_delta_energy": -0.37, "bootstrap_ci95_energy": [-1.75, 0.61], "ca_median_shortfall": 21.0, "aegis_median_shortfall": 23.0, "mean_delta_shortfall": -35.43, "bootstrap_ci95_shortfall": [-121.0, 11.71], "cheaper_fraction_pct": 28.57}, "mid_load": {"n_apps": 7, "ca_median_energy": 151.7, "aegis_median_energy": 84.42, "mean_delta_energy": -38.2, "bootstrap_ci95_energy": [-61.74, -17.24], "ca_median_shortfall": 729.0, "aegis_median_shortfall": 168.0, "mean_delta_shortfall": -500.14, "bootstrap_ci95_shortfall": [-895.16, -136.71], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 222.2, "aegis_median_energy": 196.18, "mean_delta_energy": -21.51, "bootstrap_ci95_energy": [-77.22, 30.9], "ca_median_shortfall": 870.0, "aegis_median_shortfall": 207.5, "mean_delta_shortfall": -1211.5, "bootstrap_ci95_shortfall": [-2399.33, -92.5], "cheaper_fraction_pct": 83.33}}
+
+  [ARM: aci_020]
+    Setting: ca_u_50
+      aegis_tau: 0.9
+      ca_target_utilization: 0.5
+      ca_median_energy: 127.35
+      aegis_median_energy: 77.7
+      median_diff_energy: -49.66
+      mean_delta_energy: -29.889
+      bootstrap_ci95_energy: [-45.301, -15.707]
+      ca_median_shortfall: 74.0
+      aegis_median_shortfall: 68.0
+      median_diff_shortfall: -6.0
+      mean_delta_shortfall: -403.2
+      bootstrap_ci95_shortfall: [-870.51, -31.35]
+      cheaper_fraction_pct: 85.0
+      lower_shortfall_fraction_pct: 45.0
+      dominance_counts: {'dominant': 8, 'dominated': 1, 'tradeoff': 11, 'identical': 0}
+      wilcoxon_two_sided_p: 0.000395
+      wilcoxon_one_sided_p_less: 0.000197
+      rank_biserial_effect_size: -0.8381
+      wilcoxon_holm_bonferroni_p: 0.003553
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 58.43, "aegis_median_energy": 58.42, "mean_delta_energy": -1.27, "bootstrap_ci95_energy": [-2.74, 0.1], "ca_median_shortfall": 7.0, "aegis_median_shortfall": 24.0, "mean_delta_shortfall": 8.14, "bootstrap_ci95_shortfall": [-29.71, 36.86], "cheaper_fraction_pct": 71.43}, "mid_load": {"n_apps": 7, "ca_median_energy": 164.44, "aegis_median_energy": 85.79, "mean_delta_energy": -48.43, "bootstrap_ci95_energy": [-77.08, -23.35], "ca_median_shortfall": 86.0, "aegis_median_shortfall": 164.0, "mean_delta_shortfall": -208.0, "bootstrap_ci95_shortfall": [-519.86, 16.71], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 255.59, "aegis_median_energy": 201.37, "mean_delta_energy": -41.65, "bootstrap_ci95_energy": [-62.66, -17.71], "ca_median_shortfall": 588.5, "aegis_median_shortfall": 112.5, "mean_delta_shortfall": -1110.83, "bootstrap_ci95_shortfall": [-2302.5, 27.67], "cheaper_fraction_pct": 83.33}}
+    Setting: ca_u_60
+      aegis_tau: 0.9
+      ca_target_utilization: 0.6
+      ca_median_energy: 117.06
+      aegis_median_energy: 77.7
+      median_diff_energy: -39.37
+      mean_delta_energy: -16.156
+      bootstrap_ci95_energy: [-31.849, 0.419]
+      ca_median_shortfall: 164.0
+      aegis_median_shortfall: 68.0
+      median_diff_shortfall: -96.0
+      mean_delta_shortfall: -568.6
+      bootstrap_ci95_shortfall: [-1053.102, -173.146]
+      cheaper_fraction_pct: 70.0
+      lower_shortfall_fraction_pct: 60.0
+      dominance_counts: {'dominant': 10, 'dominated': 3, 'tradeoff': 7, 'identical': 0}
+      wilcoxon_two_sided_p: 0.007296
+      wilcoxon_one_sided_p_less: 0.003648
+      rank_biserial_effect_size: -0.6667
+      wilcoxon_holm_bonferroni_p: 0.031948
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 57.8, "aegis_median_energy": 58.42, "mean_delta_energy": -0.37, "bootstrap_ci95_energy": [-1.74, 0.61], "ca_median_shortfall": 21.0, "aegis_median_shortfall": 24.0, "mean_delta_shortfall": -29.86, "bootstrap_ci95_shortfall": [-117.71, 19.29], "cheaper_fraction_pct": 28.57}, "mid_load": {"n_apps": 7, "ca_median_energy": 151.7, "aegis_median_energy": 85.79, "mean_delta_energy": -37.47, "bootstrap_ci95_energy": [-60.63, -16.63], "ca_median_shortfall": 729.0, "aegis_median_shortfall": 164.0, "mean_delta_shortfall": -507.29, "bootstrap_ci95_shortfall": [-901.43, -144.71], "cheaper_fraction_pct": 100.0}, "high_load": {"n_apps": 6, "ca_median_energy": 222.2, "aegis_median_energy": 201.37, "mean_delta_energy": -9.71, "bootstrap_ci95_energy": [-47.39, 33.74], "ca_median_shortfall": 870.0, "aegis_median_shortfall": 112.5, "mean_delta_shortfall": -1268.67, "bootstrap_ci95_shortfall": [-2527.17, -111.5], "cheaper_fraction_pct": 83.33}}
+
+  [ARM: static]
+    Setting: ca_u_50
+      aegis_tau: 0.9
+      ca_target_utilization: 0.5
+      ca_median_energy: 127.35
+      aegis_median_energy: 203.57
+      median_diff_energy: 76.21
+      mean_delta_energy: 64.611
+      bootstrap_ci95_energy: [30.681, 90.156]
+      ca_median_shortfall: 74.0
+      aegis_median_shortfall: 0.0
+      median_diff_shortfall: -74.0
+      mean_delta_shortfall: -516.2
+      bootstrap_ci95_shortfall: [-929.504, -176.694]
+      cheaper_fraction_pct: 10.0
+      lower_shortfall_fraction_pct: 95.0
+      dominance_counts: {'dominant': 2, 'dominated': 1, 'tradeoff': 17, 'identical': 0}
+      wilcoxon_two_sided_p: 0.000851
+      wilcoxon_one_sided_p_less: 0.999646
+      rank_biserial_effect_size: 0.8
+      wilcoxon_holm_bonferroni_p: 0.005104
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 58.43, "aegis_median_energy": 169.63, "mean_delta_energy": 107.0, "bootstrap_ci95_energy": [100.32, 113.96], "ca_median_shortfall": 7.0, "aegis_median_shortfall": 0.0, "mean_delta_shortfall": -39.43, "bootstrap_ci95_shortfall": [-81.72, -4.57], "cheaper_fraction_pct": 0.0}, "mid_load": {"n_apps": 7, "ca_median_energy": 164.44, "aegis_median_energy": 216.87, "mean_delta_energy": 73.41, "bootstrap_ci95_energy": [48.87, 96.18], "ca_median_shortfall": 86.0, "aegis_median_shortfall": 0.0, "mean_delta_shortfall": -450.43, "bootstrap_ci95_shortfall": [-891.74, -89.71], "cheaper_fraction_pct": 0.0}, "high_load": {"n_apps": 6, "ca_median_energy": 255.59, "aegis_median_energy": 307.62, "mean_delta_energy": 4.89, "bootstrap_ci95_energy": [-78.89, 62.16], "ca_median_shortfall": 588.5, "aegis_median_shortfall": 10.0, "mean_delta_shortfall": -1149.17, "bootstrap_ci95_shortfall": [-2164.83, -199.67], "cheaper_fraction_pct": 33.33}}
+    Setting: ca_u_60
+      aegis_tau: 0.9
+      ca_target_utilization: 0.6
+      ca_median_energy: 117.06
+      aegis_median_energy: 203.57
+      median_diff_energy: 86.5
+      mean_delta_energy: 78.345
+      bootstrap_ci95_energy: [43.895, 100.559]
+      ca_median_shortfall: 164.0
+      aegis_median_shortfall: 0.0
+      median_diff_shortfall: -164.0
+      mean_delta_shortfall: -681.6
+      bootstrap_ci95_shortfall: [-1112.901, -310.748]
+      cheaper_fraction_pct: 5.0
+      lower_shortfall_fraction_pct: 100.0
+      dominance_counts: {'dominant': 1, 'dominated': 0, 'tradeoff': 19, 'identical': 0}
+      wilcoxon_two_sided_p: 0.000708
+      wilcoxon_one_sided_p_less: 0.999707
+      rank_biserial_effect_size: 0.8095
+      wilcoxon_holm_bonferroni_p: 0.004953
+      tertiles: {"low_load": {"n_apps": 7, "ca_median_energy": 57.8, "aegis_median_energy": 169.63, "mean_delta_energy": 107.9, "bootstrap_ci95_energy": [101.2, 114.92], "ca_median_shortfall": 21.0, "aegis_median_shortfall": 0.0, "mean_delta_shortfall": -77.43, "bootstrap_ci95_shortfall": [-161.57, -11.57], "cheaper_fraction_pct": 0.0}, "mid_load": {"n_apps": 7, "ca_median_energy": 151.7, "aegis_median_energy": 216.87, "mean_delta_energy": 84.37, "bootstrap_ci95_energy": [64.87, 102.66], "ca_median_shortfall": 729.0, "aegis_median_shortfall": 0.0, "mean_delta_shortfall": -749.71, "bootstrap_ci95_shortfall": [-1232.0, -287.86], "cheaper_fraction_pct": 0.0}, "high_load": {"n_apps": 6, "ca_median_energy": 222.2, "aegis_median_energy": 307.62, "mean_delta_energy": 36.84, "bootstrap_ci95_energy": [-65.03, 95.06], "ca_median_shortfall": 870.0, "aegis_median_shortfall": 10.0, "mean_delta_shortfall": -1307.0, "bootstrap_ci95_shortfall": [-2324.17, -324.17], "cheaper_fraction_pct": 16.67}}

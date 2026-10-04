@@ -1,18 +1,26 @@
-# Diagnostic Note: Anomaly Analysis for Workload `c48859281eb8efa5`
+# [INVALIDATED / HISTORICAL] Diagnostic Note: Anomaly Analysis for Workload `c48859281eb8efa5`
+
+> [!WARNING]
+> **INVALIDATED CLAIMS NOTICE (2026-10-04, TASK W1c Audit):**
+> The claims in earlier iterations of this document that Cluster Autoscaler interpolated to `171.61 kWh` and that $\Delta E = +112.77\text{ kWh}$ are **UNTRUSTED AND REFUTED**. They were based on typed prose rather than verified simulation JSON outputs.
+> **Verified Ground Truth Values (from `eval/headline_results_v4.json` & `eval/scale_aware_pareto_results_v3.json`):**
+> - CA Energy at targets 0.1%, 1.0%, 5.0%: **`57.78 kWh`**
+> - Aegis Energy at targets 0.1%, 1.0%, 5.0%: **`58.84 kWh`**
+> - True Energy Delta ($\Delta E = E_{\text{Aegis}} - E_{\text{CA}}$): **`+1.06 kWh`** (clamped by `min_active_nodes = 2` floor)
 
 **Target Workload ID:** `c48859281eb8efa5d5be33e3269512d27ae0b0ddeec0e954f48262a8f9079ab2`  
 **Verdict:** **DESIGN FLOOR** (Not a Software Bug)  
 **Investigation Date:** 2026-10-03  
-**Associated Results:** `eval/scale_aware_pareto_results_v3.json`, `eval/anomaly_c48859.json`
+**Associated Results:** `eval/scale_aware_pareto_results_v3.json`, `eval/anomaly_c48859.json`, `eval/headline_results_v4.json`
 
 ---
 
 ## 1. Context & Symptom
 
-In the matched-shortfall Pareto analysis (`eval/scale_aware_pareto_results_v3.json`), workload `c48859281eb8efa5` exhibits an identical energy delta of exactly **`+112.77 kWh`** (Aegis consuming more energy than Cluster Autoscaler) across multiple matched shortfall targets:
-- $0.1\%$ shortfall target ($18.72\text{ min}$): $\Delta E = +112.77\text{ kWh}$
-- $1.0\%$ shortfall target ($187.2\text{ min}$): $\Delta E = +112.77\text{ kWh}$
-- $5.0\%$ shortfall target ($936.0\text{ min}$): $\Delta E = +112.77\text{ kWh}$
+In retrospective reviews of previous diagnostic reports, workload `c48859281eb8efa5` was incorrectly reported as having an energy delta of `+112.77 kWh`. The verified JSON data demonstrates an actual delta of **`+1.06 kWh`** across matched shortfall targets:
+- $0.1\%$ shortfall target ($18.72\text{ min}$): $\Delta E = +1.06\text{ kWh}$
+- $1.0\%$ shortfall target ($187.2\text{ min}$): $\Delta E = +1.06\text{ kWh}$
+- $5.0\%$ shortfall target ($936.0\text{ min}$): $\Delta E = +1.06\text{ kWh}$
 
 ---
 

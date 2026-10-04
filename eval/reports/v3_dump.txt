@@ -1,0 +1,225 @@
+================================================================================
+FILE: eval\scale_aware_pareto_results_v3.json
+================================================================================
+TOP-LEVEL KEYS: ['git_commit', 'dirty_flag', 'config_hash', 'timestamp_utc', 'seeds', 'configuration', 'coverage_summary', 'matched_shortfall_pareto']
+git_commit:    3176fbf5ca747b82c760456ee471aaa4a6876292
+dirty_flag:    True
+config_hash:   0b368f01d8ef5e387f7236e5bd8e74369e315c5cac1ff6bcfe6da4a2dfac461f
+timestamp_utc: 2026-10-03T06:19:16.651200+00:00
+seeds:         [42]
+
+--- COVERAGE SUMMARY ---
+test_apps_count: 20
+  raw         : median=86.77%, IQR=12.23%
+  static      : median=99.99%, IQR=0.33%
+  scale_aware : median=97.60%, IQR=5.08%
+  rolling     : median=90.00%, IQR=0.71%
+  aci_005     : median=89.94%, IQR=0.80%
+  aci_020     : median=89.98%, IQR=0.49%
+
+--- WORST-APP COVERAGE BENCHMARK (0e18802d31bf22ab & fe5c01bb7981a5dc) ---
+  0e18802d31bf22ab: raw=66.8643%, rolling_v3=89.4925%
+  fe5c01bb7981a5dc: raw=82.1688%, rolling_v3=90.0053%
+
+--- CONFIGURATION BLOCK ---
+{
+  "ca_utilizations": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "aegis_taus": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    0.975,
+    0.99,
+    0.995,
+    0.999
+  ],
+  "shortfall_targets_pct": [
+    0.0,
+    0.1,
+    1.0,
+    5.0
+  ],
+  "shortfall_targets_minutes": {
+    "0.0%": 0.0,
+    "0.1%": 18.72,
+    "1.0%": 187.2,
+    "5.0%": 936.0
+  },
+  "aci_gammas": [
+    0.005,
+    0.02
+  ],
+  "horizon_minutes": 10,
+  "rolling_window_steps": 1440,
+  "bootstrap_iterations": 10000
+}
+
+--- MATCHED SHORTFALL PARETO (TARGETS 0.1% and 1.0%) ---
+================== TARGET 0.1% ==================
+  [ARM: static]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 182.74
+    median_diff_energy: 23.03
+    mean_delta_energy: -7.03
+    bootstrap_ci95: [-79.73, 73.01]
+    cheaper_fraction_pct: 60.0
+    ca_extrapolations: 7
+    aegis_extrapolations: 1
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 1, 'none': 19}
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -6.85, 'bootstrap_ci95': [-82.69, 70.92]}
+
+  [ARM: scale_aware]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 139.89
+    median_diff_energy: -19.82
+    mean_delta_energy: -55.95
+    bootstrap_ci95: [-119.53, -3.31]
+    cheaper_fraction_pct: 60.0
+    ca_extrapolations: 7
+    aegis_extrapolations: 3
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 2, 'above_max_shortfall': 1, 'none': 17}
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -71.19, 'bootstrap_ci95': [-162.94, -0.72]}
+
+  [ARM: rolling]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 125.85
+    median_diff_energy: -33.86
+    mean_delta_energy: -72.37
+    bootstrap_ci95: [-136.0, -20.55]
+    cheaper_fraction_pct: 65.0
+    ca_extrapolations: 7
+    aegis_extrapolations: 5
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 2, 'above_max_shortfall': 3, 'none': 15}
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -92.72, 'bootstrap_ci95': [-203.13, -8.78]}
+
+  [ARM: aci_005]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 97.45
+    median_diff_energy: -62.26
+    mean_delta_energy: -96.97
+    bootstrap_ci95: [-158.28, -44.73]
+    cheaper_fraction_pct: 75.0
+    ca_extrapolations: 7
+    aegis_extrapolations: 13
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 10, 'above_max_shortfall': 3, 'none': 7}
+    interpolated_only: {'n_included': 6, 'status': 'underpowered', 'note': 'Fewer than 8 apps remain (6/20) without extrapolation at this target', 'mean_delta_energy': -101.01, 'bootstrap_ci95': None}
+
+  [ARM: aci_020]
+    target_shortfall_minutes: 18.72
+    ca_median_energy: 159.71
+    aegis_median_energy: 102.06
+    median_diff_energy: -57.65
+    mean_delta_energy: -85.18
+    bootstrap_ci95: [-146.66, -33.88]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 7
+    aegis_extrapolations: 8
+    ca_extrapolation_sides: {'below_min_shortfall': 6, 'above_max_shortfall': 1, 'none': 13}
+    aegis_extrapolation_sides: {'below_min_shortfall': 5, 'above_max_shortfall': 3, 'none': 12}
+    interpolated_only: {'n_included': 9, 'status': 'valid', 'mean_delta_energy': -105.02, 'bootstrap_ci95': [-220.95, -13.93]}
+
+================== TARGET 1.0% ==================
+  [ARM: static]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 94.51
+    median_diff_energy: -27.28
+    mean_delta_energy: -54.9
+    bootstrap_ci95: [-129.06, 26.68]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 6
+    aegis_extrapolations: 5
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 5, 'none': 15}
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -70.06, 'bootstrap_ci95': [-159.65, -10.0]}
+
+  [ARM: scale_aware]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 96.23
+    median_diff_energy: -25.55
+    mean_delta_energy: -64.53
+    bootstrap_ci95: [-124.09, -14.69]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 6
+    aegis_extrapolations: 3
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 3, 'none': 17}
+    interpolated_only: {'n_included': 12, 'status': 'valid', 'mean_delta_energy': -57.98, 'bootstrap_ci95': [-133.58, -9.06]}
+
+  [ARM: rolling]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 83.3
+    median_diff_energy: -38.49
+    mean_delta_energy: -75.59
+    bootstrap_ci95: [-132.7, -27.62]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 6
+    aegis_extrapolations: 6
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 6, 'none': 14}
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.06, 'bootstrap_ci95': [-156.73, -7.65]}
+
+  [ARM: aci_005]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 81.38
+    median_diff_energy: -40.4
+    mean_delta_energy: -79.1
+    bootstrap_ci95: [-137.39, -29.48]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 6
+    aegis_extrapolations: 7
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 1, 'above_max_shortfall': 6, 'none': 13}
+    interpolated_only: {'n_included': 10, 'status': 'valid', 'mean_delta_energy': -67.35, 'bootstrap_ci95': [-156.97, -7.86]}
+
+  [ARM: aci_020]
+    target_shortfall_minutes: 187.2
+    ca_median_energy: 121.79
+    aegis_median_energy: 81.97
+    median_diff_energy: -39.81
+    mean_delta_energy: -77.74
+    bootstrap_ci95: [-134.96, -29.43]
+    cheaper_fraction_pct: 70.0
+    ca_extrapolations: 6
+    aegis_extrapolations: 5
+    ca_extrapolation_sides: {'below_min_shortfall': 4, 'above_max_shortfall': 2, 'none': 14}
+    aegis_extrapolation_sides: {'below_min_shortfall': 0, 'above_max_shortfall': 5, 'none': 15}
+    interpolated_only: {'n_included': 11, 'status': 'valid', 'mean_delta_energy': -61.96, 'bootstrap_ci95': [-143.94, -7.75]}
+
+--- ROLLING ARM TERTILES BLOCK ---

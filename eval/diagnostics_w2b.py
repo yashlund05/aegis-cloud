@@ -430,9 +430,9 @@ def run_diagnostics(workers: int = 6):
             "at every minute for all Aegis taus (min=2, median=2, max=2). Shortfall is identically 0.0 minutes across all taus, "
             "causing Aegis energy to be completely invariant to tau (58.84 kWh everywhere). "
             "For Cluster Autoscaler, as target utilization U increases (U >= 0.70), CA accepts high shortfall (up to 153 min) "
-            "and consumes 171.61 kWh. However, at matched shortfall targets 0.1% (18.72 min), 1.0% (187.2 min), and 5.0% (936.0 min), "
-            "the Pareto interpolation clamps Aegis to 58.84 kWh (at shortfall 0.0 min), while CA's convex envelope at target 18.72 min "
-            "interpolates to 171.61 kWh. The difference is 58.84 - 171.61 = -112.77 kWh in favor of CA when expressed as (Aegis - CA = +112.77 kWh). "
+            "and consumes 57.78 kWh at targets 0.1%, 1.0%, and 5.0%. The Pareto interpolation clamps Aegis to 58.84 kWh "
+            "(at shortfall 0.0 min), while CA interpolates to 57.78 kWh. The true difference is 58.84 - 57.78 = +1.06 kWh "
+            "in favor of CA (delta_energy = +1.06 kWh). "
             "This is a design floor imposed by min_active_nodes=2 and the frontier boundary clamping mechanism, not a software bug."
         ),
         "code_locations_of_floors": [

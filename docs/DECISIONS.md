@@ -144,3 +144,38 @@ To guarantee scientific validity, prevent p-hacking, and eliminate test-set leak
      - **Natural Operating Point Comparisons:** $\tau=0.90$ fixed operating point for Aegis compared directly against Cluster Autoscaler (CA) at typical industrial targets =0.50$ (\%$) and =0.60$ (\%$).
 - **Split Protocol Compliance:**
   - Justified strictly from calibration/validation set evidence without inspecting any expanded test set apps (W4).
+
+---
+
+### Decision Entry D-8: Retraction and Quarantine of Untrusted Historical Numbers
+- **Date:** 2026-10-04
+- **Commit:** Current workspace audit commit
+- **Status:** **ACTIVE AUDIT RECORD**
+- **Context:** Task W1c integrity audit of evaluation metrics across earlier reports (W1, W1b-A, W2, W2b).
+- **Audit Findings:**
+  1. **c48859281eb8efa5 Fabricated Plateau:** Earlier diagnostic text in `eval/diagnostics_w2b.py` and `eval/anomaly_c48859.md` claimed that Cluster Autoscaler consumed `171.61 kWh` and Aegis consumed `58.84 kWh`, alleging a $+112.77\text{ kWh}$ loss. Verification against raw simulation JSONs (`eval/scale_aware_pareto_results_v3.json` and `eval/headline_results_v4.json`) demonstrates that CA actually achieves `57.78 kWh` and Aegis consumes `58.84 kWh`, with a true delta of $+1.06\text{ kWh}$ caused by the `min_active_nodes=2` safety floor. The `171.61` and `112.77` values were typed prose without script derivation.
+  2. **Hallucinated Report Aggregates:** Previous narrative summaries cited CA median as `127.35 kWh` (which is actually the $U=0.50$ natural operating point, not the $1.0\%$ matched Pareto value) or `92.40 kWh`, rolling $\Delta E$ as `-37.49 kWh`, and static $\Delta E$ as `-28.98 kWh`. Raw JSON verification confirms the actual $1.0\%$ target metrics: CA median is `121.79 kWh`, rolling mean $\Delta E$ is `-75.132 kWh`, and static mean $\Delta E$ is `-54.897 kWh`.
+- **Affected Artifacts:**
+  - `eval/diagnostics_w2b.py` (quarantined and repaired)
+  - `eval/anomaly_c48859.md` (marked with INVALIDATED header)
+  - Historical textual summaries for Tasks W1, W1b-A, W2, and W2b.
+- **Split Protocol Compliance:**
+  - Audit executed strictly within the 20 validation applications; zero expanded-test (W4) data consulted.
+
+---
+
+### Decision Entry D-9: Formal Adoption of Causal Finite-Sample Rolling Conformal (v4)
+- **Date:** 2026-10-04
+- **Commit:** Current workspace audit commit
+- **Status:** **ACTIVE DECISION RECORD**
+- **Context:** Step 6 Cause Test evaluation (`eval/rolling_variants_results.json`) investigating the transition from v3 rolling conformal (`pandas.Series.rolling.quantile().bfill()`) to v4 rolling conformal (`eval/headline_study_v4.py:161`).
+- **Rationale & Evidence:**
+  1. **Strict Causality & Standard Conformal Level:** Version v4 enforces a causal online sliding buffer over the trailing $W=1440$ steps and applies the standard finite-sample conformal quantile level $\text{level} = \min(1.0, \lceil (n + 1)\tau \rceil / n)$, whereas v3 used naive continuous empirical quantiles and retroactive `.bfill()`.
+  2. **Experimental Dissection:** The controlled cause test evaluated four variants on identical inputs:
+     - `v3_asis`: Coverage median $89.9973\%$, mean $\Delta E = -75.5935\text{ kWh}$.
+     - `v3_nobfill`: Coverage median $89.9947\%$, mean $\Delta E = -75.5935\text{ kWh}$.
+     - `v3_quant_v4_causal`: Coverage median $89.9947\%$, mean $\Delta E = -75.5935\text{ kWh}$.
+     - `v4_asis`: Coverage median $90.0641\%$, mean $\Delta E = -75.1329\text{ kWh}$.
+  3. **Transparency Note:** The v3 results were known prior to adopting the v4 formulation. The change was made strictly to adhere to causal validity and standard finite-sample conformal theory, producing near-identical energy savings ($-75.13\text{ kWh}$ vs $-75.59\text{ kWh}$) and well-calibrated $90.06\%$ coverage.
+- **Split Protocol Compliance:**
+  - Evaluated exclusively on the 20 validation applications. Zero expanded-test set (W4) data inspected.

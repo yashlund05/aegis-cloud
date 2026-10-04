@@ -1,0 +1,61 @@
+{
+  "git_commit": "8763f6cc3ec1ebf299f326b7c787794e69359e39",
+  "dirty_flag": true,
+  "config_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "timestamp_utc": "2026-10-04T08:33:12.917252+00:00",
+  "seeds": [
+    42
+  ],
+  "config_hash": "f0704145ffaa0e8d43a1d1185dba6fd24bdd4caf85241c70922e9f7687a865d2",
+  "configuration": {
+    "study": "rolling_variants_cause_test",
+    "variants": [
+      "v3_asis",
+      "v3_nobfill",
+      "v3_quant_v4_causal",
+      "v4_asis"
+    ],
+    "horizon_minutes": 10,
+    "window_steps": 1440,
+    "target_shortfall_minutes": 187.2
+  },
+  "seeding_mechanism": "eval/headline_study_v4.py:468 (eval_mask targets >= 1440 min). Residual buffer starts empty at first scored minute (t=0 of y_test, which corresponds to minute 1440 of full trace). The 1-day warmup does NOT seed the rolling buffer.",
+  "results": {
+    "v3_asis": {
+      "coverage_median": 89.9973,
+      "coverage_iqr": 0.7118,
+      "worst_apps_coverage": {
+        "fe5c01bb7981a5dc": 90.0053,
+        "0e18802d31bf22ab": 89.4925
+      },
+      "mean_delta_energy_1pct": -75.5935
+    },
+    "v3_nobfill": {
+      "coverage_median": 89.9947,
+      "coverage_iqr": 0.7118,
+      "worst_apps_coverage": {
+        "fe5c01bb7981a5dc": 89.9947,
+        "0e18802d31bf22ab": 89.4498
+      },
+      "mean_delta_energy_1pct": -75.5935
+    },
+    "v3_quant_v4_causal": {
+      "coverage_median": 89.9947,
+      "coverage_iqr": 0.7118,
+      "worst_apps_coverage": {
+        "fe5c01bb7981a5dc": 89.9947,
+        "0e18802d31bf22ab": 89.4498
+      },
+      "mean_delta_energy_1pct": -75.5935
+    },
+    "v4_asis": {
+      "coverage_median": 90.0641,
+      "coverage_iqr": 0.7185,
+      "worst_apps_coverage": {
+        "fe5c01bb7981a5dc": 90.0748,
+        "0e18802d31bf22ab": 89.5513
+      },
+      "mean_delta_energy_1pct": -75.1329
+    }
+  }
+}

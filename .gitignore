@@ -40,6 +40,10 @@ Thumbs.db
 *.joblib
 *.onnx
 models/*.bin
+# W3 baselines study reads these two quantile-linear artifacts; they are tiny (841 B),
+# deterministic frozen sklearn models, and must be reproducible from a clean checkout
+# (Task W3b, Decision D-12). No regeneration script exists.
+!ml/models/artifacts_linear/*.joblib
 
 # Datasets
 datasets/raw/

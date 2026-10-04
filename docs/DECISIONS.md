@@ -179,3 +179,46 @@ To guarantee scientific validity, prevent p-hacking, and eliminate test-set leak
   3. **Transparency Note:** The v3 results were known prior to adopting the v4 formulation. The change was made strictly to adhere to causal validity and standard finite-sample conformal theory, producing near-identical energy savings ($-75.13\text{ kWh}$ vs $-75.59\text{ kWh}$) and well-calibrated $90.06\%$ coverage.
 - **Split Protocol Compliance:**
   - Evaluated exclusively on the 20 validation applications. Zero expanded-test set (W4) data inspected.
+
+---
+
+### Decision Entry D-10: Adoption of v5 as Final Headline Benchmark File
+- **Date:** 2026-10-04
+- **Commit:** `c5f99c22a22d925fff49e0444a1a7e351b701223` (tag: `w1-final`)
+- **Status:** **FINAL RECORD (W1 CLOSED)**
+- **Context:** Task W1-FINAL clean benchmark execution producing `eval/headline_results_v5.json`.
+- **Rationale & Verification:**
+  1. **Supersession of Earlier Files:** `eval/headline_results_v5.json` supersedes `eval/scale_aware_pareto_results.json` (v1), `eval/scale_aware_pareto_results_v3.json` (v3), and `eval/headline_results_v4.json` (v4).
+  2. **Matched Tertile Fix & Invariance Unit Test:** Confirmed that tertile statistics at all shortfall targets evaluate matched Pareto-interpolated CA and Aegis energies rather than natural operating points. Added unit test `tests/unit/test_tertile_monotonicity.py` verifying CA median energy is non-increasing as target shortfall widens from $0.1\%$ to $1.0\%$.
+  3. **Clean Tree Execution:** Executed on clean tag `w1-final` with verified `"dirty_flag": false`.
+  4. **Automated Verification:** Verified via `eval/check_report_numbers.py` ensuring exact agreement between rendered report `eval/reports/headline_v5_report.md` and `eval/headline_results_v5.json`.
+- **Split Protocol Compliance:**
+  - Evaluated exclusively on the 20 validation applications. No expanded-test set (W4) data consulted.
+
+---
+
+### Decision Entry D-11: Baselines and Ablations Experimental Protocol (Task W3)
+- **Date:** 2026-10-04
+- **Commit:** To be committed prior to running baselines study (`eval/baselines_results_v1.json`)
+- **Status:** **ACTIVE PROTOCOL SPECIFICATION**
+- **Context:** Task W3 evaluation of alternative forecasters and system component ablations through the frozen v5 simulation pipeline.
+- **Experimental Design & Arms:**
+  1. **Uniform Conformal Wrapping:**
+     - To isolate pure forecaster quality from downstream calibration mechanics, every baseline forecaster outputs a causal point forecast $\hat{y}(t)$ and is wrapped with the EXACT SAME causal finite-sample rolling conformal wrapper ($W=1440$, $H=10$, level $=\min(1.0, \lceil (n+1)\tau \rceil / n)$) over the identical $\tau$ grid ($\tau \in \{0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.85, 0.90, 0.95, 0.975, 0.99, 0.995, 0.999\}$).
+     - The upper bound stream is $p_{90}^{\text{conf}}(t) = \hat{y}(t) + q_{\tau}(t)$, exactly mirroring the primary Aegis arm.
+  2. **Baseline Forecasters:**
+     - `seasonal_naive`: Lagged actual demand at $t - 1440$ (24 hours prior) ported from `eval/run_real_pareto.py`.
+     - `holt_winters`: `statsmodels.tsa.holtwinters.ExponentialSmoothing` with additive trend and additive daily seasonality (144 10-minute periods), fit strictly on data preceding the scored test day, refit at most once per 24 hours on 10-minute downsampled averages, and upsampled to 1-minute steps. Runtime estimated at $\sim 1.8\text{ s}$ per app ($\sim 36\text{ s}$ total across 20 validation apps).
+     - `quantile_linear`: Standard linear quantile regression model (`sklearn.linear_model.QuantileRegressor`) trained on the identical 45 features extracted from the 30 TRAIN apps exclusively (zero validation or test app leakage).
+     - `lightgbm_point_rolling`: Control arm passing the raw LightGBM point forecast (p50) through the same point+rolling wrapper to prove the wrapper is not the cause of any observed difference.
+  3. **Component Ablations:**
+     - `fixed_margin`: Raw LightGBM p90 forecast plus a constant additive headroom margin swept over grid $[0, 0.5, 1.0, 2.0, 4.0, 8.6468]$ cores (forming a matched frontier across margin values).
+     - `no_cpsat_ffd`: The rolling-conformal Aegis arm where the joint optimization placement is bypassed and replaced with the First-Fit-Decreasing (FFD) consolidation fallback (`has_placement_opt=False`, uniform/unoptimized spreading across active nodes).
+  4. **Simulation & Metrics Invariants:**
+     - All arms are evaluated through the exact same frozen simulation logic (`AblationStudy._simulate_configuration`), cluster topology (20 large nodes, 68 allocatable cores), safety guards ($10\%$ dead zone, 300s cooldown, 3-minute node boot latency, HPA scale step bounds), and energy accounting ($P_{\text{idle}}=100\text{ W}$, $P_{\text{max}}=300\text{ W}$, $\alpha=1.5$).
+     - Statistical comparisons include matched shortfall targets ($0.1\%$, $1.0\%$ primary; $0.0\%$, $5.0\%$ supplementary), natural operating points ($\tau=0.90$ vs CA $U=0.50, 0.60$), paired bootstrap 95% CIs ($B=10,000$, seed 42), and Holm-Bonferroni correction within each comparison family.
+     - Direct paired delta vs primary Aegis rolling arm is computed with convention $\Delta E = E_{\text{Aegis}} - E_{\text{baseline}}$ (negative indicates Aegis is cheaper).
+- **Split Protocol Compliance:**
+  - Evaluated strictly on the 20 validation applications. No future expanded-test (W4) data accessed.
+
+

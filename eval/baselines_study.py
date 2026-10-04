@@ -557,7 +557,7 @@ def run_baselines_study(
         "study_name": "Task W3: Baselines and Ablations Study",
         "git_commit": prov["git_commit"],
         "dirty_flag": prov["dirty_flag"],
-        "config_hash": prov["config_hash"],
+        "config_hash": prov["config_sha256"],
         "timestamp_utc": prov["timestamp_utc"],
         "python_version": sys.version,
         "seeds": [42],

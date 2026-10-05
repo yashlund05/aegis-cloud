@@ -5,20 +5,20 @@
   "total_cluster_cpu_capacity": 80.0,
   "forecast_horizon_minutes": 10,
   "forecaster_metrics": {
-    "wmape_p50": 6.88,
-    "pinball_loss_p10": 0.2026,
-    "pinball_loss_p50": 0.4754,
-    "pinball_loss_p90": 0.3352,
-    "interval_coverage_uncalibrated_pct": 65.0,
-    "interval_coverage_conformal_pct": 85.51,
-    "interval_coverage_p10_p90_pct": 65.0,
-    "calibration_fraction_below_p10_uncalibrated": 0.1361,
-    "calibration_fraction_below_p10_conformal": 0.1098,
-    "calibration_fraction_below_p50": 0.4646,
-    "calibration_fraction_below_p90_uncalibrated": 0.7861,
-    "calibration_fraction_below_p90_conformal": 0.9648,
-    "conformal_adjustment_q_hat_p90": 1.9782,
-    "conformal_adjustment_q_hat_p10": 0.1281
+    "wmape_p50": 5.91,
+    "pinball_loss_p10": 0.1611,
+    "pinball_loss_p50": 0.3968,
+    "pinball_loss_p90": 0.2984,
+    "interval_coverage_uncalibrated_pct": 77.65,
+    "interval_coverage_conformal_pct": 77.74,
+    "interval_coverage_p10_p90_pct": 77.65,
+    "calibration_fraction_below_p10_uncalibrated": 0.1176,
+    "calibration_fraction_below_p10_conformal": 0.101,
+    "calibration_fraction_below_p50": 0.4916,
+    "calibration_fraction_below_p90_uncalibrated": 0.8941,
+    "calibration_fraction_below_p90_conformal": 0.8784,
+    "conformal_adjustment_q_hat_p90": -0.0665,
+    "conformal_adjustment_q_hat_p10": 0.0672
   },
   "simulator_config": {
     "per_replica_cpu": 0.5,
@@ -43,6471 +43,733 @@
   },
   "simulator_config_hash": "1276bbfbe617a5a5655b736a80ac2ed83f0f1e5d5ca4b1b47e29d2571102d622",
   "git_state": {
-    "git_commit": "2c811c03c627eb2d0a20e42b7545aedb6f7de2b2",
+    "git_commit": "7cdac4e812f30e91cd5179b1e3ade3ba38c3f6fe",
     "git_dirty_files": [
+      "dashboard/web/v2/index.html",
       "eval/ablation_results.json",
-      "eval/item2_timeseries.json",
-      "eval/item3_kmin_sweep.json",
-      "eval/multi_pattern_ablation_results.json",
-      "eval/pareto_frontier_results.json",
-      "eval/item5_wake_sweep.json",
-      "eval/item6_placement.json",
-      "eval/item7_calibration.json",
-      "eval/item8_flash_crowd.json"
+      "ml/models/registry.json",
+      "scripts/demo.ps1",
+      "docs/README.template.md",
+      "eval/generate_readme.py",
+      "eval/reports/readme_test_counts.json"
     ]
   },
   "configurations": {
-    "stock_hpa": {
-      "energy_kwh": 203.9236,
-      "energy_idle_kwh": 179.8667,
-      "energy_dynamic_kwh": 24.057,
-      "energy_boot_kwh": 0.0,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 254,
-      "scaling_churn": 1068,
-      "mean_allocated_replicas": 41.61,
-      "mean_active_nodes": 20.0,
-      "mean_nodes_needed": 20.0,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 19,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 17,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 17,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 29,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 27,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 60,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 60,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 60,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 76,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 68,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 61,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 61,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 61,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 48,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 43,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 38,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 38,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 37,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 17,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 18,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 18,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 26,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 31,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 31,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 47,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 48,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 48,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 61,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 55,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 44,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 44,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 38,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 34,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 30,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 18,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 16,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 18,
-          "active_nodes": 20,
-          "shortfall": 0
-        }
-      ]
-    },
-    "cluster_autoscaler": {
-      "energy_kwh": 117.051,
-      "energy_idle_kwh": 83.0447,
-      "energy_dynamic_kwh": 33.0898,
-      "energy_boot_kwh": 0.9165,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 254,
-      "scaling_churn": 1068,
-      "mean_allocated_replicas": 41.61,
-      "mean_active_nodes": 9.32,
-      "mean_nodes_needed": 9.22,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 19,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 29,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 27,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 60,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 60,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 60,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 76,
-          "active_nodes": 17,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 43,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 38,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 38,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 37,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 23,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 24,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 26,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 31,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 31,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 47,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 55,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 44,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 44,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 38,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 34,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 30,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 16,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        }
-      ]
-    },
-    "reactive_hpa_plus_consolidation": {
-      "energy_kwh": 116.6694,
-      "energy_idle_kwh": 82.3438,
-      "energy_dynamic_kwh": 33.2231,
-      "energy_boot_kwh": 1.1025,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 254,
-      "scaling_churn": 1068,
-      "mean_allocated_replicas": 41.61,
-      "mean_active_nodes": 9.24,
-      "mean_nodes_needed": 9.22,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 19,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 29,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 27,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 60,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 60,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 60,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 76,
-          "active_nodes": 17,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 68,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 43,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 38,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 38,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 37,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 23,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 17,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 26,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 31,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 31,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 47,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 61,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 55,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 44,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 44,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 38,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 34,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 30,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 16,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 18,
-          "active_nodes": 5,
-          "shortfall": 0
-        }
-      ]
-    },
-    "forecast_only": {
-      "energy_kwh": 203.9236,
-      "energy_idle_kwh": 179.8667,
-      "energy_dynamic_kwh": 24.057,
-      "energy_boot_kwh": 0.0,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 130,
-      "scaling_churn": 654,
-      "mean_allocated_replicas": 43.99,
-      "mean_active_nodes": 20.0,
-      "mean_nodes_needed": 20.0,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 27,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 31,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 35,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 35,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 43,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 43,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 48,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 52,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 33,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 33,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 37,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 37,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 55,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 45,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 45,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 40,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 40,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 29,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 26,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 26,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        }
-      ]
-    },
-    "forecast_placement": {
-      "energy_kwh": 227.892,
-      "energy_idle_kwh": 179.8667,
-      "energy_dynamic_kwh": 48.0254,
-      "energy_boot_kwh": 0.0,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 130,
-      "scaling_churn": 654,
-      "mean_allocated_replicas": 43.99,
-      "mean_active_nodes": 20.0,
-      "mean_nodes_needed": 20.0,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 27,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 23,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 31,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 35,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 35,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 43,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 43,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 48,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 52,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 39,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 28,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 33,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 33,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 37,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 37,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 46,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 51,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 57,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 63,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 56,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 50,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 55,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 45,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 45,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 40,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 36,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 40,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 29,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 26,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 26,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 25,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 22,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 20,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 24,
-          "active_nodes": 20,
-          "shortfall": 0
-        }
-      ]
-    },
-    "forecast_plus_power_no_placement": {
-      "energy_kwh": 120.3889,
-      "energy_idle_kwh": 86.2572,
-      "energy_dynamic_kwh": 32.5506,
-      "energy_boot_kwh": 1.581,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 130,
-      "scaling_churn": 654,
-      "mean_allocated_replicas": 43.99,
-      "mean_active_nodes": 9.7,
-      "mean_nodes_needed": 9.66,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 27,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 23,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 25,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 25,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 25,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 31,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 35,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 35,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 43,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 43,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 48,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 54,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 63,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 63,
-          "active_nodes": 15,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 56,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 56,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 50,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 50,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 52,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 46,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 39,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 28,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 25,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 36,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 33,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 33,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 37,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 37,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 46,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 51,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 57,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 57,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 57,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 57,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 57,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 56,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 50,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 50,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 55,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 45,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 45,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 40,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 40,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 29,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 26,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 26,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        }
-      ]
-    },
-    "full_aegis": {
-      "energy_kwh": 124.5163,
-      "energy_idle_kwh": 75.0694,
-      "energy_dynamic_kwh": 48.0254,
-      "energy_boot_kwh": 1.4215,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 130,
-      "scaling_churn": 654,
-      "mean_allocated_replicas": 43.99,
-      "mean_active_nodes": 8.44,
-      "mean_nodes_needed": 8.39,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 28,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 27,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 23,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 20,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 28,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 28,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 31,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 35,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 35,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 39,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 43,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 43,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 48,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 54,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 63,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 50,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 50,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 52,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 46,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 41,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 41,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 39,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 32,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 28,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 21,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 21,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 21,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 20,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 33,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 33,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 37,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 37,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 41,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 46,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 51,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 51,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 51,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 51,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 57,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 57,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 57,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 57,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 57,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 50,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 50,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 55,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 45,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 45,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 40,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 40,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 29,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 26,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 26,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 22,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 22,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        }
-      ]
-    },
     "full_aegis_conformal": {
-      "energy_kwh": 133.4416,
-      "energy_idle_kwh": 83.9673,
-      "energy_dynamic_kwh": 48.0254,
-      "energy_boot_kwh": 1.449,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 105,
-      "scaling_churn": 607,
-      "mean_allocated_replicas": 49.63,
-      "mean_active_nodes": 9.45,
-      "mean_nodes_needed": 9.41,
+      "energy_kwh": 120.2235,
+      "energy_idle_kwh": 72.6188,
+      "energy_dynamic_kwh": 46.5132,
+      "energy_boot_kwh": 1.0915,
+      "capacity_shortfall_minutes": 18,
+      "capacity_shortfall_rate_pct": 0.32,
+      "scaling_actions": 69,
+      "scaling_churn": 538,
+      "mean_allocated_replicas": 42.48,
+      "mean_active_nodes": 8.17,
+      "mean_nodes_needed": 8.13,
       "time_series_sample": [
         {
           "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 34,
-          "active_nodes": 7,
+          "actual_demand": 8.35,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 30,
+          "actual_demand": 9.02,
+          "replicas": 28,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 120,
-          "actual_demand": 5.94,
+          "actual_demand": 9.0,
           "replicas": 28,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 24,
+          "actual_demand": 8.03,
+          "replicas": 28,
           "active_nodes": 5,
           "shortfall": 0
         },
         {
           "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 30,
+          "actual_demand": 8.52,
+          "replicas": 31,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 33,
+          "actual_demand": 8.52,
+          "replicas": 31,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 33,
+          "actual_demand": 9.27,
+          "replicas": 31,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 33,
+          "actual_demand": 9.74,
+          "replicas": 31,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 300,
-          "actual_demand": 9.29,
-          "replicas": 33,
-          "active_nodes": 7,
+          "actual_demand": 10.78,
+          "replicas": 31,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 39,
+          "actual_demand": 10.05,
+          "replicas": 35,
           "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 360,
-          "actual_demand": 9.88,
+          "actual_demand": 11.03,
           "replicas": 39,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 44,
-          "active_nodes": 8,
+          "actual_demand": 11.14,
+          "replicas": 39,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 45,
-          "active_nodes": 9,
+          "actual_demand": 12.03,
+          "replicas": 39,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 51,
-          "active_nodes": 10,
+          "actual_demand": 11.66,
+          "replicas": 39,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 51,
-          "active_nodes": 10,
+          "actual_demand": 14.99,
+          "replicas": 44,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 57,
-          "active_nodes": 11,
+          "actual_demand": 13.64,
+          "replicas": 44,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 57,
-          "active_nodes": 12,
+          "actual_demand": 14.76,
+          "replicas": 44,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 63,
-          "active_nodes": 11,
+          "actual_demand": 15.98,
+          "replicas": 44,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 63,
-          "active_nodes": 12,
+          "actual_demand": 15.83,
+          "replicas": 49,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 63,
-          "active_nodes": 13,
+          "actual_demand": 15.79,
+          "replicas": 49,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 16.61,
+          "replicas": 49,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 71,
-          "active_nodes": 14,
+          "actual_demand": 17.49,
+          "replicas": 49,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 17.7,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 17.32,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 17.26,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 16.75,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 35.66,
+          "replicas": 72,
+          "active_nodes": 14,
           "shortfall": 0
         },
         {
           "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 34.8,
+          "replicas": 80,
+          "active_nodes": 15,
           "shortfall": 0
         },
         {
           "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 71,
-          "active_nodes": 13,
+          "actual_demand": 33.58,
+          "replicas": 80,
+          "active_nodes": 15,
           "shortfall": 0
         },
         {
           "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 71,
-          "active_nodes": 12,
+          "actual_demand": 34.71,
+          "replicas": 80,
+          "active_nodes": 15,
           "shortfall": 0
         },
         {
           "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 71,
+          "actual_demand": 17.27,
+          "replicas": 63,
           "active_nodes": 12,
           "shortfall": 0
         },
         {
           "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 71,
-          "active_nodes": 12,
+          "actual_demand": 16.72,
+          "replicas": 44,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 71,
-          "active_nodes": 12,
+          "actual_demand": 15.67,
+          "replicas": 52,
+          "active_nodes": 11,
           "shortfall": 0
         },
         {
           "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 63,
-          "active_nodes": 12,
+          "actual_demand": 15.07,
+          "replicas": 52,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 63,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 63,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 64,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 49,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 49,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 44,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 44,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 37,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 33,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 42,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 30,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 27,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 27,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 27,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 27,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 30,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 30,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 30,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 33,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 41,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 36,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 42,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 42,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 42,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1920,
-          "actual_demand": 14.53,
-          "replicas": 42,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 48,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 54,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 54,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 61,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2160,
-          "actual_demand": 19.03,
-          "replicas": 61,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2190,
-          "actual_demand": 18.99,
-          "replicas": 61,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 61,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 68,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2280,
-          "actual_demand": 18.56,
-          "replicas": 68,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 2310,
-          "actual_demand": 18.02,
-          "replicas": 68,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2340,
-          "actual_demand": 17.15,
-          "replicas": 61,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 2370,
-          "actual_demand": 18.07,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2400,
-          "actual_demand": 17.52,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2430,
-          "actual_demand": 16.77,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2460,
-          "actual_demand": 16.94,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 53,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 61,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 50,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 50,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 2670,
-          "actual_demand": 12.74,
-          "replicas": 45,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 39,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 39,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2760,
-          "actual_demand": 8.37,
+          "actual_demand": 15.2,
           "replicas": 46,
           "active_nodes": 9,
           "shortfall": 0
         },
         {
-          "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 35,
-          "active_nodes": 6,
+          "step": 1110,
+          "actual_demand": 14.44,
+          "replicas": 46,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
-          "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 35,
-          "active_nodes": 6,
+          "step": 1140,
+          "actual_demand": 13.15,
+          "replicas": 46,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
-          "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 31,
-          "active_nodes": 6,
+          "step": 1170,
+          "actual_demand": 12.64,
+          "replicas": 46,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
-          "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 31,
-          "active_nodes": 6,
+          "step": 1200,
+          "actual_demand": 12.2,
+          "replicas": 41,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
-          "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 31,
-          "active_nodes": 6,
+          "step": 1230,
+          "actual_demand": 12.52,
+          "replicas": 41,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 31,
-          "active_nodes": 6,
+          "step": 1260,
+          "actual_demand": 11.88,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 26,
-          "active_nodes": 5,
+          "step": 1290,
+          "actual_demand": 11.37,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 26,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 29,
-          "active_nodes": 6,
-          "shortfall": 0
-        }
-      ]
-    },
-    "oracle": {
-      "energy_kwh": 121.7913,
-      "energy_idle_kwh": 71.4709,
-      "energy_dynamic_kwh": 48.0254,
-      "energy_boot_kwh": 2.295,
-      "capacity_shortfall_minutes": 0,
-      "capacity_shortfall_rate_pct": 0.0,
-      "scaling_actions": 341,
-      "scaling_churn": 1291,
-      "mean_allocated_replicas": 41.46,
-      "mean_active_nodes": 8.04,
-      "mean_nodes_needed": 7.97,
-      "time_series_sample": [
-        {
-          "step": 60,
-          "actual_demand": 6.39,
-          "replicas": 24,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 90,
-          "actual_demand": 5.53,
-          "replicas": 19,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 120,
-          "actual_demand": 5.94,
-          "replicas": 19,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 150,
-          "actual_demand": 5.9,
-          "replicas": 22,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 180,
-          "actual_demand": 6.55,
-          "replicas": 22,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 210,
-          "actual_demand": 7.09,
-          "replicas": 22,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 240,
-          "actual_demand": 8.57,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 270,
-          "actual_demand": 8.75,
-          "replicas": 25,
-          "active_nodes": 5,
-          "shortfall": 0
-        },
-        {
-          "step": 300,
-          "actual_demand": 9.29,
+          "step": 1320,
+          "actual_demand": 10.95,
           "replicas": 32,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
-          "step": 330,
-          "actual_demand": 9.6,
-          "replicas": 27,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 360,
-          "actual_demand": 9.88,
-          "replicas": 30,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
-          "step": 390,
-          "actual_demand": 12.7,
-          "replicas": 37,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 420,
-          "actual_demand": 12.57,
-          "replicas": 37,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 450,
-          "actual_demand": 14.25,
-          "replicas": 41,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 480,
-          "actual_demand": 15.75,
-          "replicas": 46,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 510,
-          "actual_demand": 16.28,
-          "replicas": 46,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 540,
-          "actual_demand": 15.91,
-          "replicas": 51,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 570,
-          "actual_demand": 19.45,
-          "replicas": 60,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 600,
-          "actual_demand": 19.92,
-          "replicas": 54,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 630,
-          "actual_demand": 20.83,
-          "replicas": 60,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 660,
-          "actual_demand": 21.45,
-          "replicas": 60,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 690,
-          "actual_demand": 21.56,
-          "replicas": 66,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 720,
-          "actual_demand": 22.32,
-          "replicas": 66,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 750,
-          "actual_demand": 23.16,
-          "replicas": 66,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 780,
-          "actual_demand": 24.57,
-          "replicas": 66,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 810,
-          "actual_demand": 22.85,
-          "replicas": 66,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 840,
-          "actual_demand": 24.93,
-          "replicas": 73,
-          "active_nodes": 14,
-          "shortfall": 0
-        },
-        {
-          "step": 870,
-          "actual_demand": 23.77,
-          "replicas": 73,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 900,
-          "actual_demand": 22.36,
-          "replicas": 65,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 930,
-          "actual_demand": 21.62,
-          "replicas": 65,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 960,
-          "actual_demand": 22.22,
-          "replicas": 65,
-          "active_nodes": 13,
-          "shortfall": 0
-        },
-        {
-          "step": 990,
-          "actual_demand": 21.23,
-          "replicas": 65,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 1020,
-          "actual_demand": 21.72,
-          "replicas": 65,
-          "active_nodes": 12,
-          "shortfall": 0
-        },
-        {
-          "step": 1050,
-          "actual_demand": 20.36,
-          "replicas": 65,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1080,
-          "actual_demand": 19.72,
-          "replicas": 56,
-          "active_nodes": 11,
-          "shortfall": 0
-        },
-        {
-          "step": 1110,
-          "actual_demand": 18.89,
-          "replicas": 56,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1140,
-          "actual_demand": 15.65,
-          "replicas": 50,
-          "active_nodes": 9,
-          "shortfall": 0
-        },
-        {
-          "step": 1170,
-          "actual_demand": 17.4,
-          "replicas": 50,
-          "active_nodes": 10,
-          "shortfall": 0
-        },
-        {
-          "step": 1200,
-          "actual_demand": 14.49,
-          "replicas": 45,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1230,
-          "actual_demand": 13.47,
-          "replicas": 40,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1260,
-          "actual_demand": 14.05,
-          "replicas": 39,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 1290,
-          "actual_demand": 11.78,
-          "replicas": 37,
-          "active_nodes": 7,
-          "shortfall": 0
-        },
-        {
-          "step": 1320,
-          "actual_demand": 9.04,
-          "replicas": 27,
-          "active_nodes": 6,
-          "shortfall": 0
-        },
-        {
           "step": 1350,
-          "actual_demand": 10.35,
-          "replicas": 30,
-          "active_nodes": 6,
+          "actual_demand": 9.23,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 1380,
-          "actual_demand": 8.97,
-          "replicas": 26,
+          "actual_demand": 8.56,
+          "replicas": 32,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1410,
-          "actual_demand": 6.87,
-          "replicas": 20,
-          "active_nodes": 5,
+          "actual_demand": 9.91,
+          "replicas": 64,
+          "active_nodes": 12,
           "shortfall": 0
         },
         {
           "step": 1440,
-          "actual_demand": 6.21,
-          "replicas": 20,
-          "active_nodes": 4,
+          "actual_demand": 8.63,
+          "replicas": 32,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1470,
-          "actual_demand": 7.68,
-          "replicas": 23,
-          "active_nodes": 5,
+          "actual_demand": 7.84,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1500,
-          "actual_demand": 6.07,
-          "replicas": 18,
-          "active_nodes": 4,
+          "actual_demand": 8.62,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1530,
-          "actual_demand": 6.28,
-          "replicas": 19,
-          "active_nodes": 4,
+          "actual_demand": 6.73,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1560,
-          "actual_demand": 5.03,
-          "replicas": 18,
-          "active_nodes": 4,
+          "actual_demand": 8.54,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1590,
-          "actual_demand": 6.3,
-          "replicas": 19,
-          "active_nodes": 4,
+          "actual_demand": 7.29,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1620,
-          "actual_demand": 5.81,
-          "replicas": 19,
-          "active_nodes": 5,
+          "actual_demand": 8.66,
+          "replicas": 28,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1650,
-          "actual_demand": 5.69,
-          "replicas": 18,
-          "active_nodes": 4,
+          "actual_demand": 9.12,
+          "replicas": 31,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1680,
-          "actual_demand": 6.6,
-          "replicas": 19,
-          "active_nodes": 4,
+          "actual_demand": 9.23,
+          "replicas": 31,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1710,
-          "actual_demand": 6.4,
-          "replicas": 20,
-          "active_nodes": 4,
+          "actual_demand": 9.64,
+          "replicas": 31,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1740,
-          "actual_demand": 8.18,
-          "replicas": 24,
-          "active_nodes": 5,
+          "actual_demand": 9.19,
+          "replicas": 31,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 1770,
-          "actual_demand": 8.16,
-          "replicas": 26,
-          "active_nodes": 5,
+          "actual_demand": 10.77,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 1800,
-          "actual_demand": 10.45,
-          "replicas": 31,
-          "active_nodes": 6,
+          "actual_demand": 10.3,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 1830,
-          "actual_demand": 9.71,
-          "replicas": 31,
-          "active_nodes": 6,
+          "actual_demand": 11.91,
+          "replicas": 36,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 1860,
-          "actual_demand": 11.7,
-          "replicas": 36,
-          "active_nodes": 7,
+          "actual_demand": 11.47,
+          "replicas": 40,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 1890,
-          "actual_demand": 12.11,
-          "replicas": 36,
-          "active_nodes": 7,
+          "actual_demand": 12.15,
+          "replicas": 40,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 1920,
-          "actual_demand": 14.53,
+          "actual_demand": 13.95,
           "replicas": 40,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 1950,
-          "actual_demand": 13.93,
-          "replicas": 43,
+          "actual_demand": 14.19,
+          "replicas": 44,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 1980,
-          "actual_demand": 15.72,
-          "replicas": 43,
+          "actual_demand": 14.37,
+          "replicas": 44,
           "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 2010,
-          "actual_demand": 14.51,
-          "replicas": 43,
-          "active_nodes": 8,
-          "shortfall": 0
-        },
-        {
-          "step": 2040,
-          "actual_demand": 16.2,
-          "replicas": 48,
+          "actual_demand": 14.64,
+          "replicas": 44,
           "active_nodes": 9,
           "shortfall": 0
         },
         {
+          "step": 2040,
+          "actual_demand": 15.95,
+          "replicas": 49,
+          "active_nodes": 10,
+          "shortfall": 0
+        },
+        {
           "step": 2070,
-          "actual_demand": 17.9,
-          "replicas": 54,
+          "actual_demand": 16.17,
+          "replicas": 49,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2100,
-          "actual_demand": 17.47,
-          "replicas": 54,
+          "actual_demand": 16.9,
+          "replicas": 49,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2130,
-          "actual_demand": 19.29,
-          "replicas": 54,
-          "active_nodes": 11,
+          "actual_demand": 17.18,
+          "replicas": 49,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2160,
-          "actual_demand": 19.03,
+          "actual_demand": 17.4,
           "replicas": 54,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2190,
-          "actual_demand": 18.99,
+          "actual_demand": 19.22,
           "replicas": 54,
-          "active_nodes": 11,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2220,
-          "actual_demand": 20.0,
-          "replicas": 60,
-          "active_nodes": 11,
+          "actual_demand": 17.77,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2250,
-          "actual_demand": 18.64,
-          "replicas": 62,
-          "active_nodes": 11,
+          "actual_demand": 18.7,
+          "replicas": 54,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2280,
-          "actual_demand": 18.56,
+          "actual_demand": 18.88,
           "replicas": 54,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2310,
-          "actual_demand": 18.02,
+          "actual_demand": 17.24,
           "replicas": 54,
-          "active_nodes": 11,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2340,
-          "actual_demand": 17.15,
+          "actual_demand": 16.52,
           "replicas": 54,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2370,
-          "actual_demand": 18.07,
+          "actual_demand": 17.79,
           "replicas": 54,
-          "active_nodes": 11,
+          "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2400,
-          "actual_demand": 17.52,
+          "actual_demand": 17.46,
           "replicas": 54,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2430,
-          "actual_demand": 16.77,
+          "actual_demand": 16.51,
           "replicas": 54,
           "active_nodes": 10,
           "shortfall": 0
         },
         {
           "step": 2460,
-          "actual_demand": 16.94,
+          "actual_demand": 14.76,
           "replicas": 54,
-          "active_nodes": 10,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 2490,
-          "actual_demand": 17.0,
-          "replicas": 54,
-          "active_nodes": 10,
+          "actual_demand": 14.73,
+          "replicas": 48,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 2520,
-          "actual_demand": 17.66,
-          "replicas": 55,
-          "active_nodes": 10,
+          "actual_demand": 15.46,
+          "replicas": 48,
+          "active_nodes": 9,
           "shortfall": 0
         },
         {
           "step": 2550,
-          "actual_demand": 14.04,
-          "replicas": 44,
+          "actual_demand": 14.74,
+          "replicas": 48,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 2580,
-          "actual_demand": 14.3,
-          "replicas": 44,
+          "actual_demand": 14.35,
+          "replicas": 43,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 2610,
-          "actual_demand": 12.54,
-          "replicas": 39,
+          "actual_demand": 13.91,
+          "replicas": 43,
           "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 2640,
-          "actual_demand": 12.83,
-          "replicas": 39,
-          "active_nodes": 7,
+          "actual_demand": 12.26,
+          "replicas": 43,
+          "active_nodes": 8,
           "shortfall": 0
         },
         {
           "step": 2670,
-          "actual_demand": 12.74,
+          "actual_demand": 11.51,
           "replicas": 38,
           "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 2700,
-          "actual_demand": 9.82,
-          "replicas": 30,
-          "active_nodes": 6,
+          "actual_demand": 11.21,
+          "replicas": 38,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 2730,
-          "actual_demand": 8.37,
-          "replicas": 27,
-          "active_nodes": 6,
+          "actual_demand": 10.74,
+          "replicas": 34,
+          "active_nodes": 7,
           "shortfall": 0
         },
         {
           "step": 2760,
-          "actual_demand": 8.37,
-          "replicas": 29,
-          "active_nodes": 5,
+          "actual_demand": 10.99,
+          "replicas": 34,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 2790,
-          "actual_demand": 8.82,
-          "replicas": 26,
+          "actual_demand": 10.04,
+          "replicas": 34,
           "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 2820,
-          "actual_demand": 7.91,
-          "replicas": 24,
-          "active_nodes": 5,
+          "actual_demand": 9.91,
+          "replicas": 30,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 2850,
-          "actual_demand": 6.5,
-          "replicas": 21,
-          "active_nodes": 4,
+          "actual_demand": 8.33,
+          "replicas": 30,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 2880,
-          "actual_demand": 7.46,
-          "replicas": 21,
-          "active_nodes": 5,
+          "actual_demand": 8.01,
+          "replicas": 30,
+          "active_nodes": 6,
           "shortfall": 0
         },
         {
           "step": 2910,
-          "actual_demand": 6.23,
-          "replicas": 19,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 2940,
-          "actual_demand": 6.52,
-          "replicas": 21,
-          "active_nodes": 4,
-          "shortfall": 0
-        },
-        {
-          "step": 2970,
-          "actual_demand": 4.29,
-          "replicas": 17,
-          "active_nodes": 3,
-          "shortfall": 0
-        },
-        {
-          "step": 3000,
-          "actual_demand": 7.12,
-          "replicas": 21,
+          "actual_demand": 8.47,
+          "replicas": 27,
           "active_nodes": 5,
           "shortfall": 0
         },
         {
+          "step": 2940,
+          "actual_demand": 8.03,
+          "replicas": 27,
+          "active_nodes": 5,
+          "shortfall": 0
+        },
+        {
+          "step": 2970,
+          "actual_demand": 7.59,
+          "replicas": 27,
+          "active_nodes": 6,
+          "shortfall": 0
+        },
+        {
+          "step": 3000,
+          "actual_demand": 8.18,
+          "replicas": 27,
+          "active_nodes": 6,
+          "shortfall": 0
+        },
+        {
           "step": 3030,
-          "actual_demand": 5.98,
-          "replicas": 20,
-          "active_nodes": 4,
+          "actual_demand": 8.78,
+          "replicas": 27,
+          "active_nodes": 6,
           "shortfall": 0
         }
       ]
     }
   },
-  "improvements": {
-    "energy_savings_vs_stock_hpa_pct": 34.56,
-    "energy_savings_vs_cluster_autoscaler_pct": -14.0,
-    "capacity_shortfall_reduction_vs_cluster_autoscaler_pct": 100.0
-  },
-  "artifact_provenance": {
-    "suite_command": "python eval/run_experiments.py --seeds 42,101,202,303,404 --output eval",
-    "per_pattern_5_seed_aggregates": "eval/multi_pattern_ablation_results.json",
-    "item2_timeseries": "eval/item2_timeseries.json",
-    "item3_kmin_sweep": "eval/item3_kmin_sweep.json",
-    "item4_pareto": "eval/pareto_frontier_results.json",
-    "item5_wake_sweep": "eval/item5_wake_sweep.json",
-    "item6_placement": "eval/item6_placement.json",
-    "item7_calibration": "eval/item7_calibration.json",
-    "item8_flash_crowd": "eval/item8_flash_crowd.json",
-    "note": "this file is the canonical single-run freeze stamp (diurnal, seed 42, all configs, default settings)"
-  }
+  "improvements": {}
 }

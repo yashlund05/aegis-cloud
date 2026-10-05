@@ -1,0 +1,2907 @@
+[
+ {
+  "name": "kmin_nodes",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|min_active_nodes"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "n_raw_apps",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "raw"
+  },
+  "text": "24,274",
+  "number": 24274.0
+ },
+ {
+  "name": "n_eligible_apps",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f4_pass"
+  },
+  "text": "411",
+  "number": 411.0
+ },
+ {
+  "name": "pct_eligible",
+  "spec": {
+   "op": "pct",
+   "dp": 2,
+   "inputs": [
+    [
+     "app_selection",
+     "cascade:f4_pass"
+    ],
+    [
+     "app_selection",
+     "cascade:raw"
+    ]
+   ]
+  },
+  "text": "1.69",
+  "number": 1.69
+ },
+ {
+  "name": "trace_days",
+  "spec": {
+   "op": "regex_int",
+   "file": "datasets/load_real_trace.py",
+   "pattern": "^N_DAYS\\s*=\\s*(\\d+)"
+  },
+  "text": "14",
+  "number": 14.0
+ },
+ {
+  "name": "wf_raw",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "raw"
+  },
+  "text": "24,274",
+  "number": 24274.0
+ },
+ {
+  "name": "wf1_pass",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f1_pass"
+  },
+  "text": "17,000",
+  "number": 17000.0
+ },
+ {
+  "name": "wf1_drop",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f1_drop"
+  },
+  "text": "7,274",
+  "number": 7274.0
+ },
+ {
+  "name": "wf2_pass",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f2_pass"
+  },
+  "text": "13,057",
+  "number": 13057.0
+ },
+ {
+  "name": "wf2_drop",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f2_drop"
+  },
+  "text": "3,943",
+  "number": 3943.0
+ },
+ {
+  "name": "wf3_pass",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f3_pass"
+  },
+  "text": "12,700",
+  "number": 12700.0
+ },
+ {
+  "name": "wf3_drop",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f3_drop"
+  },
+  "text": "357",
+  "number": 357.0
+ },
+ {
+  "name": "wf4_pass",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f4_pass"
+  },
+  "text": "411",
+  "number": 411.0
+ },
+ {
+  "name": "wf4_drop",
+  "spec": {
+   "op": "cascade",
+   "file": "eval/app_selection.md",
+   "cell": "f4_drop"
+  },
+  "text": "12,289",
+  "number": 12289.0
+ },
+ {
+  "name": "selection_seed",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|selection_seed"
+  },
+  "text": "42",
+  "number": 42.0
+ },
+ {
+  "name": "n_train_apps",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|n_train_apps"
+  },
+  "text": "30",
+  "number": 30.0
+ },
+ {
+  "name": "n_calib_apps",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|n_calib_apps"
+  },
+  "text": "10",
+  "number": 10.0
+ },
+ {
+  "name": "n_validation_apps",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|n_test_apps"
+  },
+  "text": "20",
+  "number": 20.0
+ },
+ {
+  "name": "n_total_apps",
+  "spec": {
+   "op": "sum",
+   "dp": 0,
+   "inputs": [
+    [
+     "sixty",
+     "configuration|n_train_apps"
+    ],
+    [
+     "sixty",
+     "configuration|n_calib_apps"
+    ],
+    [
+     "sixty",
+     "configuration|n_test_apps"
+    ]
+   ]
+  },
+  "text": "60",
+  "number": 60
+ },
+ {
+  "name": "node_count",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|nodes"
+  },
+  "text": "20",
+  "number": 20.0
+ },
+ {
+  "name": "cores_per_node",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "sixty",
+   "path": "configuration|cores_per_node"
+  },
+  "text": "4.0",
+  "number": 4.0
+ },
+ {
+  "name": "alloc_factor",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "sixty",
+   "path": "configuration|allocatable_factor"
+  },
+  "text": "0.85",
+  "number": 0.85
+ },
+ {
+  "name": "allocatable_cores",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "sixty",
+   "path": "configuration|cluster_capacity_cores"
+  },
+  "text": "68.0",
+  "number": 68.0
+ },
+ {
+  "name": "p_idle_min",
+  "spec": {
+   "op": "node_power",
+   "file": "ml/evaluation/ablation.py",
+   "which": "p_idle_min"
+  },
+  "text": "85",
+  "number": 85.0
+ },
+ {
+  "name": "p_idle_max",
+  "spec": {
+   "op": "node_power",
+   "file": "ml/evaluation/ablation.py",
+   "which": "p_idle_max"
+  },
+  "text": "105",
+  "number": 105.0
+ },
+ {
+  "name": "p_max_min",
+  "spec": {
+   "op": "node_power",
+   "file": "ml/evaluation/ablation.py",
+   "which": "p_max_min"
+  },
+  "text": "240",
+  "number": 240.0
+ },
+ {
+  "name": "p_max_max",
+  "spec": {
+   "op": "node_power",
+   "file": "ml/evaluation/ablation.py",
+   "which": "p_max_max"
+  },
+  "text": "280",
+  "number": 280.0
+ },
+ {
+  "name": "alpha",
+  "spec": {
+   "op": "node_power",
+   "file": "ml/evaluation/ablation.py",
+   "which": "alpha"
+  },
+  "text": "1.5",
+  "number": 1.5
+ },
+ {
+  "name": "dead_zone_pct",
+  "spec": {
+   "op": "scale",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|dead_zone_pct",
+   "factor": 100.0
+  },
+  "text": "10",
+  "number": 10.0
+ },
+ {
+  "name": "cooldown_s",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|cooldown_seconds"
+  },
+  "text": "300",
+  "number": 300.0
+ },
+ {
+  "name": "boot_min",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "sixty",
+   "path": "configuration|wake_up_latency_steps"
+  },
+  "text": "3",
+  "number": 3.0
+ },
+ {
+  "name": "energy_floor_kwh",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "configuration|energy_floor_kwh"
+  },
+  "text": "62.40",
+  "number": 62.4
+ },
+ {
+  "name": "eval_window_min",
+  "spec": {
+   "op": "scale",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|target_shortfall_minutes",
+   "factor": 100.0
+  },
+  "text": "18,720",
+  "number": 18720.0
+ },
+ {
+  "name": "t10_minutes",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|target_shortfall_minutes"
+  },
+  "text": "187.2",
+  "number": 187.2
+ },
+ {
+  "name": "eval_window_days",
+  "spec": {
+   "op": "scale",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|target_shortfall_minutes",
+   "factor": 0.06944444444444445
+  },
+  "text": "13.0",
+  "number": 13.0
+ },
+ {
+  "name": "floor_watts",
+  "spec": {
+   "op": "regex_int",
+   "file": "eval/headline_study_v4.py",
+   "pattern": "(\\d+)W\\s*\\*\\s*(\\d+)\\s*hours",
+   "group": 1
+  },
+  "text": "100",
+  "number": 100.0
+ },
+ {
+  "name": "floor_hours",
+  "spec": {
+   "op": "regex_int",
+   "file": "eval/headline_study_v4.py",
+   "pattern": "(\\d+)W\\s*\\*\\s*(\\d+)\\s*hours",
+   "group": 2
+  },
+  "text": "312",
+  "number": 312.0
+ },
+ {
+  "name": "dataset_year",
+  "spec": {
+   "op": "const",
+   "value": 2019,
+   "provenance": "Azure Functions 2019 dataset year (datasets/README.md)"
+  },
+  "text": "2019",
+  "number": 2019
+ },
+ {
+  "name": "bootstrap_b",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "configuration|bootstrap_b"
+  },
+  "text": "10,000",
+  "number": 10000.0
+ },
+ {
+  "name": "n_ca_utils",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "configuration|ca_utilizations"
+  },
+  "text": "18",
+  "number": 18.0
+ },
+ {
+  "name": "n_taus",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "configuration|aegis_taus"
+  },
+  "text": "13",
+  "number": 13.0
+ },
+ {
+  "name": "n_targets_pct",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "configuration|shortfall_targets_pct"
+  },
+  "text": "4",
+  "number": 4.0
+ },
+ {
+  "name": "n_arms",
+  "spec": {
+   "op": "count",
+   "file": "baselines",
+   "path": "configuration|all_arms"
+  },
+  "text": "7",
+  "number": 7.0
+ },
+ {
+  "name": "n_frontier_points",
+  "spec": {
+   "op": "count_prod",
+   "dp": 0,
+   "inputs": [
+    [
+     "v5",
+     "configuration|ca_utilizations"
+    ],
+    [
+     "v5",
+     "configuration|aegis_taus"
+    ],
+    [
+     "v5",
+     "coverage_summary|test_apps_count"
+    ]
+   ]
+  },
+  "text": "4,680",
+  "number": 4680.0
+ },
+ {
+  "name": "ca_grid_range",
+  "spec": {
+   "op": "range",
+   "dp": 2,
+   "file": "v5",
+   "path": "configuration|ca_utilizations",
+   "numbers": [
+    0.1,
+    0.95
+   ]
+  },
+  "text": "0.10\u20130.95",
+  "number": null
+ },
+ {
+  "name": "tau_grid_range",
+  "spec": {
+   "op": "range",
+   "dp": 3,
+   "file": "v5",
+   "path": "configuration|aegis_taus",
+   "numbers": [
+    0.3,
+    0.999
+   ]
+  },
+  "text": "0.30\u20130.999",
+  "number": null
+ },
+ {
+  "name": "shortfall_targets",
+  "spec": {
+   "op": "text"
+  },
+  "text": "0.0%, 0.1%, 1.0%, 5.0%",
+  "number": null
+ },
+ {
+  "name": "rolling_w",
+  "spec": {
+   "op": "regex_int",
+   "file": "ml/evaluation/ablation.py",
+   "pattern": "calibration_window_steps:\\s*int\\s*=\\s*(\\d+)"
+  },
+  "text": "1440",
+  "number": 1440.0
+ },
+ {
+  "name": "rolling_h",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "configuration|horizon_minutes"
+  },
+  "text": "10",
+  "number": 10.0
+ },
+ {
+  "name": "hl_ca_med",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|ca_median_energy"
+  },
+  "text": "121.79",
+  "number": 121.79
+ },
+ {
+  "name": "hl_aegis_med",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|aegis_median_energy"
+  },
+  "text": "86.92",
+  "number": 86.92
+ },
+ {
+  "name": "hl_med_diff",
+  "spec": {
+   "op": "diff",
+   "dp": 2,
+   "inputs": [
+    [
+     "v5",
+     "matched_shortfall_pareto|1.0%|rolling|aegis_median_energy"
+    ],
+    [
+     "v5",
+     "matched_shortfall_pareto|1.0%|rolling|ca_median_energy"
+    ]
+   ]
+  },
+  "text": "-34.87",
+  "number": -34.87
+ },
+ {
+  "name": "hl_mean_delta",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|mean_delta_energy"
+  },
+  "text": "-75.13",
+  "number": -75.132
+ },
+ {
+  "name": "hl_ci_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|bootstrap_ci95|0"
+  },
+  "text": "-132.46",
+  "number": -132.463
+ },
+ {
+  "name": "hl_ci_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|bootstrap_ci95|1"
+  },
+  "text": "-26.96",
+  "number": -26.957
+ },
+ {
+  "name": "hl_cheaper_pct",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|cheaper_fraction_pct"
+  },
+  "text": "70.0",
+  "number": 70.0
+ },
+ {
+  "name": "hl_cheaper_n",
+  "spec": {
+   "op": "pctcount",
+   "inputs": [
+    [
+     "v5",
+     "matched_shortfall_pareto|1.0%|rolling|cheaper_fraction_pct"
+    ],
+    [
+     "v5",
+     "coverage_summary|test_apps_count"
+    ]
+   ]
+  },
+  "text": "14",
+  "number": 14.0
+ },
+ {
+  "name": "hl_ca_extrap",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|ca_extrapolations"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "hl_ca_below",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|ca_extrapolation_sides|below_min_shortfall"
+  },
+  "text": "4",
+  "number": 4.0
+ },
+ {
+  "name": "hl_ca_above",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|ca_extrapolation_sides|above_max_shortfall"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "hl_aegis_extrap",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|aegis_extrapolations"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "hl_aegis_below",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|aegis_extrapolation_sides|below_min_shortfall"
+  },
+  "text": "0",
+  "number": 0.0
+ },
+ {
+  "name": "hl_aegis_above",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|aegis_extrapolation_sides|above_max_shortfall"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "hl_degenerate",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|degenerate_frontiers_count"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "hl_p2",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|rolling|wilcoxon_two_sided_p"
+  },
+  "text": "0.00944",
+  "number": 0.00944
+ },
+ {
+  "name": "hl_holm",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|rolling|wilcoxon_holm_adj_p"
+  },
+  "text": "0.066",
+  "number": 0.066
+ },
+ {
+  "name": "hl_holm_cmp",
+  "spec": {
+   "op": "cmp_text",
+   "file": "eval/baselines_results_v1.json",
+   "path": "matched_shortfall_pareto|1.0%|rolling|wilcoxon_holm_adj_p",
+   "threshold": 0.05
+  },
+  "text": "above",
+  "number": null
+ },
+ {
+  "name": "sig_level",
+  "spec": {
+   "op": "const",
+   "value": 0.05,
+   "provenance": "nominal alpha threshold for Holm-adjusted tests (reporting standard)"
+  },
+  "text": "0.05",
+  "number": 0.05
+ },
+ {
+  "name": "t00_label",
+  "spec": {
+   "op": "text"
+  },
+  "text": "0.0%",
+  "number": null
+ },
+ {
+  "name": "t00_delta",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.0%|rolling|mean_delta_energy"
+  },
+  "text": "-133.30",
+  "number": -133.302
+ },
+ {
+  "name": "t00_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.0%|rolling|bootstrap_ci95|0"
+  },
+  "text": "-202.78",
+  "number": -202.785
+ },
+ {
+  "name": "t00_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.0%|rolling|bootstrap_ci95|1"
+  },
+  "text": "-68.16",
+  "number": -68.158
+ },
+ {
+  "name": "t00_holm",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.0%|rolling|wilcoxon_holm_adj_p"
+  },
+  "text": "0.00407",
+  "number": 0.00407
+ },
+ {
+  "name": "t01_label",
+  "spec": {
+   "op": "text"
+  },
+  "text": "0.1%",
+  "number": null
+ },
+ {
+  "name": "t01_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|ca_median_energy"
+  },
+  "text": "159.71",
+  "number": 159.71
+ },
+ {
+  "name": "t01_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|aegis_median_energy"
+  },
+  "text": "125.73",
+  "number": 125.73
+ },
+ {
+  "name": "t01_cheaper",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|cheaper_fraction_pct"
+  },
+  "text": "65.0",
+  "number": 65.0
+ },
+ {
+  "name": "t01_delta",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|mean_delta_energy"
+  },
+  "text": "-66.77",
+  "number": -66.771
+ },
+ {
+  "name": "t01_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|bootstrap_ci95|0"
+  },
+  "text": "-132.38",
+  "number": -132.378
+ },
+ {
+  "name": "t01_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.1%|rolling|bootstrap_ci95|1"
+  },
+  "text": "-12.69",
+  "number": -12.691
+ },
+ {
+  "name": "t01_holm",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|rolling|wilcoxon_holm_adj_p"
+  },
+  "text": "0.319",
+  "number": 0.319
+ },
+ {
+  "name": "t10_label",
+  "spec": {
+   "op": "text"
+  },
+  "text": "1.0%",
+  "number": null
+ },
+ {
+  "name": "t10_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|ca_median_energy"
+  },
+  "text": "121.79",
+  "number": 121.79
+ },
+ {
+  "name": "t10_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|aegis_median_energy"
+  },
+  "text": "86.92",
+  "number": 86.92
+ },
+ {
+  "name": "t10_cheaper",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|cheaper_fraction_pct"
+  },
+  "text": "70.0",
+  "number": 70.0
+ },
+ {
+  "name": "t10_delta",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|mean_delta_energy"
+  },
+  "text": "-75.13",
+  "number": -75.132
+ },
+ {
+  "name": "t10_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|bootstrap_ci95|0"
+  },
+  "text": "-132.46",
+  "number": -132.463
+ },
+ {
+  "name": "t10_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|bootstrap_ci95|1"
+  },
+  "text": "-26.96",
+  "number": -26.957
+ },
+ {
+  "name": "t10_holm",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|rolling|wilcoxon_holm_adj_p"
+  },
+  "text": "0.066",
+  "number": 0.066
+ },
+ {
+  "name": "t50_label",
+  "spec": {
+   "op": "text"
+  },
+  "text": "5.0%",
+  "number": null
+ },
+ {
+  "name": "t50_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|ca_median_energy"
+  },
+  "text": "90.88",
+  "number": 90.88
+ },
+ {
+  "name": "t50_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|aegis_median_energy"
+  },
+  "text": "79.75",
+  "number": 79.75
+ },
+ {
+  "name": "t50_cheaper",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|cheaper_fraction_pct"
+  },
+  "text": "55.0",
+  "number": 55.0
+ },
+ {
+  "name": "t50_delta",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|mean_delta_energy"
+  },
+  "text": "-57.18",
+  "number": -57.181
+ },
+ {
+  "name": "t50_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|bootstrap_ci95|0"
+  },
+  "text": "-105.34",
+  "number": -105.336
+ },
+ {
+  "name": "t50_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|5.0%|rolling|bootstrap_ci95|1"
+  },
+  "text": "-16.09",
+  "number": -16.086
+ },
+ {
+  "name": "t50_holm",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|5.0%|rolling|wilcoxon_holm_adj_p"
+  },
+  "text": "0.922",
+  "number": 0.922
+ },
+ {
+  "name": "t00_ca_extrap",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.0%|rolling|ca_extrapolations"
+  },
+  "text": "10",
+  "number": 10.0
+ },
+ {
+  "name": "t00_ae_extrap",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|0.0%|rolling|aegis_extrapolations"
+  },
+  "text": "12",
+  "number": 12.0
+ },
+ {
+  "name": "nop50_ca_e",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|ca_median_energy"
+  },
+  "text": "127.35",
+  "number": 127.35
+ },
+ {
+  "name": "nop50_ae_e",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|aegis_median_energy"
+  },
+  "text": "76.20",
+  "number": 76.2
+ },
+ {
+  "name": "nop50_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|mean_delta_energy"
+  },
+  "text": "-29.51",
+  "number": -29.508
+ },
+ {
+  "name": "nop50_elo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|bootstrap_ci95_energy|0"
+  },
+  "text": "-44.89",
+  "number": -44.886
+ },
+ {
+  "name": "nop50_ehi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|bootstrap_ci95_energy|1"
+  },
+  "text": "-15.60",
+  "number": -15.6
+ },
+ {
+  "name": "nop50_ca_s",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|ca_median_shortfall"
+  },
+  "text": "74.0",
+  "number": 74.0
+ },
+ {
+  "name": "nop50_ae_s",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|aegis_median_shortfall"
+  },
+  "text": "65.5",
+  "number": 65.5
+ },
+ {
+  "name": "nop50_ds",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|mean_delta_shortfall"
+  },
+  "text": "-404.50",
+  "number": -404.5
+ },
+ {
+  "name": "nop50_slo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|bootstrap_ci95_shortfall|0"
+  },
+  "text": "-877.66",
+  "number": -877.662
+ },
+ {
+  "name": "nop50_shi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|bootstrap_ci95_shortfall|1"
+  },
+  "text": "-30.64",
+  "number": -30.645
+ },
+ {
+  "name": "nop50_p",
+  "spec": {
+   "op": "sig3",
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|wilcoxon_holm_bonferroni_p"
+  },
+  "text": "0.00355",
+  "number": 0.00355
+ },
+ {
+  "name": "nop60_ca_e",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|ca_median_energy"
+  },
+  "text": "117.06",
+  "number": 117.06
+ },
+ {
+  "name": "nop60_ae_e",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|aegis_median_energy"
+  },
+  "text": "76.20",
+  "number": 76.2
+ },
+ {
+  "name": "nop60_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|mean_delta_energy"
+  },
+  "text": "-15.77",
+  "number": -15.774
+ },
+ {
+  "name": "nop60_elo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|bootstrap_ci95_energy|0"
+  },
+  "text": "-31.00",
+  "number": -31.002
+ },
+ {
+  "name": "nop60_ehi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|bootstrap_ci95_energy|1"
+  },
+  "text": "0.28",
+  "number": 0.279
+ },
+ {
+  "name": "nop60_ca_s",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|ca_median_shortfall"
+  },
+  "text": "164.0",
+  "number": 164.0
+ },
+ {
+  "name": "nop60_ae_s",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|aegis_median_shortfall"
+  },
+  "text": "65.5",
+  "number": 65.5
+ },
+ {
+  "name": "nop60_ds",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|mean_delta_shortfall"
+  },
+  "text": "-569.90",
+  "number": -569.9
+ },
+ {
+  "name": "nop60_slo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|bootstrap_ci95_shortfall|0"
+  },
+  "text": "-1058.55",
+  "number": -1058.554
+ },
+ {
+  "name": "nop60_shi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|bootstrap_ci95_shortfall|1"
+  },
+  "text": "-172.84",
+  "number": -172.845
+ },
+ {
+  "name": "nop60_p",
+  "spec": {
+   "op": "sig3",
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|wilcoxon_holm_bonferroni_p"
+  },
+  "text": "0.0319",
+  "number": 0.0319
+ },
+ {
+  "name": "nop_tau",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|aegis_tau"
+  },
+  "text": "0.90",
+  "number": 0.9
+ },
+ {
+  "name": "b_lgbm_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|lightgbm_point_rolling|mean_delta_vs_aegis"
+  },
+  "text": "5.42",
+  "number": 5.416
+ },
+ {
+  "name": "b_lgbm_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|lightgbm_point_rolling|bootstrap_ci95|0"
+  },
+  "text": "-7.95",
+  "number": -7.949
+ },
+ {
+  "name": "b_lgbm_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|lightgbm_point_rolling|bootstrap_ci95|1"
+  },
+  "text": "25.13",
+  "number": 25.133
+ },
+ {
+  "name": "b_lgbm_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|lightgbm_point_rolling|wilcoxon_two_sided_p"
+  },
+  "text": "0.601",
+  "number": 0.601
+ },
+ {
+  "name": "b_lgbm_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|lightgbm_point_rolling|degenerate_frontiers_count"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "b_lgbm_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|lightgbm_point_rolling|mean_delta_vs_aegis"
+  },
+  "text": "5.93",
+  "number": 5.932
+ },
+ {
+  "name": "b_lgbm_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|lightgbm_point_rolling|bootstrap_ci95|0"
+  },
+  "text": "-4.66",
+  "number": -4.664
+ },
+ {
+  "name": "b_lgbm_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|lightgbm_point_rolling|bootstrap_ci95|1"
+  },
+  "text": "23.52",
+  "number": 23.523
+ },
+ {
+  "name": "b_lgbm_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|lightgbm_point_rolling|wilcoxon_two_sided_p"
+  },
+  "text": "0.904",
+  "number": 0.904
+ },
+ {
+  "name": "b_lgbm_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|lightgbm_point_rolling|degenerate_frontiers_count"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "b_hw_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|holt_winters|mean_delta_vs_aegis"
+  },
+  "text": "3.36",
+  "number": 3.364
+ },
+ {
+  "name": "b_hw_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|holt_winters|bootstrap_ci95|0"
+  },
+  "text": "-15.09",
+  "number": -15.094
+ },
+ {
+  "name": "b_hw_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|holt_winters|bootstrap_ci95|1"
+  },
+  "text": "26.41",
+  "number": 26.405
+ },
+ {
+  "name": "b_hw_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|holt_winters|wilcoxon_two_sided_p"
+  },
+  "text": "0.601",
+  "number": 0.601
+ },
+ {
+  "name": "b_hw_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|holt_winters|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_hw_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|holt_winters|mean_delta_vs_aegis"
+  },
+  "text": "3.49",
+  "number": 3.49
+ },
+ {
+  "name": "b_hw_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|holt_winters|bootstrap_ci95|0"
+  },
+  "text": "-11.35",
+  "number": -11.346
+ },
+ {
+  "name": "b_hw_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|holt_winters|bootstrap_ci95|1"
+  },
+  "text": "24.32",
+  "number": 24.325
+ },
+ {
+  "name": "b_hw_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|holt_winters|wilcoxon_two_sided_p"
+  },
+  "text": "0.409",
+  "number": 0.409
+ },
+ {
+  "name": "b_hw_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|holt_winters|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_fm_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|fixed_margin|mean_delta_vs_aegis"
+  },
+  "text": "18.35",
+  "number": 18.35
+ },
+ {
+  "name": "b_fm_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|fixed_margin|bootstrap_ci95|0"
+  },
+  "text": "-10.71",
+  "number": -10.707
+ },
+ {
+  "name": "b_fm_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|fixed_margin|bootstrap_ci95|1"
+  },
+  "text": "49.40",
+  "number": 49.401
+ },
+ {
+  "name": "b_fm_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|fixed_margin|wilcoxon_two_sided_p"
+  },
+  "text": "0.245",
+  "number": 0.245
+ },
+ {
+  "name": "b_fm_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|fixed_margin|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_fm_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|fixed_margin|mean_delta_vs_aegis"
+  },
+  "text": "2.78",
+  "number": 2.781
+ },
+ {
+  "name": "b_fm_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|fixed_margin|bootstrap_ci95|0"
+  },
+  "text": "-15.19",
+  "number": -15.185
+ },
+ {
+  "name": "b_fm_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|fixed_margin|bootstrap_ci95|1"
+  },
+  "text": "20.25",
+  "number": 20.249
+ },
+ {
+  "name": "b_fm_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|fixed_margin|wilcoxon_two_sided_p"
+  },
+  "text": "0.571",
+  "number": 0.571
+ },
+ {
+  "name": "b_fm_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|fixed_margin|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_sn_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|seasonal_naive|mean_delta_vs_aegis"
+  },
+  "text": "-11.37",
+  "number": -11.373
+ },
+ {
+  "name": "b_sn_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|seasonal_naive|bootstrap_ci95|0"
+  },
+  "text": "-23.79",
+  "number": -23.794
+ },
+ {
+  "name": "b_sn_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|seasonal_naive|bootstrap_ci95|1"
+  },
+  "text": "2.90",
+  "number": 2.904
+ },
+ {
+  "name": "b_sn_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|seasonal_naive|wilcoxon_two_sided_p"
+  },
+  "text": "0.0073",
+  "number": 0.0073
+ },
+ {
+  "name": "b_sn_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|seasonal_naive|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_sn_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|seasonal_naive|mean_delta_vs_aegis"
+  },
+  "text": "-12.23",
+  "number": -12.228
+ },
+ {
+  "name": "b_sn_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|seasonal_naive|bootstrap_ci95|0"
+  },
+  "text": "-23.79",
+  "number": -23.787
+ },
+ {
+  "name": "b_sn_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|seasonal_naive|bootstrap_ci95|1"
+  },
+  "text": "-0.26",
+  "number": -0.26
+ },
+ {
+  "name": "b_sn_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|seasonal_naive|wilcoxon_two_sided_p"
+  },
+  "text": "0.0441",
+  "number": 0.0441
+ },
+ {
+  "name": "b_sn_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|seasonal_naive|degenerate_frontiers_count"
+  },
+  "text": "1",
+  "number": 1.0
+ },
+ {
+  "name": "b_ql_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|quantile_linear|mean_delta_vs_aegis"
+  },
+  "text": "-35.72",
+  "number": -35.723
+ },
+ {
+  "name": "b_ql_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|quantile_linear|bootstrap_ci95|0"
+  },
+  "text": "-56.72",
+  "number": -56.717
+ },
+ {
+  "name": "b_ql_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|quantile_linear|bootstrap_ci95|1"
+  },
+  "text": "-16.78",
+  "number": -16.784
+ },
+ {
+  "name": "b_ql_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|quantile_linear|wilcoxon_two_sided_p"
+  },
+  "text": "0.00148",
+  "number": 0.00148
+ },
+ {
+  "name": "b_ql_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|quantile_linear|degenerate_frontiers_count"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "b_ql_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|quantile_linear|mean_delta_vs_aegis"
+  },
+  "text": "-54.60",
+  "number": -54.598
+ },
+ {
+  "name": "b_ql_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|quantile_linear|bootstrap_ci95|0"
+  },
+  "text": "-79.13",
+  "number": -79.133
+ },
+ {
+  "name": "b_ql_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|quantile_linear|bootstrap_ci95|1"
+  },
+  "text": "-32.09",
+  "number": -32.092
+ },
+ {
+  "name": "b_ql_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|quantile_linear|wilcoxon_two_sided_p"
+  },
+  "text": "0.000132",
+  "number": 0.000132
+ },
+ {
+  "name": "b_ql_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|quantile_linear|degenerate_frontiers_count"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "b_ffd_01",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|no_cpsat_ffd|mean_delta_vs_aegis"
+  },
+  "text": "-12.35",
+  "number": -12.351
+ },
+ {
+  "name": "b_ffd_01lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|0"
+  },
+  "text": "-19.40",
+  "number": -19.4
+ },
+ {
+  "name": "b_ffd_01hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|1"
+  },
+  "text": "-5.46",
+  "number": -5.459
+ },
+ {
+  "name": "b_ffd_p01",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|vs_primary_aegis_rolling|no_cpsat_ffd|wilcoxon_two_sided_p"
+  },
+  "text": "0.00486",
+  "number": 0.00486
+ },
+ {
+  "name": "b_ffd_deg01",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|0.1%|no_cpsat_ffd|degenerate_frontiers_count"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "b_ffd_10",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|mean_delta_vs_aegis"
+  },
+  "text": "-9.70",
+  "number": -9.701
+ },
+ {
+  "name": "b_ffd_10lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|0"
+  },
+  "text": "-15.36",
+  "number": -15.361
+ },
+ {
+  "name": "b_ffd_10hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|1"
+  },
+  "text": "-4.41",
+  "number": -4.407
+ },
+ {
+  "name": "b_ffd_p10",
+  "spec": {
+   "op": "sig3",
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|wilcoxon_two_sided_p"
+  },
+  "text": "0.0073",
+  "number": 0.0073
+ },
+ {
+  "name": "b_ffd_deg10",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|no_cpsat_ffd|degenerate_frontiers_count"
+  },
+  "text": "2",
+  "number": 2.0
+ },
+ {
+  "name": "fixed_margin_max",
+  "spec": {
+   "op": "range",
+   "dp": 4,
+   "file": "eval/baselines_results_v1.json",
+   "path": "configuration|fixed_margins",
+   "which": "max"
+  },
+  "text": "8.6468",
+  "number": null
+ },
+ {
+  "name": "b_ffd_cost",
+  "spec": {
+   "op": "neg",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|mean_delta_vs_aegis"
+  },
+  "text": "9.70",
+  "number": 9.7
+ },
+ {
+  "name": "b_ffd_cost_lo",
+  "spec": {
+   "op": "neg",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|1"
+  },
+  "text": "4.41",
+  "number": 4.41
+ },
+ {
+  "name": "b_ffd_cost_hi",
+  "spec": {
+   "op": "neg",
+   "dp": 2,
+   "file": "baselines",
+   "path": "matched_shortfall_pareto|1.0%|vs_primary_aegis_rolling|no_cpsat_ffd|bootstrap_ci95|0"
+  },
+  "text": "15.36",
+  "number": 15.36
+ },
+ {
+  "name": "cov_raw_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|raw|0"
+  },
+  "text": "86.8",
+  "number": 86.77
+ },
+ {
+  "name": "cov_raw_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|raw|1"
+  },
+  "text": "12.2",
+  "number": 12.23
+ },
+ {
+  "name": "cov_static_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|static|0"
+  },
+  "text": "100.0",
+  "number": 99.99
+ },
+ {
+  "name": "cov_static_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|static|1"
+  },
+  "text": "0.3",
+  "number": 0.33
+ },
+ {
+  "name": "cov_sa_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|scale_aware|0"
+  },
+  "text": "97.6",
+  "number": 97.6
+ },
+ {
+  "name": "cov_sa_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|scale_aware|1"
+  },
+  "text": "5.1",
+  "number": 5.08
+ },
+ {
+  "name": "cov_roll_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|rolling|0"
+  },
+  "text": "90.1",
+  "number": 90.06
+ },
+ {
+  "name": "cov_roll_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|rolling|1"
+  },
+  "text": "0.7",
+  "number": 0.72
+ },
+ {
+  "name": "cov_a5_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|aci_005|0"
+  },
+  "text": "89.9",
+  "number": 89.94
+ },
+ {
+  "name": "cov_a5_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|aci_005|1"
+  },
+  "text": "0.8",
+  "number": 0.8
+ },
+ {
+  "name": "cov_a20_med",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|aci_020|0"
+  },
+  "text": "90.0",
+  "number": 89.98
+ },
+ {
+  "name": "cov_a20_iqr",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "coverage_summary|median_iqr|aci_020|1"
+  },
+  "text": "0.5",
+  "number": 0.49
+ },
+ {
+  "name": "static_offset",
+  "spec": {
+   "op": "round",
+   "dp": 4,
+   "file": "sixty",
+   "path": "conformal_calibration|q_hat_90_cores"
+  },
+  "text": "8.6468",
+  "number": 8.6468
+ },
+ {
+  "name": "censor_pct",
+  "spec": {
+   "op": "censor_max",
+   "file": "sixty",
+   "path": "censoring_audit"
+  },
+  "text": "0.0",
+  "number": 0.0
+ },
+ {
+  "name": "aci_g1",
+  "spec": {
+   "op": "regex_float",
+   "file": "eval/headline_study_v4.py",
+   "pattern": "gamma=(\\d+\\.\\d+)",
+   "index": 0,
+   "all": [
+    0.005,
+    0.02,
+    0.005,
+    0.02
+   ]
+  },
+  "text": "0.005",
+  "number": 0.005
+ },
+ {
+  "name": "aci_g2",
+  "spec": {
+   "op": "regex_float",
+   "file": "eval/headline_study_v4.py",
+   "pattern": "gamma=(\\d+\\.\\d+)",
+   "index": 1,
+   "all": [
+    0.005,
+    0.02,
+    0.005,
+    0.02
+   ]
+  },
+  "text": "0.02",
+  "number": 0.02
+ },
+ {
+  "name": "tert_low",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "app_partition|tertiles|low_load"
+  },
+  "text": "7",
+  "number": 7.0
+ },
+ {
+  "name": "tert_mid",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "app_partition|tertiles|mid_load"
+  },
+  "text": "7",
+  "number": 7.0
+ },
+ {
+  "name": "tert_high",
+  "spec": {
+   "op": "count",
+   "file": "v5",
+   "path": "app_partition|tertiles|high_load"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "mt_low_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|ca_median_energy"
+  },
+  "text": "57.78",
+  "number": 57.78
+ },
+ {
+  "name": "mt_low_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|aegis_median_energy"
+  },
+  "text": "58.40",
+  "number": 58.4
+ },
+ {
+  "name": "mt_low_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|mean_delta_energy"
+  },
+  "text": "3.15",
+  "number": 3.15
+ },
+ {
+  "name": "mt_low_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|bootstrap_ci95|0"
+  },
+  "text": "-0.04",
+  "number": -0.04
+ },
+ {
+  "name": "mt_low_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|bootstrap_ci95|1"
+  },
+  "text": "8.91",
+  "number": 8.91
+ },
+ {
+  "name": "mt_low_ch",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|low_load|cheaper_fraction_pct"
+  },
+  "text": "28.6",
+  "number": 28.57
+ },
+ {
+  "name": "st_low_ca",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|low_load|ca_median_shortfall"
+  },
+  "text": "7.0",
+  "number": 7.0
+ },
+ {
+  "name": "st_low_ae",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|low_load|aegis_median_shortfall"
+  },
+  "text": "16.0",
+  "number": 16.0
+ },
+ {
+  "name": "st_low_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|low_load|mean_delta_shortfall"
+  },
+  "text": "6.57",
+  "number": 6.57
+ },
+ {
+  "name": "st_low_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|low_load|bootstrap_ci95_shortfall|0"
+  },
+  "text": "-31.00",
+  "number": -31.0
+ },
+ {
+  "name": "st_low_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|low_load|bootstrap_ci95_shortfall|1"
+  },
+  "text": "37.14",
+  "number": 37.14
+ },
+ {
+  "name": "mt_mid_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|ca_median_energy"
+  },
+  "text": "163.37",
+  "number": 163.37
+ },
+ {
+  "name": "mt_mid_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|aegis_median_energy"
+  },
+  "text": "94.87",
+  "number": 94.87
+ },
+ {
+  "name": "mt_mid_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|mean_delta_energy"
+  },
+  "text": "-150.66",
+  "number": -150.66
+ },
+ {
+  "name": "mt_mid_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|bootstrap_ci95|0"
+  },
+  "text": "-271.13",
+  "number": -271.13
+ },
+ {
+  "name": "mt_mid_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|bootstrap_ci95|1"
+  },
+  "text": "-40.24",
+  "number": -40.24
+ },
+ {
+  "name": "mt_mid_ch",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|mid_load|cheaper_fraction_pct"
+  },
+  "text": "100.0",
+  "number": 100.0
+ },
+ {
+  "name": "st_mid_ca",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|mid_load|ca_median_shortfall"
+  },
+  "text": "86.0",
+  "number": 86.0
+ },
+ {
+  "name": "st_mid_ae",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|mid_load|aegis_median_shortfall"
+  },
+  "text": "162.0",
+  "number": 162.0
+ },
+ {
+  "name": "st_mid_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|mid_load|mean_delta_shortfall"
+  },
+  "text": "-196.00",
+  "number": -196.0
+ },
+ {
+  "name": "st_mid_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|mid_load|bootstrap_ci95_shortfall|0"
+  },
+  "text": "-510.29",
+  "number": -510.29
+ },
+ {
+  "name": "st_mid_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|mid_load|bootstrap_ci95_shortfall|1"
+  },
+  "text": "19.14",
+  "number": 19.14
+ },
+ {
+  "name": "mt_high_ca",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|ca_median_energy"
+  },
+  "text": "371.43",
+  "number": 371.43
+ },
+ {
+  "name": "mt_high_ae",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|aegis_median_energy"
+  },
+  "text": "240.30",
+  "number": 240.3
+ },
+ {
+  "name": "mt_high_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|mean_delta_energy"
+  },
+  "text": "-78.34",
+  "number": -78.34
+ },
+ {
+  "name": "mt_high_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|bootstrap_ci95|0"
+  },
+  "text": "-127.02",
+  "number": -127.02
+ },
+ {
+  "name": "mt_high_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|bootstrap_ci95|1"
+  },
+  "text": "-25.69",
+  "number": -25.69
+ },
+ {
+  "name": "mt_high_ch",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "matched_shortfall_pareto|1.0%|rolling|tertiles|high_load|cheaper_fraction_pct"
+  },
+  "text": "83.3",
+  "number": 83.33
+ },
+ {
+  "name": "st_high_ca",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|high_load|ca_median_shortfall"
+  },
+  "text": "588.5",
+  "number": 588.5
+ },
+ {
+  "name": "st_high_ae",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|high_load|aegis_median_shortfall"
+  },
+  "text": "80.5",
+  "number": 80.5
+ },
+ {
+  "name": "st_high_de",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|high_load|mean_delta_shortfall"
+  },
+  "text": "-1127.33",
+  "number": -1127.33
+ },
+ {
+  "name": "st_high_lo",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|high_load|bootstrap_ci95_shortfall|0"
+  },
+  "text": "-2331.00",
+  "number": -2331.0
+ },
+ {
+  "name": "st_high_hi",
+  "spec": {
+   "op": "round",
+   "dp": 2,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|tertiles|high_load|bootstrap_ci95_shortfall|1"
+  },
+  "text": "14.50",
+  "number": 14.5
+ },
+ {
+  "name": "synth_seeds",
+  "spec": {
+   "op": "seeds",
+   "file": "eval/HEADLINE_PROVENANCE.txt",
+   "pattern": "--seeds\\s+([\\d,]+)",
+   "numbers": [
+    42,
+    101,
+    202,
+    303,
+    404
+   ]
+  },
+  "text": "42,101,202,303,404",
+  "number": null
+ },
+ {
+  "name": "repro_fields",
+  "spec": {
+   "op": "report",
+   "file": "eval/reports/repro_diff.txt",
+   "pattern": "numeric fields compared \\(total, with repetition across comparisons\\):\\s*([\\d,]+)",
+   "group": 1,
+   "dp": 0
+  },
+  "text": "4,944",
+  "number": 4944.0
+ },
+ {
+  "name": "repro_comparisons",
+  "spec": {
+   "op": "report",
+   "file": "eval/reports/repro_diff.txt",
+   "pattern": "arm x target/subsection comparisons:\\s*(\\d+)",
+   "group": 1,
+   "dp": 0
+  },
+  "text": "46",
+  "number": 46.0
+ },
+ {
+  "name": "repro_max_diff",
+  "spec": {
+   "op": "report",
+   "file": "eval/reports/repro_diff.txt",
+   "pattern": "overall max absolute difference:\\s*([\\d.]+)",
+   "group": 1,
+   "dp": 0
+  },
+  "text": "0",
+  "number": 0.0
+ },
+ {
+  "name": "mutation_verdict",
+  "spec": {
+   "op": "report_text",
+   "file": "eval/reports/mutation_check.txt",
+   "pattern": "MUTATION CHECK:\\s*(PASS|FAIL)"
+  },
+  "text": "PASS",
+  "number": null
+ },
+ {
+  "name": "decision_log_rows",
+  "spec": {
+   "op": "doc_parse",
+   "file": "docs/DECISIONS.md",
+   "parser": "parse_decisions"
+  },
+  "text": "| ID | Decision | Date | Status |\n| :--- | :--- | :--- | :--- |\n| **Entry 1** | Documentation Integrity & Simulation Transparency | 2026-10-03 | n/a |\n| **Entry H-1** | Hard Process Watchdog for Decision Solver | 2026-10-03 | RETROSPECTIVE |\n| **Entry H-2** | Reactive Headroom Baseline (+8.6468 cores) | 2026-10-03 | RETROSPECTIVE |\n| **Entry H-3** | Conformal Calibration Strategy Selection | 2026-10-03 | RETROSPECTIVE |\n| **D-4** | Horizon and Nominal Quantile (TAU) Consistency Audit | 2026-10-03 | ACTIVE DECISION RECORD |\n| **D-5** | Widened CA Utilization / Tau Grids & 5% Shortfall Target Bracketing | 2026-10-03 | ACTIVE DECISION RECORD |\n| **D-6** | Shortfall Target Hierarchy (Primary 1.0%, Secondary 0.1%, Supplementary 0% & 5%) | 2026-10-03 | ACTIVE DECISION RECORD |\n| **D-7** | Primary Aegis Arm Declaration and Primary Baseline Comparisons | 2026-10-03 | ACTIVE DECISION RECORD |\n| **D-8** | Retraction and Quarantine of Untrusted Historical Numbers \u2014 **all pre-v5 headline numbers are retracted; this README was regenerated under it** | 2026-10-04 | ACTIVE AUDIT RECORD |\n| **D-9** | Formal Adoption of Causal Finite-Sample Rolling Conformal (v4) | 2026-10-04 | ACTIVE DECISION RECORD |\n| **D-10** | Adoption of v5 as Final Headline Benchmark File | 2026-10-04 | FINAL RECORD (W |\n| **D-11** | Baselines and Ablations Experimental Protocol (Task W3) | 2026-10-04 | ACTIVE PROTOCOL SPECIFICATION |\n| **D-12** | W3b Reproducibility Checks - Behavioral Solver-Bypass Test, Mutation Check, Clean-Checkout Artifact Audit (Task W3b) | 2026-10-05 | ACTIVE |",
+  "number": null
+ },
+ {
+  "name": "phase9_pct",
+  "spec": {
+   "op": "report",
+   "file": "docs/IMPLEMENTATION_STATUS.md",
+   "pattern": "(\\d+\\.\\d+)% energy reduction",
+   "group": 1,
+   "dp": 2
+  },
+  "text": "50.59",
+  "number": 50.59
+ },
+ {
+  "name": "phase9_hours",
+  "spec": {
+   "op": "report",
+   "file": "docs/IMPLEMENTATION_STATUS.md",
+   "pattern": "Replaying (\\d+)-hour trace",
+   "group": 1,
+   "dp": 0
+  },
+  "text": "24",
+  "number": 24.0
+ },
+ {
+  "name": "status_rows",
+  "spec": {
+   "op": "doc_parse",
+   "file": "docs/IMPLEMENTATION_STATUS.md",
+   "parser": "parse_phases + DECISIONS W-entries"
+  },
+  "text": "| Phase 1 | Foundations (Cluster + Monitoring + Storage) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 2 | Data Pipeline (Telemetry + Traces + Preprocessing) | Completed (per IMPLEMENTATION_STATUS.md) | Source doc notes `services/energy-module/kepler.py` is an unintegrated stub. |\n| Phase 3 | Forecasting (LightGBM + Quantile + Evaluation) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 4 | Prediction Service (API + Model Registry + KS Drift) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 5 | Decision Engine (OR-Tools CP-SAT + FFD Fallback) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 6 | Scheduler (Go K8s Scheduler Plugin) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 7 | Execution (Autoscaler + Node Power Controller) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 8 | Closed-Loop Integration | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 9 | Evaluation (HPA vs Aegis + Ablation) | Completed (per IMPLEMENTATION_STATUS.md) | Source doc cites a 50.59% energy reduction vs stock HPA on a 24-hour replay; that figure is not reproducible from the committed `eval/ablation_results.json` (only the `full_aegis_conformal` arm is present and the `improvements` block is empty) \u2014 see `docs/README_regen_discrepancies.md`, item f. |\n| Phase 10 | Finalization & Demonstrations | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 11 | Physics-Grounded Simulation & Multi-Pattern Benchmark | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 12 | In-The-Loop Execution & Solver Robustness | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 13 | Production Serverless Benchmark (Azure Functions 2019) | Completed (per IMPLEMENTATION_STATUS.md) | Source doc calls the 20 apps \"Test\"; under the Split Protocol they are validation apps. |\n| Phase 14 | Cooldown Audit & Control Arms | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| Phase 15 | Scale-Aware Conformal & Matched-Shortfall Pareto Analysis | Completed (per IMPLEMENTATION_STATUS.md) | Source doc describes this coverage result as achieved on a blind partition; under the Split Protocol these apps are validation apps, and \u00a78 reports the values from the v5 coverage table instead. |\n| Phase 16 | Offline Evaluation Dashboard (v2) | Completed (per IMPLEMENTATION_STATUS.md) |  |\n| **W0** | Documentation integrity & simulation transparency audit (Entry 1) | Completed | See `docs/DECISIONS.md`. |\n| **W1** | Headline benchmark standardization, primary arm declared (D-7) | Completed | See `docs/DECISIONS.md`. |\n| **W1c** | Integrity audit; retraction of untrusted historical numbers (D-8) | Completed | See `docs/DECISIONS.md`. |\n| **W2 / W2b** | Widened frontier grids, shortfall-target hierarchy (D-5, D-6) | Completed | See `docs/DECISIONS.md`. |\n| **W3** | Baselines and ablations protocol + study (D-11) | Completed | See `docs/DECISIONS.md`. |\n| **W3b** | Reproducibility checks: behavioral bypass test, mutation check, artifact audit (D-12) | Completed | See `docs/DECISIONS.md`. |",
+  "number": null
+ },
+ {
+  "name": "dashboard_port",
+  "spec": {
+   "op": "regex_int",
+   "file": "dashboard/web/v2/server.py",
+   "pattern": "^PORT\\s*=\\s*(\\d+)"
+  },
+  "text": "8080",
+  "number": 8080.0
+ },
+ {
+  "name": "pytest_passed",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "eval/reports/readme_test_counts.json",
+   "path": "pytest_passed"
+  },
+  "text": "111",
+  "number": 111.0
+ },
+ {
+  "name": "pytest_seconds",
+  "spec": {
+   "op": "round",
+   "dp": 1,
+   "file": "eval/reports/readme_test_counts.json",
+   "path": "pytest_seconds"
+  },
+  "text": "14.6",
+  "number": 14.63
+ },
+ {
+  "name": "go_passed",
+  "spec": {
+   "op": "round",
+   "dp": 0,
+   "file": "eval/reports/readme_test_counts.json",
+   "path": "go_passed"
+  },
+  "text": "6",
+  "number": 6.0
+ },
+ {
+  "name": "nominal_coverage",
+  "spec": {
+   "op": "scale",
+   "dp": 0,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|aegis_tau",
+   "factor": 100.0
+  },
+  "text": "90",
+  "number": 90.0
+ },
+ {
+  "name": "ca_u_50_label",
+  "spec": {
+   "op": "scale",
+   "dp": 0,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_50|ca_target_utilization",
+   "factor": 100.0
+  },
+  "text": "50",
+  "number": 50.0
+ },
+ {
+  "name": "ca_u_60_label",
+  "spec": {
+   "op": "scale",
+   "dp": 0,
+   "file": "v5",
+   "path": "natural_operating_points|rolling|ca_u_60|ca_target_utilization",
+   "factor": 100.0
+  },
+  "text": "60",
+  "number": 60.0
+ },
+ {
+  "name": "ci_level",
+  "spec": {
+   "op": "const",
+   "value": 95.0,
+   "provenance": "bootstrap percentile CI level (95%) stated in the study protocol"
+  },
+  "text": "95",
+  "number": 95.0
+ },
+ {
+  "name": "ms_to_s",
+  "spec": {
+   "op": "const",
+   "value": 1000.0,
+   "provenance": "ms-to-s unit conversion in the documented cores formula (docs/threats_to_validity.md \u00a71)"
+  },
+  "text": "1000",
+  "number": 1000.0
+ },
+ {
+  "name": "git_head",
+  "spec": {
+   "op": "git_head"
+  },
+  "text": "7cdac4e812f30e91cd5179b1e3ade3ba38c3f6fe",
+  "number": null
+ },
+ {
+  "name": "template_sha",
+  "spec": {
+   "op": "template_sha256"
+  },
+  "text": "fdcc61500f69245441ea87d79842a7648461739395a28d67244cd79699fe28b6",
+  "number": null
+ },
+ {
+  "name": "provenance_rows",
+  "spec": {
+   "op": "doc_parse",
+   "file": "embedded provenance of source JSONs",
+   "parser": "SOURCES"
+  },
+  "text": "| `eval/headline_results_v5.json` | `c5f99c22a22d925fff49e0444a1a7e351b701223` | False | `af9326cf96472bfe\u2026` |\n| `eval/baselines_results_v1.json` | `7c4d9281e00ac7eaca0ceed24fefe91a16869df2` | False | `4a4f57c934614635\u2026` |\n| `eval/baselines_results_v1_repro.json` | `b9bce0f32d3559089566194c71c762ba0e106e69` | False | `4a4f57c934614635\u2026` |\n| `eval/sixty_app_study_results.json` | `50b1be9417e1953edae9f14409f2e94867423d15` | not embedded | `b80c1cd4d8214881\u2026` |\n| `eval/audit_controls_results.json` | `50b1be9417e1953edae9f14409f2e94867423d15` | not embedded | not embedded |\n| `eval/system_in_loop_aligned_results.json` | `ee52c5d108b44dc5b851ea8bf047cafadc185198` | not embedded | not embedded |\n| `eval/ablation_results.json` | `7cdac4e812f30e91cd5179b1e3ade3ba38c3f6fe` | not embedded | not embedded |",
+  "number": null
+ },
+ {
+  "name": "repo_tree",
+  "spec": {
+   "op": "tree",
+   "paths": [
+    "configs",
+    "datasets",
+    "docs",
+    "eval",
+    "infrastructure",
+    "ml",
+    "scheduler/aegis-scheduler",
+    "services/api-gateway",
+    "services/autoscaler-controller",
+    "services/decision-engine",
+    "services/energy-module",
+    "services/node-power-controller",
+    "services/orchestrator",
+    "services/predictor",
+    "services/recommendation-engine",
+    "services/shared",
+    "services/telemetry-collector",
+    "dashboard",
+    "tests",
+    "Makefile",
+    "PRD.md",
+    "TRD.md",
+    "README.md",
+    "docs/DECISIONS.md",
+    "docs/threats_to_validity.md",
+    "docs/IMPLEMENTATION_STATUS.md",
+    "eval/app_selection.md",
+    "datasets/CHECKSUMS.txt",
+    "dashboard/web/v2"
+   ]
+  },
+  "text": "aegis-cloud/\n\u251c\u2500\u2500 configs/                 # System, quantile, and solver configurations\n\u251c\u2500\u2500 datasets/                # Azure Functions 2019 dataset, checksums, loaders, preprocessing\n\u251c\u2500\u2500 docs/                    # Architecture, decisions log, threats to validity, status\n\u251c\u2500\u2500 eval/                    # Evaluation harnesses, results JSONs, generated reports\n\u251c\u2500\u2500 infrastructure/          # kind cluster, Prometheus, Grafana, Kepler manifests, TimescaleDB\n\u251c\u2500\u2500 ml/                      # LightGBM quantile models, features, frozen ablation simulator\n\u251c\u2500\u2500 scheduler/aegis-scheduler/  # Native Go Kubernetes scheduler plugin (Filter+Score)\n\u251c\u2500\u2500 services/                # api-gateway, autoscaler-controller, decision-engine,\n\u2502   \u2502                        # energy-module (kepler.py = stub), node-power-controller,\n\u2502   \u2502                        # orchestrator, predictor, recommendation-engine, shared,\n\u2502   \u2502                        # telemetry-collector\n\u251c\u2500\u2500 dashboard/web/v2/        # Offline zero-dependency evaluation viewer (port 8080)\n\u251c\u2500\u2500 tests/                   # Python + Go unit, integration, and e2e suites\n\u251c\u2500\u2500 Makefile                 # make readme | test | infra-up | services-up | ...\n\u251c\u2500\u2500 PRD.md / TRD.md          # Product and technical requirement specifications\n\u2514\u2500\u2500 README.md                # This file (generated by eval/generate_readme.py)",
+  "number": null
+ },
+ {
+  "name": "overview_paragraph",
+  "spec": {
+   "op": "text"
+  },
+  "text": "**Aegis** is a closed-loop, AI-driven Kubernetes orchestration research system that couples multi-horizon quantile workload forecasting (LightGBM $p_{10}, p_{50}, p_{90}$) with joint constraint optimization (OR-Tools CP-SAT) and a custom Go scheduler plugin. It scales replica counts proactively, packs pods onto energy-efficient nodes, and power-manages idle infrastructure ahead of demand shifts, under hard safety guards (dead zone, cooldown, minimum active nodes). Its empirical claims in this README come from one frozen trace-replay simulator evaluated on the Azure Functions 2019 production serverless trace.",
+  "number": null
+ }
+]

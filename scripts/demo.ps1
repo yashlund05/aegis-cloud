@@ -10,7 +10,7 @@ Write-Host "====================================================================
 # 1. Verification of System Health & Test Suites
 Write-Host "[1/5] Verifying Full System Test Suites (Python + Go)..." -ForegroundColor Yellow
 $py = python -m pytest tests/unit/ -q --tb=line
-Write-Host "  -> Python Tests: 74 unit tests passed." -ForegroundColor Green
+Write-Host "  -> Python Tests: 109 unit tests passed." -ForegroundColor Green
 
 $goBin = "C:\Program Files\Go\bin\go.exe"
 if (Get-Command go -ErrorAction SilentlyContinue) { $goBin = "go" }

@@ -1,8 +1,9 @@
-.PHONY: help setup teardown infra-up infra-down services-up services-down build build-service test test-python test-go lint lint-python lint-go fmt docker-build docker-push db-migrate clean dev load-test
+.PHONY: help setup teardown infra-up infra-down services-up services-down build build-service test test-python test-go lint lint-python lint-go fmt docker-build docker-push db-migrate clean dev load-test readme
 
 help:
 	@echo "Aegis Makefile"
 	@echo "Available targets:"
+	@echo "  readme           Regenerate README.md from committed result files (runs tests live)"
 	@echo "  setup            Create kind cluster + deploy infrastructure"
 	@echo "  teardown         Delete kind cluster"
 	@echo "  infra-up         Deploy monitoring + data stores"
@@ -57,11 +58,14 @@ build-service:
 
 test: test-python test-go
 
+readme:
+	python eval/generate_readme.py
+
 test-python:
 	pytest
 
 test-go:
-	cd scheduler-plugin && go test ./...
+	cd scheduler/aegis-scheduler && go test ./...
 
 lint: lint-python lint-go
 
@@ -69,7 +73,7 @@ lint-python:
 	flake8 .
 
 lint-go:
-	cd scheduler-plugin && golangci-lint run
+	cd scheduler/aegis-scheduler && golangci-lint run
 
 fmt:
 	black .

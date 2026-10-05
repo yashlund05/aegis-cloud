@@ -1,0 +1,214 @@
+
+2026-10-05 05:56:43,261 - INFO - Provenance initialized: commit=b9bce0f32d3559089566194c71c762ba0e106e69, dirty=False
+2026-10-05 05:56:43,262 - INFO - Loading cached time series from datasets/azure_30_study_apps.parquet...
+2026-10-05 05:56:43,666 - INFO - Loaded 10 calibration apps and 20 validation apps.
+2026-10-05 05:56:43,728 - INFO - Generating forecaster streams and measuring forecast quality across validation apps...
+2026-10-05 05:57:22,770 - INFO - Wrote 80 rows to eval/reports/forecast_quality.csv
+2026-10-05 05:57:22,770 - INFO - Starting parallel simulation across 20 validation apps with 6 processes...
+2026-10-05 05:57:25,830 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,833 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,838 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,843 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,847 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,874 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,876 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,876 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,880 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,883 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,887 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 05:57:25,912 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,915 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,916 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,918 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,919 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,925 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 05:57:25,945 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 05:57:25,949 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,952 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,953 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,954 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,958 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,963 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 05:57:25,998 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,000 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,000 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,001 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,002 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,002 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 05:57:26,045 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,046 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,047 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,048 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,048 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,050 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 05:57:26,082 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,083 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,083 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,084 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,085 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,089 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 05:57:26,122 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,123 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,122 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,124 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,125 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,125 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 05:57:26,159 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,162 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,162 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,163 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,161 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,164 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 05:57:26,200 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 05:57:26,202 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 05:57:26,204 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 05:57:26,205 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 05:57:26,206 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 05:57:26,206 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:04:42,415 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:04:42,439 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:04:42,465 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:04:42,488 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:04:42,525 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:04:42,559 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:04:42,580 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:04:42,608 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:04:42,629 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:04:42,650 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:04:46,048 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:04:46,068 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:04:46,085 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:04:46,101 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:04:46,123 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:04:46,149 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:04:46,169 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:04:46,189 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:04:46,207 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:04:46,234 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:04:47,426 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:04:47,446 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:04:47,474 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:04:47,493 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:04:47,524 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:04:47,549 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:04:47,577 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:04:47,594 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:04:47,617 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:04:47,638 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:06:35,125 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:06:35,141 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:06:35,156 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:06:35,184 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:06:35,204 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:06:35,224 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:06:35,259 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:06:35,294 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:06:35,328 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:06:35,361 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:07:08,433 - INFO - Progress: 5/20 apps simulated.
+2026-10-05 06:07:08,436 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:07:08,452 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:07:08,468 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:07:08,482 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:07:08,502 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:07:08,519 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:07:08,535 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:07:08,552 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:07:08,566 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:07:08,584 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:09:15,507 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:09:15,522 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:09:15,538 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:09:15,553 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:09:15,572 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:09:15,590 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:09:15,607 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:09:15,623 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:09:15,638 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:09:15,652 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:12:45,361 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:12:45,376 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:12:45,397 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:12:45,459 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:12:45,496 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:12:45,532 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:12:45,545 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:12:45,567 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:12:45,580 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:12:45,604 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:13:49,859 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:13:49,875 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:13:49,892 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:13:49,907 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:13:49,931 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:13:49,959 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:13:49,976 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:13:49,998 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:13:50,015 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:13:50,030 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:14:40,980 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:14:40,996 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:14:41,025 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:14:41,050 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:14:41,098 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:14:41,144 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:14:41,188 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:14:41,232 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:14:41,269 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:14:41,297 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:16:24,473 - INFO - Progress: 10/20 apps simulated.
+2026-10-05 06:16:24,476 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:16:24,492 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:16:24,509 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:16:24,531 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:16:24,553 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:16:24,636 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:16:24,674 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:16:24,702 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:16:24,755 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:16:24,775 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:18:22,247 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:18:22,262 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:18:22,278 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:18:22,310 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:18:22,336 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:18:22,366 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:18:22,395 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:18:22,418 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:18:22,440 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:18:22,461 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:22:58,072 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:22:58,092 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:22:58,113 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:22:58,131 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:22:58,159 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:22:58,189 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:22:58,210 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:22:58,230 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:22:58,251 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:22:58,276 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:24:41,306 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:24:41,323 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:24:41,338 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:24:41,352 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:24:41,379 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:24:41,418 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:24:41,452 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:24:41,486 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:24:41,519 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:24:41,566 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:25:12,564 - INFO - Loading Aegis quantile models from 'ml/models/artifacts'...
+2026-10-05 06:25:12,583 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q10.txt
+2026-10-05 06:25:12,605 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q50.txt
+2026-10-05 06:25:12,626 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h5m_q90.txt
+2026-10-05 06:25:12,647 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q10.txt
+2026-10-05 06:25:12,664 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q50.txt
+2026-10-05 06:25:12,681 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h10m_q90.txt
+2026-10-05 06:25:12,699 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q10.txt
+2026-10-05 06:25:12,714 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q50.txt
+2026-10-05 06:25:12,735 - INFO - Loaded LightGBM booster from ml/models/artifacts\aegis_h15m_q90.txt
+2026-10-05 06:26:11,002 - INFO - Progress: 15/20 apps simulated.
+2026-10-05 06:41:15,162 - INFO - Progress: 20/20 apps simulated.
+2026-10-05 06:41:15,772 - INFO - Computing matched-shortfall Pareto frontiers, CIs, and arm comparisons...
+2026-10-05 06:41:29,999 - INFO - Computing natural operating point comparisons (tau=0.90 vs CA U=0.50, U=0.60)...
+2026-10-05 06:41:37,787 - INFO - Baselines study completed. Output saved to eval/baselines_results_v1_repro.json

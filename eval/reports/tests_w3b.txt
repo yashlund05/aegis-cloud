@@ -1,0 +1,17 @@
+Task W3b tests: W3 baselines/ablations unit tests (incl. new behavioral solver-bypass test)
+command: python -m pytest tests/unit/test_baselines_and_ablations.py -v
+commit: b9bce0f32d3559089566194c71c762ba0e106e69
+===
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\lundy\AppData\Local\Programs\Python\Python310\python.exe
+cachedir: .pytest_cache
+rootdir: D:\aegis ieee\aegis cloud
+plugins: anyio-4.14.2, cov-5.0.0
+collecting ... collected 3 items
+
+tests/unit/test_baselines_and_ablations.py::test_no_cpsat_ffd_bypasses_placement_optimizer PASSED [ 33%]
+tests/unit/test_baselines_and_ablations.py::test_all_arms_use_simulate_configuration PASSED [ 66%]
+tests/unit/test_baselines_and_ablations.py::test_behavioral_solver_bypass_on_synthetic_workload PASSED [100%]
+
+============================== 3 passed in 8.33s ==============================
+pytest exit: 0

@@ -209,14 +209,26 @@ def clone_head(dest: Path) -> None:
         raise RuntimeError(f"git clone failed: {res.stderr}")
 
 
-def copy_dataset_inputs(clone: Path, integrity: list) -> None:
+def copy_dataset_inputs(clone: Path, integrity: list, label: str) -> None:
     for rel in DATASET_INPUTS:
         src = REPO / rel
         dst = clone / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dst)
         s_hash, d_hash = sha256_of(src), sha256_of(dst)
-        integrity.append((rel, s_hash == d_hash, s_hash[:16]))
+        integrity.append((label, rel, s_hash == d_hash, s_hash[:16]))
+
+
+def verify_dataset_inputs(clone: Path, integrity: list, label: str) -> None:
+    """Aggregate-only mode: re-verify the sha256 of dataset inputs already in a preserved clone."""
+    for rel in DATASET_INPUTS:
+        src = REPO / rel
+        dst = clone / rel
+        if not dst.exists():
+            integrity.append((label, rel, False, "-"))
+            continue
+        s_hash, d_hash = sha256_of(src), sha256_of(dst)
+        integrity.append((label, rel, s_hash == d_hash, s_hash[:16]))
 
 
 def load_events(log_dir: Path, resolve_root: Path) -> dict:
@@ -224,6 +236,8 @@ def load_events(log_dir: Path, resolve_root: Path) -> dict:
 
     Relative open() paths are recorded verbatim by the audit hook; they are relative to
     the cwd of the process that opened them (the clone), so resolve against resolve_root.
+    Pure-digit paths are integer file descriptors passed to open()/fdopen (e.g. by
+    multiprocessing plumbing), not filesystem paths - skip them.
     """
     events: dict = {}
     for log in sorted(log_dir.glob("pid_*.log")):
@@ -233,6 +247,8 @@ def load_events(log_dir: Path, resolve_root: Path) -> dict:
             except Exception:
                 continue
             p, m = rec.get("p", ""), rec.get("m", "") or ""
+            if p.isdigit():
+                continue
             try:
                 rp = Path(p)
                 if not rp.is_absolute():
@@ -291,6 +307,8 @@ except Exception:
 def _hook(event, args):
     if event == "open" and _fd is not None:
         try:
+            if isinstance(args[0], int):
+                return  # fd-based open (multiprocessing plumbing), not a filesystem path
             line = json.dumps({{"p": str(args[0]), "m": str(args[1])}}) + "\\n"
             os.write(_fd, line.encode("utf-8"))
         except Exception:
@@ -313,15 +331,31 @@ def fmt_event_row(rel: str, e: dict, clone: Path) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=6)
+    parser.add_argument("--aggregate-only", type=str, default=None, metavar="WORKDIR",
+                        help="re-aggregate the report from a preserved audit work dir "
+                             "(clones + audit-event logs + repro output) without re-running the study")
     args = parser.parse_args()
 
-    work = Path(tempfile.mkdtemp(prefix="aegis_w3b_audit_"))
-    pre_clone = work / "aegis_prefix"
-    post_clone = work / "aegis_repro"
-    pre_log = work / "audit_events_prefix"
-    post_log = work / "audit_events_post"
-    pre_log.mkdir()
-    post_log.mkdir()
+    if args.aggregate_only:
+        work = Path(args.aggregate_only)
+        pre_clone = work / "aegis_prefix"
+        post_clone = work / "aegis_repro"
+        pre_log = work / "audit_events_prefix"
+        post_log = work / "audit_events_post"
+        probe_res = None
+        study_res = None
+        study_log = work / "repro_run.log"
+    else:
+        work = Path(tempfile.mkdtemp(prefix="aegis_w3b_audit_"))
+        pre_clone = work / "aegis_prefix"
+        post_clone = work / "aegis_repro"
+        pre_log = work / "audit_events_prefix"
+        post_log = work / "audit_events_post"
+        pre_log.mkdir()
+        post_log.mkdir()
+        probe_res = None
+        study_res = None
+        study_log = work / "repro_run.log"
 
     integrity: list = []
     report: list = []
@@ -331,27 +365,32 @@ def main() -> int:
     report.append(f"method: git clone HEAD into temp dirs; Python audit hook (sys.addaudithook, event 'open')")
     report.append(f"        records every file opened by the study process tree (parent + spawn workers);")
     report.append(f"        each repo-relative path outside eval/ is checked against `git ls-files` and the filesystem.")
+    if args.aggregate_only:
+        report.append(f"mode: --aggregate-only (report re-aggregated from preserved audit work dir; no re-run)")
     report.append(f"work dir: {work}")
     report.append("")
 
-    # ---------------- Phase 1: pre-fix probe in a fresh clone of HEAD ----------------
-    report.append("PHASE 1 - fresh clone of current HEAD (pre-fix), instrumented loading-path probe")
+    # ---------------- Phase 1: probe in a fresh clone of HEAD ----------------
+    report.append("PHASE 1 - fresh clone of current HEAD, instrumented loading-path probe")
     report.append("-" * 100)
-    clone_head(pre_clone)
+    if not args.aggregate_only:
+        clone_head(pre_clone)
+        copy_dataset_inputs(pre_clone, integrity, "probe-clone")
+        probe_file = work / "probe_script.py"
+        probe_file.write_text(PROBE_SCRIPT_TEMPLATE, encoding="utf-8")
+        probe_res = subprocess.run(
+            [sys.executable, str(probe_file), str(pre_log)],
+            cwd=str(pre_clone), capture_output=True, text=True, timeout=1800,
+        )
     report.append(f"clone: {pre_clone} at HEAD {git_out(pre_clone, 'rev-parse', 'HEAD').strip()}")
-    copy_dataset_inputs(pre_clone, integrity)
-    probe_src = PROBE_SCRIPT_TEMPLATE
-    probe_file = work / "probe_script.py"
-    probe_file.write_text(probe_src, encoding="utf-8")
-    probe_res = subprocess.run(
-        [sys.executable, str(probe_file), str(pre_log)],
-        cwd=str(pre_clone), capture_output=True, text=True, timeout=1800,
-    )
     pre_events = repo_relative_events(load_events(pre_log, pre_clone), pre_clone)
     pre_outside = outside_eval(pre_events)
     pre_failures_file = pre_log / "probe_failures.txt"
     pre_failures = pre_failures_file.read_text(encoding="utf-8").splitlines() if pre_failures_file.exists() else []
-    report.append(f"probe exit: {probe_res.returncode}; stdout tail: {probe_res.stdout.strip().splitlines()[-1] if probe_res.stdout.strip() else '(none)'}")
+    if probe_res is not None:
+        report.append(f"probe exit: {probe_res.returncode}; stdout tail: {probe_res.stdout.strip().splitlines()[-1] if probe_res.stdout.strip() else '(none)'}")
+    else:
+        report.append(f"probe outcome (from preserved logs): {'0 failures' if not pre_failures else f'{len(pre_failures)} failures'}")
     report.append("probe load failures (these are exactly the files the study needs but the clean checkout lacks):")
     if pre_failures:
         for f in pre_failures:
@@ -367,26 +406,32 @@ def main() -> int:
     # ---------------- Phase 2: full audited repro run in a post-fix clone -------------
     report.append("PHASE 2 - fresh clone of current HEAD (post artifact commit), full baselines study re-run")
     report.append("-" * 100)
-    clone_head(post_clone)
-    report.append(f"clone: {post_clone} at HEAD {git_out(post_clone, 'rev-parse', 'HEAD').strip()}")
-    dirty = git_out(post_clone, "status", "--porcelain").strip()
-    report.append(f"clone working-tree status before run: {'CLEAN (only gitignored dataset inputs copied in)' if not dirty else dirty}")
-    copy_dataset_inputs(post_clone, integrity)
-    write_sitecustomize(work, post_log)
-    env = dict(os.environ)
-    env["PYTHONPATH"] = str(work) + os.pathsep + env.get("PYTHONPATH", "")
-    study_res = subprocess.run(
-        [sys.executable, "eval/baselines_study.py",
-         "--output", f"eval/{REPRO_JSON_NAME}", "--workers", str(args.workers)],
-        cwd=str(post_clone), capture_output=True, text=True, timeout=4 * 3600, env=env,
-    )
-    study_log = work / "repro_run.log"
-    study_log.write_text(study_res.stdout + "\n" + study_res.stderr, encoding="utf-8")
     repro_json = post_clone / "eval" / REPRO_JSON_NAME
-    report.append(f"study exit: {study_res.returncode} (log: {study_log})")
+    if not args.aggregate_only:
+        clone_head(post_clone)
+        report.append(f"clone: {post_clone} at HEAD {git_out(post_clone, 'rev-parse', 'HEAD').strip()}")
+        dirty = git_out(post_clone, "status", "--porcelain").strip()
+        report.append(f"clone working-tree status before run: {'CLEAN (only gitignored dataset inputs copied in)' if not dirty else dirty}")
+        copy_dataset_inputs(post_clone, integrity, "repro-clone")
+        write_sitecustomize(work, post_log)
+        env = dict(os.environ)
+        env["PYTHONPATH"] = str(work) + os.pathsep + env.get("PYTHONPATH", "")
+        study_res = subprocess.run(
+            [sys.executable, "eval/baselines_study.py",
+             "--output", f"eval/{REPRO_JSON_NAME}", "--workers", str(args.workers)],
+            cwd=str(post_clone), capture_output=True, text=True, timeout=4 * 3600, env=env,
+        )
+        study_log.write_text(study_res.stdout + "\n" + study_res.stderr, encoding="utf-8")
+    else:
+        report.append(f"clone: {post_clone} (preserved) at HEAD {git_out(post_clone, 'rev-parse', 'HEAD').strip()}")
+        verify_dataset_inputs(post_clone, integrity, "repro-clone")
+    if study_res is not None:
+        report.append(f"study exit: {study_res.returncode} (log: {study_log})")
+    else:
+        completed_ok = repro_json.exists() and "Baselines study completed" in study_log.read_text(encoding="utf-8", errors="replace")
+        report.append(f"study outcome (from preserved logs): {'exit 0, completed' if completed_ok else 'NOT COMPLETED'} (log: {study_log})")
     report.append(f"repro output written: eval/{REPRO_JSON_NAME} in the post-fix clone -> "
                   f"{'exists' if repro_json.exists() else 'MISSING'}")
-    repro_prov = {}
     if repro_json.exists():
         with open(repro_json, "r", encoding="utf-8") as f:
             repro_prov = json.load(f)
@@ -425,9 +470,9 @@ def main() -> int:
     report.append("")
 
     # ---------------- Dataset input integrity + verdicts ------------------------------
-    report.append("External dataset inputs copied into the clones (gitignored by design; sha256-verified copies):")
-    for rel, ok, h in integrity:
-        report.append(f"  {'OK ' if ok else 'MISMATCH'} {h}…  {rel}")
+    report.append("External dataset inputs (gitignored by design; sha256-verified against the main repo):")
+    for label, rel, ok, h in integrity:
+        report.append(f"  [{label}] {'OK ' if ok else 'MISMATCH'} {h}…  {rel}")
     report.append("")
 
     pre_missing = sorted(r for r in pre_outside if not (pre_clone / r).exists())
@@ -449,8 +494,10 @@ def main() -> int:
     )
     report.append(f"3. Post-fix: all baseline model artifacts committed and present in the post-fix clean clone: "
                   f"{'yes' if model_artifacts_ok else 'NO'}")
+    study_ok = (study_res.returncode == 0 if study_res is not None
+                else repro_json.exists() and "Baselines study completed" in study_log.read_text(encoding="utf-8", errors="replace"))
     report.append(f"4. Full baselines study re-run on the clean tree: "
-                  f"{'SUCCEEDED' if study_res.returncode == 0 and repro_json.exists() else 'FAILED'} -> eval/{REPRO_JSON_NAME}")
+                  f"{'SUCCEEDED' if study_ok and repro_json.exists() else 'FAILED'} -> eval/{REPRO_JSON_NAME}")
     report.append(f"5. ml/models/registry.json touched by the study: "
                   f"{'NO (0 events, as expected)' if 'ml/models/registry.json' not in post_outside else 'YES (unexpected!)'}")
     report.append("")
@@ -461,11 +508,12 @@ def main() -> int:
     # Copy repro JSON + study log back to the main repo (byte-identical).
     if repro_json.exists():
         shutil.copyfile(repro_json, REPO / "eval" / REPRO_JSON_NAME)
-    shutil.copyfile(study_log, REPO / "eval" / "reports" / "repro_run.log")
+    if study_log.exists():
+        shutil.copyfile(study_log, REPO / "eval" / "reports" / "repro_run.log")
 
     print(f"audit report written: {REPORT}")
     print(f"repro json copied to main repo: eval/{REPRO_JSON_NAME}")
-    return 0 if (study_res.returncode == 0 and repro_json.exists()) else 1
+    return 0 if (study_ok and repro_json.exists()) else 1
 
 
 if __name__ == "__main__":

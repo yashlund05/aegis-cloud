@@ -1,0 +1,207 @@
+Task W3b STEP 2: clean-checkout artifacts audit (baselines study)
+====================================================================================================
+main repo HEAD: b9bce0f32d3559089566194c71c762ba0e106e69
+method: git clone HEAD into temp dirs; Python audit hook (sys.addaudithook, event 'open')
+        records every file opened by the study process tree (parent + spawn workers);
+        each repo-relative path outside eval/ is checked against `git ls-files` and the filesystem.
+mode: --aggregate-only (report re-aggregated from preserved audit work dir; no re-run)
+work dir: C:\Users\lundy\AppData\Local\Temp\aegis_w3b_audit_vzbrx_jj
+
+PHASE 1 - fresh clone of current HEAD, instrumented loading-path probe
+----------------------------------------------------------------------------------------------------
+clone: C:\Users\lundy\AppData\Local\Temp\aegis_w3b_audit_vzbrx_jj\aegis_prefix at HEAD b9bce0f32d3559089566194c71c762ba0e106e69
+probe outcome (from preserved logs): 0 failures
+probe load failures (these are exactly the files the study needs but the clean checkout lacks):
+  - (none)
+
+Files outside eval/ touched by the baselines-study loading path in the PRE-FIX clean clone:
+  datasets/azure_30_study_apps.parquet                                        read   x1      present  NOT COMMITTED
+  datasets/load_real_trace.py                                                 read   x1      present  committed
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d01.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d02.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d03.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d04.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d05.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d06.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d07.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d08.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d09.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d10.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d11.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d12.csv         read   x1      present  NOT COMMITTED
+  ml/__init__.py                                                              read   x1      present  committed
+  ml/evaluation/__init__.py                                                   read   x1      present  committed
+  ml/evaluation/ablation.py                                                   read   x1      present  committed
+  ml/evaluation/evaluate.py                                                   read   x1      present  committed
+  ml/features/__init__.py                                                     read   x1      present  committed
+  ml/features/feature_engineering.py                                          read   x1      present  committed
+  ml/inference/__init__.py                                                    read   x1      present  committed
+  ml/inference/predict.py                                                     read   x1      present  committed
+  ml/models/__init__.py                                                       read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q10.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q10_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q50.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q50_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q90.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q90_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q10.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q10_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q50.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q50_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q90.txt                                      read   x1      present  committed
+  ml/models/artifacts/aegis_h15m_q90_meta.json                                read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q10.txt                                       read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q10_meta.json                                 read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q50.txt                                       read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q50_meta.json                                 read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q90.txt                                       read   x1      present  committed
+  ml/models/artifacts/aegis_h5m_q90_meta.json                                 read   x1      present  committed
+  ml/models/artifacts_60app/aegis_h10m_q10.txt                                read   x1      present  committed
+  ml/models/artifacts_60app/aegis_h10m_q50.txt                                read   x1      present  committed
+  ml/models/artifacts_60app/aegis_h10m_q90.txt                                read   x1      present  committed
+  ml/models/artifacts_linear/quantile_linear_q50.joblib                       read   x1      present  committed
+  ml/models/artifacts_linear/quantile_linear_q90.joblib                       read   x1      present  committed
+  ml/models/registry.py                                                       read   x1      present  committed
+  ml/training/__init__.py                                                     read   x1      present  committed
+  ml/training/train_lightgbm.py                                               read   x1      present  committed
+
+PHASE 2 - fresh clone of current HEAD (post artifact commit), full baselines study re-run
+----------------------------------------------------------------------------------------------------
+clone: C:\Users\lundy\AppData\Local\Temp\aegis_w3b_audit_vzbrx_jj\aegis_repro (preserved) at HEAD b9bce0f32d3559089566194c71c762ba0e106e69
+study outcome (from preserved logs): exit 0, completed (log: C:\Users\lundy\AppData\Local\Temp\aegis_w3b_audit_vzbrx_jj\repro_run.log)
+repro output written: eval/baselines_results_v1_repro.json in the post-fix clone -> exists
+repro provenance: git_commit=b9bce0f32d3559089566194c71c762ba0e106e69, dirty_flag=False, config_hash=4a4f57c934614635a211880997820fa55a536fadf1ee9d65861d97606ce8a20f
+
+Files outside eval/ read or written by the full baselines-study run in the POST-FIX clean clone:
+  datasets/azure_30_study_apps.parquet                                        read   x1      present  NOT COMMITTED
+  datasets/load_real_trace.py                                                 read   x1      present  committed
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d01.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d02.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d03.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d04.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d05.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d06.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d07.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d08.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d09.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d10.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d11.csv         read   x1      present  NOT COMMITTED
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d12.csv         read   x1      present  NOT COMMITTED
+  ml/__init__.py                                                              read   x1      present  committed
+  ml/evaluation/__init__.py                                                   read   x1      present  committed
+  ml/evaluation/ablation.py                                                   read   x1      present  committed
+  ml/evaluation/evaluate.py                                                   read   x1      present  committed
+  ml/features/__init__.py                                                     read   x1      present  committed
+  ml/features/feature_engineering.py                                          read   x1      present  committed
+  ml/inference/__init__.py                                                    read   x1      present  committed
+  ml/inference/predict.py                                                     read   x1      present  committed
+  ml/models/__init__.py                                                       read   x1      present  committed
+  ml/models/artifacts/aegis_h10m_q10.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h10m_q10_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h10m_q50.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h10m_q50_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h10m_q90.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h10m_q90_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q10.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q10_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q50.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q50_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q90.txt                                      read   x20     present  committed
+  ml/models/artifacts/aegis_h15m_q90_meta.json                                read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q10.txt                                       read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q10_meta.json                                 read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q50.txt                                       read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q50_meta.json                                 read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q90.txt                                       read   x20     present  committed
+  ml/models/artifacts/aegis_h5m_q90_meta.json                                 read   x20     present  committed
+  ml/models/artifacts_60app/aegis_h10m_q10.txt                                read   x1      present  committed
+  ml/models/artifacts_60app/aegis_h10m_q50.txt                                read   x1      present  committed
+  ml/models/artifacts_60app/aegis_h10m_q90.txt                                read   x1      present  committed
+  ml/models/artifacts_linear/feature_columns.json                             read   x1      present  committed
+  ml/models/artifacts_linear/quantile_linear_q50.joblib                       read   x1      present  committed
+  ml/models/artifacts_linear/quantile_linear_q90.joblib                       read   x1      present  committed
+  ml/models/registry.py                                                       read   x1      present  committed
+  ml/training/__init__.py                                                     read   x1      present  committed
+  ml/training/train_lightgbm.py                                               read   x1      present  committed
+
+Writes inside eval/ (allowed): eval/baselines_results_v1_repro.json, eval/reports/forecast_quality.csv
+
+STATIC MANIFEST (every file outside eval/ the baselines study chain reads/writes, per code path)
+----------------------------------------------------------------------------------------------------
+path                                                                        committed in clean clone dynamically observed
+  ml/models/artifacts_60app/aegis_h10m_q10.txt                              yes       yes            yes
+  ml/models/artifacts_60app/aegis_h10m_q50.txt                              yes       yes            yes
+  ml/models/artifacts_60app/aegis_h10m_q90.txt                              yes       yes            yes
+  ml/models/artifacts_linear/feature_columns.json                           yes       yes            yes
+  ml/models/artifacts_linear/quantile_linear_q50.joblib                     yes       yes            yes
+  ml/models/artifacts_linear/quantile_linear_q90.joblib                     yes       yes            yes
+  ml/models/artifacts/aegis_h5m_q10.txt                                     yes       yes            yes
+  ml/models/artifacts/aegis_h10m_q10.txt                                    yes       yes            yes
+  ml/models/artifacts/aegis_h15m_q50.txt                                    yes       yes            yes
+  ml/models/registry.json                                                   yes       yes            no*
+  datasets/azure_30_study_apps.parquet                                      NO        yes            yes
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d01.csv       NO        yes            yes
+  * 'no' = not observed by the audit hook in the listed run; see role note. ml/models/registry.json must show 0 events (not used by this study).
+
+  ml/models/artifacts_60app/aegis_h10m_q10.txt
+      role      : baseline model artifact (LightGBM p10, primary forecaster)
+      referenced: eval/baselines_study.py via MODELS_DIR (eval/headline_study_v4.py), lgb.Booster(model_file=...)
+  ml/models/artifacts_60app/aegis_h10m_q50.txt
+      role      : baseline model artifact (LightGBM p50, primary forecaster)
+      referenced: eval/baselines_study.py via MODELS_DIR (eval/headline_study_v4.py), lgb.Booster(model_file=...)
+  ml/models/artifacts_60app/aegis_h10m_q90.txt
+      role      : baseline model artifact (LightGBM p90, primary forecaster)
+      referenced: eval/baselines_study.py via MODELS_DIR (eval/headline_study_v4.py), lgb.Booster(model_file=...)
+  ml/models/artifacts_linear/feature_columns.json
+      role      : baseline model artifact (quantile_linear feature list)
+      referenced: eval/baselines_study.py: open() + json.load
+  ml/models/artifacts_linear/quantile_linear_q50.joblib
+      role      : baseline model artifact (sklearn QuantileRegressor p50, quantile_linear arm)
+      referenced: eval/baselines_study.py: joblib.load
+  ml/models/artifacts_linear/quantile_linear_q90.joblib
+      role      : baseline model artifact (sklearn QuantileRegressor p90, quantile_linear arm)
+      referenced: eval/baselines_study.py: joblib.load
+  ml/models/artifacts/aegis_h5m_q10.txt
+      role      : baseline model artifact (AegisPredictor h5m p10)
+      referenced: ml/inference/predict.py AegisPredictor.load_models() glob, instantiated by AblationStudy.__init__ in every baselines worker
+  ml/models/artifacts/aegis_h10m_q10.txt
+      role      : baseline model artifact (AegisPredictor h10m p10)
+      referenced: ml/inference/predict.py AegisPredictor.load_models() glob, instantiated by AblationStudy.__init__ in every baselines worker
+  ml/models/artifacts/aegis_h15m_q50.txt
+      role      : baseline model artifact (AegisPredictor h15m p50, representative of the 9 h{5,10,15}m x q{10,50,90} boosters + 9 _meta.json files loaded by each worker)
+      referenced: ml/inference/predict.py AegisPredictor.load_models() glob, instantiated by AblationStudy.__init__ in every baselines worker
+  ml/models/registry.json
+      role      : model registry (committed); NOT read or written by the baselines study chain - only ml/models/registry.py ModelRegistry (instantiated by ml/training/train_lightgbm.py training functions) touches it; audit verifies zero dynamic events
+      referenced: none in the baselines study import chain (expected: 0 observed events)
+  datasets/azure_30_study_apps.parquet
+      role      : external dataset input, gitignored by design (study cache of the 30-app Azure trace; also WRITTEN by load_study_data() if absent)
+      referenced: eval/headline_study_v4.py load_study_data(): pd.read_parquet (CACHE_FILE)
+  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d01.csv
+      role      : external dataset input, gitignored by design (Azure raw trace; representative of d01..d12 read by load_memory_table)
+      referenced: datasets/load_real_trace.py load_memory_table(), called from eval/headline_study_v4.py load_study_data()
+
+External dataset inputs (gitignored by design; sha256-verified against the main repo):
+  [repro-clone] OK  174e8c7aee8e0b75…  datasets/azure_30_study_apps.parquet
+  [repro-clone] OK  6326389c30419b16…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d01.csv
+  [repro-clone] OK  8bc7e7d45d61bb06…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d02.csv
+  [repro-clone] OK  6a1f1acbce8fde2b…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d03.csv
+  [repro-clone] OK  6b9c5b2f5a17bb22…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d04.csv
+  [repro-clone] OK  b4a722d9890268c9…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d05.csv
+  [repro-clone] OK  a4ddd9acdb2b44c2…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d06.csv
+  [repro-clone] OK  9b4ce52840b593b0…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d07.csv
+  [repro-clone] OK  25e640bbd7cb63c3…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d08.csv
+  [repro-clone] OK  3a0156a866040104…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d09.csv
+  [repro-clone] OK  181e11c35dd276e4…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d10.csv
+  [repro-clone] OK  60964ebe739dadc0…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d11.csv
+  [repro-clone] OK  444e6e70972af386…  datasets/raw/azurefunctions2019/app_memory_percentiles.anon.d12.csv
+
+VERDICTS
+----------------------------------------------------------------------------------------------------
+1. Files the baselines study needs outside eval/ that were MISSING from the pre-fix clean checkout:
+   - (none)
+2. Uncommitted baseline MODEL artifacts: (none)
+3. Post-fix: all baseline model artifacts committed and present in the post-fix clean clone: yes
+4. Full baselines study re-run on the clean tree: SUCCEEDED -> eval/baselines_results_v1_repro.json
+5. ml/models/registry.json touched by the study: NO (0 events, as expected)
+
+repro run study log copied to main repo: eval/reports/repro_run.log

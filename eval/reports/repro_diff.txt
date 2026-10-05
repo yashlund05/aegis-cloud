@@ -1,0 +1,67 @@
+Task W3b STEP 2: reproducibility diff - baselines_results_v1.json vs baselines_results_v1_repro.json
+==============================================================================================================
+v1    commit=7c4d9281e00ac7eaca0ceed24fefe91a16869df2 dirty=False config_hash=4a4f57c934614635a211880997820fa55a536fadf1ee9d65861d97606ce8a20f
+repro commit=b9bce0f32d3559089566194c71c762ba0e106e69 dirty=False config_hash=4a4f57c934614635a211880997820fa55a536fadf1ee9d65861d97606ce8a20f
+config_hash identical: True
+tolerance for 'identical': max |v1 - repro| <= 1e-06
+
+Study configuration identical: True
+App partition identical: True
+
+section                      arm / target                                  sub         #fields   max |diff|
+--------------------------------------------------------------------------------------------------------------
+matched_shortfall_pareto     target=0.0% arm=fixed_margin                                  161            0
+matched_shortfall_pareto     target=0.0% arm=holt_winters                                  161            0
+matched_shortfall_pareto     target=0.0% arm=lightgbm_point_rolling                        163            0
+matched_shortfall_pareto     target=0.0% arm=no_cpsat_ffd                                  163            0
+matched_shortfall_pareto     target=0.0% arm=quantile_linear                               171            0
+matched_shortfall_pareto     target=0.0% arm=rolling                                       163            0
+matched_shortfall_pareto     target=0.0% arm=seasonal_naive                                161            0
+matched_shortfall_pareto     target=0.0% arm=vs_primary_aegis_rolling                       30            0
+matched_shortfall_pareto     target=0.1% arm=fixed_margin                                  161            0
+matched_shortfall_pareto     target=0.1% arm=holt_winters                                  161            0
+matched_shortfall_pareto     target=0.1% arm=lightgbm_point_rolling                        163            0
+matched_shortfall_pareto     target=0.1% arm=no_cpsat_ffd                                  163            0
+matched_shortfall_pareto     target=0.1% arm=quantile_linear                               171            0
+matched_shortfall_pareto     target=0.1% arm=rolling                                       163            0
+matched_shortfall_pareto     target=0.1% arm=seasonal_naive                                161            0
+matched_shortfall_pareto     target=0.1% arm=vs_primary_aegis_rolling                       30            0
+matched_shortfall_pareto     target=1.0% arm=fixed_margin                                  161            0
+matched_shortfall_pareto     target=1.0% arm=holt_winters                                  161            0
+matched_shortfall_pareto     target=1.0% arm=lightgbm_point_rolling                        163            0
+matched_shortfall_pareto     target=1.0% arm=no_cpsat_ffd                                  163            0
+matched_shortfall_pareto     target=1.0% arm=quantile_linear                               171            0
+matched_shortfall_pareto     target=1.0% arm=rolling                                       163            0
+matched_shortfall_pareto     target=1.0% arm=seasonal_naive                                161            0
+matched_shortfall_pareto     target=1.0% arm=vs_primary_aegis_rolling                       30            0
+matched_shortfall_pareto     target=5.0% arm=fixed_margin                                  161            0
+matched_shortfall_pareto     target=5.0% arm=holt_winters                                  161            0
+matched_shortfall_pareto     target=5.0% arm=lightgbm_point_rolling                        163            0
+matched_shortfall_pareto     target=5.0% arm=no_cpsat_ffd                                  163            0
+matched_shortfall_pareto     target=5.0% arm=quantile_linear                               171            0
+matched_shortfall_pareto     target=5.0% arm=rolling                                       163            0
+matched_shortfall_pareto     target=5.0% arm=seasonal_naive                                161            0
+matched_shortfall_pareto     target=5.0% arm=vs_primary_aegis_rolling                       30            0
+natural_operating_points     fixed_margin                                  ca_u_50          18            0
+natural_operating_points     fixed_margin                                  ca_u_60          18            0
+natural_operating_points     holt_winters                                  ca_u_50          18            0
+natural_operating_points     holt_winters                                  ca_u_60          18            0
+natural_operating_points     lightgbm_point_rolling                        ca_u_50          18            0
+natural_operating_points     lightgbm_point_rolling                        ca_u_60          18            0
+natural_operating_points     no_cpsat_ffd                                  ca_u_50          18            0
+natural_operating_points     no_cpsat_ffd                                  ca_u_60          18            0
+natural_operating_points     quantile_linear                               ca_u_50          18            0
+natural_operating_points     quantile_linear                               ca_u_60          18            0
+natural_operating_points     rolling                                       ca_u_50          18            0
+natural_operating_points     rolling                                       ca_u_60          18            0
+natural_operating_points     seasonal_naive                                ca_u_50          18            0
+natural_operating_points     seasonal_naive                                ca_u_60          18            0
+
+SUMMARY
+--------------------------------------------------------------------------------------------------------------
+arm x target/subsection comparisons: 46
+numeric fields compared (total, with repetition across comparisons): 4944
+overall max absolute difference: 0
+structural issues (missing arms/fields): 0
+provenance fields differing (expected, informational): ['timestamp_utc', 'git_commit']
+MAX DIFF WITHIN 1e-06: YES

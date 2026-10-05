@@ -1,0 +1,82 @@
+[
+  {
+    "num_pods": 10,
+    "ffd_nodes": 2,
+    "cpsat_nodes": 2,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.016281604766845703
+  },
+  {
+    "num_pods": 20,
+    "ffd_nodes": 4,
+    "cpsat_nodes": 4,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.04869556427001953
+  },
+  {
+    "num_pods": 30,
+    "ffd_nodes": 6,
+    "cpsat_nodes": 6,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.07647252082824707
+  },
+  {
+    "num_pods": 40,
+    "ffd_nodes": 8,
+    "cpsat_nodes": 8,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.1728992462158203
+  },
+  {
+    "num_pods": 50,
+    "ffd_nodes": 10,
+    "cpsat_nodes": 10,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 1.0047953128814697
+  },
+  {
+    "num_pods": 60,
+    "ffd_nodes": 11,
+    "cpsat_nodes": 11,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.42270445823669434
+  },
+  {
+    "num_pods": 70,
+    "ffd_nodes": 13,
+    "cpsat_nodes": 13,
+    "savings": 0,
+    "time_ffd_sec": 0.0,
+    "time_cpsat_sec": 0.6203958988189697
+  },
+  {
+    "num_pods": 80,
+    "ffd_nodes": 15,
+    "cpsat_nodes": 15,
+    "savings": 0,
+    "time_ffd_sec": 0.0009937286376953125,
+    "time_cpsat_sec": 0.8466243743896484
+  },
+  {
+    "num_pods": 90,
+    "ffd_nodes": 17,
+    "cpsat_nodes": 17,
+    "savings": 0,
+    "time_ffd_sec": 0.001001596450805664,
+    "time_cpsat_sec": 1.1735904216766357
+  },
+  {
+    "num_pods": 100,
+    "ffd_nodes": 19,
+    "cpsat_nodes": 19,
+    "savings": 0,
+    "time_ffd_sec": 0.0009951591491699219,
+    "time_cpsat_sec": 1.516331672668457
+  }
+]

@@ -277,10 +277,10 @@ def committed_status(clone: Path, rel: str) -> bool:
     return bool(git_out(clone, "ls-files", "--", rel).strip())
 
 
-def write_sitecustomize(tmpdir: Path) -> None:
+def write_sitecustomize(tmpdir: Path, log_dir: Path) -> None:
     shim = f'''
 import sys, os, json
-_LOG_DIR = r"{tmpdir / "audit_events"}"
+_LOG_DIR = r"{log_dir}"
 os.makedirs(_LOG_DIR, exist_ok=True)
 try:
     _fd = os.open(os.path.join(_LOG_DIR, "pid_%d.log" % os.getpid()),
@@ -372,7 +372,7 @@ def main() -> int:
     dirty = git_out(post_clone, "status", "--porcelain").strip()
     report.append(f"clone working-tree status before run: {'CLEAN (only gitignored dataset inputs copied in)' if not dirty else dirty}")
     copy_dataset_inputs(post_clone, integrity)
-    write_sitecustomize(work)
+    write_sitecustomize(work, post_log)
     env = dict(os.environ)
     env["PYTHONPATH"] = str(work) + os.pathsep + env.get("PYTHONPATH", "")
     study_res = subprocess.run(

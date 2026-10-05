@@ -254,7 +254,12 @@ def repo_relative_events(events: dict, root: Path) -> dict:
         pn = os.path.normpath(p).lower()
         if not pn.startswith(root_n + os.sep):
             continue
-        rel = os.path.relpath(p, root).replace("\\", "/")
+        try:
+            rel = os.path.relpath(p, root).replace("\\", "/")
+        except ValueError:
+            # Windows reserved device names (nul, con, ...) or cross-mount paths:
+            # not real repo files, skip them.
+            continue
         parts = set(rel.split("/")[:-1])
         if parts & EXCLUDED_DIR_PARTS:
             continue

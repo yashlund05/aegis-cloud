@@ -2,7 +2,7 @@
   "model_name": "aegis_h10m_q90",
   "horizon_minutes": 10,
   "quantile": 0.9,
-  "backend": "lightgbm",
+  "backend": "sklearn_hist",
   "features": [
     "memory_usage",
     "hour_of_day",
@@ -45,10 +45,10 @@
     "memory_rate_of_change",
     "cpu_memory_ratio"
   ],
-  "model_path": "ml/models/artifacts_real\\aegis_h10m_q90.txt",
+  "model_path": "ml/models/artifacts_real\\aegis_h10m_q90.joblib",
   "metrics": {
-    "wmape": 0.0256,
-    "pinball_loss": 0.0674
+    "wmape": 0.028,
+    "pinball_loss": 0.0743
   },
   "status": "active",
   "trained_on": "Azure Functions 2019 real-trace TRAIN segment only (see eval/real_trace_results.json)"

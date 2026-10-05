@@ -4,39 +4,39 @@
       "full (all components)": {
         "config": "full_aegis_conformal",
         "stream": "static_conformal",
-        "energy_kwh": 172.0735,
+        "energy_kwh": 187.5093,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 107,
-        "scaling_churn": 770
+        "scaling_actions": 110,
+        "scaling_churn": 783
       },
       "minus conformal": {
         "config": "full_aegis",
         "stream": "raw",
-        "energy_kwh": 171.0035,
+        "energy_kwh": 186.0368,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 106,
-        "scaling_churn": 750
+        "scaling_actions": 114,
+        "scaling_churn": 806
       },
       "minus placement": {
         "config": "forecast_plus_power_no_placement",
         "stream": "static_conformal",
-        "energy_kwh": 163.3278,
+        "energy_kwh": 223.5018,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 107,
-        "scaling_churn": 770
+        "scaling_actions": 110,
+        "scaling_churn": 783
       },
       "minus power-down": {
         "config": "forecast_placement",
         "stream": "static_conformal",
-        "energy_kwh": 226.3294,
+        "energy_kwh": 244.2051,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 107,
-        "scaling_churn": 770
+        "scaling_actions": 110,
+        "scaling_churn": 783
       },
       "minus forecast (reactive+consolidation)": {
         "config": "reactive_hpa_plus_consolidation",
         "stream": "raw",
-        "energy_kwh": 160.0588,
+        "energy_kwh": 218.1595,
         "capacity_shortfall_minutes": 1,
         "scaling_actions": 122,
         "scaling_churn": 941
@@ -46,39 +46,39 @@
       "full (all components)": {
         "config": "full_aegis_conformal",
         "stream": "static_conformal",
-        "energy_kwh": 180.9041,
+        "energy_kwh": 194.2566,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 39,
-        "scaling_churn": 389
+        "scaling_actions": 87,
+        "scaling_churn": 736
       },
       "minus conformal": {
         "config": "full_aegis",
         "stream": "raw",
-        "energy_kwh": 175.8964,
+        "energy_kwh": 189.5544,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 48,
-        "scaling_churn": 441
+        "scaling_actions": 88,
+        "scaling_churn": 742
       },
       "minus placement": {
         "config": "forecast_plus_power_no_placement",
         "stream": "static_conformal",
-        "energy_kwh": 170.1664,
+        "energy_kwh": 232.8012,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 39,
-        "scaling_churn": 389
+        "scaling_actions": 87,
+        "scaling_churn": 736
       },
       "minus power-down": {
         "config": "forecast_placement",
         "stream": "static_conformal",
-        "energy_kwh": 220.2514,
+        "energy_kwh": 237.2852,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 39,
-        "scaling_churn": 389
+        "scaling_actions": 87,
+        "scaling_churn": 736
       },
       "minus forecast (reactive+consolidation)": {
         "config": "reactive_hpa_plus_consolidation",
         "stream": "raw",
-        "energy_kwh": 157.3557,
+        "energy_kwh": 212.9005,
         "capacity_shortfall_minutes": 46,
         "scaling_actions": 619,
         "scaling_churn": 8406
@@ -88,39 +88,39 @@
       "full (all components)": {
         "config": "full_aegis_conformal",
         "stream": "static_conformal",
-        "energy_kwh": 228.3836,
+        "energy_kwh": 248.4823,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 45,
-        "scaling_churn": 542
+        "scaling_actions": 61,
+        "scaling_churn": 759
       },
       "minus conformal": {
         "config": "full_aegis",
         "stream": "raw",
-        "energy_kwh": 228.1387,
+        "energy_kwh": 248.1597,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 41,
-        "scaling_churn": 494
+        "scaling_actions": 48,
+        "scaling_churn": 585
       },
       "minus placement": {
         "config": "forecast_plus_power_no_placement",
         "stream": "static_conformal",
-        "energy_kwh": 212.1222,
+        "energy_kwh": 290.1484,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 45,
-        "scaling_churn": 542
+        "scaling_actions": 61,
+        "scaling_churn": 759
       },
       "minus power-down": {
         "config": "forecast_placement",
         "stream": "static_conformal",
-        "energy_kwh": 247.5464,
+        "energy_kwh": 268.0669,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 45,
-        "scaling_churn": 542
+        "scaling_actions": 61,
+        "scaling_churn": 759
       },
       "minus forecast (reactive+consolidation)": {
         "config": "reactive_hpa_plus_consolidation",
         "stream": "raw",
-        "energy_kwh": 202.3638,
+        "energy_kwh": 273.8658,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 87,
         "scaling_churn": 1132
@@ -130,39 +130,39 @@
       "full (all components)": {
         "config": "full_aegis_conformal",
         "stream": "static_conformal",
-        "energy_kwh": 173.3507,
+        "energy_kwh": 184.4042,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 74,
-        "scaling_churn": 709
+        "scaling_actions": 72,
+        "scaling_churn": 669
       },
       "minus conformal": {
         "config": "full_aegis",
         "stream": "raw",
-        "energy_kwh": 165.0396,
+        "energy_kwh": 178.8376,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 86,
-        "scaling_churn": 789
+        "scaling_actions": 71,
+        "scaling_churn": 656
       },
       "minus placement": {
         "config": "forecast_plus_power_no_placement",
         "stream": "static_conformal",
-        "energy_kwh": 166.226,
+        "energy_kwh": 218.6556,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 74,
-        "scaling_churn": 709
+        "scaling_actions": 72,
+        "scaling_churn": 669
       },
       "minus power-down": {
         "config": "forecast_placement",
         "stream": "static_conformal",
-        "energy_kwh": 220.9149,
+        "energy_kwh": 238.1398,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 74,
-        "scaling_churn": 709
+        "scaling_actions": 72,
+        "scaling_churn": 669
       },
       "minus forecast (reactive+consolidation)": {
         "config": "reactive_hpa_plus_consolidation",
         "stream": "raw",
-        "energy_kwh": 142.5899,
+        "energy_kwh": 193.0714,
         "capacity_shortfall_minutes": 1,
         "scaling_actions": 33,
         "scaling_churn": 269
@@ -172,39 +172,39 @@
       "full (all components)": {
         "config": "full_aegis_conformal",
         "stream": "static_conformal",
-        "energy_kwh": 134.1377,
+        "energy_kwh": 145.8137,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 17,
-        "scaling_churn": 125
+        "scaling_actions": 15,
+        "scaling_churn": 113
       },
       "minus conformal": {
         "config": "full_aegis",
         "stream": "raw",
-        "energy_kwh": 131.3381,
-        "capacity_shortfall_minutes": 6,
-        "scaling_actions": 17,
-        "scaling_churn": 113
+        "energy_kwh": 143.4658,
+        "capacity_shortfall_minutes": 7,
+        "scaling_actions": 20,
+        "scaling_churn": 138
       },
       "minus placement": {
         "config": "forecast_plus_power_no_placement",
         "stream": "static_conformal",
-        "energy_kwh": 128.1526,
+        "energy_kwh": 173.6527,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 17,
-        "scaling_churn": 125
+        "scaling_actions": 15,
+        "scaling_churn": 113
       },
       "minus power-down": {
         "config": "forecast_placement",
         "stream": "static_conformal",
-        "energy_kwh": 212.2327,
+        "energy_kwh": 228.067,
         "capacity_shortfall_minutes": 0,
-        "scaling_actions": 17,
-        "scaling_churn": 125
+        "scaling_actions": 15,
+        "scaling_churn": 113
       },
       "minus forecast (reactive+consolidation)": {
         "config": "reactive_hpa_plus_consolidation",
         "stream": "raw",
-        "energy_kwh": 129.8834,
+        "energy_kwh": 178.271,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 51,
         "scaling_churn": 578
@@ -240,24 +240,24 @@
   ],
   "component_cost_mean_over_apps": {
     "minus conformal": {
-      "d_energy_kwh": -3.487,
-      "d_shortfall_min": 1.2,
-      "d_events": 3.2
+      "d_energy_kwh": -2.882,
+      "d_shortfall_min": 1.4,
+      "d_events": -0.8
     },
     "minus placement": {
-      "d_energy_kwh": -9.771,
+      "d_energy_kwh": 35.659,
       "d_shortfall_min": 0.0,
       "d_events": 0.0
     },
     "minus power-down": {
-      "d_energy_kwh": 47.685,
+      "d_energy_kwh": 51.06,
       "d_shortfall_min": 0.0,
       "d_events": 0.0
     },
     "minus forecast (reactive+consolidation)": {
-      "d_energy_kwh": -19.32,
+      "d_energy_kwh": 23.16,
       "d_shortfall_min": 9.6,
-      "d_events": 126.0
+      "d_events": 113.4
     }
   },
   "note": "minus-placement and minus-power-down keep the static conformal stream to isolate the component; minus-forecast is necessarily fully reactive (reactive_hpa_plus_consolidation). The simulator is deterministic given a fixed trace, so numbers are exact, not sampled.",
@@ -268,13 +268,10 @@
     "conformal_tau": 0.9,
     "models_dir": "ml/models/artifacts_real"
   },
-  "simulator_config_hash": "6852ee401df53849e4be691b46a1a4ba793303fa12f6531171f18d57a8dfb45b",
+  "simulator_config_hash": "0a034d9a90f3e12eea82fd1dc5e8efb9869f82ba7db1ea11ef6fc315b53d6ca3",
   "git": {
-    "commit": "1aec64ef31d0ce2e082aa2372638893602dbb9e0",
-    "tag_at_head": "sim-frozen",
-    "dirty_files": [
-      "eval/run_real_ablation.py",
-      "eval/run_sensitivity.py"
-    ]
+    "commit": "",
+    "tag_at_head": "",
+    "dirty_files": []
   }
 }

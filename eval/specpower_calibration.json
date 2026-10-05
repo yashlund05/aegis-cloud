@@ -1,0 +1,155 @@
+{
+  "method": "SPECpower_ssj2008 curve fit \u2014 power_law P(u)=P_idle+(P_max-P_idle)*u^alpha",
+  "source": "https://spec.org/power_ssj2008/results/ \u2014 4-core 16GB 1U rack servers (2018-2020)",
+  "systems": [
+    {
+      "system": "Dell_PowerEdge_R230_XeonE3v6",
+      "scale_factor": 2.65,
+      "p_idle_W": 96.27,
+      "p_max_W": 253.69,
+      "alpha": 0.7008,
+      "fit_r2": 0.999287,
+      "fit_rmse_W": 1.268,
+      "measured_W_per_util": [
+        95.39999999999999,
+        130.38,
+        147.605,
+        162.445,
+        177.81499999999997,
+        191.86,
+        206.17,
+        219.685,
+        232.14,
+        243.26999999999998,
+        252.81
+      ],
+      "predicted_W_per_util": [
+        96.27,
+        127.62,
+        147.23,
+        163.97,
+        179.1,
+        193.12,
+        206.32,
+        218.87,
+        230.9,
+        242.49,
+        253.69
+      ]
+    },
+    {
+      "system": "HP_ProLiant_DL20_Gen9_XeonE3v6",
+      "scale_factor": 2.65,
+      "p_idle_W": 88.06,
+      "p_max_W": 240.15,
+      "alpha": 0.6427,
+      "fit_r2": 0.999533,
+      "fit_rmse_W": 0.979,
+      "measured_W_per_util": [
+        87.45,
+        124.815,
+        142.57,
+        156.88,
+        170.92499999999998,
+        184.97,
+        197.68999999999997,
+        209.61499999999998,
+        220.48,
+        230.54999999999998,
+        239.825
+      ],
+      "predicted_W_per_util": [
+        88.06,
+        122.69,
+        142.12,
+        158.21,
+        172.46,
+        185.48,
+        197.59,
+        208.99,
+        219.83,
+        230.19,
+        240.15
+      ]
+    },
+    {
+      "system": "Lenovo_ThinkSystem_SR150_XeonE2174G",
+      "scale_factor": 2.65,
+      "p_idle_W": 105.96,
+      "p_max_W": 271.09,
+      "alpha": 0.6705,
+      "fit_r2": 0.999773,
+      "fit_rmse_W": 0.745,
+      "measured_W_per_util": [
+        106.0,
+        141.775,
+        161.65,
+        178.875,
+        194.775,
+        209.35,
+        223.92499999999998,
+        237.17499999999998,
+        249.1,
+        259.7,
+        269.77
+      ],
+      "predicted_W_per_util": [
+        105.96,
+        141.22,
+        162.08,
+        179.62,
+        195.29,
+        209.71,
+        223.2,
+        235.96,
+        248.14,
+        259.82,
+        271.09
+      ]
+    },
+    {
+      "system": "Fujitsu_PRIMERGY_RX1330M4_XeonE2126G",
+      "scale_factor": 2.65,
+      "p_idle_W": 111.23,
+      "p_max_W": 280.56,
+      "alpha": 0.6643,
+      "fit_r2": 0.999761,
+      "fit_rmse_W": 0.784,
+      "measured_W_per_util": [
+        111.3,
+        148.4,
+        169.07,
+        186.295,
+        202.725,
+        218.095,
+        232.67,
+        245.92,
+        258.11,
+        269.23999999999995,
+        279.04499999999996
+      ],
+      "predicted_W_per_util": [
+        111.23,
+        147.91,
+        169.36,
+        187.33,
+        203.36,
+        218.08,
+        231.84,
+        244.84,
+        257.23,
+        269.12,
+        280.56
+      ]
+    }
+  ],
+  "ensemble": {
+    "p_idle_W": 100.38,
+    "p_max_W": 261.37,
+    "alpha": 0.6696,
+    "std_alpha": 0.0208,
+    "mean_r2": 0.999588
+  },
+  "enterprise_scale_factor": 2.65,
+  "reference": "Fan, Weber, Barroso (ISCA'07) 'Power provisioning for a warehouse-sized computer'"
+}

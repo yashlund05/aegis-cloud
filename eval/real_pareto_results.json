@@ -3,78 +3,78 @@
     "737e31dddf54": {
       "aegis_tau": {
         "0.5": {
-          "energy_kwh": 167.3425,
+          "energy_kwh": 182.1742,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 103,
-          "scaling_churn": 680,
-          "q_hat_90": -0.9715,
-          "coverage": 0.4744
+          "scaling_actions": 110,
+          "scaling_churn": 729,
+          "q_hat_90": -0.9665,
+          "coverage": 0.476
         },
         "0.7": {
-          "energy_kwh": 169.1306,
+          "energy_kwh": 183.8699,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 106,
-          "scaling_churn": 734,
-          "q_hat_90": -0.4598,
-          "coverage": 0.5992
+          "scaling_actions": 104,
+          "scaling_churn": 707,
+          "q_hat_90": -0.4749,
+          "coverage": 0.5923
         },
         "0.9": {
-          "energy_kwh": 172.0735,
+          "energy_kwh": 187.5093,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 107,
-          "scaling_churn": 770,
-          "q_hat_90": 0.2525,
-          "coverage": 0.7772
+          "scaling_actions": 110,
+          "scaling_churn": 783,
+          "q_hat_90": 0.2865,
+          "coverage": 0.7825
         },
         "0.99": {
-          "energy_kwh": 177.8236,
+          "energy_kwh": 193.0028,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 100,
-          "scaling_churn": 766,
-          "q_hat_90": 1.6945,
-          "coverage": 0.8927
+          "scaling_churn": 762,
+          "q_hat_90": 1.6879,
+          "coverage": 0.8915
         }
       },
       "ca_util": {
         "0.9": {
-          "energy_kwh": 142.7911,
+          "energy_kwh": 186.6325,
           "capacity_shortfall_minutes": 34,
           "scaling_actions": 111,
           "scaling_churn": 705
         },
         "0.8": {
-          "energy_kwh": 149.7726,
+          "energy_kwh": 200.0115,
           "capacity_shortfall_minutes": 2,
           "scaling_actions": 117,
           "scaling_churn": 810
         },
         "0.7": {
-          "energy_kwh": 160.5853,
+          "energy_kwh": 219.0369,
           "capacity_shortfall_minutes": 1,
           "scaling_actions": 122,
           "scaling_churn": 941
         },
         "0.6": {
-          "energy_kwh": 170.6865,
+          "energy_kwh": 235.6864,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 116,
           "scaling_churn": 1056
         },
         "0.5": {
-          "energy_kwh": 180.7787,
+          "energy_kwh": 251.3038,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 121,
           "scaling_churn": 1268
         }
       },
       "oracle": {
-        "energy_kwh": 168.6591,
+        "energy_kwh": 183.539,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 120,
         "scaling_churn": 921
       },
       "seasonal_naive_conformal": {
-        "energy_kwh": 174.3189,
+        "energy_kwh": 189.4833,
         "capacity_shortfall_minutes": 1,
         "scaling_actions": 112,
         "scaling_churn": 848,
@@ -84,126 +84,126 @@
         {
           "ca_util": 0.9,
           "ca_shortfall": 34,
-          "ca_energy": 142.7911,
-          "aegis_energy_interp": 167.343,
-          "delta_aegis_minus_ca": 24.551,
+          "ca_energy": 186.6325,
+          "aegis_energy_interp": 182.174,
+          "delta_aegis_minus_ca": -4.458,
           "extrapolated": true
         },
         {
           "ca_util": 0.8,
           "ca_shortfall": 2,
-          "ca_energy": 149.7726,
-          "aegis_energy_interp": 167.343,
-          "delta_aegis_minus_ca": 17.57,
+          "ca_energy": 200.0115,
+          "aegis_energy_interp": 182.174,
+          "delta_aegis_minus_ca": -17.837,
           "extrapolated": true
         },
         {
           "ca_util": 0.7,
           "ca_shortfall": 1,
-          "ca_energy": 160.5853,
-          "aegis_energy_interp": 167.343,
-          "delta_aegis_minus_ca": 6.757,
+          "ca_energy": 219.0369,
+          "aegis_energy_interp": 182.174,
+          "delta_aegis_minus_ca": -36.863,
           "extrapolated": true
         },
         {
           "ca_util": 0.6,
           "ca_shortfall": 0,
-          "ca_energy": 170.6865,
-          "aegis_energy_interp": 167.343,
-          "delta_aegis_minus_ca": -3.344,
+          "ca_energy": 235.6864,
+          "aegis_energy_interp": 182.174,
+          "delta_aegis_minus_ca": -53.512,
           "extrapolated": false
         },
         {
           "ca_util": 0.5,
           "ca_shortfall": 0,
-          "ca_energy": 180.7787,
-          "aegis_energy_interp": 167.343,
-          "delta_aegis_minus_ca": -13.436,
+          "ca_energy": 251.3038,
+          "aegis_energy_interp": 182.174,
+          "delta_aegis_minus_ca": -69.13,
           "extrapolated": false
         }
       ],
       "aegis_frontier": [
         [
           0.0,
-          167.3425
+          182.1742
         ]
       ]
     },
     "a98d35d0aed6": {
       "aegis_tau": {
         "0.5": {
-          "energy_kwh": 160.7297,
-          "capacity_shortfall_minutes": 11,
-          "scaling_actions": 89,
-          "scaling_churn": 592,
-          "q_hat_90": -5.2018,
-          "coverage": 0.4315
+          "energy_kwh": 177.232,
+          "capacity_shortfall_minutes": 8,
+          "scaling_actions": 140,
+          "scaling_churn": 1156,
+          "q_hat_90": -4.5451,
+          "coverage": 0.4377
         },
         "0.7": {
-          "energy_kwh": 162.9107,
-          "capacity_shortfall_minutes": 7,
-          "scaling_actions": 89,
-          "scaling_churn": 615,
-          "q_hat_90": -4.118,
-          "coverage": 0.4865
+          "energy_kwh": 179.262,
+          "capacity_shortfall_minutes": 3,
+          "scaling_actions": 111,
+          "scaling_churn": 929,
+          "q_hat_90": -3.1676,
+          "coverage": 0.5115
         },
         "0.9": {
-          "energy_kwh": 180.9041,
+          "energy_kwh": 194.2566,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 39,
-          "scaling_churn": 389,
-          "q_hat_90": 0.9982,
-          "coverage": 0.7387
+          "scaling_actions": 87,
+          "scaling_churn": 736,
+          "q_hat_90": 1.0497,
+          "coverage": 0.7661
         },
         "0.99": {
-          "energy_kwh": 195.1508,
+          "energy_kwh": 209.3946,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 32,
-          "scaling_churn": 381,
-          "q_hat_90": 5.4063,
-          "coverage": 0.803
+          "scaling_actions": 76,
+          "scaling_churn": 697,
+          "q_hat_90": 5.3265,
+          "coverage": 0.8337
         }
       },
       "ca_util": {
         "0.9": {
-          "energy_kwh": 140.9879,
+          "energy_kwh": 186.1322,
           "capacity_shortfall_minutes": 299,
           "scaling_actions": 614,
           "scaling_churn": 6527
         },
         "0.8": {
-          "energy_kwh": 149.4577,
+          "energy_kwh": 201.0399,
           "capacity_shortfall_minutes": 107,
           "scaling_actions": 618,
           "scaling_churn": 7362
         },
         "0.7": {
-          "energy_kwh": 157.8281,
+          "energy_kwh": 214.8076,
           "capacity_shortfall_minutes": 41,
           "scaling_actions": 619,
           "scaling_churn": 8406
         },
         "0.6": {
-          "energy_kwh": 167.4513,
+          "energy_kwh": 229.995,
           "capacity_shortfall_minutes": 10,
           "scaling_actions": 616,
           "scaling_churn": 9748
         },
         "0.5": {
-          "energy_kwh": 180.647,
+          "energy_kwh": 249.7514,
           "capacity_shortfall_minutes": 1,
           "scaling_actions": 629,
           "scaling_churn": 11837
         }
       },
       "oracle": {
-        "energy_kwh": 167.6261,
+        "energy_kwh": 181.7001,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 773,
         "scaling_churn": 10343
       },
       "seasonal_naive_conformal": {
-        "energy_kwh": 207.5598,
+        "energy_kwh": 223.7293,
         "capacity_shortfall_minutes": 2,
         "scaling_actions": 542,
         "scaling_churn": 9879,
@@ -213,134 +213,134 @@
         {
           "ca_util": 0.9,
           "ca_shortfall": 299,
-          "ca_energy": 140.9879,
-          "aegis_energy_interp": 160.73,
-          "delta_aegis_minus_ca": 19.742,
+          "ca_energy": 186.1322,
+          "aegis_energy_interp": 177.232,
+          "delta_aegis_minus_ca": -8.9,
           "extrapolated": true
         },
         {
           "ca_util": 0.8,
           "ca_shortfall": 107,
-          "ca_energy": 149.4577,
-          "aegis_energy_interp": 160.73,
-          "delta_aegis_minus_ca": 11.272,
+          "ca_energy": 201.0399,
+          "aegis_energy_interp": 177.232,
+          "delta_aegis_minus_ca": -23.808,
           "extrapolated": true
         },
         {
           "ca_util": 0.7,
           "ca_shortfall": 41,
-          "ca_energy": 157.8281,
-          "aegis_energy_interp": 160.73,
-          "delta_aegis_minus_ca": 2.902,
+          "ca_energy": 214.8076,
+          "aegis_energy_interp": 177.232,
+          "delta_aegis_minus_ca": -37.576,
           "extrapolated": true
         },
         {
           "ca_util": 0.6,
           "ca_shortfall": 10,
-          "ca_energy": 167.4513,
-          "aegis_energy_interp": 161.275,
-          "delta_aegis_minus_ca": -6.176,
-          "extrapolated": false
+          "ca_energy": 229.995,
+          "aegis_energy_interp": 177.232,
+          "delta_aegis_minus_ca": -52.763,
+          "extrapolated": true
         },
         {
           "ca_util": 0.5,
           "ca_shortfall": 1,
-          "ca_energy": 180.647,
-          "aegis_energy_interp": 178.334,
-          "delta_aegis_minus_ca": -2.313,
+          "ca_energy": 249.7514,
+          "aegis_energy_interp": 189.258,
+          "delta_aegis_minus_ca": -60.493,
           "extrapolated": false
         }
       ],
       "aegis_frontier": [
         [
           0.0,
-          180.9041
+          194.2566
         ],
         [
-          7.0,
-          162.9107
+          3.0,
+          179.262
         ],
         [
-          11.0,
-          160.7297
+          8.0,
+          177.232
         ]
       ]
     },
     "d638d26f513a": {
       "aegis_tau": {
         "0.5": {
-          "energy_kwh": 220.6884,
+          "energy_kwh": 241.5401,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 35,
-          "scaling_churn": 396,
-          "q_hat_90": -2.0694,
-          "coverage": 0.2933
+          "scaling_actions": 43,
+          "scaling_churn": 507,
+          "q_hat_90": -2.1685,
+          "coverage": 0.4935
         },
         "0.7": {
-          "energy_kwh": 222.1036,
+          "energy_kwh": 243.216,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 36,
-          "scaling_churn": 410,
-          "q_hat_90": -1.4456,
-          "coverage": 0.4113
+          "scaling_actions": 55,
+          "scaling_churn": 657,
+          "q_hat_90": -1.4673,
+          "coverage": 0.6135
         },
         "0.9": {
-          "energy_kwh": 228.3836,
+          "energy_kwh": 248.4823,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 45,
-          "scaling_churn": 542,
-          "q_hat_90": 0.0593,
-          "coverage": 0.7988
+          "scaling_actions": 61,
+          "scaling_churn": 759,
+          "q_hat_90": 0.1091,
+          "coverage": 0.8054
         },
         "0.99": {
-          "energy_kwh": 240.3824,
+          "energy_kwh": 260.0525,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 33,
-          "scaling_churn": 433,
-          "q_hat_90": 3.6244,
-          "coverage": 0.8474
+          "scaling_actions": 38,
+          "scaling_churn": 504,
+          "q_hat_90": 3.4664,
+          "coverage": 0.8536
         }
       },
       "ca_util": {
         "0.9": {
-          "energy_kwh": 184.1235,
+          "energy_kwh": 238.9529,
           "capacity_shortfall_minutes": 33,
           "scaling_actions": 92,
           "scaling_churn": 941
         },
         "0.8": {
-          "energy_kwh": 193.4284,
+          "energy_kwh": 257.3378,
           "capacity_shortfall_minutes": 3,
           "scaling_actions": 89,
           "scaling_churn": 1026
         },
         "0.7": {
-          "energy_kwh": 202.7323,
+          "energy_kwh": 274.5609,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 87,
           "scaling_churn": 1132
         },
         "0.6": {
-          "energy_kwh": 214.8319,
+          "energy_kwh": 295.163,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 92,
           "scaling_churn": 1421
         },
         "0.5": {
-          "energy_kwh": 217.4254,
+          "energy_kwh": 299.2096,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 94,
           "scaling_churn": 1674
         }
       },
       "oracle": {
-        "energy_kwh": 217.937,
+        "energy_kwh": 236.8252,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 103,
         "scaling_churn": 1301
       },
       "seasonal_naive_conformal": {
-        "energy_kwh": 240.676,
+        "energy_kwh": 260.717,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 83,
         "scaling_churn": 1223,
@@ -350,126 +350,126 @@
         {
           "ca_util": 0.9,
           "ca_shortfall": 33,
-          "ca_energy": 184.1235,
-          "aegis_energy_interp": 220.688,
-          "delta_aegis_minus_ca": 36.565,
+          "ca_energy": 238.9529,
+          "aegis_energy_interp": 241.54,
+          "delta_aegis_minus_ca": 2.587,
           "extrapolated": true
         },
         {
           "ca_util": 0.8,
           "ca_shortfall": 3,
-          "ca_energy": 193.4284,
-          "aegis_energy_interp": 220.688,
-          "delta_aegis_minus_ca": 27.26,
+          "ca_energy": 257.3378,
+          "aegis_energy_interp": 241.54,
+          "delta_aegis_minus_ca": -15.798,
           "extrapolated": true
         },
         {
           "ca_util": 0.7,
           "ca_shortfall": 0,
-          "ca_energy": 202.7323,
-          "aegis_energy_interp": 220.688,
-          "delta_aegis_minus_ca": 17.956,
+          "ca_energy": 274.5609,
+          "aegis_energy_interp": 241.54,
+          "delta_aegis_minus_ca": -33.021,
           "extrapolated": false
         },
         {
           "ca_util": 0.6,
           "ca_shortfall": 0,
-          "ca_energy": 214.8319,
-          "aegis_energy_interp": 220.688,
-          "delta_aegis_minus_ca": 5.857,
+          "ca_energy": 295.163,
+          "aegis_energy_interp": 241.54,
+          "delta_aegis_minus_ca": -53.623,
           "extrapolated": false
         },
         {
           "ca_util": 0.5,
           "ca_shortfall": 0,
-          "ca_energy": 217.4254,
-          "aegis_energy_interp": 220.688,
-          "delta_aegis_minus_ca": 3.263,
+          "ca_energy": 299.2096,
+          "aegis_energy_interp": 241.54,
+          "delta_aegis_minus_ca": -57.67,
           "extrapolated": false
         }
       ],
       "aegis_frontier": [
         [
           0.0,
-          220.6884
+          241.5401
         ]
       ]
     },
     "e593dfd5a2c4": {
       "aegis_tau": {
         "0.5": {
-          "energy_kwh": 145.2047,
-          "capacity_shortfall_minutes": 4,
-          "scaling_actions": 23,
-          "scaling_churn": 136,
-          "q_hat_90": -9.0522,
-          "coverage": 0.2361
+          "energy_kwh": 159.0547,
+          "capacity_shortfall_minutes": 2,
+          "scaling_actions": 30,
+          "scaling_churn": 180,
+          "q_hat_90": -9.5063,
+          "coverage": 0.1663
         },
         "0.7": {
-          "energy_kwh": 145.9052,
+          "energy_kwh": 159.0816,
           "capacity_shortfall_minutes": 2,
-          "scaling_actions": 23,
-          "scaling_churn": 138,
-          "q_hat_90": -6.3943,
-          "coverage": 0.2506
+          "scaling_actions": 26,
+          "scaling_churn": 163,
+          "q_hat_90": -7.6989,
+          "coverage": 0.1758
         },
         "0.9": {
-          "energy_kwh": 173.3507,
+          "energy_kwh": 184.4042,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 74,
-          "scaling_churn": 709,
-          "q_hat_90": 2.1292,
-          "coverage": 0.9518
+          "scaling_actions": 72,
+          "scaling_churn": 669,
+          "q_hat_90": 0.9819,
+          "coverage": 0.9385
         },
         "0.99": {
-          "energy_kwh": 217.5314,
+          "energy_kwh": 231.7519,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 27,
-          "scaling_churn": 313,
-          "q_hat_90": 15.5714,
-          "coverage": 0.9994
+          "scaling_actions": 16,
+          "scaling_churn": 180,
+          "q_hat_90": 14.5673,
+          "coverage": 0.9992
         }
       },
       "ca_util": {
         "0.9": {
-          "energy_kwh": 127.9104,
+          "energy_kwh": 165.574,
           "capacity_shortfall_minutes": 12,
           "scaling_actions": 30,
           "scaling_churn": 201
         },
         "0.8": {
-          "energy_kwh": 134.3329,
+          "energy_kwh": 178.1485,
           "capacity_shortfall_minutes": 3,
           "scaling_actions": 29,
           "scaling_churn": 222
         },
         "0.7": {
-          "energy_kwh": 142.6804,
+          "energy_kwh": 193.217,
           "capacity_shortfall_minutes": 1,
           "scaling_actions": 33,
           "scaling_churn": 269
         },
         "0.6": {
-          "energy_kwh": 153.0543,
+          "energy_kwh": 210.5163,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 32,
           "scaling_churn": 314
         },
         "0.5": {
-          "energy_kwh": 164.78,
+          "energy_kwh": 228.7089,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 33,
           "scaling_churn": 372
         }
       },
       "oracle": {
-        "energy_kwh": 152.4968,
+        "energy_kwh": 166.2807,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 35,
         "scaling_churn": 287
       },
       "seasonal_naive_conformal": {
-        "energy_kwh": 148.2557,
+        "energy_kwh": 161.8554,
         "capacity_shortfall_minutes": 269,
         "scaling_actions": 26,
         "scaling_churn": 314,
@@ -479,134 +479,130 @@
         {
           "ca_util": 0.9,
           "ca_shortfall": 12,
-          "ca_energy": 127.9104,
-          "aegis_energy_interp": 145.205,
-          "delta_aegis_minus_ca": 17.294,
+          "ca_energy": 165.574,
+          "aegis_energy_interp": 159.055,
+          "delta_aegis_minus_ca": -6.519,
           "extrapolated": true
         },
         {
           "ca_util": 0.8,
           "ca_shortfall": 3,
-          "ca_energy": 134.3329,
-          "aegis_energy_interp": 145.555,
-          "delta_aegis_minus_ca": 11.222,
-          "extrapolated": false
+          "ca_energy": 178.1485,
+          "aegis_energy_interp": 159.055,
+          "delta_aegis_minus_ca": -19.094,
+          "extrapolated": true
         },
         {
           "ca_util": 0.7,
           "ca_shortfall": 1,
-          "ca_energy": 142.6804,
-          "aegis_energy_interp": 159.628,
-          "delta_aegis_minus_ca": 16.948,
+          "ca_energy": 193.217,
+          "aegis_energy_interp": 171.729,
+          "delta_aegis_minus_ca": -21.488,
           "extrapolated": false
         },
         {
           "ca_util": 0.6,
           "ca_shortfall": 0,
-          "ca_energy": 153.0543,
-          "aegis_energy_interp": 173.351,
-          "delta_aegis_minus_ca": 20.296,
+          "ca_energy": 210.5163,
+          "aegis_energy_interp": 184.404,
+          "delta_aegis_minus_ca": -26.112,
           "extrapolated": false
         },
         {
           "ca_util": 0.5,
           "ca_shortfall": 0,
-          "ca_energy": 164.78,
-          "aegis_energy_interp": 173.351,
-          "delta_aegis_minus_ca": 8.571,
+          "ca_energy": 228.7089,
+          "aegis_energy_interp": 184.404,
+          "delta_aegis_minus_ca": -44.305,
           "extrapolated": false
         }
       ],
       "aegis_frontier": [
         [
           0.0,
-          173.3507
+          184.4042
         ],
         [
           2.0,
-          145.9052
-        ],
-        [
-          4.0,
-          145.2047
+          159.0547
         ]
       ]
     },
     "fadee4b59e71": {
       "aegis_tau": {
         "0.5": {
-          "energy_kwh": 129.2877,
-          "capacity_shortfall_minutes": 8,
-          "scaling_actions": 16,
-          "scaling_churn": 104,
-          "q_hat_90": -0.2239,
-          "coverage": 0.3024
-        },
-        "0.7": {
-          "energy_kwh": 131.1436,
+          "energy_kwh": 141.8882,
           "capacity_shortfall_minutes": 6,
           "scaling_actions": 14,
-          "scaling_churn": 95,
-          "q_hat_90": -0.027,
-          "coverage": 0.3651
+          "scaling_churn": 91,
+          "q_hat_90": -0.2676,
+          "coverage": 0.2946
+        },
+        "0.7": {
+          "energy_kwh": 143.1051,
+          "capacity_shortfall_minutes": 6,
+          "scaling_actions": 14,
+          "scaling_churn": 101,
+          "q_hat_90": -0.0764,
+          "coverage": 0.3607
         },
         "0.9": {
-          "energy_kwh": 134.1377,
+          "energy_kwh": 145.8137,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 17,
-          "scaling_churn": 125,
-          "q_hat_90": 0.8849,
-          "coverage": 0.4903
+          "scaling_actions": 15,
+          "scaling_churn": 113,
+          "q_hat_90": 0.7397,
+          "coverage": 0.4984
         },
         "0.99": {
-          "energy_kwh": 141.4184,
+          "energy_kwh": 153.517,
           "capacity_shortfall_minutes": 0,
-          "scaling_actions": 18,
-          "scaling_churn": 142,
-          "q_hat_90": 2.5261,
-          "coverage": 0.7788
+          "scaling_actions": 21,
+          "scaling_churn": 155,
+          "q_hat_90": 2.4568,
+          "coverage": 0.7776
         }
       },
       "ca_util": {
         "0.9": {
-          "energy_kwh": 113.3475,
+          "energy_kwh": 148.803,
           "capacity_shortfall_minutes": 22,
           "scaling_actions": 45,
           "scaling_churn": 416
         },
         "0.8": {
-          "energy_kwh": 120.8204,
+          "energy_kwh": 162.5579,
           "capacity_shortfall_minutes": 5,
           "scaling_actions": 46,
           "scaling_churn": 476
         },
         "0.7": {
-          "energy_kwh": 130.1789,
+          "energy_kwh": 178.7896,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 51,
           "scaling_churn": 578
         },
         "0.6": {
-          "energy_kwh": 141.4075,
+          "energy_kwh": 196.849,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 52,
           "scaling_churn": 689
         },
         "0.5": {
-          "energy_kwh": 157.3895,
+          "energy_kwh": 221.1698,
           "capacity_shortfall_minutes": 0,
           "scaling_actions": 51,
           "scaling_churn": 801
         }
       },
       "oracle": {
-        "energy_kwh": 133.0277,
+        "energy_kwh": 144.8677,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 55,
         "scaling_churn": 641
       },
       "seasonal_naive_conformal": {
-        "energy_kwh": 149.4324,
+        "energy_kwh": 162.0237,
         "capacity_shortfall_minutes": 0,
         "scaling_actions": 52,
         "scaling_churn": 606,
@@ -616,56 +612,52 @@
         {
           "ca_util": 0.9,
           "ca_shortfall": 22,
-          "ca_energy": 113.3475,
-          "aegis_energy_interp": 129.288,
-          "delta_aegis_minus_ca": 15.94,
+          "ca_energy": 148.803,
+          "aegis_energy_interp": 141.888,
+          "delta_aegis_minus_ca": -6.915,
           "extrapolated": true
         },
         {
           "ca_util": 0.8,
           "ca_shortfall": 5,
-          "ca_energy": 120.8204,
-          "aegis_energy_interp": 131.643,
-          "delta_aegis_minus_ca": 10.822,
+          "ca_energy": 162.5579,
+          "aegis_energy_interp": 142.542,
+          "delta_aegis_minus_ca": -20.015,
           "extrapolated": false
         },
         {
           "ca_util": 0.7,
           "ca_shortfall": 0,
-          "ca_energy": 130.1789,
-          "aegis_energy_interp": 134.138,
-          "delta_aegis_minus_ca": 3.959,
+          "ca_energy": 178.7896,
+          "aegis_energy_interp": 145.814,
+          "delta_aegis_minus_ca": -32.976,
           "extrapolated": false
         },
         {
           "ca_util": 0.6,
           "ca_shortfall": 0,
-          "ca_energy": 141.4075,
-          "aegis_energy_interp": 134.138,
-          "delta_aegis_minus_ca": -7.27,
+          "ca_energy": 196.849,
+          "aegis_energy_interp": 145.814,
+          "delta_aegis_minus_ca": -51.035,
           "extrapolated": false
         },
         {
           "ca_util": 0.5,
           "ca_shortfall": 0,
-          "ca_energy": 157.3895,
-          "aegis_energy_interp": 134.138,
-          "delta_aegis_minus_ca": -23.252,
+          "ca_energy": 221.1698,
+          "aegis_energy_interp": 145.814,
+          "delta_aegis_minus_ca": -75.356,
           "extrapolated": false
         }
       ],
       "aegis_frontier": [
         [
           0.0,
-          134.1377
+          145.8137
         ],
         [
           6.0,
-          131.1436
-        ],
-        [
-          8.0,
-          129.2877
+          141.8882
         ]
       ]
     }
@@ -689,20 +681,8 @@
     "naive_lag_minutes": 1440
   },
   "git": {
-    "commit": "5d79e608141682a2d7a28af1f2db9e54933d23cd",
-    "tag_at_head": "sim-frozen",
-    "dirty_files": [
-      "datasets/load_real_trace.py",
-      "datasets/raw/",
-      "eval/diag_item1_8e5d60.py",
-      "eval/diag_item1_8e5d601c74a3.json",
-      "eval/real_pareto_results.json",
-      "eval/real_trace_results.json",
-      "eval/real_trace_results_80core.json",
-      "eval/run_real_pareto.py",
-      "eval/run_real_trace.py",
-      "ml/models/artifacts_real/",
-      "tests/unit/test_real_trace_split.py"
-    ]
+    "commit": "",
+    "tag_at_head": "",
+    "dirty_files": []
   }
 }

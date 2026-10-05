@@ -28,25 +28,25 @@
       },
       "forecast_metrics": {
         "wmape_p50": 4.16,
-        "mae_cores": 0.9268,
-        "pinball_p10": 0.233,
-        "pinball_p50": 0.4634,
-        "pinball_p90": 0.239,
-        "raw_p10_p90_coverage_test": 0.6784,
-        "static_conformal_coverage_test": 0.7772,
-        "rolling_conformal_coverage_test": 0.7901,
-        "q_hat_90_static": 0.2525,
-        "q_hat_10_static": 0.2907
+        "mae_cores": 0.9271,
+        "pinball_p10": 0.2327,
+        "pinball_p50": 0.4635,
+        "pinball_p90": 0.2368,
+        "raw_p10_p90_coverage_test": 0.6671,
+        "static_conformal_coverage_test": 0.7825,
+        "rolling_conformal_coverage_test": 0.7905,
+        "q_hat_90_static": 0.2865,
+        "q_hat_10_static": 0.3215
       },
       "configs": {
         "stock_hpa": {
           "energy_kwh": {
-            "mean": 199.793,
+            "mean": 276.988,
             "std": 0.0,
             "raw": [
-              199.7933,
-              199.7933,
-              199.7933
+              276.9885,
+              276.9885,
+              276.9885
             ]
           },
           "capacity_shortfall_minutes": {
@@ -79,12 +79,12 @@
         },
         "cluster_autoscaler": {
           "energy_kwh": {
-            "mean": 160.585,
+            "mean": 219.037,
             "std": 0.0,
             "raw": [
-              160.5853,
-              160.5853,
-              160.5853
+              219.0369,
+              219.0369,
+              219.0369
             ]
           },
           "capacity_shortfall_minutes": {
@@ -117,12 +117,12 @@
         },
         "full_aegis_conformal": {
           "energy_kwh": {
-            "mean": 172.073,
+            "mean": 187.509,
             "std": 0.0,
             "raw": [
-              172.0735,
-              172.0735,
-              172.0735
+              187.5093,
+              187.5093,
+              187.5093
             ]
           },
           "capacity_shortfall_minutes": {
@@ -135,32 +135,32 @@
             ]
           },
           "scaling_actions": {
-            "mean": 107.0,
+            "mean": 110.0,
             "std": 0.0,
             "raw": [
-              107,
-              107,
-              107
+              110,
+              110,
+              110
             ]
           },
           "scaling_churn": {
-            "mean": 770.0,
+            "mean": 783.0,
             "std": 0.0,
             "raw": [
-              770,
-              770,
-              770
+              783,
+              783,
+              783
             ]
           }
         },
         "oracle": {
           "energy_kwh": {
-            "mean": 168.659,
+            "mean": 183.539,
             "std": 0.0,
             "raw": [
-              168.6591,
-              168.6591,
-              168.6591
+              183.539,
+              183.539,
+              183.539
             ]
           },
           "capacity_shortfall_minutes": {
@@ -193,12 +193,12 @@
         },
         "full_aegis_conformal_rolling": {
           "energy_kwh": {
-            "mean": 172.651,
+            "mean": 187.758,
             "std": 0.0,
             "raw": [
-              172.6513,
-              172.6513,
-              172.6513
+              187.7585,
+              187.7585,
+              187.7585
             ]
           },
           "capacity_shortfall_minutes": {
@@ -211,21 +211,21 @@
             ]
           },
           "scaling_actions": {
-            "mean": 110.0,
+            "mean": 107.0,
             "std": 0.0,
             "raw": [
-              110,
-              110,
-              110
+              107,
+              107,
+              107
             ]
           },
           "scaling_churn": {
-            "mean": 800.0,
+            "mean": 775.0,
             "std": 0.0,
             "raw": [
-              800,
-              800,
-              800
+              775,
+              775,
+              775
             ]
           }
         }
@@ -258,26 +258,26 @@
         "max": 43.878
       },
       "forecast_metrics": {
-        "wmape_p50": 22.14,
-        "mae_cores": 4.4893,
-        "pinball_p10": 1.1314,
-        "pinball_p50": 2.2447,
-        "pinball_p90": 0.8287,
-        "raw_p10_p90_coverage_test": 0.772,
-        "static_conformal_coverage_test": 0.7387,
+        "wmape_p50": 20.56,
+        "mae_cores": 4.1673,
+        "pinball_p10": 1.178,
+        "pinball_p50": 2.0837,
+        "pinball_p90": 0.8046,
+        "raw_p10_p90_coverage_test": 0.7361,
+        "static_conformal_coverage_test": 0.7661,
         "rolling_conformal_coverage_test": 0.7669,
-        "q_hat_90_static": 0.9982,
-        "q_hat_10_static": -0.7542
+        "q_hat_90_static": 1.0497,
+        "q_hat_10_static": -0.3368
       },
       "configs": {
         "stock_hpa": {
           "energy_kwh": {
-            "mean": 194.851,
+            "mean": 269.855,
             "std": 0.0,
             "raw": [
-              194.8515,
-              194.8515,
-              194.8515
+              269.8548,
+              269.8548,
+              269.8548
             ]
           },
           "capacity_shortfall_minutes": {
@@ -310,12 +310,12 @@
         },
         "cluster_autoscaler": {
           "energy_kwh": {
-            "mean": 157.828,
+            "mean": 214.808,
             "std": 0.0,
             "raw": [
-              157.8281,
-              157.8281,
-              157.8281
+              214.8076,
+              214.8076,
+              214.8076
             ]
           },
           "capacity_shortfall_minutes": {
@@ -348,12 +348,12 @@
         },
         "full_aegis_conformal": {
           "energy_kwh": {
-            "mean": 180.904,
+            "mean": 194.257,
             "std": 0.0,
             "raw": [
-              180.9041,
-              180.9041,
-              180.9041
+              194.2566,
+              194.2566,
+              194.2566
             ]
           },
           "capacity_shortfall_minutes": {
@@ -366,32 +366,32 @@
             ]
           },
           "scaling_actions": {
-            "mean": 39.0,
+            "mean": 87.0,
             "std": 0.0,
             "raw": [
-              39,
-              39,
-              39
+              87,
+              87,
+              87
             ]
           },
           "scaling_churn": {
-            "mean": 389.0,
+            "mean": 736.0,
             "std": 0.0,
             "raw": [
-              389,
-              389,
-              389
+              736,
+              736,
+              736
             ]
           }
         },
         "oracle": {
           "energy_kwh": {
-            "mean": 167.626,
+            "mean": 181.7,
             "std": 0.0,
             "raw": [
-              167.6261,
-              167.6261,
-              167.6261
+              181.7001,
+              181.7001,
+              181.7001
             ]
           },
           "capacity_shortfall_minutes": {
@@ -424,12 +424,12 @@
         },
         "full_aegis_conformal_rolling": {
           "energy_kwh": {
-            "mean": 177.493,
+            "mean": 192.203,
             "std": 0.0,
             "raw": [
-              177.4932,
-              177.4932,
-              177.4932
+              192.2035,
+              192.2035,
+              192.2035
             ]
           },
           "capacity_shortfall_minutes": {
@@ -442,21 +442,21 @@
             ]
           },
           "scaling_actions": {
-            "mean": 44.0,
+            "mean": 92.0,
             "std": 0.0,
             "raw": [
-              44,
-              44,
-              44
+              92,
+              92,
+              92
             ]
           },
           "scaling_churn": {
-            "mean": 436.0,
+            "mean": 789.0,
             "std": 0.0,
             "raw": [
-              436,
-              436,
-              436
+              789,
+              789,
+              789
             ]
           }
         }
@@ -489,26 +489,26 @@
         "max": 43.387
       },
       "forecast_metrics": {
-        "wmape_p50": 6.58,
-        "mae_cores": 1.9137,
-        "pinball_p10": 0.5731,
-        "pinball_p50": 0.9568,
-        "pinball_p90": 0.4063,
-        "raw_p10_p90_coverage_test": 0.7454,
-        "static_conformal_coverage_test": 0.7988,
-        "rolling_conformal_coverage_test": 0.7988,
-        "q_hat_90_static": 0.0593,
-        "q_hat_10_static": 0.5806
+        "wmape_p50": 6.21,
+        "mae_cores": 1.8055,
+        "pinball_p10": 0.5185,
+        "pinball_p50": 0.9028,
+        "pinball_p90": 0.4169,
+        "raw_p10_p90_coverage_test": 0.7651,
+        "static_conformal_coverage_test": 0.8054,
+        "rolling_conformal_coverage_test": 0.7929,
+        "q_hat_90_static": 0.1091,
+        "q_hat_10_static": 0.5008
       },
       "configs": {
         "stock_hpa": {
           "energy_kwh": {
-            "mean": 218.098,
+            "mean": 300.228,
             "std": 0.0,
             "raw": [
-              218.098,
-              218.098,
-              218.098
+              300.2278,
+              300.2278,
+              300.2278
             ]
           },
           "capacity_shortfall_minutes": {
@@ -541,12 +541,12 @@
         },
         "cluster_autoscaler": {
           "energy_kwh": {
-            "mean": 202.732,
+            "mean": 274.561,
             "std": 0.0,
             "raw": [
-              202.7323,
-              202.7323,
-              202.7323
+              274.5609,
+              274.5609,
+              274.5609
             ]
           },
           "capacity_shortfall_minutes": {
@@ -579,12 +579,12 @@
         },
         "full_aegis_conformal": {
           "energy_kwh": {
-            "mean": 228.384,
+            "mean": 248.482,
             "std": 0.0,
             "raw": [
-              228.3836,
-              228.3836,
-              228.3836
+              248.4823,
+              248.4823,
+              248.4823
             ]
           },
           "capacity_shortfall_minutes": {
@@ -597,32 +597,32 @@
             ]
           },
           "scaling_actions": {
-            "mean": 45.0,
+            "mean": 61.0,
             "std": 0.0,
             "raw": [
-              45,
-              45,
-              45
+              61,
+              61,
+              61
             ]
           },
           "scaling_churn": {
-            "mean": 542.0,
+            "mean": 759.0,
             "std": 0.0,
             "raw": [
-              542,
-              542,
-              542
+              759,
+              759,
+              759
             ]
           }
         },
         "oracle": {
           "energy_kwh": {
-            "mean": 217.937,
+            "mean": 236.825,
             "std": 0.0,
             "raw": [
-              217.937,
-              217.937,
-              217.937
+              236.8252,
+              236.8252,
+              236.8252
             ]
           },
           "capacity_shortfall_minutes": {
@@ -655,12 +655,12 @@
         },
         "full_aegis_conformal_rolling": {
           "energy_kwh": {
-            "mean": 226.064,
+            "mean": 247.487,
             "std": 0.0,
             "raw": [
-              226.0638,
-              226.0638,
-              226.0638
+              247.4868,
+              247.4868,
+              247.4868
             ]
           },
           "capacity_shortfall_minutes": {
@@ -673,21 +673,21 @@
             ]
           },
           "scaling_actions": {
-            "mean": 46.0,
+            "mean": 54.0,
             "std": 0.0,
             "raw": [
-              46,
-              46,
-              46
+              54,
+              54,
+              54
             ]
           },
           "scaling_churn": {
-            "mean": 552.0,
+            "mean": 685.0,
             "std": 0.0,
             "raw": [
-              552,
-              552,
-              552
+              685,
+              685,
+              685
             ]
           }
         }
@@ -720,26 +720,26 @@
         "max": 42.856
       },
       "forecast_metrics": {
-        "wmape_p50": 10.0,
-        "mae_cores": 2.0455,
-        "pinball_p10": 0.563,
-        "pinball_p50": 1.0227,
-        "pinball_p90": 0.6147,
-        "raw_p10_p90_coverage_test": 0.8821,
-        "static_conformal_coverage_test": 0.9518,
-        "rolling_conformal_coverage_test": 0.6869,
-        "q_hat_90_static": 2.1292,
-        "q_hat_10_static": 0.5079
+        "wmape_p50": 8.81,
+        "mae_cores": 1.8012,
+        "pinball_p10": 0.5526,
+        "pinball_p50": 0.9006,
+        "pinball_p90": 0.5683,
+        "raw_p10_p90_coverage_test": 0.901,
+        "static_conformal_coverage_test": 0.9385,
+        "rolling_conformal_coverage_test": 0.6827,
+        "q_hat_90_static": 0.9819,
+        "q_hat_10_static": 0.975
       },
       "configs": {
         "stock_hpa": {
           "energy_kwh": {
-            "mean": 194.956,
+            "mean": 271.113,
             "std": 0.0,
             "raw": [
-              194.9563,
-              194.9563,
-              194.9563
+              271.1131,
+              271.1131,
+              271.1131
             ]
           },
           "capacity_shortfall_minutes": {
@@ -772,12 +772,12 @@
         },
         "cluster_autoscaler": {
           "energy_kwh": {
-            "mean": 142.68,
+            "mean": 193.217,
             "std": 0.0,
             "raw": [
-              142.6804,
-              142.6804,
-              142.6804
+              193.217,
+              193.217,
+              193.217
             ]
           },
           "capacity_shortfall_minutes": {
@@ -810,12 +810,12 @@
         },
         "full_aegis_conformal": {
           "energy_kwh": {
-            "mean": 173.351,
+            "mean": 184.404,
             "std": 0.0,
             "raw": [
-              173.3507,
-              173.3507,
-              173.3507
+              184.4042,
+              184.4042,
+              184.4042
             ]
           },
           "capacity_shortfall_minutes": {
@@ -828,32 +828,32 @@
             ]
           },
           "scaling_actions": {
-            "mean": 74.0,
+            "mean": 72.0,
             "std": 0.0,
             "raw": [
-              74,
-              74,
-              74
+              72,
+              72,
+              72
             ]
           },
           "scaling_churn": {
-            "mean": 709.0,
+            "mean": 669.0,
             "std": 0.0,
             "raw": [
-              709,
-              709,
-              709
+              669,
+              669,
+              669
             ]
           }
         },
         "oracle": {
           "energy_kwh": {
-            "mean": 152.497,
+            "mean": 166.281,
             "std": 0.0,
             "raw": [
-              152.4968,
-              152.4968,
-              152.4968
+              166.2807,
+              166.2807,
+              166.2807
             ]
           },
           "capacity_shortfall_minutes": {
@@ -886,39 +886,39 @@
         },
         "full_aegis_conformal_rolling": {
           "energy_kwh": {
-            "mean": 158.643,
+            "mean": 171.317,
             "std": 0.0,
             "raw": [
-              158.6434,
-              158.6434,
-              158.6434
+              171.317,
+              171.317,
+              171.317
             ]
           },
           "capacity_shortfall_minutes": {
-            "mean": 1.0,
+            "mean": 15.0,
             "std": 0.0,
             "raw": [
-              1,
-              1,
-              1
+              15,
+              15,
+              15
             ]
           },
           "scaling_actions": {
-            "mean": 92.0,
+            "mean": 79.0,
             "std": 0.0,
             "raw": [
-              92,
-              92,
-              92
+              79,
+              79,
+              79
             ]
           },
           "scaling_churn": {
-            "mean": 821.0,
+            "mean": 713.0,
             "std": 0.0,
             "raw": [
-              821,
-              821,
-              821
+              713,
+              713,
+              713
             ]
           }
         }
@@ -951,26 +951,26 @@
         "max": 30.141
       },
       "forecast_metrics": {
-        "wmape_p50": 8.56,
-        "mae_cores": 1.5168,
-        "pinball_p10": 0.2389,
-        "pinball_p50": 0.7584,
-        "pinball_p90": 0.6908,
-        "raw_p10_p90_coverage_test": 0.3718,
-        "static_conformal_coverage_test": 0.4903,
-        "rolling_conformal_coverage_test": 0.7427,
-        "q_hat_90_static": 0.8849,
-        "q_hat_10_static": -0.0084
+        "wmape_p50": 8.63,
+        "mae_cores": 1.5293,
+        "pinball_p10": 0.2413,
+        "pinball_p50": 0.7646,
+        "pinball_p90": 0.5919,
+        "raw_p10_p90_coverage_test": 0.3871,
+        "static_conformal_coverage_test": 0.4984,
+        "rolling_conformal_coverage_test": 0.752,
+        "q_hat_90_static": 0.7397,
+        "q_hat_10_static": -0.0085
       },
       "configs": {
         "stock_hpa": {
           "energy_kwh": {
-            "mean": 186.524,
+            "mean": 261.973,
             "std": 0.0,
             "raw": [
-              186.5242,
-              186.5242,
-              186.5242
+              261.973,
+              261.973,
+              261.973
             ]
           },
           "capacity_shortfall_minutes": {
@@ -1003,12 +1003,12 @@
         },
         "cluster_autoscaler": {
           "energy_kwh": {
-            "mean": 130.179,
+            "mean": 178.79,
             "std": 0.0,
             "raw": [
-              130.1789,
-              130.1789,
-              130.1789
+              178.7896,
+              178.7896,
+              178.7896
             ]
           },
           "capacity_shortfall_minutes": {
@@ -1041,12 +1041,12 @@
         },
         "full_aegis_conformal": {
           "energy_kwh": {
-            "mean": 134.138,
+            "mean": 145.814,
             "std": 0.0,
             "raw": [
-              134.1377,
-              134.1377,
-              134.1377
+              145.8137,
+              145.8137,
+              145.8137
             ]
           },
           "capacity_shortfall_minutes": {
@@ -1059,32 +1059,32 @@
             ]
           },
           "scaling_actions": {
-            "mean": 17.0,
+            "mean": 15.0,
             "std": 0.0,
             "raw": [
-              17,
-              17,
-              17
+              15,
+              15,
+              15
             ]
           },
           "scaling_churn": {
-            "mean": 125.0,
+            "mean": 113.0,
             "std": 0.0,
             "raw": [
-              125,
-              125,
-              125
+              113,
+              113,
+              113
             ]
           }
         },
         "oracle": {
           "energy_kwh": {
-            "mean": 133.028,
+            "mean": 144.868,
             "std": 0.0,
             "raw": [
-              133.0277,
-              133.0277,
-              133.0277
+              144.8677,
+              144.8677,
+              144.8677
             ]
           },
           "capacity_shortfall_minutes": {
@@ -1117,12 +1117,12 @@
         },
         "full_aegis_conformal_rolling": {
           "energy_kwh": {
-            "mean": 136.814,
+            "mean": 148.249,
             "std": 0.0,
             "raw": [
-              136.8138,
-              136.8138,
-              136.8138
+              148.2492,
+              148.2492,
+              148.2492
             ]
           },
           "capacity_shortfall_minutes": {
@@ -1196,19 +1196,9 @@
     }
   },
   "git": {
-    "commit": "5d79e608141682a2d7a28af1f2db9e54933d23cd",
-    "tag_at_head": "sim-frozen",
-    "dirty_files": [
-      "datasets/load_real_trace.py",
-      "datasets/raw/",
-      "eval/diag_item1_8e5d60.py",
-      "eval/diag_item1_8e5d601c74a3.json",
-      "eval/real_trace_results.json",
-      "eval/real_trace_results_80core.json",
-      "eval/run_real_trace.py",
-      "ml/models/artifacts_real/",
-      "tests/unit/test_real_trace_split.py"
-    ]
+    "commit": "",
+    "tag_at_head": "",
+    "dirty_files": []
   },
   "bootstrap_paired_aegis_vs_ca": {
     "n_blocks": 15,
@@ -1216,9 +1206,9 @@
     "n_bootstrap": 10000,
     "rng_seed": 12345,
     "energy_diff_kwh": {
-      "mean": 5.255,
-      "ci95_low": 3.817,
-      "ci95_high": 6.606
+      "mean": -6.381,
+      "ci95_low": -7.978,
+      "ci95_high": -4.652
     },
     "shortfall_diff_min": {
       "mean": -2.667,
@@ -1228,9 +1218,9 @@
     "per_app_block_diffs": {
       "737e31dddf54": {
         "energy": [
-          3.224,
-          3.021,
-          3.395
+          -7.559,
+          -8.462,
+          -8.073
         ],
         "shortfall": [
           -1,
@@ -1240,9 +1230,9 @@
       },
       "a98d35d0aed6": {
         "energy": [
-          6.282,
-          5.619,
-          6.619
+          -5.471,
+          -7.21,
+          -5.746
         ],
         "shortfall": [
           -3,
@@ -1252,9 +1242,9 @@
       },
       "d638d26f513a": {
         "energy": [
-          6.267,
-          6.178,
-          8.656
+          -9.384,
+          -8.634,
+          -3.979
         ],
         "shortfall": [
           0,
@@ -1264,9 +1254,9 @@
       },
       "e593dfd5a2c4": {
         "energy": [
-          9.633,
-          8.555,
-          7.244
+          2.114,
+          -1.962,
+          -5.409
         ],
         "shortfall": [
           -1,
@@ -1276,9 +1266,9 @@
       },
       "fadee4b59e71": {
         "energy": [
-          -0.461,
-          1.554,
-          3.036
+          -12.435,
+          -7.598,
+          -5.908
         ],
         "shortfall": [
           0,

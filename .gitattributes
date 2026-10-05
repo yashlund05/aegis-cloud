@@ -1,2 +1,12 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Model artifacts must be byte-faithful on checkout AND checkin:
+# - LightGBM's model parser rejects CRLF: a fresh clone with core.autocrlf=true smudged
+#   the LF .txt blobs to CRLF and every lgb.Booster(model_file=...) load aborted with
+#   "Model format error, expect a tree here" (Task W3b clean-checkout audit, 2026-10-05).
+# - *.joblib pickles contain stray 0x0D bytes and no NUL byte, so text=auto classified
+#   them as text and the clean filter stripped CRs at checkin, corrupting the blob
+#   relative to the working file.
+ml/models/**/*.txt -text
+ml/models/**/*.joblib -text

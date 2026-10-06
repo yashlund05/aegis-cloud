@@ -2761,8 +2761,8 @@
    "file": "eval/reports/readme_test_counts.json",
    "path": "pytest_seconds"
   },
-  "text": "16.8",
-  "number": 16.77
+  "text": "19.1",
+  "number": 19.15
  },
  {
   "name": "go_passed",
@@ -2836,7 +2836,7 @@
   "spec": {
    "op": "git_head"
   },
-  "text": "d56e20b024e481cffab37b7d00ad7e42f65ba318",
+  "text": "c2d5ddfcd89b407c637183e2c6b183d0009dc133",
   "number": null
  },
  {
@@ -2844,7 +2844,7 @@
   "spec": {
    "op": "template_sha256"
   },
-  "text": "fdcc61500f69245441ea87d79842a7648461739395a28d67244cd79699fe28b6",
+  "text": "50731f197d963fffbdc3d9faefebd1712b9ca478be46aa7838bee1316a591294",
   "number": null
  },
  {

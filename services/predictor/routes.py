@@ -9,7 +9,6 @@ from typing import Dict, Any, List, Optional
 import logging
 
 from services.predictor.service import predictor_service
-from services.predictor.inference import inference_engine
 from services.predictor.registry import model_registry
 from services.predictor.drift import drift_detector
 from services.predictor.retrain import trigger_model_retrain
@@ -115,7 +114,9 @@ async def trigger_retraining(req: RetrainRequest, background_tasks: BackgroundTa
     """
     try:
         # Run retraining in background or synchronously if requested
-        result = await trigger_model_retrain(req.workload_id, data_path=req.data_path, output_dir=req.output_dir)
+        result = await trigger_model_retrain(
+            req.workload_id, data_path=req.data_path, output_dir=req.output_dir
+        )
         return {
             "status": "success",
             "message": "Model retraining executed.",

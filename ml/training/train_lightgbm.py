@@ -9,7 +9,7 @@ import argparse
 import json
 import logging
 import os
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import pandas as pd
 import numpy as np
 import joblib
@@ -22,7 +22,9 @@ except ImportError:
 from sklearn.ensemble import HistGradientBoostingRegressor
 from ml.models.registry import ModelRegistry
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -89,9 +91,13 @@ def train_quantile_model(
             valid_sets=[val_data],
             callbacks=callbacks,
         )
-        return QuantileModelWrapper(booster, backend="lightgbm", feature_names=feature_names)
+        return QuantileModelWrapper(
+            booster, backend="lightgbm", feature_names=feature_names
+        )
     else:
-        logger.info(f"Using scikit-learn HistGradientBoosting quantile solver for q={quantile}")
+        logger.info(
+            f"Using scikit-learn HistGradientBoosting quantile solver for q={quantile}"
+        )
         model = HistGradientBoostingRegressor(
             loss="quantile",
             quantile=quantile,
@@ -101,7 +107,9 @@ def train_quantile_model(
             random_state=42,
         )
         model.fit(X_train, y_train)
-        return QuantileModelWrapper(model, backend="sklearn_hist", feature_names=feature_names)
+        return QuantileModelWrapper(
+            model, backend="sklearn_hist", feature_names=feature_names
+        )
 
 
 def export_to_onnx(
@@ -116,19 +124,30 @@ def export_to_onnx(
     """
     try:
         import onnx
+
         if model_wrapper.backend == "lightgbm":
             import onnxmltools
             from onnxmltools.convert.common.data_types import FloatTensorType
-            initial_type = [("float_input", FloatTensorType([None, len(feature_names)]))]
-            onnx_model = onnxmltools.convert_lightgbm(model_wrapper.model, initial_types=initial_type)
+
+            initial_type = [
+                ("float_input", FloatTensorType([None, len(feature_names)]))
+            ]
+            onnx_model = onnxmltools.convert_lightgbm(
+                model_wrapper.model, initial_types=initial_type
+            )
             onnx.save_model(onnx_model, output_path)
             logger.info(f"Exported LightGBM model to ONNX: {output_path}")
             return True
         else:
             from skl2onnx import convert_sklearn
             from skl2onnx.common.data_types import FloatTensorType
-            initial_type = [("float_input", FloatTensorType([None, len(feature_names)]))]
-            onnx_model = convert_sklearn(model_wrapper.model, initial_types=initial_type)
+
+            initial_type = [
+                ("float_input", FloatTensorType([None, len(feature_names)]))
+            ]
+            onnx_model = convert_sklearn(
+                model_wrapper.model, initial_types=initial_type
+            )
             with open(output_path, "wb") as f:
                 f.write(onnx_model.SerializeToString())
             logger.info(f"Exported scikit-learn model to ONNX: {output_path}")
@@ -161,11 +180,16 @@ def train_all_models(
 
     if "hour_of_day" not in df.columns:
         from ml.features.feature_engineering import build_features
+
         df = build_features(df)
 
     # Identify feature columns (exclude non-features and target)
     exclude_cols = [target_col, "timestamp", "workload_id", "status"]
-    feature_cols = [c for c in df.columns if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])]
+    feature_cols = [
+        c
+        for c in df.columns
+        if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])
+    ]
 
     # Chronological temporal 80/20 train/validation split. For pooled
     # multi-workload datasets the split is applied within each workload so that
@@ -201,7 +225,7 @@ def train_all_models(
             wrapper = train_quantile_model(X_t, y_t, X_v, y_v, quantile=q)
 
             ext = "txt" if wrapper.backend == "lightgbm" else "joblib"
-            model_name = f"aegis_h{h}m_q{int(q*100)}"
+            model_name = f"aegis_h{h}m_q{int(q * 100)}"
             model_filename = f"{model_name}.{ext}"
             model_path = os.path.join(output_dir, model_filename)
             meta_path = os.path.join(output_dir, f"{model_name}_meta.json")
@@ -242,20 +266,36 @@ def train_all_models(
                 "metadata": metadata,
             }
 
-    logger.info(f"Successfully trained and registered {len(results)} quantile models in {output_dir}")
+    logger.info(
+        f"Successfully trained and registered {len(results)} quantile models in {output_dir}"
+    )
     return results
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train LightGBM Quantile Models for Aegis.")
-    parser.add_argument("--data", required=True, help="Path to preprocessed parquet/csv data")
-    parser.add_argument("--output-dir", default="ml/models/artifacts", help="Directory to save models")
-    parser.add_argument("--horizons", default="5,10,15", help="Comma-separated horizons in minutes")
-    parser.add_argument("--quantiles", default="0.1,0.5,0.9", help="Comma-separated quantiles")
+    parser = argparse.ArgumentParser(
+        description="Train LightGBM Quantile Models for Aegis."
+    )
+    parser.add_argument(
+        "--data", required=True, help="Path to preprocessed parquet/csv data"
+    )
+    parser.add_argument(
+        "--output-dir", default="ml/models/artifacts", help="Directory to save models"
+    )
+    parser.add_argument(
+        "--horizons", default="5,10,15", help="Comma-separated horizons in minutes"
+    )
+    parser.add_argument(
+        "--quantiles", default="0.1,0.5,0.9", help="Comma-separated quantiles"
+    )
 
     args = parser.parse_args()
 
-    df = pd.read_parquet(args.data) if args.data.endswith(".parquet") else pd.read_csv(args.data)
+    df = (
+        pd.read_parquet(args.data)
+        if args.data.endswith(".parquet")
+        else pd.read_csv(args.data)
+    )
     h_list = [int(h) for h in args.horizons.split(",")]
     q_list = [float(q) for q in args.quantiles.split(",")]
 

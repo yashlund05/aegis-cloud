@@ -53,7 +53,9 @@ class AegisPredictor:
                 q_tag = int(q * 100)
                 # Look for model artifact
                 pattern_lgb = os.path.join(self.model_dir, f"*h{h}m_q{q_tag}*.txt")
-                pattern_joblib = os.path.join(self.model_dir, f"*h{h}m_q{q_tag}*.joblib")
+                pattern_joblib = os.path.join(
+                    self.model_dir, f"*h{h}m_q{q_tag}*.joblib"
+                )
 
                 matches_lgb = glob.glob(pattern_lgb)
                 matches_joblib = glob.glob(pattern_joblib)
@@ -62,7 +64,9 @@ class AegisPredictor:
                 meta_obj = {}
 
                 # Read metadata if present
-                meta_pattern = os.path.join(self.model_dir, f"*h{h}m_q{q_tag}*_meta.json")
+                meta_pattern = os.path.join(
+                    self.model_dir, f"*h{h}m_q{q_tag}*_meta.json"
+                )
                 meta_matches = glob.glob(meta_pattern)
                 if meta_matches:
                     with open(meta_matches[0], "r") as f:
@@ -86,7 +90,9 @@ class AegisPredictor:
                         "status": "loaded",
                     }
                 else:
-                    logger.debug(f"No trained artifact found for horizon={h}m, quantile={q}")
+                    logger.debug(
+                        f"No trained artifact found for horizon={h}m, quantile={q}"
+                    )
 
     def predict(self, features: Dict[str, Any]) -> Dict[int, Dict[float, float]]:
         """
@@ -102,7 +108,7 @@ class AegisPredictor:
                 if h in self.models and q in self.models[h]:
                     model = self.models[h][q]
                     feature_names = self.feature_lists[h].get(q, [])
-                    
+
                     # Ensure all expected feature columns exist in the inference dataframe
                     if feature_names:
                         for col in feature_names:
@@ -132,7 +138,9 @@ class AegisPredictor:
 
         return result
 
-    def predict_batch(self, feature_list: List[Dict[str, Any]]) -> List[Dict[int, Dict[float, float]]]:
+    def predict_batch(
+        self, feature_list: List[Dict[str, Any]]
+    ) -> List[Dict[int, Dict[float, float]]]:
         """
         Run batch predictions for a list of feature dictionaries.
         """

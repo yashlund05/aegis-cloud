@@ -20,7 +20,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
-          context: ./services/${{ matrix.service }}
+          context: .
+          file: ./services/${{ matrix.service }}/Dockerfile
           push: ${{ github.event_name == 'push' }}
           tags: ghcr.io/${{ github.repository }}/aegis-${{ matrix.service }}:${{ github.sha }}
 

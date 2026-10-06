@@ -37,7 +37,9 @@ class K8sExecutor:
             self.apps_v1 = client.AppsV1Api()
             logger.info("Kubernetes API client initialized successfully.")
         except Exception as e:
-            logger.debug(f"Kubernetes cluster connection not established (simulation mode active): {e}")
+            logger.debug(
+                f"Kubernetes cluster connection not established (simulation mode active): {e}"
+            )
 
     async def scale_deployment(
         self,
@@ -67,7 +69,9 @@ class K8sExecutor:
                 namespace=namespace,
                 body=body,
             )
-            logger.info(f"Scaled deployment '{namespace}/{deployment_name}' to {replicas} replicas via K8s API.")
+            logger.info(
+                f"Scaled deployment '{namespace}/{deployment_name}' to {replicas} replicas via K8s API."
+            )
             return {
                 "status": "executed",
                 "mode": "k8s_api",
@@ -76,5 +80,7 @@ class K8sExecutor:
                 "replicas": res.spec.replicas,
             }
         except Exception as e:
-            logger.error(f"Failed to scale deployment '{namespace}/{deployment_name}': {e}")
+            logger.error(
+                f"Failed to scale deployment '{namespace}/{deployment_name}': {e}"
+            )
             raise

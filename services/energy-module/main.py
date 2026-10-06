@@ -9,6 +9,7 @@ from services.energy_module.routes import router as api_router
 
 logger = setup_logging("energy-module")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Energy Module...")
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Energy Module...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Energy Module", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

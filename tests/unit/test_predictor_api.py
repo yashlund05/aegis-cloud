@@ -33,7 +33,6 @@ def test_predict_endpoint_response_structure():
         assert data["latency_ms"] < 100.0  # Warm SLA < 100ms
 
 
-
 def test_models_list_endpoint():
     with TestClient(app) as client:
         response = client.get("/v1/models")

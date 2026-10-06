@@ -552,7 +552,7 @@ REPO_TREE_TEXT = """aegis-cloud/
 # build
 # --------------------------------------------------------------------------
 def compose(src: Dict[str, Any], texts: Dict[str, str], texts_rel: Dict[str, str],
-            stamp: Dict[str, Any]) -> Manifest:
+            stamp: Dict[str, Any], check_mode: bool = False) -> Manifest:
     """Register every README value against `stamp` and return the manifest."""
     src = dict(src, stamp=stamp)
     texts_rel = dict(texts_rel, stamp=json.dumps(stamp, indent=1))
@@ -849,11 +849,16 @@ def compose(src: Dict[str, Any], texts: Dict[str, str], texts_rel: Dict[str, str
                            "(docs/threats_to_validity.md §1)")
 
     # ---- provenance footer -------------------------------------------------
-    try:
-        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
-                              text=True, timeout=30).stdout.strip()
-    except Exception:
-        head = "(git unavailable)"
+    if check_mode:
+        m_head = re.search(r"Repository HEAD at generation time: `([0-9a-fA-F]+)`",
+                           README.read_text(encoding="utf-8") if README.exists() else "")
+        head = m_head.group(1) if m_head else "(git unavailable)"
+    else:
+        try:
+            head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
+                                  text=True, timeout=30).stdout.strip()
+        except Exception:
+            head = "(git unavailable)"
     t["git_head"] = V.text("git_head", head or "(no commits)",
                            {"op": "git_head"})
     t["template_sha"] = V.text("template_sha", hashlib.sha256(
@@ -909,7 +914,7 @@ def build(check_mode: bool) -> Tuple[str, Manifest, List[str], Dict[str, Any]]:
         if not STAMP_PATH.exists():
             raise RuntimeError("check mode needs eval/reports/readme_test_counts.json; run a full build first")
         stamp = json.loads(STAMP_PATH.read_text(encoding="utf-8"))
-        man = compose(src, texts, texts_rel, stamp)
+        man = compose(src, texts, texts_rel, stamp, check_mode=True)
         return render({e["name"]: e["text"] for e in man.entries}), man, problems, stamp
 
     # Pass 1: run the suites with AEGIS_README_BUILDING=1 (the README-gate tests

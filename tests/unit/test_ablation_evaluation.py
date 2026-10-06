@@ -4,7 +4,6 @@ Unit tests for Phase 9: Evaluation and Ablation Benchmark framework.
 
 import numpy as np
 import pandas as pd
-import pytest
 
 from datasets.generate_sample_traces import generate_workload_trace
 from datasets.workload_patterns import generate_pattern_trace
@@ -58,7 +57,9 @@ def test_ablation_study_execution_and_metrics(tmp_path):
 
 def test_served_demand_fraction_on_steady_trace(tmp_path):
     """Every non-oracle config must serve >95% of demand on a steady trace."""
-    trace = generate_pattern_trace("steady-test", pattern="steady", duration_days=2, seed=42)
+    trace = generate_pattern_trace(
+        "steady-test", pattern="steady", duration_days=2, seed=42
+    )
     study = AblationStudy()
     results = study.run_comparison(trace, output_dir=str(tmp_path))
     configs = results["configurations"]
@@ -68,12 +69,16 @@ def test_served_demand_fraction_on_steady_trace(tmp_path):
     for cfg_name in non_oracle:
         m = configs[cfg_name]
         served_fraction = 1.0 - (m["capacity_shortfall_minutes"] / max(1, total_steps))
-        assert served_fraction > 0.95, f"{cfg_name} served fraction {served_fraction:.4f} <= 0.95"
+        assert served_fraction > 0.95, (
+            f"{cfg_name} served fraction {served_fraction:.4f} <= 0.95"
+        )
 
 
 def test_served_demand_fraction_on_diurnal_trace(tmp_path):
     """Test that on a diurnal trace, forecast_only and full_aegis serve >95% of demand."""
-    trace = generate_pattern_trace("diurnal-test", pattern="diurnal", duration_days=2, seed=42)
+    trace = generate_pattern_trace(
+        "diurnal-test", pattern="diurnal", duration_days=2, seed=42
+    )
     study = AblationStudy()
     results = study.run_comparison(
         trace, output_dir=str(tmp_path), configs_to_run=["forecast_only", "full_aegis"]
@@ -83,7 +88,9 @@ def test_served_demand_fraction_on_diurnal_trace(tmp_path):
     for cfg_name in ["forecast_only", "full_aegis"]:
         m = configs[cfg_name]
         served_fraction = 1.0 - (m["capacity_shortfall_minutes"] / max(1, total_steps))
-        assert served_fraction > 0.95, f"{cfg_name} served fraction {served_fraction:.4f} <= 0.95 on diurnal trace"
+        assert served_fraction > 0.95, (
+            f"{cfg_name} served fraction {served_fraction:.4f} <= 0.95 on diurnal trace"
+        )
 
 
 def _make_synthetic_stream(n=3000, seed=7):
@@ -106,7 +113,9 @@ def test_rolling_recalibration_uses_only_horizon_delayed_outcomes():
     y, p90, p10 = _make_synthetic_stream()
     n_cal, horizon, window, tau = 1440, 10, 1440, 0.90
 
-    base_p90c, base_p10c = rolling_conformal_adjustment(y, p90, p10, n_cal, horizon, window, tau)
+    base_p90c, base_p10c = rolling_conformal_adjustment(
+        y, p90, p10, n_cal, horizon, window, tau
+    )
 
     # Corrupt all outcomes strictly after (t_abs - H) for each test step, one probe step at a time.
     for probe_idx in [0, 1, 9, 10, 37, 500, 1000]:
@@ -126,14 +135,18 @@ def test_rolling_recalibration_uses_only_horizon_delayed_outcomes():
     t_abs = n_cal + 500
     y_perturb = y.copy()
     y_perturb[t_abs - horizon - 1] += 100.0
-    p90_perturb, _ = rolling_conformal_adjustment(y_perturb, p90, p10, n_cal, horizon, window, tau)
+    p90_perturb, _ = rolling_conformal_adjustment(
+        y_perturb, p90, p10, n_cal, horizon, window, tau
+    )
     assert abs(p90_perturb[500] - base_p90c[500]) > 1e-6
 
 
 def test_forecast_config_pre_wake_respects_wake_latency(tmp_path):
     """With H >= W, forecast-driven node sizing must wake nodes so that they are
     active no later than the Oracle (both face the same W-step boot latency)."""
-    trace = generate_pattern_trace("prewake", pattern="diurnal", duration_days=2, seed=42)
+    trace = generate_pattern_trace(
+        "prewake", pattern="diurnal", duration_days=2, seed=42
+    )
     study = AblationStudy(wake_up_latency_steps=3)
     res = study.run_comparison(
         trace,

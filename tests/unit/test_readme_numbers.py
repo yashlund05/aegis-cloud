@@ -9,6 +9,7 @@ Skipped when README.md does not yet exist or when running under the
 generator's own live pytest invocation (AEGIS_README_BUILDING=1), which is
 producing the README that these tests would verify.
 """
+
 import os
 import subprocess
 import sys

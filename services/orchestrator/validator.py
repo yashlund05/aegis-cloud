@@ -44,7 +44,10 @@ def validate_decision_plan(
             if c.action.lower() in ("active", "uncordon")
         ]
         # Only check if all nodes in cluster were evaluated
-        if len(plan.node_power_changes) >= min_active_nodes and len(active_nodes) < min_active_nodes:
+        if (
+            len(plan.node_power_changes) >= min_active_nodes
+            and len(active_nodes) < min_active_nodes
+        ):
             raise ValidationError(
                 f"Plan would leave {len(active_nodes)} active nodes, violating minimum threshold of {min_active_nodes}."
             )

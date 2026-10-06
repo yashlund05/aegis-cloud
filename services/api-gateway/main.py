@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from services.shared.health import router as health_router
 from services.shared.metrics import metrics_middleware
@@ -10,6 +10,7 @@ from services.api_gateway.middleware import setup_middlewares
 
 logger = setup_logging("api-gateway")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting API Gateway...")
@@ -19,6 +20,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down API Gateway...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis API Gateway", lifespan=lifespan)
 setup_middlewares(app)

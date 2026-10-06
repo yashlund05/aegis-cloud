@@ -8,15 +8,12 @@ import pytest
 from fastapi.testclient import TestClient
 
 from services.autoscaler_controller.safety import SafetyChecker
-from services.autoscaler_controller.service import autoscaler_service
 from services.autoscaler_controller.main import app as autoscaler_app
 from services.node_power_controller.safety import PowerSafetyChecker
-from services.node_power_controller.service import node_power_service
 from services.node_power_controller.main import app as power_app
 from services.shared.schemas import (
     DecisionPlan,
     ReplicaChange,
-    PlacementDecision,
     NodePowerChange,
 )
 
@@ -44,7 +41,9 @@ class TestAutoscalerSafety:
         safety = SafetyChecker(dead_zone_percent=0.10, cooldown_seconds=300)
         now = time.time()
         # Scaled 60 seconds ago (cooldown is 300s)
-        can_scale, reason, _ = safety.should_scale(10, 20, last_scaled_at=now - 60, now=now)
+        can_scale, reason, _ = safety.should_scale(
+            10, 20, last_scaled_at=now - 60, now=now
+        )
         assert not can_scale
         assert "cooldown active" in reason.lower()
 
@@ -56,7 +55,9 @@ class TestAutoscalerSafety:
         assert approved == 20
 
     def test_step_dampening_clamping(self):
-        safety = SafetyChecker(dead_zone_percent=0.10, cooldown_seconds=300, max_scale_step=5)
+        safety = SafetyChecker(
+            dead_zone_percent=0.10, cooldown_seconds=300, max_scale_step=5
+        )
         # Target wants to jump from 5 to 20 (delta 15), clamped to 5 + 5 = 10
         can_scale, reason, approved = safety.should_scale(5, 20)
         assert can_scale
@@ -154,7 +155,9 @@ def sample_decision_plan():
 class TestExecutionControllerAPIs:
     def test_autoscaler_actions_scale_endpoint(self, sample_decision_plan):
         with TestClient(autoscaler_app) as client:
-            res = client.post("/v1/actions/scale", json=sample_decision_plan.model_dump(mode="json"))
+            res = client.post(
+                "/v1/actions/scale", json=sample_decision_plan.model_dump(mode="json")
+            )
             assert res.status_code == 200
             actions = res.json()
             assert len(actions) == 2
@@ -174,7 +177,9 @@ class TestExecutionControllerAPIs:
 
     def test_node_power_actions_power_endpoint(self, sample_decision_plan):
         with TestClient(power_app) as client:
-            res = client.post("/v1/actions/power", json=sample_decision_plan.model_dump(mode="json"))
+            res = client.post(
+                "/v1/actions/power", json=sample_decision_plan.model_dump(mode="json")
+            )
             assert res.status_code == 200
             actions = res.json()
             assert len(actions) == 2

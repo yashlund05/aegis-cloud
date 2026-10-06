@@ -6,13 +6,15 @@ and walk-forward rolling-origin cross-validation for time series.
 
 import json
 import logging
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List
 import pandas as pd
 import numpy as np
 
 from ml.training.train_lightgbm import train_quantile_model
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -40,7 +42,9 @@ def pinball_loss(y_true: np.ndarray, y_pred: np.ndarray, quantile: float) -> flo
     return float(np.mean(np.maximum(quantile * diff, (quantile - 1.0) * diff)))
 
 
-def interval_coverage(y_true: np.ndarray, y_lower: np.ndarray, y_upper: np.ndarray) -> float:
+def interval_coverage(
+    y_true: np.ndarray, y_lower: np.ndarray, y_upper: np.ndarray
+) -> float:
     """
     Percentage of actual observations bounded inside the [y_lower, y_upper] prediction interval.
     For a p10-p90 forecast, target coverage is >= 80-85%.
@@ -66,7 +70,11 @@ def walk_forward_validation(
     """
     quantiles = quantiles or [0.1, 0.5, 0.9]
     exclude_cols = [target_col, "timestamp", "workload_id", "status"]
-    feature_cols = [c for c in df.columns if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])]
+    feature_cols = [
+        c
+        for c in df.columns
+        if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])
+    ]
 
     n = len(df)
     min_train_size = int(n * 0.4)
@@ -134,7 +142,9 @@ def walk_forward_validation(
             "pinball_loss": {q: round(pinball_losses[q][-1], 4) for q in quantiles},
         }
         folds.append(fold_summary)
-        logger.info(f"Fold {fold + 1} - WMAPE(p50): {fold_wmape:.4f}, Coverage: {cov:.4f}")
+        logger.info(
+            f"Fold {fold + 1} - WMAPE(p50): {fold_wmape:.4f}, Coverage: {cov:.4f}"
+        )
 
     avg_wmape = float(np.mean(wmapes_p50)) if wmapes_p50 else 0.0
     avg_coverage = float(np.mean(coverages)) if coverages else 0.0
@@ -158,7 +168,9 @@ def walk_forward_validation(
     return report
 
 
-def generate_evaluation_report(results: dict, output_path: str = "ml/evaluation/report.json") -> None:
+def generate_evaluation_report(
+    results: dict, output_path: str = "ml/evaluation/report.json"
+) -> None:
     """
     Saves validation report as structured JSON.
     """

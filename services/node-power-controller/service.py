@@ -5,7 +5,7 @@ Node Power Service orchestrating safety validation and power state mutations (Ph
 import uuid
 import logging
 from datetime import datetime
-from typing import List, Dict, Any
+from typing import List, Dict
 
 from services.node_power_controller.config import config
 from services.node_power_controller.safety import PowerSafetyChecker
@@ -34,7 +34,9 @@ class NodePowerService:
         all_nodes = [c.node_id for c in plan.node_power_changes]
         # Active nodes in plan
         active_nodes = [
-            c.node_id for c in plan.node_power_changes if c.action.lower() in ("active", "uncordon")
+            c.node_id
+            for c in plan.node_power_changes
+            if c.action.lower() in ("active", "uncordon")
         ]
 
         for change in plan.node_power_changes:
@@ -50,7 +52,9 @@ class NodePowerService:
             )
 
             if not is_safe:
-                logger.warning(f"Safety guard rejected node action '{act}' for '{n_id}': {reason}")
+                logger.warning(
+                    f"Safety guard rejected node action '{act}' for '{n_id}': {reason}"
+                )
                 res = ActionResult(
                     id=action_id,
                     decision_id=str(plan.id),

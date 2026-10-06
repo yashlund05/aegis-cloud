@@ -102,7 +102,9 @@ class DatabaseModelRegistry:
         if pool:
             try:
                 # Find target model's horizon and quantile
-                row = await db.execute_query("SELECT * FROM model_registry WHERE id = $1", uuid.UUID(version_id))
+                row = await db.execute_query(
+                    "SELECT * FROM model_registry WHERE id = $1", uuid.UUID(version_id)
+                )
                 if row:
                     m = dict(row[0])
                     # Retire previous active
@@ -117,7 +119,8 @@ class DatabaseModelRegistry:
                     )
                     # Activate new
                     await db.execute_query(
-                        "UPDATE model_registry SET status = 'active' WHERE id = $1;", uuid.UUID(version_id)
+                        "UPDATE model_registry SET status = 'active' WHERE id = $1;",
+                        uuid.UUID(version_id),
                     )
             except Exception as e:
                 logger.debug(f"DB model promotion deferred to file: {e}")
@@ -125,7 +128,9 @@ class DatabaseModelRegistry:
         self.file_registry.promote_model(version_id)
         logger.info(f"Model version '{version_id}' promoted to active.")
 
-    async def get_active_model(self, model_name: str, quantile: float, horizon: int) -> Optional[Dict[str, Any]]:
+    async def get_active_model(
+        self, model_name: str, quantile: float, horizon: int
+    ) -> Optional[Dict[str, Any]]:
         pool = await db.get_pool()
         if pool:
             try:
@@ -143,7 +148,9 @@ class DatabaseModelRegistry:
                     return dict(row[0])
             except Exception:
                 pass
-        return self.file_registry.get_active_model(model_name=model_name, quantile=quantile, horizon=horizon)
+        return self.file_registry.get_active_model(
+            model_name=model_name, quantile=quantile, horizon=horizon
+        )
 
     async def get_shadow_models(self) -> List[Dict[str, Any]]:
         """

@@ -9,10 +9,12 @@ from services.predictor.routes import router as api_router
 
 logger = setup_logging("predictor")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Predictor...")
     from services.predictor.service import predictor_service
+
     predictor_service.initialize()
     await db.get_pool()
     await redis_client.get_redis()
@@ -20,6 +22,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Predictor...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Predictor", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

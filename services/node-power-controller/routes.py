@@ -3,7 +3,7 @@ API routes for Node Power Controller Service (Phase 7).
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from typing import List, Dict, Any
+from typing import List, Dict
 import logging
 
 from services.shared.schemas import DecisionPlan, ActionResult
@@ -35,7 +35,9 @@ async def get_power_states() -> Dict[str, str]:
 
 
 @router.get("/actions", response_model=List[ActionResult])
-async def get_action_history(limit: int = Query(50, ge=1, le=200)) -> List[ActionResult]:
+async def get_action_history(
+    limit: int = Query(50, ge=1, le=200),
+) -> List[ActionResult]:
     """
     Returns audit logs of node power actions.
     """

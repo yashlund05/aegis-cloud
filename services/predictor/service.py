@@ -31,7 +31,9 @@ class PredictorService:
     def initialize(self):
         """Loads trained quantile models on startup."""
         self.predictor.load_models()
-        logger.info(f"PredictorService initialized with {len(self.predictor.models)} horizon sets.")
+        logger.info(
+            f"PredictorService initialized with {len(self.predictor.models)} horizon sets."
+        )
 
     async def serve_prediction(
         self,
@@ -52,7 +54,9 @@ class PredictorService:
             try:
                 features = await redis_client.get_features(redis_key)
             except Exception as e:
-                logger.warning(f"Error reading Redis feature store for '{workload_id}': {e}")
+                logger.warning(
+                    f"Error reading Redis feature store for '{workload_id}': {e}"
+                )
 
         # Fallback to sensible defaults if features are missing
         if not features:
@@ -68,7 +72,11 @@ class PredictorService:
 
         # Nearest available horizon
         valid_horizons = self.predictor.horizons
-        target_h = horizon if horizon in all_preds else min(valid_horizons, key=lambda x: abs(x - horizon))
+        target_h = (
+            horizon
+            if horizon in all_preds
+            else min(valid_horizons, key=lambda x: abs(x - horizon))
+        )
         horizon_preds = all_preds.get(target_h, {0.1: 0.35, 0.5: 0.40, 0.9: 0.55})
 
         p10 = float(horizon_preds.get(0.1, 0.0))

@@ -54,7 +54,7 @@ build: docker-build
 
 build-service:
 	@echo "Building service $(SERVICE)..."
-	docker build -t aegis-$(SERVICE) ./services/$(SERVICE)
+	docker build -t aegis-$(SERVICE) -f ./services/$(SERVICE)/Dockerfile .
 
 test: test-python test-go
 

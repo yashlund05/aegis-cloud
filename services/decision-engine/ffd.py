@@ -52,7 +52,9 @@ class FFDSolver:
 
             # Capacity planning: ceil(p90_forecast / target_cpu)
             p90 = pred_map.get(w_id, pred_map.get(w_name, target_cpu * curr_replicas))
-            needed_replicas = max(min_replicas, min(max_replicas, math.ceil(p90 / max(target_cpu, 0.01))))
+            needed_replicas = max(
+                min_replicas, min(max_replicas, math.ceil(p90 / max(target_cpu, 0.01)))
+            )
 
             replica_changes.append(
                 ReplicaChange(
@@ -137,7 +139,9 @@ class FFDSolver:
             if state["pods_placed"] > 0:
                 used_cpu = state["cpu_cap_total"] * 0.85 - state["cpu_avail"]
                 util = min(1.0, max(0.0, used_cpu / max(state["cpu_cap_total"], 0.1)))
-                power = state["p_idle"] + (state["p_max"] - state["p_idle"]) * (util ** 1.5)
+                power = state["p_idle"] + (state["p_max"] - state["p_idle"]) * (
+                    util**1.5
+                )
                 total_energy_est += power
                 node_power_changes.append(
                     NodePowerChange(

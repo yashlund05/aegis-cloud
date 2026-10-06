@@ -267,8 +267,8 @@
    "file": "ml/evaluation/ablation.py",
    "which": "p_idle_min"
   },
-  "text": "85",
-  "number": 85.0
+  "text": "88",
+  "number": 88.0
  },
  {
   "name": "p_idle_max",
@@ -277,8 +277,8 @@
    "file": "ml/evaluation/ablation.py",
    "which": "p_idle_max"
   },
-  "text": "105",
-  "number": 105.0
+  "text": "111.2",
+  "number": 111.2
  },
  {
   "name": "p_max_min",
@@ -307,8 +307,8 @@
    "file": "ml/evaluation/ablation.py",
    "which": "alpha"
   },
-  "text": "1.5",
-  "number": 1.5
+  "text": "0.6696",
+  "number": 0.6696
  },
  {
   "name": "dead_zone_pct",
@@ -2750,8 +2750,8 @@
    "file": "eval/reports/readme_test_counts.json",
    "path": "pytest_passed"
   },
-  "text": "111",
-  "number": 111.0
+  "text": "106",
+  "number": 106.0
  },
  {
   "name": "pytest_seconds",
@@ -2761,8 +2761,8 @@
    "file": "eval/reports/readme_test_counts.json",
    "path": "pytest_seconds"
   },
-  "text": "14.6",
-  "number": 14.63
+  "text": "16.8",
+  "number": 16.77
  },
  {
   "name": "go_passed",
@@ -2836,7 +2836,7 @@
   "spec": {
    "op": "git_head"
   },
-  "text": "7cdac4e812f30e91cd5179b1e3ade3ba38c3f6fe",
+  "text": "d56e20b024e481cffab37b7d00ad7e42f65ba318",
   "number": null
  },
  {
@@ -2844,7 +2844,7 @@
   "spec": {
    "op": "template_sha256"
   },
-  "text": "fdcc61500f69245441ea87d79842a7648461739395a28d67244cd79699fe28b6",
+  "text": "ad20e6c5b37b6e1986fe318f2e5c4c85f143d1aadf2968572d38100a86ac3e72",
   "number": null
  },
  {

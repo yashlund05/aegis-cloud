@@ -4,7 +4,7 @@ Guarantees cluster survivability and minimum capacity before executing cordon or
 """
 
 import logging
-from typing import Tuple, List, Dict, Any, Optional
+from typing import Tuple, List
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,9 @@ class PowerSafetyChecker:
     Enforces minimum active nodes and capacity buffer guards to prevent cluster starvation.
     """
 
-    def __init__(self, min_active_nodes: int = 1, buffer_capacity_percent: float = 15.0):
+    def __init__(
+        self, min_active_nodes: int = 1, buffer_capacity_percent: float = 15.0
+    ):
         self.min_active_nodes = max(1, min_active_nodes)
         self.buffer_capacity_percent = buffer_capacity_percent
 
@@ -44,7 +46,10 @@ class PowerSafetyChecker:
                 )
 
             # 2. Enforce minimum active nodes threshold
-            if len(currently_active_nodes) <= self.min_active_nodes and node_name in currently_active_nodes:
+            if (
+                len(currently_active_nodes) <= self.min_active_nodes
+                and node_name in currently_active_nodes
+            ):
                 return (
                     False,
                     f"Refusing to {action} node '{node_name}': cluster requires at least {self.min_active_nodes} active nodes.",

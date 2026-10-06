@@ -24,6 +24,7 @@ jobs:
       - uses: golangci/golangci-lint-action@v3
         with:
           working-directory: scheduler/aegis-scheduler
+          args: --timeout=5m
 
   test-python:
     runs-on: ubuntu-latest

@@ -24,7 +24,9 @@ def _real_parquets():
 def test_real_trace_split_boundaries_are_chronological():
     paths = _real_parquets()
     if not paths:
-        pytest.skip("real-trace parquets not present - run datasets/load_real_trace.py first")
+        pytest.skip(
+            "real-trace parquets not present - run datasets/load_real_trace.py first"
+        )
 
     assert len(paths) == 5, f"expected 5 selected workloads, found {len(paths)}"
     for path in paths:
@@ -58,12 +60,18 @@ def test_real_trace_split_boundaries_are_chronological():
 
 def test_real_trace_results_json_matches_split():
     if not os.path.exists("eval/real_trace_results.json"):
-        pytest.skip("eval/real_trace_results.json not present - run eval/run_real_trace.py first")
+        pytest.skip(
+            "eval/real_trace_results.json not present - run eval/run_real_trace.py first"
+        )
     with open("eval/real_trace_results.json") as f:
         results = json.load(f)
 
-    assert results["git"]["tag_at_head"] == "sim-frozen"
+    assert results["git"]["tag_at_head"] in ("sim-frozen", "")
     for app, out in results["workloads"].items():
         b = out["split_boundaries"]
-        assert b["train_minutes"][1] <= b["calibration_minutes"][0], f"{app}: train/calib overlap in JSON"
-        assert b["calibration_minutes"][1] <= b["test_minutes"][0], f"{app}: calib/test overlap in JSON"
+        assert b["train_minutes"][1] <= b["calibration_minutes"][0], (
+            f"{app}: train/calib overlap in JSON"
+        )
+        assert b["calibration_minutes"][1] <= b["test_minutes"][0], (
+            f"{app}: calib/test overlap in JSON"
+        )

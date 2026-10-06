@@ -102,4 +102,6 @@ def apply_ha_spread_constraints(
         if n_pods >= 2:
             max_pods_per_node = max(1, math.ceil(n_pods * ha_max_ratio))
             for n_id in node_ids:
-                model.Add(sum(placement_vars[p][n_id] for p in pods) <= max_pods_per_node)
+                model.Add(
+                    sum(placement_vars[p][n_id] for p in pods) <= max_pods_per_node
+                )

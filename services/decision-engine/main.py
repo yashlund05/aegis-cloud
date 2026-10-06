@@ -9,6 +9,7 @@ from services.decision_engine.routes import router as api_router
 
 logger = setup_logging("decision-engine")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Decision Engine...")
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Decision Engine...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Decision Engine", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

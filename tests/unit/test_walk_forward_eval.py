@@ -50,7 +50,9 @@ class TestWalkForwardEvaluation:
         df = pd.DataFrame(
             {
                 "timestamp": pd.date_range("2026-01-01", periods=n, freq="1min"),
-                "cpu_usage": 0.4 + 0.2 * np.sin(np.linspace(0, 10, n)) + np.random.normal(0, 0.02, n),
+                "cpu_usage": 0.4
+                + 0.2 * np.sin(np.linspace(0, 10, n))
+                + np.random.normal(0, 0.02, n),
                 "memory_usage": 0.5 + np.random.normal(0, 0.01, n),
                 "lag_1": np.random.uniform(0.2, 0.6, n),
                 "rolling_mean_15min": np.random.uniform(0.3, 0.5, n),
@@ -58,7 +60,9 @@ class TestWalkForwardEvaluation:
             }
         )
 
-        report = walk_forward_validation(df, horizon=5, quantiles=[0.1, 0.5, 0.9], n_splits=3)
+        report = walk_forward_validation(
+            df, horizon=5, quantiles=[0.1, 0.5, 0.9], n_splits=3
+        )
 
         assert "average_metrics" in report
         assert "folds" in report

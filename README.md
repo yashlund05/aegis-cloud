@@ -1,5 +1,26 @@
 # Aegis
 
+<div align="center">
+
+### Predictive, Energy-Optimal Kubernetes Cloud Orchestration Engine
+
+[![Aegis CI](https://github.com/yashlund05/aegis-cloud/actions/workflows/ci.yml/badge.svg)](https://github.com/yashlund05/aegis-cloud/actions)
+[![Docker Build](https://github.com/yashlund05/aegis-cloud/actions/workflows/docker.yml/badge.svg)](https://github.com/yashlund05/aegis-cloud/actions)
+[![Language Python](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
+[![Language Go](https://img.shields.io/badge/Language-Go-blue.svg)](https://go.dev/)
+[![Kubernetes Plugin](https://img.shields.io/badge/Kubernetes-Scheduler%20Plugin-blue.svg)](https://kubernetes.io/)
+[![Google OR-Tools](https://img.shields.io/badge/Optimization-OR--Tools%20CP--SAT-green.svg)](https://developers.google.com/optimization)
+[![LightGBM Quantile](https://img.shields.io/badge/ML-LightGBM%20Quantile-green.svg)](https://lightgbm.readthedocs.io/)
+[![License TBD](https://img.shields.io/badge/License-TBD-orange.svg)](LICENSE)
+
+*Autonomous, closed-loop cloud infrastructure orchestrator coupling multi-horizon quantile forecasting, distribution-free conformal calibration, and mixed-integer linear programming (MILP) to minimize data center energy while enforcing strict capacity guarantees.*
+
+[Architecture](#3-architecture-and-repository-layout) • [Evaluation Protocol](#4-evaluation-protocol) • [Headline Results](#5-headline-result--matched-shortfall-energy-v5) • [Reproducibility](#10-reproducibility) • [Contributors](#14-contributors-and-project-attribution)
+
+</div>
+
+---
+
 **Aegis** is a closed-loop, AI-driven Kubernetes orchestration research system that couples multi-horizon quantile workload forecasting (LightGBM $p_{10}, p_{50}, p_{90}$) with joint constraint optimization (OR-Tools CP-SAT) and a custom Go scheduler plugin. It scales replica counts proactively, packs pods onto energy-efficient nodes, and power-manages idle infrastructure ahead of demand shifts, under hard safety guards (dead zone, cooldown, minimum active nodes). Its empirical claims in this README come from one frozen trace-replay simulator evaluated on the Azure Functions 2019 production serverless trace.
 
 ---
@@ -33,6 +54,21 @@ graph TD
     F -->|Scale / Place / Cordon Actions| G((Kubernetes Cluster))
     G --> A
 ```
+
+### Microservice Subsystems
+
+| Microservice | Primary Role | Implementation Path |
+| :--- | :--- | :--- |
+| **API Gateway** | External ingress routing, rate limiting, and centralized JWT validation | `services/api-gateway` |
+| **Orchestrator** | Closed-loop control coordinator executing end-to-end reconciliation cycles | `services/orchestrator` |
+| **Telemetry Collector** | Prometheus scraper with lag calculation and Redis feature storage | `services/telemetry-collector` |
+| **Predictor Service** | LightGBM quantile inference, shadow model routing, and drift detection | `services/predictor` |
+| **Decision Engine** | OR-Tools CP-SAT joint optimizer with First-Fit Decreasing fallback | `services/decision-engine` |
+| **Autoscaler Controller** | Safe Kubernetes replica scaling with rate limits and cooldown guards | `services/autoscaler-controller` |
+| **Node Power Controller** | Node power state actuation with capacity safety invariants | `services/node-power-controller` |
+| **Recommendation Engine** | Advisory placement and rightsizing recommendation generator | `services/recommendation-engine` |
+| **Energy Module** | Calibrated power modeling and energy consumption estimation | `services/energy-module` |
+| **Aegis Scheduler** | Native Kubernetes scheduler plugin extending Filter and Score points | `scheduler/aegis-scheduler` |
 
 ```
 aegis-cloud/
@@ -274,14 +310,27 @@ Phase summaries from [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATU
 | **W2 / W2b** | Widened frontier grids, shortfall-target hierarchy (D-5, D-6) | Completed | See `docs/DECISIONS.md`. |
 | **W3** | Baselines and ablations protocol + study (D-11) | Completed | See `docs/DECISIONS.md`. |
 | **W3b** | Reproducibility checks: behavioral bypass test, mutation check, artifact audit (D-12) | Completed | See `docs/DECISIONS.md`. |
-| **W4** | Blind expanded-test evaluation | **Pending** | The reserved expanded-test partition has not been touched; no blind results exist. |## 13. Dashboard, Tests, Makefile, License
+| **W4** | Blind expanded-test evaluation | **Pending** | The reserved expanded-test partition has not been touched; no blind results exist. |
+
+## 13. Dashboard, Tests, Makefile, License
 
 - **Offline evaluation dashboard (v2)**: `python dashboard/web/v2/server.py`, then open `http://localhost:8080`. Zero-dependency HTML5/Canvas viewer for the study timeseries, Pareto frontiers, and sensitivity sweeps.
-- **Python unit tests**: `python -m pytest tests/unit -q` → **106 passed** in 16.8 s (this README's counts are re-run live at build time, never copied).
+- **Python unit tests**: `python -m pytest tests/unit -q` → **106 passed** in 19.1 s (this README's counts are re-run live at build time, never copied).
 - **Go scheduler plugin**: `cd scheduler/aegis-scheduler && go test ./...` → **6 tests passing**.
 - **Makefile**: `make readme` (regenerate + verify this README), `make test` (pytest + go test), `make infra-up` / `make services-up` (local kind stack), `make help` for all targets.
 - **License**: not yet determined — see [`LICENSE`](LICENSE) ("License: TBD"). Contact the maintainers before reuse or redistribution.
 - **Citation**: cite the repository and the Azure Functions 2019 dataset (Shahrad et al., USENIX ATC'20, *"Serverless in the Wild"*); see `docs/IMPLEMENTATION_STATUS.md`.
+
+## 14. Contributors and Project Attribution
+
+Aegis is collaboratively designed and engineered by the Aegis Systems and Research Team:
+
+- **Ayush Vishwakarma** ([`@officialayush5839-arch`](https://github.com/officialayush5839-arch)) — Systems Engineering & CI/CD Infrastructure Lead
+- **Yash Lund** ([`@yashlund05`](https://github.com/yashlund05)) — Project Creator, Core Architect & Lead Researcher
+- **Saim Kotkar** ([`@kotkarsaim-sketch`](https://github.com/kotkarsaim-sketch)) — Power Modeling & Evaluation Specialist
+- **Sabiha Mulla** — Project Documentation & Progress Tracking
+
+For a comprehensive log of individual roles, subsystem ownership, and git commit history, see [`CONTRIBUTORS.md`](CONTRIBUTORS.md).
 
 ---
 
@@ -289,8 +338,8 @@ Phase summaries from [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATU
 
 Generated by `eval/generate_readme.py` from `docs/README.template.md` — no number in this file was typed by hand; each is computed from the committed result files listed below and verified by `python eval/check_report_numbers.py --readme`.
 
-- Repository HEAD at generation time: `d56e20b024e481cffab37b7d00ad7e42f65ba318`
-- Template SHA-256: `fdcc61500f69245441ea87d79842a7648461739395a28d67244cd79699fe28b6`
+- Repository HEAD at generation time: `c2d5ddfcd89b407c637183e2c6b183d0009dc133`
+- Template SHA-256: `50731f197d963fffbdc3d9faefebd1712b9ca478be46aa7838bee1316a591294`
 
 | Source file | Embedded git_commit | dirty_flag | config_hash (SHA-256, truncated) |
 | :--- | :--- | :--- | :--- |

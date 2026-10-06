@@ -29,7 +29,9 @@ async def execute_scaling_plan(plan: DecisionPlan):
 
 
 @router.get("/actions", response_model=List[ActionResult])
-async def get_action_history(limit: int = Query(50, ge=1, le=200)) -> List[ActionResult]:
+async def get_action_history(
+    limit: int = Query(50, ge=1, le=200),
+) -> List[ActionResult]:
     """
     Returns recent scaling action audit history.
     """

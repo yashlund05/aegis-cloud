@@ -12,21 +12,23 @@ from services.orchestrator.loop import ControlLoop
 logger = setup_logging("orchestrator")
 control_loop = ControlLoop()
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Orchestrator...")
     await db.get_pool()
     await redis_client.get_redis()
-    
+
     # Start background control loop
     asyncio.create_task(control_loop.start())
-    
+
     yield
-    
+
     logger.info("Shutting down Orchestrator...")
     await control_loop.stop()
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Orchestrator", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

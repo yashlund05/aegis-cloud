@@ -29,7 +29,8 @@ class OptimizationRequest(BaseModel):
         ..., description="List of active workloads with target_cpu and replica bounds"
     )
     nodes: List[Dict[str, Any]] = Field(
-        ..., description="List of cluster nodes with cpu/mem capacities and power parameters"
+        ...,
+        description="List of cluster nodes with cpu/mem capacities and power parameters",
     )
     predictions: Optional[List[Dict[str, Any]]] = Field(
         None, description="Quantile workload demand forecasts from Predictor service"

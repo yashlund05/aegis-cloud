@@ -35,7 +35,9 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
   api-gateway:
-    build: ./services/api-gateway
+    build:
+      context: .
+      dockerfile: ./services/api-gateway/Dockerfile
     ports:
       - "8000:8000"
     depends_on:
@@ -44,27 +46,35 @@ services:
     env_file: .env
 
   orchestrator:
-    build: ./services/orchestrator
+    build:
+      context: .
+      dockerfile: ./services/orchestrator/Dockerfile
     depends_on:
       - redis
       - postgres
     env_file: .env
 
   telemetry-collector:
-    build: ./services/telemetry-collector
+    build:
+      context: .
+      dockerfile: ./services/telemetry-collector/Dockerfile
     depends_on:
       - redis
       - prometheus
     env_file: .env
 
   predictor:
-    build: ./services/predictor
+    build:
+      context: .
+      dockerfile: ./services/predictor/Dockerfile
     depends_on:
       - redis
     env_file: .env
 
   decision-engine:
-    build: ./services/decision-engine
+    build:
+      context: .
+      dockerfile: ./services/decision-engine/Dockerfile
     depends_on:
       - redis
       - postgres

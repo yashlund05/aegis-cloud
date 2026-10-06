@@ -9,6 +9,7 @@ from services.autoscaler_controller.routes import router as api_router
 
 logger = setup_logging("autoscaler-controller")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Autoscaler Controller...")
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Autoscaler Controller...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Autoscaler Controller", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

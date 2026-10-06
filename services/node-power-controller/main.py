@@ -9,6 +9,7 @@ from services.node_power_controller.routes import router as api_router
 
 logger = setup_logging("node-power-controller")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Node Power Controller...")
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Node Power Controller...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Node Power Controller", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

@@ -69,7 +69,9 @@ class Aggregator:
 
     def _get_or_create_history(self, workload_id: str) -> WorkloadHistory:
         if workload_id not in self.workload_histories:
-            self.workload_histories[workload_id] = WorkloadHistory(self.max_history_points)
+            self.workload_histories[workload_id] = WorkloadHistory(
+                self.max_history_points
+            )
         return self.workload_histories[workload_id]
 
     def aggregate_raw_metrics(
@@ -163,7 +165,10 @@ class Aggregator:
         return workloads
 
     def extract_features(
-        self, workload_id: str, current_metrics: Dict[str, Any], timestamp: Optional[datetime] = None
+        self,
+        workload_id: str,
+        current_metrics: Dict[str, Any],
+        timestamp: Optional[datetime] = None,
     ) -> Dict[str, Any]:
         """
         Computes rolling statistics, lag features, and time signals for a workload.
@@ -191,7 +196,11 @@ class Aggregator:
         minute_of_hour = now.minute
 
         # Rolling statistics (15m = 30 points @ 30s; 60m = 120 points @ 30s)
-        pts_15m = history.cpu_history[-30:] if len(history.cpu_history) >= 30 else history.cpu_history
+        pts_15m = (
+            history.cpu_history[-30:]
+            if len(history.cpu_history) >= 30
+            else history.cpu_history
+        )
         pts_60m = history.cpu_history
 
         cpu_mean_15 = float(np.mean(pts_15m)) if pts_15m else cpu_val
@@ -200,7 +209,11 @@ class Aggregator:
         cpu_std_60 = float(np.std(pts_60m)) if len(pts_60m) > 1 else 0.0
 
         # Memory rolling stats
-        mem_pts_15m = history.mem_history[-30:] if len(history.mem_history) >= 30 else history.mem_history
+        mem_pts_15m = (
+            history.mem_history[-30:]
+            if len(history.mem_history) >= 30
+            else history.mem_history
+        )
         mem_pts_60m = history.mem_history
         mem_mean_15 = float(np.mean(mem_pts_15m)) if mem_pts_15m else mem_val
         mem_std_15 = float(np.std(mem_pts_15m)) if len(mem_pts_15m) > 1 else 0.0

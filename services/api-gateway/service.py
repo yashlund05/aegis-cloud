@@ -1,5 +1,6 @@
 from typing import Optional, Dict
 
+
 class AuthService:
     async def authenticate(self, username: str, password: str) -> Optional[Dict]:
         # TODO: Implement proper database lookup for users and password hashing verification

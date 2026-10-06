@@ -3,7 +3,7 @@ API routes for Aegis Orchestrator Service (Phase 8).
 """
 
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import logging
 

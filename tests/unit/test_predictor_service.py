@@ -9,7 +9,11 @@ from ml.inference.predict import AegisPredictor
 class TestAegisPredictor:
     @pytest.fixture
     def predictor(self):
-        return AegisPredictor(model_dir="ml/models/artifacts", horizons=[5, 10, 15], quantiles=[0.1, 0.5, 0.9])
+        return AegisPredictor(
+            model_dir="ml/models/artifacts",
+            horizons=[5, 10, 15],
+            quantiles=[0.1, 0.5, 0.9],
+        )
 
     def test_predictor_fallback_when_models_unloaded(self, predictor):
         features = {

@@ -4,7 +4,7 @@ Applies node cordon/uncordon/drain actions via K8s API or simulated dry-run.
 """
 
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
 try:
     from kubernetes import client, config as k8s_config
@@ -37,20 +37,32 @@ class PowerManager:
             self.core_v1 = client.CoreV1Api()
             logger.info("Kubernetes CoreV1Api initialized for Node Power Controller.")
         except Exception as e:
-            logger.debug(f"Kubernetes cluster connection inactive (simulation mode enabled): {e}")
+            logger.debug(
+                f"Kubernetes cluster connection inactive (simulation mode enabled): {e}"
+            )
 
     async def cordon_node(self, node_name: str) -> Dict[str, Any]:
         """Marks node as unschedulable."""
         self.simulated_node_states[node_name] = "cordoned"
         if self.dry_run or self.core_v1 is None:
             logger.info(f"[DRY-RUN] Cordoned node '{node_name}'.")
-            return {"status": "executed", "node": node_name, "action": "cordon", "mode": "dry_run"}
+            return {
+                "status": "executed",
+                "node": node_name,
+                "action": "cordon",
+                "mode": "dry_run",
+            }
 
         try:
             body = {"spec": {"unschedulable": True}}
             self.core_v1.patch_node(node_name, body)
             logger.info(f"Cordoned node '{node_name}' via K8s API.")
-            return {"status": "executed", "node": node_name, "action": "cordon", "mode": "k8s_api"}
+            return {
+                "status": "executed",
+                "node": node_name,
+                "action": "cordon",
+                "mode": "k8s_api",
+            }
         except Exception as e:
             logger.error(f"Failed to cordon node '{node_name}': {e}")
             raise
@@ -60,13 +72,23 @@ class PowerManager:
         self.simulated_node_states[node_name] = "active"
         if self.dry_run or self.core_v1 is None:
             logger.info(f"[DRY-RUN] Uncordoned node '{node_name}'.")
-            return {"status": "executed", "node": node_name, "action": "uncordon", "mode": "dry_run"}
+            return {
+                "status": "executed",
+                "node": node_name,
+                "action": "uncordon",
+                "mode": "dry_run",
+            }
 
         try:
             body = {"spec": {"unschedulable": False}}
             self.core_v1.patch_node(node_name, body)
             logger.info(f"Uncordoned node '{node_name}' via K8s API.")
-            return {"status": "executed", "node": node_name, "action": "uncordon", "mode": "k8s_api"}
+            return {
+                "status": "executed",
+                "node": node_name,
+                "action": "uncordon",
+                "mode": "k8s_api",
+            }
         except Exception as e:
             logger.error(f"Failed to uncordon node '{node_name}': {e}")
             raise
@@ -76,7 +98,12 @@ class PowerManager:
         await self.cordon_node(node_name)
         self.simulated_node_states[node_name] = "drained"
         logger.info(f"Drained node '{node_name}'.")
-        return {"status": "executed", "node": node_name, "action": "drain", "mode": "simulated"}
+        return {
+            "status": "executed",
+            "node": node_name,
+            "action": "drain",
+            "mode": "simulated",
+        }
 
     def get_node_state(self, node_name: str) -> str:
         return self.simulated_node_states.get(node_name, "active")

@@ -2,8 +2,11 @@ import unittest
 import json
 import os
 
+
 class TestTertileMonotonicity(unittest.TestCase):
-    def test_ca_median_energy_decreases_or_stays_same_with_higher_shortfall_target(self):
+    def test_ca_median_energy_decreases_or_stays_same_with_higher_shortfall_target(
+        self,
+    ):
         """
         CA median energy in a tertile cannot increase when the shortfall target
         is increased from 0.1% to 1.0% (higher shortfall budget allows lower energy).
@@ -31,8 +34,9 @@ class TestTertileMonotonicity(unittest.TestCase):
                     ca_med_10,
                     ca_med_01,
                     f"Arm {arm}, tertile {tert_name}: CA median energy at 1.0% ({ca_med_10}) "
-                    f"must not exceed that at 0.1% ({ca_med_01})"
+                    f"must not exceed that at 0.1% ({ca_med_01})",
                 )
+
 
 if __name__ == "__main__":
     unittest.main()

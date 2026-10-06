@@ -41,7 +41,9 @@ async def metrics_middleware(request: Request, call_next):
     try:
         response = await call_next(request)
         status_code = response.status_code
-        request_count.labels(method=method, endpoint=endpoint, status_code=status_code).inc()
+        request_count.labels(
+            method=method, endpoint=endpoint, status_code=status_code
+        ).inc()
         return response
     except Exception as e:
         errors_count.labels(type=type(e).__name__).inc()

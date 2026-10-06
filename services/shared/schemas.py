@@ -3,6 +3,7 @@ from typing import List, Optional, Dict, Any, Union
 from datetime import datetime
 from uuid import UUID
 
+
 class WorkloadInfo(BaseModel):
     id: Union[UUID, str]
     name: str
@@ -14,11 +15,12 @@ class WorkloadInfo(BaseModel):
     max_replicas: int = Field(default=50, ge=1)
     slo_target_ms: float = 200.0
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def check_min_max(self):
         if self.min_replicas > self.max_replicas:
             raise ValueError("min_replicas must be less than or equal to max_replicas")
         return self
+
 
 class NodeInfo(BaseModel):
     id: Union[UUID, str]
@@ -29,6 +31,7 @@ class NodeInfo(BaseModel):
     p_max: float
     alpha: float
     status: str
+
 
 class MetricPoint(BaseModel):
     timestamp: datetime
@@ -45,6 +48,7 @@ class MetricPoint(BaseModel):
     latency_p95: Optional[float] = None
     latency_p99: Optional[float] = None
 
+
 class PredictionResult(BaseModel):
     workload_id: Union[UUID, str]
     timestamp: datetime
@@ -53,11 +57,13 @@ class PredictionResult(BaseModel):
     predicted_value: float
     model_version: str
 
+
 class ReplicaChange(BaseModel):
     workload_id: Union[UUID, str]
     current_replicas: int
     target_replicas: int
     reason: str
+
 
 class PlacementDecision(BaseModel):
     pod_name: str
@@ -65,10 +71,12 @@ class PlacementDecision(BaseModel):
     score: float
     reason: str
 
+
 class NodePowerChange(BaseModel):
     node_id: str
     action: str
     reason: str
+
 
 class DecisionPlan(BaseModel):
     id: Union[UUID, str]
@@ -82,6 +90,7 @@ class DecisionPlan(BaseModel):
     node_power_changes: List[NodePowerChange]
     status: str
 
+
 class ActionResult(BaseModel):
     id: str
     decision_id: str
@@ -91,6 +100,7 @@ class ActionResult(BaseModel):
     error_message: Optional[str] = None
     completed_at: datetime
 
+
 class AlertInfo(BaseModel):
     id: str
     timestamp: datetime
@@ -99,6 +109,7 @@ class AlertInfo(BaseModel):
     workload_id: Optional[str] = None
     node_id: Optional[str] = None
     message: str
+
 
 class ModelInfo(BaseModel):
     id: str

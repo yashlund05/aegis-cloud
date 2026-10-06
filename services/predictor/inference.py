@@ -6,9 +6,8 @@ evaluating candidate models in shadow mode.
 
 import time
 import asyncio
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 import logging
-import pandas as pd
 
 from ml.inference.predict import AegisPredictor
 from services.predictor.registry import model_registry
@@ -72,7 +71,11 @@ class InferenceEngine:
         }
 
     async def _route_shadow_inference(
-        self, workload_id: str, features: Dict[str, Any], horizon: int, active_p50: float
+        self,
+        workload_id: str,
+        features: Dict[str, Any],
+        horizon: int,
+        active_p50: float,
     ):
         """
         Runs candidate model in shadow mode and records deviation from active model.
@@ -80,9 +83,14 @@ class InferenceEngine:
         try:
             shadow_models = await model_registry.get_shadow_models()
             for s_model in shadow_models:
-                if s_model.get("horizon_minutes") == horizon and s_model.get("quantile") == 0.5:
+                if (
+                    s_model.get("horizon_minutes") == horizon
+                    and s_model.get("quantile") == 0.5
+                ):
                     # Execute shadow prediction if model path exists
-                    model_path = s_model.get("model_path") or s_model.get("artifact_path")
+                    model_path = s_model.get("model_path") or s_model.get(
+                        "artifact_path"
+                    )
                     if model_path:
                         # Log discrepancy tracking
                         discrepancy = {
@@ -95,7 +103,9 @@ class InferenceEngine:
                         self.shadow_discrepancy_log.append(discrepancy)
                         if len(self.shadow_discrepancy_log) > 100:
                             self.shadow_discrepancy_log.pop(0)
-                        logger.debug(f"Shadow model comparison logged for '{workload_id}'.")
+                        logger.debug(
+                            f"Shadow model comparison logged for '{workload_id}'."
+                        )
         except Exception as e:
             logger.debug(f"Shadow routing check error: {e}")
 

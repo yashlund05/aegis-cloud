@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # TODO: Import proper rate limiting library
 
+
 def setup_middlewares(app: FastAPI):
     app.add_middleware(
         CORSMiddleware,

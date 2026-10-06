@@ -59,11 +59,27 @@ def test_drift_observe_and_check_endpoints():
 
 def test_models_retrain_endpoint(tmp_path):
     # Create small temporary dataset to test retraining fast (< 2 seconds)
-    trace_path = "datasets/processed_sample_trace.parquet"
-    if not os.path.exists(trace_path):
-        trace_path = "datasets/simulation-trace.parquet"
-    full_df = pd.read_parquet(trace_path)
-    small_df = full_df.iloc[:300].copy()
+    if os.path.exists("datasets/processed_sample_trace.parquet"):
+        full_df = pd.read_parquet("datasets/processed_sample_trace.parquet")
+        small_df = full_df.iloc[:300].copy()
+    elif os.path.exists("datasets/simulation-trace.parquet"):
+        full_df = pd.read_parquet("datasets/simulation-trace.parquet")
+        small_df = full_df.iloc[:300].copy()
+    else:
+        # Fallback for CI environments where parquet trace artifacts are not tracked in git
+        import numpy as np
+        ts = pd.date_range("2026-01-01", periods=300, freq="1min")
+        small_df = pd.DataFrame({
+            "timestamp": ts,
+            "workload_id": "test-workload-retrain",
+            "cpu_usage": np.linspace(0.2, 0.8, 300),
+            "memory_usage": np.linspace(100.0, 500.0, 300),
+            "network_rx": np.linspace(10.0, 50.0, 300),
+            "network_tx": np.linspace(10.0, 50.0, 300),
+            "disk_iops": np.linspace(1.0, 10.0, 300),
+            "request_rate": np.linspace(10.0, 100.0, 300),
+            "pod_count": 1,
+        })
     small_data_path = os.path.join(tmp_path, "quick_retrain_sample.parquet")
     small_df.to_parquet(small_data_path)
 

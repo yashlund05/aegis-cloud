@@ -861,8 +861,9 @@ def compose(src: Dict[str, Any], texts: Dict[str, str], texts_rel: Dict[str, str
             head = "(git unavailable)"
     t["git_head"] = V.text("git_head", head or "(no commits)",
                            {"op": "git_head"})
+    template_bytes = TEMPLATE.read_text(encoding="utf-8").replace("\r\n", "\n").encode("utf-8")
     t["template_sha"] = V.text("template_sha", hashlib.sha256(
-        TEMPLATE.read_bytes()).hexdigest(), {"op": "template_sha256"})
+        template_bytes).hexdigest(), {"op": "template_sha256"})
     prow = []
     for key in ["v5", "baselines", "repro", "sixty", "audit", "inloop", "ablation"]:
         d = src[key]

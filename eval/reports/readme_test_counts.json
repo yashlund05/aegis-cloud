@@ -1,19 +1,19 @@
 {
  "pytest_cmd": "python -m pytest tests/unit -q",
- "pytest_passed": 111,
- "pytest_skipped": 0,
- "pytest_seconds": 14.63,
+ "pytest_passed": 106,
+ "pytest_skipped": 1,
+ "pytest_seconds": 16.77,
  "pytest_tail": [
   "",
   "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
-  "111 passed, 1 warning in 14.63s"
+  "106 passed, 1 skipped, 80 warnings in 16.77s"
  ],
  "go_cmd": "cd scheduler/aegis-scheduler && go test ./... -v",
  "go_passed": 6,
  "go_tail": [
-  "--- PASS: TestNormalizeScore (0.00s)",
-  "PASS",
-  "ok  \tgithub.com/aegis-project/aegis-scheduler/pkg/plugins/aegis\t(cached)"
+  "=== RUN   TestAegisPlugin_Score",
+  "--- PASS: TestAegisPlugin_Score (0.00s)",
+  "PASS"
  ],
  "note": "counts captured live by eval/generate_readme.py. The generator runs the suites twice: once with AEGIS_README_BUILDING=1 (README-gate tests bootstrap-skip, because the README they verify is being written) and once without, which is the final count recorded here."
 }

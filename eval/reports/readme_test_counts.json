@@ -2,11 +2,11 @@
  "pytest_cmd": "python -m pytest tests/unit -q",
  "pytest_passed": 106,
  "pytest_skipped": 1,
- "pytest_seconds": 16.77,
+ "pytest_seconds": 19.15,
  "pytest_tail": [
   "",
   "-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html",
-  "106 passed, 1 skipped, 80 warnings in 16.77s"
+  "106 passed, 1 skipped, 80 warnings in 19.15s"
  ],
  "go_cmd": "cd scheduler/aegis-scheduler && go test ./... -v",
  "go_passed": 6,

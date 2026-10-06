@@ -36,7 +36,11 @@ async def trigger_model_retrain(
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Training dataset '{data_path}' not found.")
 
-    df = pd.read_parquet(data_path) if data_path.endswith(".parquet") else pd.read_csv(data_path)
+    df = (
+        pd.read_parquet(data_path)
+        if data_path.endswith(".parquet")
+        else pd.read_csv(data_path)
+    )
     if "workload_id" in df.columns:
         w_df = df[df["workload_id"] == workload_id].copy()
         if len(w_df) < 50:
@@ -80,9 +84,13 @@ async def trigger_model_retrain(
             await model_registry.promote_model(v_id)
         # Reset drift detector error distribution baseline
         drift_detector.reset_reference(workload_id)
-        logger.info(f"Retrained models successfully passed quality gate (WMAPE={avg_wmape:.4f}). Promoted to active.")
+        logger.info(
+            f"Retrained models successfully passed quality gate (WMAPE={avg_wmape:.4f}). Promoted to active."
+        )
     else:
-        logger.warning(f"Retrained models did not pass quality gate (WMAPE={avg_wmape:.4f}). Held in shadow mode.")
+        logger.warning(
+            f"Retrained models did not pass quality gate (WMAPE={avg_wmape:.4f}). Held in shadow mode."
+        )
 
     return {
         "status": status,

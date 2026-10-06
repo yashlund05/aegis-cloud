@@ -5,6 +5,7 @@ from datetime import datetime
 
 router = APIRouter()
 
+
 class HealthResponse(BaseModel):
     status: str
     service: str
@@ -12,9 +13,11 @@ class HealthResponse(BaseModel):
     timestamp: str
     dependencies: Dict[str, str]
 
+
 # In a real scenario, this would be injected or configured per service
 SERVICE_NAME = "unknown"
 VERSION = "1.0.0"
+
 
 @router.get("/health")
 async def liveness() -> HealthResponse:
@@ -23,8 +26,9 @@ async def liveness() -> HealthResponse:
         service=SERVICE_NAME,
         version=VERSION,
         timestamp=datetime.utcnow().isoformat(),
-        dependencies={}
+        dependencies={},
     )
+
 
 @router.get("/ready")
 async def readiness() -> HealthResponse:
@@ -34,5 +38,5 @@ async def readiness() -> HealthResponse:
         service=SERVICE_NAME,
         version=VERSION,
         timestamp=datetime.utcnow().isoformat(),
-        dependencies={"database": "ok", "redis": "ok"}
+        dependencies={"database": "ok", "redis": "ok"},
     )

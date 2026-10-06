@@ -15,7 +15,10 @@ class TestAggregator:
 
     def test_extract_workload_name(self):
         # Deployment pod naming convention
-        assert extract_workload_name("frontend-deployment-79f8b6545-abc12") == "frontend-deployment"
+        assert (
+            extract_workload_name("frontend-deployment-79f8b6545-abc12")
+            == "frontend-deployment"
+        )
         assert extract_workload_name("api-service-5896cb885-xyz99") == "api-service"
         # StatefulSet pod naming convention
         assert extract_workload_name("postgres-cluster-0") == "postgres-cluster"
@@ -26,14 +29,32 @@ class TestAggregator:
     def test_aggregate_raw_metrics(self, aggregator):
         now = datetime.now(timezone.utc)
         cpu_results = [
-            {"metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-abc12"}, "value": [1000, "0.35"]},
-            {"metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-xyz34"}, "value": [1000, "0.45"]},
-            {"metric": {"namespace": "default", "pod": "worker-67df8b64b-11111"}, "value": [1000, "0.80"]},
+            {
+                "metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-abc12"},
+                "value": [1000, "0.35"],
+            },
+            {
+                "metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-xyz34"},
+                "value": [1000, "0.45"],
+            },
+            {
+                "metric": {"namespace": "default", "pod": "worker-67df8b64b-11111"},
+                "value": [1000, "0.80"],
+            },
         ]
         mem_results = [
-            {"metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-abc12"}, "value": [1000, "200000000"]},
-            {"metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-xyz34"}, "value": [1000, "250000000"]},
-            {"metric": {"namespace": "default", "pod": "worker-67df8b64b-11111"}, "value": [1000, "500000000"]},
+            {
+                "metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-abc12"},
+                "value": [1000, "200000000"],
+            },
+            {
+                "metric": {"namespace": "default", "pod": "web-deploy-79f8b6545-xyz34"},
+                "value": [1000, "250000000"],
+            },
+            {
+                "metric": {"namespace": "default", "pod": "worker-67df8b64b-11111"},
+                "value": [1000, "500000000"],
+            },
         ]
 
         workloads = aggregator.aggregate_raw_metrics(
@@ -102,15 +123,19 @@ class TestAggregator:
         async def _test():
             mock_client = AsyncMock()
             w_id = "checkout-service"
-            features = aggregator.extract_features(w_id, {"cpu_usage": 0.45, "memory_usage": 0.55})
-            
+            features = aggregator.extract_features(
+                w_id, {"cpu_usage": 0.45, "memory_usage": 0.55}
+            )
+
             key = f"workload:{w_id}:features"
             ttl = 3600
-            
+
             # Simulate storing in Redis
             await mock_client.set(key, features, ex=ttl)
-            
-            mock_client.set.assert_called_once_with("workload:checkout-service:features", features, ex=3600)
+
+            mock_client.set.assert_called_once_with(
+                "workload:checkout-service:features", features, ex=3600
+            )
             assert key == "workload:checkout-service:features"
             assert ttl == 3600
             assert "cpu_usage" in features
@@ -118,5 +143,3 @@ class TestAggregator:
             assert "lag_1" in features
 
         asyncio.run(_test())
-
-

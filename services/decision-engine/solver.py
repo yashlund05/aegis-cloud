@@ -114,7 +114,9 @@ class CPSolver:
 
         # 3. Fallback immediately to FFD if CP-SAT is not installed or inputs are empty
         if cp_model is None:
-            logger.warning("OR-Tools CP-SAT not installed in environment; activating FFD fallback.")
+            logger.warning(
+                "OR-Tools CP-SAT not installed in environment; activating FFD fallback."
+            )
             return self.ffd_solver.solve(workloads, nodes, predictions, cycle_id=c_id)
 
         if not pods_info or not nodes:
@@ -123,7 +125,10 @@ class CPSolver:
         # 4. Formulate CP-SAT Model
         try:
             model = cp_model.CpModel()
-            node_ids = [str(n.get("name", n.get("id", f"node-{i}"))) for i, n in enumerate(nodes)]
+            node_ids = [
+                str(n.get("name", n.get("id", f"node-{i}")))
+                for i, n in enumerate(nodes)
+            ]
             nodes_info = {
                 node_ids[i]: {
                     "cpu_capacity": float(n.get("cpu_capacity", 4.0)),
@@ -159,10 +164,19 @@ class CPSolver:
                 utilization_max=self.utilization_max,
             )
             apply_active_node_linking(
-                model, placement_vars, active_vars, pod_names, node_ids, min_active_nodes=1
+                model,
+                placement_vars,
+                active_vars,
+                pod_names,
+                node_ids,
+                min_active_nodes=1,
             )
             apply_ha_spread_constraints(
-                model, placement_vars, workload_pods_map, node_ids, ha_max_ratio=self.ha_max_ratio
+                model,
+                placement_vars,
+                workload_pods_map,
+                node_ids,
+                ha_max_ratio=self.ha_max_ratio,
             )
 
             # Objective: Minimize active node idle power + pod CPU allocation energy
@@ -172,7 +186,9 @@ class CPSolver:
                 objective_terms.append(active_vars[n_id] * p_idle_scaled)
 
             for p in pod_names:
-                p_cpu_scaled = int(pods_info[p]["cpu_request"] * 100 * self.weight_energy)
+                p_cpu_scaled = int(
+                    pods_info[p]["cpu_request"] * 100 * self.weight_energy
+                )
                 for n_id in node_ids:
                     objective_terms.append(placement_vars[p][n_id] * p_cpu_scaled)
 
@@ -215,14 +231,16 @@ class CPSolver:
                             if solver.Value(placement_vars[p][n_id]) == 1
                         )
                         util = min(1.0, placed_cpu / max(meta["cpu_capacity"], 0.1))
-                        power = meta["p_idle"] + (meta["p_max"] - meta["p_idle"]) * (util ** 1.5)
+                        power = meta["p_idle"] + (meta["p_max"] - meta["p_idle"]) * (
+                            util**1.5
+                        )
                         total_energy_est += power
 
                         node_power_changes.append(
                             NodePowerChange(
                                 node_id=n_id,
                                 action="active",
-                                reason=f"CP-SAT active (util={util*100:.1f}%, est_power={power:.1f}W)",
+                                reason=f"CP-SAT active (util={util * 100:.1f}%, est_power={power:.1f}W)",
                             )
                         )
                     else:
@@ -252,8 +270,12 @@ class CPSolver:
                 logger.warning(
                     f"CP-SAT solver failed with status {solver.StatusName(status)}; falling back to FFD."
                 )
-                return self.ffd_solver.solve(workloads, nodes, predictions, cycle_id=c_id)
+                return self.ffd_solver.solve(
+                    workloads, nodes, predictions, cycle_id=c_id
+                )
 
         except Exception as e:
-            logger.error(f"Error during CP-SAT optimization: {e}. Executing FFD fallback.")
+            logger.error(
+                f"Error during CP-SAT optimization: {e}. Executing FFD fallback."
+            )
             return self.ffd_solver.solve(workloads, nodes, predictions, cycle_id=c_id)

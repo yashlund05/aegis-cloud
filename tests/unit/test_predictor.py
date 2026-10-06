@@ -1,7 +1,6 @@
-import pytest
-from ml.inference.predict import AegisPredictor
 from ml.drift.drift_detection import ks_drift_test, DriftMonitor
 import numpy as np
+
 
 class TestDriftDetection:
     def test_no_drift_same_distribution(self):
@@ -30,7 +29,7 @@ class TestDriftDetection:
             monitor.add_observation(pred, actual)
         # Should not detect drift initially
         result = monitor.check_drift()
-        assert not result['drift_detected']
+        assert not result["drift_detected"]
 
     def test_drift_monitor_detects_shift(self):
         monitor = DriftMonitor(reference_window=100, test_window=50, significance=0.05)
@@ -42,4 +41,4 @@ class TestDriftDetection:
         for _ in range(50):
             monitor.add_observation(10.0, 15.0 + np.random.normal(0, 0.5))
         result = monitor.check_drift()
-        assert result['drift_detected']
+        assert result["drift_detected"]

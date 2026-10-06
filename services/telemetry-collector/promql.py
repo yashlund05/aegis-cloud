@@ -21,7 +21,9 @@ class PromQLClient:
         self.query_range_endpoint = f"{self.url}/api/v1/query_range"
         self.timeout = timeout
 
-    async def query(self, promql_query: str, time: Optional[float] = None) -> List[Dict[str, Any]]:
+    async def query(
+        self, promql_query: str, time: Optional[float] = None
+    ) -> List[Dict[str, Any]]:
         """
         Execute an instant query against Prometheus.
         """
@@ -80,7 +82,7 @@ class PromQLClient:
         ns_filter = f', namespace="{namespace}"' if namespace else ""
         return (
             f'sum(rate(container_cpu_usage_seconds_total{{container!="", container!="POD"{ns_filter}}}[1m])) '
-            f'by (namespace, pod)'
+            f"by (namespace, pod)"
         )
 
     @staticmethod
@@ -89,7 +91,7 @@ class PromQLClient:
         ns_filter = f', namespace="{namespace}"' if namespace else ""
         return (
             f'sum(container_memory_working_set_bytes{{container!="", container!="POD"{ns_filter}}}) '
-            f'by (namespace, pod)'
+            f"by (namespace, pod)"
         )
 
     @staticmethod
@@ -123,7 +125,9 @@ class PromQLClient:
     def get_pod_count_query(namespace: Optional[str] = None) -> str:
         """Active running pods per namespace/workload."""
         ns_filter = f', namespace="{namespace}"' if namespace else ""
-        return f'count(kube_pod_status_phase{{phase="Running"{ns_filter}}}) by (namespace)'
+        return (
+            f'count(kube_pod_status_phase{{phase="Running"{ns_filter}}}) by (namespace)'
+        )
 
     @staticmethod
     def get_node_cpu_util_query() -> str:
@@ -138,5 +142,9 @@ class PromQLClient:
     @staticmethod
     def get_kepler_energy_query(namespace: Optional[str] = None) -> str:
         """Kepler container energy in Joules/sec (Watts)."""
-        ns_filter = f'container_namespace="{namespace}"' if namespace else 'container_namespace!=""'
+        ns_filter = (
+            f'container_namespace="{namespace}"'
+            if namespace
+            else 'container_namespace!=""'
+        )
         return f"sum(rate(kepler_container_joules_total{{{ns_filter}}}[1m])) by (pod_name, container_namespace)"

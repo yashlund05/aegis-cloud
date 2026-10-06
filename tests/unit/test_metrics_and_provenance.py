@@ -47,14 +47,14 @@ class TestMetricsAndProvenance:
         """
         Tests Holm-Bonferroni step-down correction on known example:
         p = [0.01, 0.04, 0.03, 0.005] with m = 4 hypotheses.
-        
+
         Analytical derivation:
           - Sorted p-values:
             Rank 0: p[3] = 0.005 -> (4 - 0) * 0.005 = 0.02, cum_max = 0.02 -> adj[3] = 0.02
             Rank 1: p[0] = 0.010 -> (4 - 1) * 0.010 = 0.03, cum_max = 0.03 -> adj[0] = 0.03
             Rank 2: p[2] = 0.030 -> (4 - 2) * 0.030 = 0.06, cum_max = 0.06 -> adj[2] = 0.06
             Rank 3: p[1] = 0.040 -> (4 - 3) * 0.040 = 0.04, cum_max = max(0.06, 0.04) = 0.06 -> adj[1] = 0.06
-        
+
         Expected adjusted p-values:
           adj[0] = 0.03
           adj[1] = 0.06
@@ -173,8 +173,16 @@ class TestMetricsAndProvenance:
                 "Tertile 1 (Low Load)": {
                     "n_apps": 7,
                     "aegis_vs_ca_deltas": {
-                        "energy": {"mean": 108.39, "ci95": [101.69, 115.27], "p_value": 0.015625},
-                        "shortfall": {"mean": -125.86, "ci95": [-256.14, -24.43], "p_value": 0.015625},
+                        "energy": {
+                            "mean": 108.39,
+                            "ci95": [101.69, 115.27],
+                            "p_value": 0.015625,
+                        },
+                        "shortfall": {
+                            "mean": -125.86,
+                            "ci95": [-256.14, -24.43],
+                            "p_value": 0.015625,
+                        },
                     },
                 }
             },
@@ -226,7 +234,9 @@ class TestMetricsAndProvenance:
           - target > max  -> is_extrapolated=True, side='above_max_shortfall'
           - min < target < max -> is_extrapolated=False, side=None
         """
-        from eval.scale_aware_pareto_study_v3 import interpolate_energy_at_shortfall_detailed
+        from eval.scale_aware_pareto_study_v3 import (
+            interpolate_energy_at_shortfall_detailed,
+        )
 
         pts = [(10.0, 100.0), (50.0, 80.0)]
 
@@ -304,7 +314,10 @@ class TestMetricsAndProvenance:
             assert "ca_energy" in per_app_data[app]
             assert "aegis_energy" in per_app_data[app]
             assert "delta_energy" in per_app_data[app]
-            assert per_app_data[app]["delta_energy"] == per_app_data[app]["aegis_energy"] - per_app_data[app]["ca_energy"]
+            assert (
+                per_app_data[app]["delta_energy"]
+                == per_app_data[app]["aegis_energy"] - per_app_data[app]["ca_energy"]
+            )
 
     def test_sign_convention_aegis_minus_ca(self):
         """
@@ -352,6 +365,7 @@ class TestMetricsAndProvenance:
           - tradeoff: one is better on energy, other on shortfall
           - identical: E and S are identical
         """
+
         def classify(ae_e, ca_e, ae_s, ca_s):
             if (ae_e <= ca_e and ae_s <= ca_s) and (ae_e < ca_e or ae_s < ca_s):
                 return "dominant"
@@ -390,5 +404,3 @@ class TestMetricsAndProvenance:
         r_rb_pos, p_two_pos, p_less_pos = compute_rank_biserial(diff_all_positive)
         assert r_rb_pos == pytest.approx(1.0)
         assert p_less_pos > 0.95
-
-

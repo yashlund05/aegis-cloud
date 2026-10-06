@@ -2,7 +2,6 @@
 Unit tests for Kolmogorov-Smirnov concept drift detection in Predictor Service.
 """
 
-import pytest
 import numpy as np
 import asyncio
 from services.predictor.drift import DriftDetector, ks_drift_test
@@ -29,7 +28,9 @@ class TestPredictorDrift:
 
         # 1. Warm-up phase
         for _ in range(50):
-            detector.add_observation(w_id, y_true=0.50, y_pred=0.50 + np.random.normal(0, 0.02))
+            detector.add_observation(
+                w_id, y_true=0.50, y_pred=0.50 + np.random.normal(0, 0.02)
+            )
 
         # Check drift before enough current samples
         report_warmup = asyncio.run(detector.check_drift(w_id))
@@ -38,7 +39,9 @@ class TestPredictorDrift:
 
         # 2. Add stable current observations
         for _ in range(30):
-            detector.add_observation(w_id, y_true=0.50, y_pred=0.50 + np.random.normal(0, 0.02))
+            detector.add_observation(
+                w_id, y_true=0.50, y_pred=0.50 + np.random.normal(0, 0.02)
+            )
 
         report_stable = asyncio.run(detector.check_drift(w_id))
         assert report_stable["status"] == "stable"
@@ -47,7 +50,9 @@ class TestPredictorDrift:
 
         # 3. Simulate sudden traffic shift / model degradation (large residuals)
         for _ in range(30):
-            detector.add_observation(w_id, y_true=0.90, y_pred=0.45)  # Underforecasting by 0.45
+            detector.add_observation(
+                w_id, y_true=0.90, y_pred=0.45
+            )  # Underforecasting by 0.45
 
         report_drift = asyncio.run(detector.check_drift(w_id))
         assert report_drift["drift_detected"]

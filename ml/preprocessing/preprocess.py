@@ -10,7 +10,9 @@ import os
 import pandas as pd
 import numpy as np
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 
@@ -96,7 +98,9 @@ def preprocess_google_trace(input_path: str, output_path: str) -> pd.DataFrame:
     else:
         processed.to_csv(output_path, index=False)
 
-    logger.info(f"Saved {len(processed)} preprocessed Google trace records to {output_path}")
+    logger.info(
+        f"Saved {len(processed)} preprocessed Google trace records to {output_path}"
+    )
     return processed
 
 
@@ -118,19 +122,26 @@ def preprocess_alibaba_trace(input_path: str, output_path: str) -> pd.DataFrame:
     else:
         processed.to_csv(output_path, index=False)
 
-    logger.info(f"Saved {len(processed)} preprocessed Alibaba trace records to {output_path}")
+    logger.info(
+        f"Saved {len(processed)} preprocessed Alibaba trace records to {output_path}"
+    )
     return processed
 
 
 def create_temporal_split(
-    df: pd.DataFrame, train_ratio: float = 0.7, val_ratio: float = 0.15, test_ratio: float = 0.15
+    df: pd.DataFrame,
+    train_ratio: float = 0.7,
+    val_ratio: float = 0.15,
+    test_ratio: float = 0.15,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Split time series strictly by time (walk-forward chronological order), NEVER shuffle.
     Preserves 70% train, 15% validation, 15% test.
     """
     if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-6:
-        raise ValueError(f"Split ratios must sum to 1.0, got {train_ratio + val_ratio + test_ratio}")
+        raise ValueError(
+            f"Split ratios must sum to 1.0, got {train_ratio + val_ratio + test_ratio}"
+        )
 
     if "timestamp" in df.columns:
         df_sorted = df.sort_values("timestamp").copy()
@@ -150,7 +161,9 @@ def create_temporal_split(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Preprocess workload traces.")
-    parser.add_argument("--trace-type", choices=["google", "alibaba", "generic"], default="generic")
+    parser.add_argument(
+        "--trace-type", choices=["google", "alibaba", "generic"], default="generic"
+    )
     parser.add_argument("--input", required=True, help="Input file path")
     parser.add_argument("--output", required=True, help="Output file path")
 

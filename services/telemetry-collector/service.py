@@ -4,7 +4,7 @@ and publishing them to Redis and TimescaleDB.
 """
 
 import asyncio
-from typing import Dict, Any, List
+from typing import Dict, Any
 from datetime import datetime, timezone
 import logging
 
@@ -37,7 +37,15 @@ class TelemetryService:
         logger.info(f"Executing telemetry collection cycle at {now.isoformat()}...")
 
         # 1. Fetch raw metrics concurrently from Prometheus
-        cpu_res, mem_res, net_rx_res, net_tx_res, disk_res, req_res, pod_res = await asyncio.gather(
+        (
+            cpu_res,
+            mem_res,
+            net_rx_res,
+            net_tx_res,
+            disk_res,
+            req_res,
+            pod_res,
+        ) = await asyncio.gather(
             self.prom_client.query(self.prom_client.get_cpu_query()),
             self.prom_client.query(self.prom_client.get_memory_query()),
             self.prom_client.query(self.prom_client.get_network_rx_query()),
@@ -98,7 +106,9 @@ class TelemetryService:
             # Write raw metric point to TimescaleDB if pool is active
             await self._persist_metric_point(raw_m, now)
 
-        logger.info(f"Telemetry cycle completed. Processed {len(workload_features)} workloads.")
+        logger.info(
+            f"Telemetry cycle completed. Processed {len(workload_features)} workloads."
+        )
         return workload_features
 
     async def _persist_metric_point(self, raw_m: Dict[str, Any], ts: datetime):
@@ -138,7 +148,9 @@ class TelemetryService:
         Background loop executing collect_once periodically.
         """
         self.is_running = True
-        logger.info(f"Starting continuous telemetry scraper loop (interval={interval_seconds}s)...")
+        logger.info(
+            f"Starting continuous telemetry scraper loop (interval={interval_seconds}s)..."
+        )
         while self.is_running:
             try:
                 await self.collect_once()

@@ -14,11 +14,9 @@ from typing import Dict, Any, List, Optional
 
 from services.orchestrator.config import config
 from services.orchestrator.validator import validate_decision_plan
-from services.shared.schemas import DecisionPlan, ActionResult
-from services.shared.errors import StaleDataError, ValidationError
+from services.shared.errors import ValidationError
 
 # Direct service references for unified in-process & modular execution
-from services.telemetry_collector.service import TelemetryService
 from services.predictor.service import predictor_service
 from services.decision_engine.service import decision_service
 from services.autoscaler_controller.service import autoscaler_service
@@ -49,7 +47,9 @@ class ControlLoop:
     async def start(self):
         """Starts the background continuous control loop."""
         self.running = True
-        logger.info(f"Starting Aegis autonomous control loop (interval={self.interval}s)")
+        logger.info(
+            f"Starting Aegis autonomous control loop (interval={self.interval}s)"
+        )
         while self.running:
             try:
                 await self.run_cycle()
@@ -121,7 +121,9 @@ class ControlLoop:
 
         # Stage 1: MONITOR & Stale Telemetry Check
         current_time = time.time()
-        sample_telemetry_ts = telemetry_timestamp if telemetry_timestamp is not None else current_time
+        sample_telemetry_ts = (
+            telemetry_timestamp if telemetry_timestamp is not None else current_time
+        )
         telemetry_age = current_time - sample_telemetry_ts
 
         if telemetry_age > self.stale_threshold_seconds:
@@ -143,15 +145,21 @@ class ControlLoop:
             w_id = w["id"]
             if force_fail_predictor:
                 # Failure injection: Predictor offline -> Fallback to reactive baseline
-                logger.warning(f"Predictor failure injected for '{w_id}'. Falling back to reactive usage.")
+                logger.warning(
+                    f"Predictor failure injected for '{w_id}'. Falling back to reactive usage."
+                )
                 forecast_stage_status = "forecast_fallback"
                 p90_val = w["target_cpu"] * w["current_replicas"]
             else:
                 try:
-                    pred_res = await predictor_service.serve_prediction(workload_id=w_id, horizon=10)
+                    pred_res = await predictor_service.serve_prediction(
+                        workload_id=w_id, horizon=10
+                    )
                     p90_val = pred_res["p90"]
                 except Exception as e:
-                    logger.warning(f"Prediction failed for '{w_id}': {e}. Using current capacity.")
+                    logger.warning(
+                        f"Prediction failed for '{w_id}': {e}. Using current capacity."
+                    )
                     forecast_stage_status = "forecast_fallback"
                     p90_val = w["target_cpu"] * w["current_replicas"]
 
@@ -178,6 +186,7 @@ class ControlLoop:
         except Exception as e:
             logger.warning(f"Solver error: {e}. Executing emergency FFD fallback.")
             from services.decision_engine.ffd import FFDSolver
+
             plan = FFDSolver().solve(
                 workloads=active_workloads,
                 nodes=active_nodes,

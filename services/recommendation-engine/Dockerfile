@@ -1,16 +1,19 @@
 FROM python:3.11-slim as builder
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY services/shared/requirements.txt ./services/shared/
+COPY services/recommendation-engine/requirements.txt ./services/recommendation-engine/
+RUN pip install --no-cache-dir -r ./services/recommendation-engine/requirements.txt
 
 FROM python:3.11-slim
 RUN useradd -m -s /bin/bash appuser
 WORKDIR /app
 COPY --from=builder /usr/local/lib/python3.11/site-packages/ /usr/local/lib/python3.11/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
-COPY . .
+COPY services ./services
 RUN chown -R appuser:appuser /app
 USER appuser
+ENV PYTHONPATH=/app
+WORKDIR /app/services/recommendation-engine
 
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
   CMD curl -f http://localhost:8000/health || exit 1

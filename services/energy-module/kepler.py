@@ -1,6 +1,7 @@
 import aiohttp
 from typing import Dict
 
+
 class KeplerClient:
     def __init__(self, url: str):
         self.url = url
@@ -12,7 +13,10 @@ class KeplerClient:
         energy_dict = {}
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.get(f"{self.url}/api/v1/query", params={"query": "kepler_container_joules_total"}) as response:
+                async with session.get(
+                    f"{self.url}/api/v1/query",
+                    params={"query": "kepler_container_joules_total"},
+                ) as response:
                     if response.status == 200:
                         data = await response.json()
                         if data.get("status") == "success":

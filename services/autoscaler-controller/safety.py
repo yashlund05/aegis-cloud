@@ -52,7 +52,11 @@ class SafetyChecker:
 
         # 1. No-op check
         if current_replicas == bounded_target:
-            return False, "Target replicas matches current state; no change needed.", current_replicas
+            return (
+                False,
+                "Target replicas matches current state; no change needed.",
+                current_replicas,
+            )
 
         # 2. Cooldown Enforcement
         if last_scaled_at is not None:

@@ -3,7 +3,6 @@ Unit tests for Phase 5: Decision Engine (CP-SAT Solver + FFD Fallback + API endp
 """
 
 import pytest
-from datetime import datetime
 from fastapi.testclient import TestClient
 from services.decision_engine.solver import CPSolver
 from services.decision_engine.ffd import FFDSolver

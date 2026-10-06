@@ -4,15 +4,13 @@ import tempfile
 import os
 from eval.check_report_numbers import check_report
 
+
 class TestCheckReportNumbers(unittest.TestCase):
     def setUp(self):
         self.data = {
             "val1": 121.79,
             "val2": -75.132,
-            "nested": {
-                "pct": 0.8677,
-                "count": 42
-            }
+            "nested": {"pct": 0.8677, "count": 42},
         }
         self.json_file = tempfile.NamedTemporaryFile("w", delete=False, suffix=".json")
         json.dump(self.data, self.json_file)
@@ -61,6 +59,7 @@ class TestCheckReportNumbers(unittest.TestCase):
         unmatched = check_report(md_file.name, self.json_file.name)
         os.remove(md_file.name)
         self.assertEqual(unmatched, [])
+
 
 if __name__ == "__main__":
     unittest.main()

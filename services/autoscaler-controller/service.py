@@ -6,12 +6,12 @@ import time
 import uuid
 import logging
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import List, Dict
 
 from services.autoscaler_controller.config import config
 from services.autoscaler_controller.safety import SafetyChecker
 from services.autoscaler_controller.executor import K8sExecutor
-from services.shared.schemas import DecisionPlan, ActionResult, ReplicaChange
+from services.shared.schemas import DecisionPlan, ActionResult
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +83,9 @@ class AutoscalerService:
                         f"Successfully applied scale for '{w_id}': {curr} -> {approved_target}"
                     )
                 except Exception as e:
-                    logger.error(f"Execution error scaling '{w_id}': {e}. Triggering HPA fallback.")
+                    logger.error(
+                        f"Execution error scaling '{w_id}': {e}. Triggering HPA fallback."
+                    )
                     self.trigger_hpa_fallback(f"Scale execution error on '{w_id}': {e}")
                     res = ActionResult(
                         id=action_id,

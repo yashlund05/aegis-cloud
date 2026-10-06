@@ -86,18 +86,19 @@ def get_default_nodes(
             p_idle = 88.0 + (i % 5) * 5.8
 
         node_alpha = alpha if alpha is not None else CALIBRATED_ALPHA
-        nodes.append({
-            "id": f"node-{i+1}",
-            "name": f"node-{i+1}",
-            "cpu_capacity": 4.0,
-            "memory_capacity": 16.0,  # GB
-            "p_idle": p_idle,
-            "p_max": p_max,
-            "alpha": node_alpha,
-            "calibration_source": "SPECpower_ssj2008 (eval/specpower_calibration.json)",
-        })
+        nodes.append(
+            {
+                "id": f"node-{i + 1}",
+                "name": f"node-{i + 1}",
+                "cpu_capacity": 4.0,
+                "memory_capacity": 16.0,  # GB
+                "p_idle": p_idle,
+                "p_max": p_max,
+                "alpha": node_alpha,
+                "calibration_source": "SPECpower_ssj2008 (eval/specpower_calibration.json)",
+            }
+        )
     return nodes
-
 
 
 def rolling_conformal_adjustment(
@@ -128,7 +129,9 @@ def rolling_conformal_adjustment(
         if t_obs > win_start + 10:
             res_90_w = full_y[win_start:t_obs] - full_p90[win_start:t_obs]
             res_10_w = full_p10[win_start:t_obs] - full_y[win_start:t_obs]
-            q_lev = min(1.0, np.ceil((len(res_90_w) + 1) * quantile_tau) / max(1, len(res_90_w)))
+            q_lev = min(
+                1.0, np.ceil((len(res_90_w) + 1) * quantile_tau) / max(1, len(res_90_w))
+            )
             q_hat_90_w = float(np.quantile(res_90_w, q_lev))
             q_hat_10_w = float(np.quantile(res_10_w, q_lev))
         else:
@@ -161,7 +164,9 @@ def get_git_state() -> Dict[str, Any]:
             ["git", "status", "--porcelain"], capture_output=True, text=True, timeout=10
         )
         if status.returncode == 0:
-            state["git_dirty_files"] = [ln[3:].strip() for ln in status.stdout.splitlines() if ln.strip()]
+            state["git_dirty_files"] = [
+                ln[3:].strip() for ln in status.stdout.splitlines() if ln.strip()
+            ]
     except Exception:
         pass
     return state
@@ -181,7 +186,9 @@ class AblationStudy:
         model_dir: str = "ml/models/artifacts",
         dead_zone_pct: float = 0.10,
         stabilization_window_steps: int = 5,
-        max_scale_step: Optional[int] = None,  # If None, uses realistic HPA scale-up: max(16, current)
+        max_scale_step: Optional[
+            int
+        ] = None,  # If None, uses realistic HPA scale-up: max(16, current)
         min_active_nodes: int = 2,
         wake_up_latency_steps: int = 3,
         cluster_autoscaler_scale_down_delay: int = 10,
@@ -234,7 +241,10 @@ class AblationStudy:
             bins: List[List[float]] = []
             for c, m in order:
                 for b in range(len(bins)):
-                    if bins[b][0] + c <= allocatable_cpu + 1e-4 and bins[b][1] + m <= allocatable_mem + 1e-4:
+                    if (
+                        bins[b][0] + c <= allocatable_cpu + 1e-4
+                        and bins[b][1] + m <= allocatable_mem + 1e-4
+                    ):
                         bins[b][0] += c
                         bins[b][1] += m
                         break
@@ -245,13 +255,20 @@ class AblationStudy:
         if not opt:
             total_cpu = sum(c for c, _ in pods)
             total_mem = sum(m for _, m in pods)
-            k = max(1, math.ceil(total_cpu / allocatable_cpu), math.ceil(total_mem / allocatable_mem))
+            k = max(
+                1,
+                math.ceil(total_cpu / allocatable_cpu),
+                math.ceil(total_mem / allocatable_mem),
+            )
             while k <= num_pods:
                 bins = [[0.0, 0.0] for _ in range(k)]
                 for i, (c, m) in enumerate(pods):
                     bins[i % k][0] += c
                     bins[i % k][1] += m
-                if all(b[0] <= allocatable_cpu + 1e-4 and b[1] <= allocatable_mem + 1e-4 for b in bins):
+                if all(
+                    b[0] <= allocatable_cpu + 1e-4 and b[1] <= allocatable_mem + 1e-4
+                    for b in bins
+                ):
                     return k
                 k += 1
             return num_pods
@@ -267,7 +284,9 @@ class AblationStudy:
         """SHA-256 over the canonical simulator parameter set and the pinned source files."""
         payload = {
             "params": {k: str(v) for k, v in sorted(extra_params.items())},
-            "code": {p: _sha256_file(p) for p in SIMULATOR_CODE_FILES if os.path.exists(p)},
+            "code": {
+                p: _sha256_file(p) for p in SIMULATOR_CODE_FILES if os.path.exists(p)
+            },
         }
         canonical = json.dumps(payload, sort_keys=True)
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
@@ -298,21 +317,35 @@ class AblationStudy:
 
         target_col = "cpu_usage"
         trace_indexed = df_sorted.set_index("timestamp")
-        target_timestamps = feat_df.index + pd.Timedelta(minutes=forecast_horizon_minutes)
+        target_timestamps = feat_df.index + pd.Timedelta(
+            minutes=forecast_horizon_minutes
+        )
         valid_mask = target_timestamps.isin(trace_indexed.index)
 
         eval_indices = feat_df.index[valid_mask]
-        aligned_actuals_raw = trace_indexed.loc[target_timestamps[valid_mask], target_col].values
-        aligned_mem_raw = trace_indexed.loc[target_timestamps[valid_mask], "memory_usage"].values if "memory_usage" in trace_indexed.columns else aligned_actuals_raw * 0.05
+        aligned_actuals_raw = trace_indexed.loc[
+            target_timestamps[valid_mask], target_col
+        ].values
+        aligned_mem_raw = (
+            trace_indexed.loc[target_timestamps[valid_mask], "memory_usage"].values
+            if "memory_usage" in trace_indexed.columns
+            else aligned_actuals_raw * 0.05
+        )
         aligned_features = feat_df.loc[eval_indices]
 
         # Extract predictions from real LightGBM models
         m_p90 = self.predictor.models.get(forecast_horizon_minutes, {}).get(0.9)
-        f_p90 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(0.9, [])
+        f_p90 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(
+            0.9, []
+        )
         m_p50 = self.predictor.models.get(forecast_horizon_minutes, {}).get(0.5)
-        f_p50 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(0.5, [])
+        f_p50 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(
+            0.5, []
+        )
         m_p10 = self.predictor.models.get(forecast_horizon_minutes, {}).get(0.1)
-        f_p10 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(0.1, [])
+        f_p10 = self.predictor.feature_lists.get(forecast_horizon_minutes, {}).get(
+            0.1, []
+        )
 
         if m_p90 is not None and f_p90:
             pred_p90_raw = m_p90.predict(aligned_features[f_p90])
@@ -330,7 +363,9 @@ class AblationStudy:
             pred_p10_raw = aligned_actuals_raw * 0.90
 
         if use_linear_tail:
-            roc = aligned_features.get("cpu_rate_of_change", pd.Series(0, index=aligned_features.index)).values
+            roc = aligned_features.get(
+                "cpu_rate_of_change", pd.Series(0, index=aligned_features.index)
+            ).values
             tail_mask = roc > 0.5
             pred_p90_raw = np.where(tail_mask, pred_p90_raw + roc * 2.5, pred_p90_raw)
             pred_p50_raw = np.where(tail_mask, pred_p50_raw + roc * 1.8, pred_p50_raw)
@@ -346,7 +381,11 @@ class AblationStudy:
 
         # Split-Conformal Calibration
         n_total = len(aligned_actuals)
-        n_cal = min(calibration_window_steps, n_total // 2) if n_total > calibration_window_steps else 0
+        n_cal = (
+            min(calibration_window_steps, n_total // 2)
+            if n_total > calibration_window_steps
+            else 0
+        )
 
         if n_cal > 50:
             y_cal = aligned_actuals[:n_cal]
@@ -391,7 +430,10 @@ class AblationStudy:
             test_calib_p90_uncal = float(np.mean(y_test < p90_test))
             test_calib_p90_conf = float(np.mean(y_test < pred_p90_conformal))
             cov_uncal = float(interval_coverage(y_test, p10_test, p90_test) * 100.0)
-            cov_conf = float(interval_coverage(y_test, pred_p10_conformal, pred_p90_conformal) * 100.0)
+            cov_conf = float(
+                interval_coverage(y_test, pred_p10_conformal, pred_p90_conformal)
+                * 100.0
+            )
         else:
             y_test = aligned_actuals
             mem_test = aligned_mem
@@ -418,10 +460,14 @@ class AblationStudy:
             "interval_coverage_uncalibrated_pct": round(cov_uncal, 2),
             "interval_coverage_conformal_pct": round(cov_conf, 2),
             "interval_coverage_p10_p90_pct": round(cov_uncal, 2),
-            "calibration_fraction_below_p10_uncalibrated": round(test_calib_p10_uncal, 4),
+            "calibration_fraction_below_p10_uncalibrated": round(
+                test_calib_p10_uncal, 4
+            ),
             "calibration_fraction_below_p10_conformal": round(test_calib_p10_conf, 4),
             "calibration_fraction_below_p50": round(test_calib_p50, 4),
-            "calibration_fraction_below_p90_uncalibrated": round(test_calib_p90_uncal, 4),
+            "calibration_fraction_below_p90_uncalibrated": round(
+                test_calib_p90_uncal, 4
+            ),
             "calibration_fraction_below_p90_conformal": round(test_calib_p90_conf, 4),
             "conformal_adjustment_q_hat_p90": round(q_hat_90, 4),
             "conformal_adjustment_q_hat_p10": round(q_hat_10, 4),
@@ -442,7 +488,11 @@ class AblationStudy:
 
         results = {}
         for config_name in configs_to_run:
-            p90_stream = pred_p90_conformal if config_name == "full_aegis_conformal" else p90_test
+            p90_stream = (
+                pred_p90_conformal
+                if config_name == "full_aegis_conformal"
+                else p90_test
+            )
             results[config_name] = self._simulate_configuration(
                 actual_demands=y_test,
                 actual_mems=mem_test,
@@ -457,14 +507,47 @@ class AblationStudy:
         improvements = {}
         if "full_aegis_conformal" in results and "stock_hpa" in results:
             improvements["energy_savings_vs_stock_hpa_pct"] = round(
-                (1.0 - (results["full_aegis_conformal"]["energy_kwh"] / max(results["stock_hpa"]["energy_kwh"], 0.001))) * 100.0, 2
+                (
+                    1.0
+                    - (
+                        results["full_aegis_conformal"]["energy_kwh"]
+                        / max(results["stock_hpa"]["energy_kwh"], 0.001)
+                    )
+                )
+                * 100.0,
+                2,
             )
         if "full_aegis_conformal" in results and "cluster_autoscaler" in results:
             improvements["energy_savings_vs_cluster_autoscaler_pct"] = round(
-                (1.0 - (results["full_aegis_conformal"]["energy_kwh"] / max(results["cluster_autoscaler"]["energy_kwh"], 0.001))) * 100.0, 2
+                (
+                    1.0
+                    - (
+                        results["full_aegis_conformal"]["energy_kwh"]
+                        / max(results["cluster_autoscaler"]["energy_kwh"], 0.001)
+                    )
+                )
+                * 100.0,
+                2,
             )
-            improvements["capacity_shortfall_reduction_vs_cluster_autoscaler_pct"] = round(
-                (1.0 - (results["full_aegis_conformal"]["capacity_shortfall_minutes"] / max(results["cluster_autoscaler"]["capacity_shortfall_minutes"], 1))) * 100.0, 2
+            improvements["capacity_shortfall_reduction_vs_cluster_autoscaler_pct"] = (
+                round(
+                    (
+                        1.0
+                        - (
+                            results["full_aegis_conformal"][
+                                "capacity_shortfall_minutes"
+                            ]
+                            / max(
+                                results["cluster_autoscaler"][
+                                    "capacity_shortfall_minutes"
+                                ],
+                                1,
+                            )
+                        )
+                    )
+                    * 100.0,
+                    2,
+                )
             )
 
         sim_params = {
@@ -552,18 +635,26 @@ class AblationStudy:
         }
 
         total_nodes = len(self.nodes)
-        all_nodes_on = config_name in ("stock_hpa", "forecast_only", "forecast_placement")
+        all_nodes_on = config_name in (
+            "stock_hpa",
+            "forecast_only",
+            "forecast_placement",
+        )
 
-        node_states = ["active" if all_nodes_on or i < self.min_active_nodes else "sleeping" for i in range(total_nodes)]
+        node_states = [
+            "active" if all_nodes_on or i < self.min_active_nodes else "sleeping"
+            for i in range(total_nodes)
+        ]
         node_boot_timers = [0 for _ in range(total_nodes)]
         node_unneeded_timers = [0 for _ in range(total_nodes)]
 
-        init_replicas = max(2, math.ceil(actual_demands[0] / (self.per_replica_cpu * hpa_target_util)))
+        init_replicas = max(
+            2, math.ceil(actual_demands[0] / (self.per_replica_cpu * hpa_target_util))
+        )
         current_replicas = init_replicas
         downscale_window = []
 
         allocatable_cpu = self.nodes[0]["cpu_capacity"] * 0.85
-        allocatable_mem = self.nodes[0]["memory_capacity"] * 0.85
 
         for t in range(n_steps):
             actual_demand = float(actual_demands[t])
@@ -581,7 +672,11 @@ class AblationStudy:
             # -------------------------------------------------------------
             # 2. Determine Desired Replicas
             # -------------------------------------------------------------
-            if config_name in ("stock_hpa", "cluster_autoscaler", "reactive_hpa_plus_consolidation"):
+            if config_name in (
+                "stock_hpa",
+                "cluster_autoscaler",
+                "reactive_hpa_plus_consolidation",
+            ):
                 past_demand = actual_demands[t - 1] if t > 0 else actual_demand
                 current_cap = max(0.01, current_replicas * self.per_replica_cpu)
                 usage_ratio = (past_demand / current_cap) / hpa_target_util
@@ -593,9 +688,16 @@ class AblationStudy:
 
             elif config_name == "oracle":
                 # True Oracle lookahead: knows demand over [t, t + wake_latency]
-                lookahead_window = actual_demands[t : min(n_steps, t + self.wake_up_latency_steps + 1)]
+                lookahead_window = actual_demands[
+                    t: min(n_steps, t + self.wake_up_latency_steps + 1)
+                ]
                 peak_future_demand = float(np.max(lookahead_window))
-                raw_desired = max(1, math.ceil(peak_future_demand / (self.per_replica_cpu * hpa_target_util)))
+                raw_desired = max(
+                    1,
+                    math.ceil(
+                        peak_future_demand / (self.per_replica_cpu * hpa_target_util)
+                    ),
+                )
 
             else:
                 needed = forecast_p90 / (self.per_replica_cpu * hpa_target_util)
@@ -618,7 +720,9 @@ class AblationStudy:
                 else:
                     candidate_target = current_replicas
 
-            replica_delta_pct = abs(candidate_target - current_replicas) / max(current_replicas, 1)
+            replica_delta_pct = abs(candidate_target - current_replicas) / max(
+                current_replicas, 1
+            )
             if replica_delta_pct < self.dead_zone_pct:
                 target_replicas = current_replicas
             else:
@@ -654,28 +758,63 @@ class AblationStudy:
             # -------------------------------------------------------------
             # 4. Multi-Resource Packing Simulation
             # -------------------------------------------------------------
-            has_placement_opt = config_name in ("full_aegis", "full_aegis_conformal", "forecast_placement", "oracle")
+            has_placement_opt = config_name in (
+                "full_aegis",
+                "full_aegis_conformal",
+                "forecast_placement",
+                "oracle",
+            )
 
             if all_nodes_on:
                 nodes_needed = total_nodes
-            elif config_name in ("cluster_autoscaler", "reactive_hpa_plus_consolidation"):
-                nodes_needed = max(self.min_active_nodes, self._pack_pods(current_replicas, opt=has_placement_opt)) + ca_node_buffer
+            elif config_name in (
+                "cluster_autoscaler",
+                "reactive_hpa_plus_consolidation",
+            ):
+                nodes_needed = (
+                    max(
+                        self.min_active_nodes,
+                        self._pack_pods(current_replicas, opt=has_placement_opt),
+                    )
+                    + ca_node_buffer
+                )
                 nodes_needed = min(nodes_needed, total_nodes)
-            elif config_name in ("forecast_plus_power_no_placement", "full_aegis", "full_aegis_conformal"):
+            elif config_name in (
+                "forecast_plus_power_no_placement",
+                "full_aegis",
+                "full_aegis_conformal",
+            ):
                 # Causal anticipatory pre-wake: the p90 forecast for absolute step t+j was
                 # issued at (t+j)-H, hence observable at decision time t iff j <= H. With
                 # boot latency W the usable lookahead is L = min(W, H).
-                lookahead_len = min(self.wake_up_latency_steps, forecast_horizon_minutes)
-                lookahead = p90_forecasts[t : min(n_steps, t + lookahead_len + 1)]
+                lookahead_len = min(
+                    self.wake_up_latency_steps, forecast_horizon_minutes
+                )
+                lookahead = p90_forecasts[t: min(n_steps, t + lookahead_len + 1)]
                 peak_forecast = float(np.max(lookahead))
-                forecast_replicas_needed = max(1, math.ceil(peak_forecast / (self.per_replica_cpu * hpa_target_util)))
-                nodes_needed = max(self.min_active_nodes, self._pack_pods(forecast_replicas_needed, opt=has_placement_opt))
+                forecast_replicas_needed = max(
+                    1,
+                    math.ceil(peak_forecast / (self.per_replica_cpu * hpa_target_util)),
+                )
+                nodes_needed = max(
+                    self.min_active_nodes,
+                    self._pack_pods(forecast_replicas_needed, opt=has_placement_opt),
+                )
                 nodes_needed = min(nodes_needed, total_nodes)
             elif config_name == "oracle":
-                lookahead_window = actual_demands[t : min(n_steps, t + self.wake_up_latency_steps + 1)]
+                lookahead_window = actual_demands[
+                    t: min(n_steps, t + self.wake_up_latency_steps + 1)
+                ]
                 peak_future_demand = float(np.max(lookahead_window))
-                oracle_replicas = max(1, math.ceil(peak_future_demand / (self.per_replica_cpu * hpa_target_util)))
-                nodes_needed = max(self.min_active_nodes, self._pack_pods(oracle_replicas, opt=True))
+                oracle_replicas = max(
+                    1,
+                    math.ceil(
+                        peak_future_demand / (self.per_replica_cpu * hpa_target_util)
+                    ),
+                )
+                nodes_needed = max(
+                    self.min_active_nodes, self._pack_pods(oracle_replicas, opt=True)
+                )
                 nodes_needed = min(nodes_needed, total_nodes)
             else:
                 nodes_needed = total_nodes
@@ -683,7 +822,11 @@ class AblationStudy:
             # -------------------------------------------------------------
             # 5. Anticipatory Pre-Wake & Transition Dynamics
             # -------------------------------------------------------------
-            scale_down_delay = self.cluster_autoscaler_scale_down_delay if config_name == "cluster_autoscaler" else self.stabilization_window_steps
+            scale_down_delay = (
+                self.cluster_autoscaler_scale_down_delay
+                if config_name == "cluster_autoscaler"
+                else self.stabilization_window_steps
+            )
 
             active_indices = [i for i, st in enumerate(node_states) if st == "active"]
             booting_indices = [i for i, st in enumerate(node_states) if st == "booting"]
@@ -692,25 +835,41 @@ class AblationStudy:
             if not all_nodes_on:
                 if awake_or_booting < nodes_needed:
                     deficit = nodes_needed - awake_or_booting
-                    sleeping_indices = [i for i, st in enumerate(node_states) if st == "sleeping"]
+                    sleeping_indices = [
+                        i for i, st in enumerate(node_states) if st == "sleeping"
+                    ]
                     for idx in sleeping_indices[:deficit]:
                         node_states[idx] = "booting"
                         node_boot_timers[idx] = self.wake_up_latency_steps
                         node_unneeded_timers[idx] = 0
                 elif awake_or_booting > nodes_needed:
                     excess = awake_or_booting - nodes_needed
-                    candidate_indices = sorted([i for i in range(total_nodes) if node_states[i] == "active"], reverse=True)
+                    candidate_indices = sorted(
+                        [i for i in range(total_nodes) if node_states[i] == "active"],
+                        reverse=True,
+                    )
                     for idx in candidate_indices[:excess]:
                         node_unneeded_timers[idx] += 1
                         if node_unneeded_timers[idx] >= scale_down_delay:
-                            if len([i for i, st in enumerate(node_states) if st == "active"]) > self.min_active_nodes:
+                            if (
+                                len(
+                                    [
+                                        i
+                                        for i, st in enumerate(node_states)
+                                        if st == "active"
+                                    ]
+                                )
+                                > self.min_active_nodes
+                            ):
                                 node_states[idx] = "sleeping"
                                 node_unneeded_timers[idx] = 0
                 else:
                     for i in range(total_nodes):
                         node_unneeded_timers[i] = 0
 
-            current_active_indices = [i for i, st in enumerate(node_states) if st == "active"]
+            current_active_indices = [
+                i for i, st in enumerate(node_states) if st == "active"
+            ]
             current_active_count = len(current_active_indices)
             if t >= self.warm_start_steps:
                 node_active_counts.append(current_active_count)
@@ -749,7 +908,9 @@ class AblationStudy:
                             node_alloc = min(remaining_demand, allocatable_cpu)
                             remaining_demand -= node_alloc
                             util = node_alloc / node["cpu_capacity"]
-                            step_dynamic_w += (node["p_max"] - node["p_idle"]) * (util ** node["alpha"])
+                            step_dynamic_w += (node["p_max"] - node["p_idle"]) * (
+                                util ** node["alpha"]
+                            )
             else:
                 # Uniform / unoptimized spreading across active nodes
                 per_node_demand = placed_demand / max(1, current_active_count)
@@ -761,7 +922,9 @@ class AblationStudy:
                     elif st == "active":
                         step_idle_w += node["p_idle"]
                         util = min(1.0, per_node_demand / node["cpu_capacity"])
-                        step_dynamic_w += (node["p_max"] - node["p_idle"]) * (util ** node["alpha"])
+                        step_dynamic_w += (node["p_max"] - node["p_idle"]) * (
+                            util ** node["alpha"]
+                        )
 
             if t >= self.warm_start_steps:
                 total_idle_joules += step_idle_w * 60.0
@@ -769,21 +932,29 @@ class AblationStudy:
                 total_boot_joules += step_boot_w * 60.0
 
                 if t % 30 == 0 and len(time_series_records) < 100:
-                    time_series_records.append({
-                        "step": t,
-                        "actual_demand": round(actual_demand, 2),
-                        "replicas": current_replicas,
-                        "active_nodes": current_active_count,
-                        "shortfall": int(actual_demand > effective_cluster_capacity),
-                    })
+                    time_series_records.append(
+                        {
+                            "step": t,
+                            "actual_demand": round(actual_demand, 2),
+                            "replicas": current_replicas,
+                            "active_nodes": current_active_count,
+                            "shortfall": int(
+                                actual_demand > effective_cluster_capacity
+                            ),
+                        }
+                    )
                 if return_series:
                     series["minute"].append(t)
                     series["actual_demand"].append(round(actual_demand, 4))
                     series["replicas"].append(current_replicas)
                     series["active_nodes"].append(current_active_count)
                     series["nodes_needed"].append(nodes_needed)
-                    series["effective_capacity"].append(round(effective_cluster_capacity, 4))
-                    series["shortfall"].append(int(actual_demand > effective_cluster_capacity))
+                    series["effective_capacity"].append(
+                        round(effective_cluster_capacity, 4)
+                    )
+                    series["shortfall"].append(
+                        int(actual_demand > effective_cluster_capacity)
+                    )
 
         idle_kwh = total_idle_joules / (3600.0 * 1000.0)
         dynamic_kwh = total_dynamic_joules / (3600.0 * 1000.0)
@@ -798,12 +969,23 @@ class AblationStudy:
             "energy_dynamic_kwh": round(dynamic_kwh, 4),
             "energy_boot_kwh": round(boot_kwh, 4),
             "capacity_shortfall_minutes": capacity_shortfalls,
-            "capacity_shortfall_rate_pct": round((capacity_shortfalls / max(eval_steps, 1)) * 100.0, 2),
+            "capacity_shortfall_rate_pct": round(
+                (capacity_shortfalls / max(eval_steps, 1)) * 100.0, 2
+            ),
             "scaling_actions": scaling_actions,
             "scaling_churn": total_churn,
-            "mean_allocated_replicas": round(float(np.mean(allocated_replicas_history)) if allocated_replicas_history else 0.0, 2),
-            "mean_active_nodes": round(float(np.mean(node_active_counts)) if node_active_counts else 0.0, 2),
-            "mean_nodes_needed": round(float(np.mean(nodes_needed_history)) if nodes_needed_history else 0.0, 2),
+            "mean_allocated_replicas": round(
+                float(np.mean(allocated_replicas_history))
+                if allocated_replicas_history
+                else 0.0,
+                2,
+            ),
+            "mean_active_nodes": round(
+                float(np.mean(node_active_counts)) if node_active_counts else 0.0, 2
+            ),
+            "mean_nodes_needed": round(
+                float(np.mean(nodes_needed_history)) if nodes_needed_history else 0.0, 2
+            ),
             "time_series_sample": time_series_records,
         }
         if return_series:

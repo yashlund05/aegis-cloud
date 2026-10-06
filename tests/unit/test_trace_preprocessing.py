@@ -54,4 +54,6 @@ class TestTracePreprocessing:
 
     def test_invalid_split_ratios_raise(self, raw_trace_df):
         with pytest.raises(ValueError):
-            create_temporal_split(raw_trace_df, train_ratio=0.5, val_ratio=0.5, test_ratio=0.5)
+            create_temporal_split(
+                raw_trace_df, train_ratio=0.5, val_ratio=0.5, test_ratio=0.5
+            )

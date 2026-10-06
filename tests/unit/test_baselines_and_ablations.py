@@ -1,11 +1,11 @@
 """W3 unit tests: solver bypass for no_cpsat_ffd and shared simulation path for all arms."""
+
 import ast
 import inspect
 import textwrap
 from pathlib import Path
 
 import numpy as np
-import pytest
 
 from ml.evaluation.ablation import AblationStudy
 
@@ -19,7 +19,8 @@ def _placement_opt_configs():
     tree = ast.parse(src)
     for node in ast.walk(tree):
         if isinstance(node, ast.Assign) and any(
-            isinstance(t, ast.Name) and t.id == "has_placement_opt" for t in node.targets
+            isinstance(t, ast.Name) and t.id == "has_placement_opt"
+            for t in node.targets
         ):
             comp = node.value
             assert isinstance(comp, ast.Compare)
@@ -77,7 +78,12 @@ def _synthetic_workload(steps: int = 240, seed: int = 42):
     """Short synthetic demand trace (cores) with diurnal shape plus aligned forecasts."""
     rng = np.random.RandomState(seed)
     t = np.arange(steps)
-    y = 3.0 + 1.5 * np.sin(2.0 * np.pi * t / 120.0) + 0.004 * t + rng.uniform(0.0, 0.2, steps)
+    y = (
+        3.0
+        + 1.5 * np.sin(2.0 * np.pi * t / 120.0)
+        + 0.004 * t
+        + rng.uniform(0.0, 0.2, steps)
+    )
     mem = np.full(steps, 4.0)
     p90 = y + 0.4
     return y, mem, p90

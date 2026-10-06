@@ -5,7 +5,6 @@ Unit tests for Phase 4 Predictor endpoints: shadow routing, drift checking, and 
 import os
 import asyncio
 import pandas as pd
-import pytest
 from fastapi.testclient import TestClient
 from services.predictor.main import app
 from services.predictor.registry import model_registry
@@ -60,7 +59,10 @@ def test_drift_observe_and_check_endpoints():
 
 def test_models_retrain_endpoint(tmp_path):
     # Create small temporary dataset to test retraining fast (< 2 seconds)
-    full_df = pd.read_parquet("datasets/processed_sample_trace.parquet")
+    trace_path = "datasets/processed_sample_trace.parquet"
+    if not os.path.exists(trace_path):
+        trace_path = "datasets/simulation-trace.parquet"
+    full_df = pd.read_parquet(trace_path)
     small_df = full_df.iloc[:300].copy()
     small_data_path = os.path.join(tmp_path, "quick_retrain_sample.parquet")
     small_df.to_parquet(small_data_path)
@@ -86,6 +88,8 @@ def test_models_retrain_endpoint(tmp_path):
 
 def test_export_to_onnx_graceful_handling():
     # Verify export_to_onnx handles missing onnx gracefully without raising uncaught exceptions
-    mock_wrapper = QuantileModelWrapper(model_obj=None, backend="sklearn_hist", feature_names=["cpu_usage"])
+    mock_wrapper = QuantileModelWrapper(
+        model_obj=None, backend="sklearn_hist", feature_names=["cpu_usage"]
+    )
     res = export_to_onnx(mock_wrapper, ["cpu_usage"], "output.onnx")
     assert isinstance(res, bool)

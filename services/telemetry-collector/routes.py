@@ -24,7 +24,9 @@ async def get_raw_metrics(workload_id: Optional[str] = Query(None)) -> Dict[str,
         features = await telemetry_service.collect_once()
         if workload_id:
             if workload_id not in features:
-                raise HTTPException(status_code=404, detail=f"Workload '{workload_id}' not found.")
+                raise HTTPException(
+                    status_code=404, detail=f"Workload '{workload_id}' not found."
+                )
             return {"status": "ok", "workload": features[workload_id]}
         return {"status": "ok", "count": len(features), "data": features}
     except Exception as e:
@@ -51,7 +53,8 @@ async def get_features(workload_id: str) -> Dict[str, Any]:
                 )
             else:
                 raise HTTPException(
-                    status_code=404, detail=f"Features for workload '{workload_id}' not found in feature store."
+                    status_code=404,
+                    detail=f"Features for workload '{workload_id}' not found in feature store.",
                 )
 
         return {"workload_id": workload_id, "status": "ok", "features": features}

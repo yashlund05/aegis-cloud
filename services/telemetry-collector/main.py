@@ -9,6 +9,7 @@ from services.telemetry_collector.routes import router as api_router
 
 logger = setup_logging("telemetry-collector")
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Starting Telemetry Collector...")
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Telemetry Collector...")
     await db.close_pool()
     await redis_client.close_redis()
+
 
 app = FastAPI(title="Aegis Telemetry Collector", lifespan=lifespan)
 app.middleware("http")(metrics_middleware)

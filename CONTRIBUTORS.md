@@ -8,7 +8,7 @@ This document recognizes all contributors to **Aegis Cloud**, detailing their re
 
 | Contributor | GitHub / Email | Commits | Primary Role |
 | :--- | :--- | :---: | :--- |
-| **Ayush Vishwakarma** | [`@officialayush5839-arch`](https://github.com/officialayush5839-arch)<br>`officialayush5839@gmail.com` | **113** | **Systems Engineering & CI/CD Infrastructure Lead** |
+| **Ayush Vishwakarma** | [`@officialayush5839-arch`](https://github.com/officialayush5839-arch)<br>`officialayush5839@gmail.com` | **120** | **Systems Engineering & CI/CD Infrastructure Lead** |
 | **Yash Lund** | [`@yashlund05`](https://github.com/yashlund05)<br>`yashlund05@gmail.com` | **42** | **Project Creator, Core Architect & Lead Researcher** |
 | **Saim Kotkar** | [`@kotkarsaim-sketch`](https://github.com/kotkarsaim-sketch)<br>`kotkarsaim@gmail.com` | **4** | **Power Modeling & Evaluation Specialist** |
 | **Sabiha Mulla** | `sabihamulla9999@gmail.com` | **1** | **Project Documentation & Progress Tracking** |
@@ -19,7 +19,7 @@ This document recognizes all contributors to **Aegis Cloud**, detailing their re
 
 ### 1. Ayush Vishwakarma (`@officialayush5839-arch`)
 **Role:** Systems Engineering & CI/CD Infrastructure Lead  
-**Commit Count:** 113 commits  
+**Commit Count:** 120 commits  
 **Key Contributions:**
 - **Codebase-Wide Lint & Formatting Overhaul:** Diagnosed and resolved all 203 flake8 PEP8 lint and formatting errors (`F401` unused imports, `E302`/`E305` blank-line spacing, slice whitespace) across 87+ files in `services/`, `ml/`, and `tests/`.
 - **CI/CD Pipeline Remediation:** Resolved GitHub Actions CI failures by fixing `golangci-lint` context loading timeouts with a 5-minute threshold in `.github/workflows/ci.yml`.

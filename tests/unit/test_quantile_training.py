@@ -3,7 +3,6 @@ Unit tests for LightGBM / Gradient Boosting Quantile Regression training and reg
 """
 
 import os
-import shutil
 import pytest
 import pandas as pd
 import numpy as np
@@ -40,9 +39,15 @@ class TestQuantileTraining:
         y = sample_features_df["cpu_usage"]
 
         # Train p10, p50, p90
-        wrapper_10 = train_quantile_model(X[:200], y[:200], X[200:], y[200:], quantile=0.1)
-        wrapper_50 = train_quantile_model(X[:200], y[:200], X[200:], y[200:], quantile=0.5)
-        wrapper_90 = train_quantile_model(X[:200], y[:200], X[200:], y[200:], quantile=0.9)
+        wrapper_10 = train_quantile_model(
+            X[:200], y[:200], X[200:], y[200:], quantile=0.1
+        )
+        wrapper_50 = train_quantile_model(
+            X[:200], y[:200], X[200:], y[200:], quantile=0.5
+        )
+        wrapper_90 = train_quantile_model(
+            X[:200], y[:200], X[200:], y[200:], quantile=0.9
+        )
 
         preds_10 = wrapper_10.predict(X[200:])
         preds_50 = wrapper_50.predict(X[200:])

@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 from services.orchestrator.loop import control_loop
 from services.orchestrator.validator import validate_decision_plan
 from services.orchestrator.main import app
-from services.shared.schemas import DecisionPlan, ReplicaChange, NodePowerChange
+from services.shared.schemas import DecisionPlan, ReplicaChange
 from services.shared.errors import ValidationError
 
 
@@ -86,7 +86,9 @@ def test_validator_invariants():
         objective_value=0.0,
         solve_time_ms=10.0,
         replica_changes=[
-            ReplicaChange(workload_id="w-1", current_replicas=2, target_replicas=-1, reason="err")
+            ReplicaChange(
+                workload_id="w-1", current_replicas=2, target_replicas=-1, reason="err"
+            )
         ],
         placement_decisions=[],
         node_power_changes=[],
